@@ -58,12 +58,6 @@
 //
 ////////////////////////////////////////////////////////////////////////////////
 
-
-// Nickolas V. Pohilets: I'm not intended to support static functions in my lib,
-// so I softly disable support static functions in original code by introducing
-// this macro. Comment it if you need to restore support for static functions.
-#define FASTDELEGATE_NOSUPPORTFORSTATICFUNCTIONS
-
 // Uncomment the following #define for optimally-sized delegates.
 // In this case, the generated asm code is almost identical to the code you'd get
 // if the compiler had native support for delegates.
@@ -570,13 +564,13 @@ protected:
 	detail::GenericClass *m_pthis;
 	GenericMemFuncType m_pFunction;
 
-#if !defined(FASTDELEGATE_USESTATICFUNCTIONHACK) && !defined(FASTDELEGATE_NOSUPPORTFORSTATICFUNCTIONS)
+#if !defined(FASTDELEGATE_USESTATICFUNCTIONHACK)
 	typedef void (*GenericFuncPtr)(); // arbitrary code pointer
 	GenericFuncPtr m_pStaticFunction;
 #endif
 
 public:
-#if !defined(FASTDELEGATE_USESTATICFUNCTIONHACK) && !defined(FASTDELEGATE_NOSUPPORTFORSTATICFUNCTIONS)
+#if !defined(FASTDELEGATE_USESTATICFUNCTIONHACK)
 	DelegateMemento() : m_pthis(0), m_pFunction(0), m_pStaticFunction(0) {};
 	void clear() {
 		m_pthis=0; m_pFunction=0; m_pStaticFunction=0;
@@ -586,7 +580,7 @@ public:
 	void clear() {	m_pthis=0; m_pFunction=0;	}
 #endif
 public:
-#if !defined(FASTDELEGATE_USESTATICFUNCTIONHACK) && !defined(FASTDELEGATE_NOSUPPORTFORSTATICFUNCTIONS)
+#if !defined(FASTDELEGATE_USESTATICFUNCTIONHACK)
 	inline bool IsEqual (const DelegateMemento &x) const{
 	    // We have to cope with the static function pointers as a special case
 		if (m_pFunction!=x.m_pFunction) return false;
@@ -603,7 +597,7 @@ public:
 	// Provide a strict weak ordering for DelegateMementos.
 	inline bool IsLess(const DelegateMemento &right) const {
 		// deal with static function pointers first
-#if !defined(FASTDELEGATE_USESTATICFUNCTIONHACK) && !defined(FASTDELEGATE_NOSUPPORTFORSTATICFUNCTIONS)
+#if !defined(FASTDELEGATE_USESTATICFUNCTIONHACK)
 		if (m_pStaticFunction !=0 || right.m_pStaticFunction!=0) 
 				return m_pStaticFunction < right.m_pStaticFunction;
 #endif
@@ -634,7 +628,7 @@ public:
 	}
 	DelegateMemento (const DelegateMemento &right)  : 
 		m_pFunction(right.m_pFunction), m_pthis(right.m_pthis)
-#if !defined(FASTDELEGATE_USESTATICFUNCTIONHACK) && !defined(FASTDELEGATE_NOSUPPORTFORSTATICFUNCTIONS)
+#if !defined(FASTDELEGATE_USESTATICFUNCTIONHACK)
 		, m_pStaticFunction (right.m_pStaticFunction)
 #endif
 		{}
@@ -642,7 +636,7 @@ protected:
 	void SetMementoFrom(const DelegateMemento &right)  {
 		m_pFunction = right.m_pFunction;
 		m_pthis = right.m_pthis;
-#if !defined(FASTDELEGATE_USESTATICFUNCTIONHACK) && !defined(FASTDELEGATE_NOSUPPORTFORSTATICFUNCTIONS)
+#if !defined(FASTDELEGATE_USESTATICFUNCTIONHACK)
 		m_pStaticFunction = right.m_pStaticFunction;
 #endif
 	}
@@ -678,7 +672,7 @@ public:
 	inline void bindmemfunc(X *pthis, XMemFunc function_to_bind ) {
 		m_pthis = SimplifyMemFunc< sizeof(function_to_bind) >
 			::Convert(pthis, function_to_bind, m_pFunction);
-#if !defined(FASTDELEGATE_USESTATICFUNCTIONHACK) && !defined(FASTDELEGATE_NOSUPPORTFORSTATICFUNCTIONS)
+#if !defined(FASTDELEGATE_USESTATICFUNCTIONHACK)
 		m_pStaticFunction = 0;
 #endif
 	}
@@ -690,7 +684,7 @@ public:
 	inline void bindconstmemfunc(const X *pthis, XMemFunc function_to_bind) {
 		m_pthis= SimplifyMemFunc< sizeof(function_to_bind) >
 			::Convert(const_cast<X*>(pthis), function_to_bind, m_pFunction);
-#if !defined(FASTDELEGATE_USESTATICFUNCTIONHACK) && !defined(FASTDELEGATE_NOSUPPORTFORSTATICFUNCTIONS)
+#if !defined(FASTDELEGATE_USESTATICFUNCTIONHACK)
 		m_pStaticFunction = 0;
 #endif
 	}
@@ -698,7 +692,7 @@ public:
 	template < class X, class XMemFunc>
 	inline void bindmemfunc(const X *pthis, XMemFunc function_to_bind) {
 		bindconstmemfunc(pthis, function_to_bind);
-#if !defined(FASTDELEGATE_USESTATICFUNCTIONHACK) && !defined(FASTDELEGATE_NOSUPPORTFORSTATICFUNCTIONS)
+#if !defined(FASTDELEGATE_USESTATICFUNCTIONHACK)
 		m_pStaticFunction = 0;
 #endif
 	}
@@ -706,8 +700,6 @@ public:
 	// These functions are required for invoking the stored function
 	inline GenericClass *GetClosureThis() const { return m_pthis; }
 	inline GenericMemFunc GetClosureMemPtr() const { return reinterpret_cast<GenericMemFunc>(m_pFunction); }
-
-#if !defined(FASTDELEGATE_NOSUPPORTFORSTATICFUNCTIONS)
 
 // There are a few ways of dealing with static function pointers.
 // There's a standard-compliant, but tricky method.
@@ -813,8 +805,6 @@ public:
 	// value that is not equal to any valid function pointer.
 		else return funcptr==reinterpret_cast<StaticFuncPtr>(GetStaticFunction());
 	}
-#endif // !defined(FASTDELEGATE_NOSUPPORTFORSTATICFUNCTIONS)
-
 };
 
 
@@ -901,8 +891,6 @@ public:
 	template < class X, class Y >
 	inline void bind(const Y *pthis, DesiredRetType (X::* function_to_bind)(@FUNCARGS) const) {
 		m_Closure.bindconstmemfunc(detail::implicit_cast<const X *>(pthis), function_to_bind);	}
-
-#if !defined(FASTDELEGATE_NOSUPPORTFORSTATICFUNCTIONS)
 	// Static functions. We convert them into a member function call.
 	// This constructor also provides implicit conversion
 	FastDelegate@NUM(DesiredRetType (*function_to_bind)(@FUNCARGS) ) {
@@ -913,8 +901,6 @@ public:
 	inline void bind(DesiredRetType (*function_to_bind)(@FUNCARGS)) {
 		m_Closure.bindstaticfunc(this, &FastDelegate@NUM::InvokeStaticFunction, 
 			function_to_bind); }
-#endif // !defined(FASTDELEGATE_NOSUPPORTFORSTATICFUNCTIONS)
-
 	// Invoke the delegate
 	RetType operator() (@FUNCARGS) const {
 	return (m_Closure.GetClosureThis()->*(m_Closure.GetClosureMemPtr()))(@INVOKEARGS); }
@@ -929,32 +915,23 @@ public:
 	operator unspecified_bool_type() const {
         return empty()? 0: &SafeBoolStruct::m_nonzero;
     }
-
-#if !defined(FASTDELEGATE_NOSUPPORTFORSTATICFUNCTIONS)
 	// necessary to allow ==0 to work despite the safe_bool idiom
-	inline bool operator==(StaticFunctionPtr funcptr) const {
+	inline bool operator==(StaticFunctionPtr funcptr) {
 		return m_Closure.IsEqualToStaticFuncPtr(funcptr);	}
-	inline bool operator!=(StaticFunctionPtr funcptr) const { 
+	inline bool operator!=(StaticFunctionPtr funcptr) { 
 		return !m_Closure.IsEqualToStaticFuncPtr(funcptr);    }
-#else
-	inline bool operator==(unspecified_bool_type)
-#endif // !defined(FASTDELEGATE_NOSUPPORTFORSTATICFUNCTIONS)
-
 	inline bool operator ! () const	{	// Is it bound to anything?
 			return !m_Closure; }
-	inline bool isNull() const	{
+	inline bool empty() const	{
 			return !m_Closure; }
 	void clear() { m_Closure.clear();}
 	// Conversion to and from the DelegateMemento storage class
 	const DelegateMemento & GetMemento() { return m_Closure; }
 	void SetMemento(const DelegateMemento &any) { m_Closure.CopyFrom(this, any); }
 
-private:
-#if !defined(FASTDELEGATE_NOSUPPORTFORSTATICFUNCTIONS)
-	// Invoker for static functions
+private:	// Invoker for static functions
 	RetType InvokeStaticFunction(@FUNCARGS) const {
 	return (*(m_Closure.GetStaticFunction()))(@INVOKEARGS); }
-#endif //FASTDELEGATE_NOSUPPORTFORSTATICFUNCTIONS
 };
 
 @ENDVAR
@@ -1008,11 +985,8 @@ public:
     : BaseType(pthis, function_to_bind)
   {  }
 
-#if !defined(FASTDELEGATE_NOSUPPORTFORSTATICFUNCTIONS)
   FastDelegate(R (*function_to_bind)( @FUNCARGS ))
     : BaseType(function_to_bind)  { }
-#endif // !defined(FASTDELEGATE_NOSUPPORTFORSTATICFUNCTIONS)
-
   void operator = (const BaseType &x)  {	  
 		*static_cast<BaseType*>(this) = x; }
 };

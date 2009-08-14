@@ -70,7 +70,7 @@ expansion.
 
 */
 
-#if 0 //defined(_MSC_VER)
+#if defined(_MSC_VER)
 #  if (_MSC_VER <1300)
 #    include <afx.h>
 #  else
