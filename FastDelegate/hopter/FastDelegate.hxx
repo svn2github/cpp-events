@@ -620,10 +620,10 @@ public:
 		SetMementoFrom(right); 
 		return *this;
 	}
-	inline bool operator <(const DelegateMemento &right) {
+	inline bool operator <(const DelegateMemento &right) const {
 		return IsLess(right);
 	}
-	inline bool operator >(const DelegateMemento &right) {
+	inline bool operator >(const DelegateMemento &right) const {
 		return right.IsLess(*this);
 	}
 	DelegateMemento (const DelegateMemento &right)  : 
@@ -916,9 +916,9 @@ public:
         return empty()? 0: &SafeBoolStruct::m_nonzero;
     }
 	// necessary to allow ==0 to work despite the safe_bool idiom
-	inline bool operator==(StaticFunctionPtr funcptr) {
+	inline bool operator==(StaticFunctionPtr funcptr) const {
 		return m_Closure.IsEqualToStaticFuncPtr(funcptr);	}
-	inline bool operator!=(StaticFunctionPtr funcptr) { 
+	inline bool operator!=(StaticFunctionPtr funcptr) const { 
 		return !m_Closure.IsEqualToStaticFuncPtr(funcptr);    }
 	inline bool operator ! () const	{	// Is it bound to anything?
 			return !m_Closure; }
@@ -926,7 +926,7 @@ public:
 			return !m_Closure; }
 	void clear() { m_Closure.clear();}
 	// Conversion to and from the DelegateMemento storage class
-	const DelegateMemento & GetMemento() { return m_Closure; }
+	const DelegateMemento & GetMemento() const { return m_Closure; }
 	void SetMemento(const DelegateMemento &any) { m_Closure.CopyFrom(this, any); }
 
 private:	// Invoker for static functions
