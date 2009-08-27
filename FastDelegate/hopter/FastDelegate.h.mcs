@@ -1,3 +1,8 @@
+@/////////////////////////////////////////////////////////////////////////////////@
+@/// FastDelegate.mcs - this file replaces original header template file       ///@
+@/// FastDelegate.hxx in order to get rid of dependency from 'hopter' utility. ///@
+@/////////////////////////////////////////////////////////////////////////////////@
+@@int N = 9;
 //						FastDelegate.h 
 //	Efficient delegates in C++ that generate only two lines of asm code!
 //  Documentation is found at http://www.codeproject.com/cpp/FastDelegate.asp
@@ -858,65 +863,66 @@ public:
 // in that case the static function constructor is not made explicit; this
 // allows "if (dg==0) ..." to compile.
 
-@VARARGS
-template<@CLASSARGS, class RetType=detail::DefaultVoid>
-class FastDelegate@NUM {
+@@for(int i=0; i<N; i+=1)
+//N=@i@
+template<@classArgs(1, i, ", ")@class RetType=detail::DefaultVoid>
+class FastDelegate@i@ {
 private:
 	typedef typename detail::DefaultVoidToVoid<RetType>::type DesiredRetType;
-	typedef DesiredRetType (*StaticFunctionPtr)(@FUNCARGS);
-	typedef RetType (*UnvoidStaticFunctionPtr)(@FUNCARGS);
-	typedef RetType (detail::GenericClass::*GenericMemFn)(@FUNCARGS);
+	typedef DesiredRetType (*StaticFunctionPtr)(@funcArgs(1, i)@);
+	typedef RetType (*UnvoidStaticFunctionPtr)(@funcArgs(1, i)@);
+	typedef RetType (detail::GenericClass::*GenericMemFn)(@funcArgs(1, i)@);
 	typedef detail::ClosurePtr<GenericMemFn, StaticFunctionPtr, UnvoidStaticFunctionPtr> ClosureType;
 	ClosureType m_Closure;
 public:
 	// Typedefs to aid generic programming
-	typedef FastDelegate@NUM type;
+	typedef FastDelegate@i@ type;
 
 	// Construction and comparison functions
-	FastDelegate@NUM() { clear(); }
-	FastDelegate@NUM(const FastDelegate@NUM &x) {
+	FastDelegate@i@() { clear(); }
+	FastDelegate@i@(const FastDelegate@i@ &x) {
 		m_Closure.CopyFrom(this, x.m_Closure); }
-	void operator = (const FastDelegate@NUM &x)  {
+	void operator = (const FastDelegate@i@ &x)  {
 		m_Closure.CopyFrom(this, x.m_Closure); }
-	bool operator ==(const FastDelegate@NUM &x) const {
+	bool operator ==(const FastDelegate@i@ &x) const {
 		return m_Closure.IsEqual(x.m_Closure);	}
-	bool operator !=(const FastDelegate@NUM &x) const {
+	bool operator !=(const FastDelegate@i@ &x) const {
 		return !m_Closure.IsEqual(x.m_Closure); }
-	bool operator <(const FastDelegate@NUM &x) const {
+	bool operator <(const FastDelegate@i@ &x) const {
 		return m_Closure.IsLess(x.m_Closure);	}
-	bool operator >(const FastDelegate@NUM &x) const {
+	bool operator >(const FastDelegate@i@ &x) const {
 		return x.m_Closure.IsLess(m_Closure);	}
 	// Binding to non-const member functions
 	template < class X, class Y >
-	FastDelegate@NUM(Y *pthis, DesiredRetType (X::* function_to_bind)(@FUNCARGS) ) {
+	FastDelegate@i@(Y *pthis, DesiredRetType (X::* function_to_bind)(@funcArgs(1, i)@) ) {
 		m_Closure.bindmemfunc(detail::implicit_cast<X*>(pthis), function_to_bind); }
 	template < class X, class Y >
-	inline void bind(Y *pthis, DesiredRetType (X::* function_to_bind)(@FUNCARGS)) {
+	inline void bind(Y *pthis, DesiredRetType (X::* function_to_bind)(@funcArgs(1, i)@)) {
 		m_Closure.bindmemfunc(detail::implicit_cast<X*>(pthis), function_to_bind);	}
 	// Binding to const member functions.
 	template < class X, class Y >
-	FastDelegate@NUM(const Y *pthis, DesiredRetType (X::* function_to_bind)(@FUNCARGS) const) {
+	FastDelegate@i@(const Y *pthis, DesiredRetType (X::* function_to_bind)(@funcArgs(1, i)@) const) {
 		m_Closure.bindconstmemfunc(detail::implicit_cast<const X*>(pthis), function_to_bind);	}
 	template < class X, class Y >
-	inline void bind(const Y *pthis, DesiredRetType (X::* function_to_bind)(@FUNCARGS) const) {
+	inline void bind(const Y *pthis, DesiredRetType (X::* function_to_bind)(@funcArgs(1, i)@) const) {
 		m_Closure.bindconstmemfunc(detail::implicit_cast<const X *>(pthis), function_to_bind);	}
 
 #if !defined(FASTDELEGATE_NOSUPPORTFORSTATICFUNCTIONS)
 	// Static functions. We convert them into a member function call.
 	// This constructor also provides implicit conversion
-	FastDelegate@NUM(DesiredRetType (*function_to_bind)(@FUNCARGS) ) {
+	FastDelegate@i@(DesiredRetType (*function_to_bind)(@funcArgs(1, i)@) ) {
 		bind(function_to_bind);	}
 	// for efficiency, prevent creation of a temporary
-	void operator = (DesiredRetType (*function_to_bind)(@FUNCARGS) ) {
+	void operator = (DesiredRetType (*function_to_bind)(@funcArgs(1, i)@) ) {
 		bind(function_to_bind);	}
-	inline void bind(DesiredRetType (*function_to_bind)(@FUNCARGS)) {
-		m_Closure.bindstaticfunc(this, &FastDelegate@NUM::InvokeStaticFunction, 
+	inline void bind(DesiredRetType (*function_to_bind)(@funcArgs(1, i)@)) {
+		m_Closure.bindstaticfunc(this, &FastDelegate@i@::InvokeStaticFunction, 
 			function_to_bind); }
 #endif // !defined(FASTDELEGATE_NOSUPPORTFORSTATICFUNCTIONS)
 
 	// Invoke the delegate
-	RetType operator() (@FUNCARGS) const {
-	return (m_Closure.GetClosureThis()->*(m_Closure.GetClosureMemPtr()))(@INVOKEARGS); }
+	RetType operator() (@funcArgs(1, i)@) const {
+	return (m_Closure.GetClosureThis()->*(m_Closure.GetClosureMemPtr()))(@callArgs(1, i)@); }
 	// Implicit conversion to "bool" using the safe_bool idiom
 private:
 	typedef struct SafeBoolStruct {
@@ -948,12 +954,12 @@ public:
 
 #if !defined(FASTDELEGATE_NOSUPPORTFORSTATICFUNCTIONS)
 private:	// Invoker for static functions
-	RetType InvokeStaticFunction(@FUNCARGS) const {
-	return (*(m_Closure.GetStaticFunction()))(@INVOKEARGS); }
+	RetType InvokeStaticFunction(@funcArgs(1, i)@) const {
+	return (*(m_Closure.GetStaticFunction()))(@callArgs(1, i)@); }
 #endif //FASTDELEGATE_NOSUPPORTFORSTATICFUNCTIONS
 };
 
-@ENDVAR
+@@next
 
 ////////////////////////////////////////////////////////////////////////////////
 //						Fast Delegates, part 4:
@@ -973,19 +979,20 @@ private:	// Invoker for static functions
 template <typename Signature>
 class FastDelegate;
 
-@VARARGS
+@@for(int i=0; i<N; i+=1)
+//N=@i@
 // Specialization to allow use of
-// FastDelegate< R ( @SELARGS ) >
+// FastDelegate< R ( @selArgs(1, i)@ ) >
 // instead of 
-// FastDelegate@NUM < @SELARGS, R >
-template<typename R, @CLASSARGS>
-class FastDelegate< R ( @SELARGS ) >
-  // Inherit from FastDelegate@NUM so that it can be treated just like a FastDelegate@NUM
-  : public FastDelegate@NUM < @SELARGS, R >
+// FastDelegate@i@ < @selArgs(1, i, ", ")@R >
+template<typename R@classArgs(", ", 1, i)@>
+class FastDelegate< R ( @selArgs(1, i)@ ) >
+  // Inherit from FastDelegate@i@ so that it can be treated just like a FastDelegate@i@
+  : public FastDelegate@i@ < @selArgs(1, i, ", ")@R >
 {
 public:
   // Make using the base type a bit easier via typedef.
-  typedef FastDelegate@NUM < @SELARGS, R > BaseType;
+  typedef FastDelegate@i@ < @selArgs(1, i, ", ")@R > BaseType;
 
   // Allow users access to the specific type of this delegate.
   typedef FastDelegate SelfType;
@@ -995,17 +1002,17 @@ public:
 
   template < class X, class Y >
   FastDelegate(Y * pthis, 
-    R (X::* function_to_bind)( @FUNCARGS ))
+    R (X::* function_to_bind)( @funcArgs(1, i)@ ))
     : BaseType(pthis, function_to_bind)  { }
 
   template < class X, class Y >
   FastDelegate(const Y *pthis,
-      R (X::* function_to_bind)( @FUNCARGS ) const)
+      R (X::* function_to_bind)( @funcArgs(1, i)@ ) const)
     : BaseType(pthis, function_to_bind)
   {  }
 
 #if !defined(FASTDELEGATE_NOSUPPORTFORSTATICFUNCTIONS)
-  FastDelegate(R (*function_to_bind)( @FUNCARGS ))
+  FastDelegate(R (*function_to_bind)( @funcArgs(1, i)@ ))
     : BaseType(function_to_bind)  { }
 #endif // !defined(FASTDELEGATE_NOSUPPORTFORSTATICFUNCTIONS)
 
@@ -1013,7 +1020,7 @@ public:
 		*static_cast<BaseType*>(this) = x; }
 };
 
-@ENDVAR
+@@next
 
 #endif //FASTDELEGATE_ALLOW_FUNCTION_TYPE_SYNTAX
 
@@ -1047,18 +1054,19 @@ public:
 #define FASTDLGT_RETTYPE RetType
 #endif
 
-@VARARGS
-template <class X, class Y, @CLASSARGS, class RetType>
-FastDelegate@NUM<@SELARGS, FASTDLGT_RETTYPE> MakeDelegate(Y* x, RetType (X::*func)(@FUNCARGS)) { 
-	return FastDelegate@NUM<@SELARGS, FASTDLGT_RETTYPE>(x, func);
+@@for(int i=0; i<N; i+=1)
+//N=@i@
+template <class X, class Y@classArgs(", ", 1, i)@, class RetType>
+FastDelegate@i@<@selArgs(1, i, ", ")@FASTDLGT_RETTYPE> MakeDelegate(Y* x, RetType (X::*func)(@funcArgs(1, i)@)) { 
+	return FastDelegate@i@<@selArgs(1, i, ", ")@FASTDLGT_RETTYPE>(x, func);
 }
 
-template <class X, class Y, @CLASSARGS, class RetType>
-FastDelegate@NUM<@SELARGS, FASTDLGT_RETTYPE> MakeDelegate(Y* x, RetType (X::*func)(@FUNCARGS) const) { 
-	return FastDelegate@NUM<@SELARGS, FASTDLGT_RETTYPE>(x, func);
+template <class X, class Y@classArgs(", ", 1, i)@, class RetType>
+FastDelegate@i@<@selArgs(1, i, ", ")@FASTDLGT_RETTYPE> MakeDelegate(Y* x, RetType (X::*func)(@funcArgs(1, i)@) const) { 
+	return FastDelegate@i@<@selArgs(1, i, ", ")@FASTDLGT_RETTYPE>(x, func);
 }
 
-@ENDVAR
+@@next
 
  // clean up after ourselves...
 #undef FASTDLGT_RETTYPE
