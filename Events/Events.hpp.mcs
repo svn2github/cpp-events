@@ -1,0 +1,158 @@
+#ifndef EVENTS_HPP
+#define EVENTS_HPP
+
+#include "AbstractEvent.hpp"
+#include "ConnectionEx.hpp"
+#include "TypeTraits.hpp"
+
+@@for(int i=0; i<8; i+=1)
+template<@classArgs(i, ", ")@class R> class EventFireHelper@i@ : public AbstractEvent
+{
+public:
+	typedef Connection@i@<@selArgs(i, ", ")@R> ConnectionType;
+
+	R fire(@funcArgs(i)@) const
+	{
+		R retVal;
+		ConnectionsVector const & conns = connections();
+		for(ConnectionsVector::const_iterator it = conns.begin(); it != conns.end(); ++it)
+		{
+			retVal = static_cast<ConnectionType const *>(*it)->invoke(@callArgs(i)@);
+		}
+		return retVal;
+	}
+protected:
+	EventFireHelper@i@() {}
+	~EventFireHelper@i@() {}
+};
+
+template<@classArgs(i)@> class EventFireHelper@i@<@selArgs(i, ", ")@void> : public AbstractEvent
+{
+public:
+	void fire(@funcArgs(i)@) const
+	{
+		ConnectionsVector const & conns = connections();
+		for(ConnectionsVector::const_iterator it = conns.begin(); it != conns.end(); ++it)
+		{
+			static_cast<ConnectionType const *>(*it)->invoke(@callArgs(i)@);
+		}
+	}
+protected:
+	typedef Connection@i@<@selArgs(i, ", ")@void> ConnectionType;
+
+	EventFireHelper@i@() {}
+	~EventFireHelper@i@() {}
+};
+
+template<@classArgs(i, ", ")@class R = void> class EventRef@i@;
+
+template<@classArgs(i, ", ")@class R = void> class Event@i@ : public EventFireHelper@i@<@selArgs(i, ", ")@R>
+{
+public:
+	typedef typename EventFireHelper@i@<@selArgs(i, ", ")@R>::ConnectionType ConnectionType;
+
+	Event@i@() {}
+	~Event@i@() {}
+
+	AbstractConnection * addConnection(ConnectionType * conn)
+	{
+		return AbstractEvent::addConnection(conn);
+	}
+
+	inline EventRef@i@<@selArgs(i, ", ")@R> bind(void const * sender);
+	
+	template<class T> inline EventRef@i@<@selArgs(i, ", ")@R> bind(T * sender);
+};
+
+template<@classArgs(i, ", ")@class R> class EventRef@i@ : public AbstractEventRef
+{
+public:
+	typedef Event@i@<@selArgs(i, ", ")@R> EventType;
+	typedef typename EventType::ConnectionType ConnectionType;
+
+	EventRef@i@(void const * sender, EventType * ev) : AbstractEventRef(sender, ev) {}
+
+	EventRef@i@<@selArgs(i, ", ")@R> rebind(void const * newSender) const
+	{
+		return EventRef@i@<@selArgs(i, ", ")@R>(newSender, event_);
+	}
+	
+	template<class T> inline EventRef@i@<@selArgs(i, ", ")@R> rebind(T * newSender) const
+	{
+		return rebind(normalize_cast(newSender));
+	}
+
+	template<class T, class Y> AbstractConnection * connect(T * obj, R (Y::*pmf)(@funcArgs(i)@))
+	{
+		ConnectionType * conn = new ConnectionType(
+			senderObject(), senderEvent(), normalize_cast(obj),
+			fastdelegate::MakeDelegate(obj, pmf)
+		);
+		return addConnection(conn);
+	}
+
+	template<class T, class Y> AbstractConnection * connect(T const * obj, R (Y::*pmf)(@funcArgs(i)@) const)
+	{
+		ConnectionType * conn = new ConnectionType(
+			senderObject(), senderEvent(), normalize_cast(obj),
+			fastdelegate::MakeDelegate(obj, pmf)
+		);
+		return addConnection(conn);
+	}
+
+	template<class T, class Y> AbstractConnection * connect(T * obj, Y pmf)
+	{
+		detail::ArgList0 stored;
+		return connectEx(normalize_cast(obj), fastdelegate::MakeDelegate(obj, pmf), stored);
+	}
+
+	template<class T, class Y, class T1> AbstractConnection * connect(T * obj, Y pmf, T1 x1)
+	{
+		typedef typename StorageType<T1>::Type S1;
+		detail::ArgList1<S1> stored(x1);
+		return connectEx(normalize_cast(obj), fastdelegate::MakeDelegate(obj, pmf), stored);
+	}
+
+	template<class T, class Y, class T1, class T2> AbstractConnection * connect(T * obj, Y pmf, T1 x1, T2 x2)
+	{
+		typedef typename StorageType<T1>::Type S1;
+		typedef typename StorageType<T2>::Type S2;
+		detail::ArgList2<S1,S2> stored(x1,x2);
+		return connectEx(normalize_cast(obj), fastdelegate::MakeDelegate(obj, pmf), stored);
+	}
+
+	template<class T, class Y, class T1, class T2, class T3> AbstractConnection * connect(T * obj, Y pmf, T1 x1, T2 x2, T3 x3)
+	{
+		typedef typename StorageType<T1>::Type S1;
+		typedef typename StorageType<T2>::Type S2;
+		typedef typename StorageType<T3>::Type S3;
+		detail::ArgList3<S1,S2,S3> stored(x1,x2,x3);
+		return connectEx(normalize_cast(obj), fastdelegate::MakeDelegate(obj, pmf), stored);
+	}
+private:
+	AbstractConnection * addConnection(ConnectionType * conn)
+	{
+		return static_cast<EventType*>(senderEvent())->addConnection(conn);
+	}
+
+	template<class DelegateClass, class StoredListClass> AbstractConnection * connectEx(void const * obj, DelegateClass const & deleg, StoredListClass const & stored)
+	{
+		ConnectionType * conn = new ConnectionEx@i@<@selArgs(i, ", ")@R, DelegateClass, StoredListClass>(
+			senderObject(), senderEvent(), obj, deleg, stored
+		);
+		return addConnection(conn);
+	}
+};
+
+template<@classArgs(i, ", ")@class R> inline EventRef@i@<@selArgs(i, ", ")@R> Event@i@<@selArgs(i, ", ")@R>::bind(void const * sender)
+{
+	return EventRef@i@<@selArgs(i, ", ")@R>(sender, this);
+}
+
+template<@classArgs(i, ", ")@class R> template<class T> inline EventRef@i@<@selArgs(i, ", ")@R> Event@i@<@selArgs(i, ", ")@R>::bind(T * sender)
+{
+	return bind(normalize_cast(sender));
+}
+
+@@next
+#endif //EVENTS_H

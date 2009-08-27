@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<VisualStudioToolFile
+	Name="Monkey Coding Script"
+	Version="8,00"
+	>
+	<Rules>
+		<CustomBuildRule
+			Name="MonkeyCodingScript"
+			DisplayName="Monkey Coding Script"
+			CommandLine="..\Release\mcs.exe [OutputFile] &quot;$(InputPath)&quot;"
+			Outputs="[$OutputFile]"
+			FileExtensions="*.mcs"
+			ExecutionDescription="Executing Monkey Coding Script..."
+			>
+			<Properties>
+				<StringProperty
+					Name="OutputFile"
+					DisplayName="Output File"
+					Description="Name of the file to be generated"
+					Switch="-o &quot;[value]&quot;"
+					DefaultValue="$(InputDir)$(InputName)"
+				/>
+			</Properties>
+		</CustomBuildRule>
+	</Rules>
+</VisualStudioToolFile>

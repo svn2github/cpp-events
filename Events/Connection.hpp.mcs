@@ -1,0 +1,37 @@
+#ifndef CONNECTION_HPP
+#define CONNECTION_HPP
+
+#include "AbstractConnection.hpp"
+
+@@for(int i=0; i<8; i+=1)
+template<@iter("class Param%, ", i)@class R> class Connection@i@ : public AbstractConnection
+{
+protected:
+	virtual ~Connection@i@() {}
+public:
+	typedef fastdelegate::FastDelegate@i@<@iter("Param%, ", i)@R> DelegateType;
+	
+	Connection@i@(
+		void const * sender, AbstractEvent * ev, 
+		void const * reciever, DelegateType const & deleg
+	)
+		: AbstractConnection(sender, ev, reciever, deleg.GetMemento())
+		, delegate_(deleg)
+	{}
+
+	R invoke(@list("Param% p%", i)@) const { return delegate_(@list("p%",i)@); }
+protected:
+	DelegateType delegate_;
+
+	Connection@i@(
+		void const * sender, AbstractEvent * ev, 
+		void const * reciever, fastdelegate::DelegateMemento const & memento
+	)
+		: AbstractConnection(sender, ev, reciever, memento)
+		, delegate_()
+	{}
+};
+
+@@next
+
+#endif //CONNECTION_HPP
