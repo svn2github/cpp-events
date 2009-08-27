@@ -817,6 +817,14 @@ public:
 	// value that is not equal to any valid function pointer.
 		else return funcptr==reinterpret_cast<StaticFuncPtr>(GetStaticFunction());
 	}
+
+#else // !defined(FASTDELEGATE_NOSUPPORTFORSTATICFUNCTIONS)
+
+	template< class DerivedClass >
+	inline void CopyFrom (DerivedClass *pParent, const DelegateMemento &right) {
+		SetMementoFrom(right);
+	}
+
 #endif // !defined(FASTDELEGATE_NOSUPPORTFORSTATICFUNCTIONS)
 
 };
