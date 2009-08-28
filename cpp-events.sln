@@ -16,19 +16,26 @@ EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
+		MCS Debug|Win32 = MCS Debug|Win32
 		Release|Win32 = Release|Win32
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{4B58FC2C-D1DB-46F6-8FCF-5D24CB65F3CD}.Debug|Win32.ActiveCfg = Debug|Win32
 		{4B58FC2C-D1DB-46F6-8FCF-5D24CB65F3CD}.Debug|Win32.Build.0 = Debug|Win32
+		{4B58FC2C-D1DB-46F6-8FCF-5D24CB65F3CD}.MCS Debug|Win32.ActiveCfg = Debug|Win32
+		{4B58FC2C-D1DB-46F6-8FCF-5D24CB65F3CD}.MCS Debug|Win32.Build.0 = Debug|Win32
 		{4B58FC2C-D1DB-46F6-8FCF-5D24CB65F3CD}.Release|Win32.ActiveCfg = Release|Win32
 		{4B58FC2C-D1DB-46F6-8FCF-5D24CB65F3CD}.Release|Win32.Build.0 = Release|Win32
 		{677F690D-D2A9-49A2-8B5C-74004198DD04}.Debug|Win32.ActiveCfg = Debug|Win32
 		{677F690D-D2A9-49A2-8B5C-74004198DD04}.Debug|Win32.Build.0 = Debug|Win32
+		{677F690D-D2A9-49A2-8B5C-74004198DD04}.MCS Debug|Win32.ActiveCfg = Debug|Win32
+		{677F690D-D2A9-49A2-8B5C-74004198DD04}.MCS Debug|Win32.Build.0 = Debug|Win32
 		{677F690D-D2A9-49A2-8B5C-74004198DD04}.Release|Win32.ActiveCfg = Release|Win32
 		{677F690D-D2A9-49A2-8B5C-74004198DD04}.Release|Win32.Build.0 = Release|Win32
-		{4B6E12BD-D859-4CB1-A497-E0B3B3FF1414}.Debug|Win32.ActiveCfg = Debug|Win32
-		{4B6E12BD-D859-4CB1-A497-E0B3B3FF1414}.Debug|Win32.Build.0 = Debug|Win32
+		{4B6E12BD-D859-4CB1-A497-E0B3B3FF1414}.Debug|Win32.ActiveCfg = Release|Win32
+		{4B6E12BD-D859-4CB1-A497-E0B3B3FF1414}.Debug|Win32.Build.0 = Release|Win32
+		{4B6E12BD-D859-4CB1-A497-E0B3B3FF1414}.MCS Debug|Win32.ActiveCfg = Debug|Win32
+		{4B6E12BD-D859-4CB1-A497-E0B3B3FF1414}.MCS Debug|Win32.Build.0 = Debug|Win32
 		{4B6E12BD-D859-4CB1-A497-E0B3B3FF1414}.Release|Win32.ActiveCfg = Release|Win32
 		{4B6E12BD-D859-4CB1-A497-E0B3B3FF1414}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
