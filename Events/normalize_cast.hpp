@@ -17,7 +17,7 @@ template<class T> struct Caster<T, 1>
 
 template<class T> class PolymorphicTestHelper : public T
 {
-	virtual ~PolymorphicTestHelper() {}
+	virtual ~PolymorphicTestHelper() = 0;
 };
 
 } //namespace detail

@@ -14,7 +14,7 @@ False is_polymorphic(...);
 /* Try #2 */
 template<class T> class PolymorphicTestHelper : T
 {
-	virtual ~PolymorphicTestHelper() {}
+	virtual ~PolymorphicTestHelper() = 0;
 };
 
 template<class T> inline bool isPolymorphic()
@@ -22,9 +22,17 @@ template<class T> inline bool isPolymorphic()
 	return sizeof(PolymorphicTestHelper<T>) == sizeof(T);
 }
 
+class TestClass
+{
+private:
+	TestClass();
+	~TestClass();
+};
 
 void main()
 {
+	bool x = isPolymorphic<TestClass>();
+
 	int const size_of_Client = sizeof(Client);
 	int const size_of_PolymorphicTestHelper = sizeof(PolymorphicTestHelper<Client>);
 
