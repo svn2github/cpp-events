@@ -116,7 +116,7 @@ public:
 	{
 		typedef typename StorageType<T1>::Type S1;
 		typedef typename StorageType<T2>::Type S2;
-		detail::ArgList2<S1,S2> stored(x1,x2);
+		detail::ArgList2<S1, S2> stored(x1, x2);
 		return connectEx(normalize_cast(obj), fastdelegate::MakeDelegate(obj, pmf), stored);
 	}
 
@@ -125,9 +125,56 @@ public:
 		typedef typename StorageType<T1>::Type S1;
 		typedef typename StorageType<T2>::Type S2;
 		typedef typename StorageType<T3>::Type S3;
-		detail::ArgList3<S1,S2,S3> stored(x1,x2,x3);
+		detail::ArgList3<S1, S2, S3> stored(x1, x2, x3);
 		return connectEx(normalize_cast(obj), fastdelegate::MakeDelegate(obj, pmf), stored);
 	}
+
+	template<class T, class Y, class T1, class T2, class T3, class T4> AbstractConnection * connect(T * obj, Y pmf, T1 x1, T2 x2, T3 x3, T4 x4)
+	{
+		typedef typename StorageType<T1>::Type S1;
+		typedef typename StorageType<T2>::Type S2;
+		typedef typename StorageType<T3>::Type S3;
+		typedef typename StorageType<T4>::Type S4;
+		detail::ArgList4<S1, S2, S3, S4> stored(x1, x2, x3, x4);
+		return connectEx(normalize_cast(obj), fastdelegate::MakeDelegate(obj, pmf), stored);
+	}
+
+	template<class T, class Y, class T1, class T2, class T3, class T4, class T5> AbstractConnection * connect(T * obj, Y pmf, T1 x1, T2 x2, T3 x3, T4 x4, T5 x5)
+	{
+		typedef typename StorageType<T1>::Type S1;
+		typedef typename StorageType<T2>::Type S2;
+		typedef typename StorageType<T3>::Type S3;
+		typedef typename StorageType<T4>::Type S4;
+		typedef typename StorageType<T5>::Type S5;
+		detail::ArgList5<S1, S2, S3, S4, S5> stored(x1, x2, x3, x4, x5);
+		return connectEx(normalize_cast(obj), fastdelegate::MakeDelegate(obj, pmf), stored);
+	}
+
+	template<class T, class Y, class T1, class T2, class T3, class T4, class T5, class T6> AbstractConnection * connect(T * obj, Y pmf, T1 x1, T2 x2, T3 x3, T4 x4, T5 x5, T6 x6)
+	{
+		typedef typename StorageType<T1>::Type S1;
+		typedef typename StorageType<T2>::Type S2;
+		typedef typename StorageType<T3>::Type S3;
+		typedef typename StorageType<T4>::Type S4;
+		typedef typename StorageType<T5>::Type S5;
+		typedef typename StorageType<T6>::Type S6;
+		detail::ArgList6<S1, S2, S3, S4, S5, S6> stored(x1, x2, x3, x4, x5, x6);
+		return connectEx(normalize_cast(obj), fastdelegate::MakeDelegate(obj, pmf), stored);
+	}
+
+	template<class T, class Y, class T1, class T2, class T3, class T4, class T5, class T6, class T7> AbstractConnection * connect(T * obj, Y pmf, T1 x1, T2 x2, T3 x3, T4 x4, T5 x5, T6 x6, T7 x7)
+	{
+		typedef typename StorageType<T1>::Type S1;
+		typedef typename StorageType<T2>::Type S2;
+		typedef typename StorageType<T3>::Type S3;
+		typedef typename StorageType<T4>::Type S4;
+		typedef typename StorageType<T5>::Type S5;
+		typedef typename StorageType<T6>::Type S6;
+		typedef typename StorageType<T7>::Type S7;
+		detail::ArgList7<S1, S2, S3, S4, S5, S6, S7> stored(x1, x2, x3, x4, x5, x6, x7);
+		return connectEx(normalize_cast(obj), fastdelegate::MakeDelegate(obj, pmf), stored);
+	}
+
 private:
 	AbstractConnection * addConnection(ConnectionType * conn)
 	{
@@ -264,7 +311,7 @@ public:
 	{
 		typedef typename StorageType<T1>::Type S1;
 		typedef typename StorageType<T2>::Type S2;
-		detail::ArgList2<S1,S2> stored(x1,x2);
+		detail::ArgList2<S1, S2> stored(x1, x2);
 		return connectEx(normalize_cast(obj), fastdelegate::MakeDelegate(obj, pmf), stored);
 	}
 
@@ -273,9 +320,56 @@ public:
 		typedef typename StorageType<T1>::Type S1;
 		typedef typename StorageType<T2>::Type S2;
 		typedef typename StorageType<T3>::Type S3;
-		detail::ArgList3<S1,S2,S3> stored(x1,x2,x3);
+		detail::ArgList3<S1, S2, S3> stored(x1, x2, x3);
 		return connectEx(normalize_cast(obj), fastdelegate::MakeDelegate(obj, pmf), stored);
 	}
+
+	template<class T, class Y, class T1, class T2, class T3, class T4> AbstractConnection * connect(T * obj, Y pmf, T1 x1, T2 x2, T3 x3, T4 x4)
+	{
+		typedef typename StorageType<T1>::Type S1;
+		typedef typename StorageType<T2>::Type S2;
+		typedef typename StorageType<T3>::Type S3;
+		typedef typename StorageType<T4>::Type S4;
+		detail::ArgList4<S1, S2, S3, S4> stored(x1, x2, x3, x4);
+		return connectEx(normalize_cast(obj), fastdelegate::MakeDelegate(obj, pmf), stored);
+	}
+
+	template<class T, class Y, class T1, class T2, class T3, class T4, class T5> AbstractConnection * connect(T * obj, Y pmf, T1 x1, T2 x2, T3 x3, T4 x4, T5 x5)
+	{
+		typedef typename StorageType<T1>::Type S1;
+		typedef typename StorageType<T2>::Type S2;
+		typedef typename StorageType<T3>::Type S3;
+		typedef typename StorageType<T4>::Type S4;
+		typedef typename StorageType<T5>::Type S5;
+		detail::ArgList5<S1, S2, S3, S4, S5> stored(x1, x2, x3, x4, x5);
+		return connectEx(normalize_cast(obj), fastdelegate::MakeDelegate(obj, pmf), stored);
+	}
+
+	template<class T, class Y, class T1, class T2, class T3, class T4, class T5, class T6> AbstractConnection * connect(T * obj, Y pmf, T1 x1, T2 x2, T3 x3, T4 x4, T5 x5, T6 x6)
+	{
+		typedef typename StorageType<T1>::Type S1;
+		typedef typename StorageType<T2>::Type S2;
+		typedef typename StorageType<T3>::Type S3;
+		typedef typename StorageType<T4>::Type S4;
+		typedef typename StorageType<T5>::Type S5;
+		typedef typename StorageType<T6>::Type S6;
+		detail::ArgList6<S1, S2, S3, S4, S5, S6> stored(x1, x2, x3, x4, x5, x6);
+		return connectEx(normalize_cast(obj), fastdelegate::MakeDelegate(obj, pmf), stored);
+	}
+
+	template<class T, class Y, class T1, class T2, class T3, class T4, class T5, class T6, class T7> AbstractConnection * connect(T * obj, Y pmf, T1 x1, T2 x2, T3 x3, T4 x4, T5 x5, T6 x6, T7 x7)
+	{
+		typedef typename StorageType<T1>::Type S1;
+		typedef typename StorageType<T2>::Type S2;
+		typedef typename StorageType<T3>::Type S3;
+		typedef typename StorageType<T4>::Type S4;
+		typedef typename StorageType<T5>::Type S5;
+		typedef typename StorageType<T6>::Type S6;
+		typedef typename StorageType<T7>::Type S7;
+		detail::ArgList7<S1, S2, S3, S4, S5, S6, S7> stored(x1, x2, x3, x4, x5, x6, x7);
+		return connectEx(normalize_cast(obj), fastdelegate::MakeDelegate(obj, pmf), stored);
+	}
+
 private:
 	AbstractConnection * addConnection(ConnectionType * conn)
 	{
@@ -412,7 +506,7 @@ public:
 	{
 		typedef typename StorageType<T1>::Type S1;
 		typedef typename StorageType<T2>::Type S2;
-		detail::ArgList2<S1,S2> stored(x1,x2);
+		detail::ArgList2<S1, S2> stored(x1, x2);
 		return connectEx(normalize_cast(obj), fastdelegate::MakeDelegate(obj, pmf), stored);
 	}
 
@@ -421,9 +515,56 @@ public:
 		typedef typename StorageType<T1>::Type S1;
 		typedef typename StorageType<T2>::Type S2;
 		typedef typename StorageType<T3>::Type S3;
-		detail::ArgList3<S1,S2,S3> stored(x1,x2,x3);
+		detail::ArgList3<S1, S2, S3> stored(x1, x2, x3);
 		return connectEx(normalize_cast(obj), fastdelegate::MakeDelegate(obj, pmf), stored);
 	}
+
+	template<class T, class Y, class T1, class T2, class T3, class T4> AbstractConnection * connect(T * obj, Y pmf, T1 x1, T2 x2, T3 x3, T4 x4)
+	{
+		typedef typename StorageType<T1>::Type S1;
+		typedef typename StorageType<T2>::Type S2;
+		typedef typename StorageType<T3>::Type S3;
+		typedef typename StorageType<T4>::Type S4;
+		detail::ArgList4<S1, S2, S3, S4> stored(x1, x2, x3, x4);
+		return connectEx(normalize_cast(obj), fastdelegate::MakeDelegate(obj, pmf), stored);
+	}
+
+	template<class T, class Y, class T1, class T2, class T3, class T4, class T5> AbstractConnection * connect(T * obj, Y pmf, T1 x1, T2 x2, T3 x3, T4 x4, T5 x5)
+	{
+		typedef typename StorageType<T1>::Type S1;
+		typedef typename StorageType<T2>::Type S2;
+		typedef typename StorageType<T3>::Type S3;
+		typedef typename StorageType<T4>::Type S4;
+		typedef typename StorageType<T5>::Type S5;
+		detail::ArgList5<S1, S2, S3, S4, S5> stored(x1, x2, x3, x4, x5);
+		return connectEx(normalize_cast(obj), fastdelegate::MakeDelegate(obj, pmf), stored);
+	}
+
+	template<class T, class Y, class T1, class T2, class T3, class T4, class T5, class T6> AbstractConnection * connect(T * obj, Y pmf, T1 x1, T2 x2, T3 x3, T4 x4, T5 x5, T6 x6)
+	{
+		typedef typename StorageType<T1>::Type S1;
+		typedef typename StorageType<T2>::Type S2;
+		typedef typename StorageType<T3>::Type S3;
+		typedef typename StorageType<T4>::Type S4;
+		typedef typename StorageType<T5>::Type S5;
+		typedef typename StorageType<T6>::Type S6;
+		detail::ArgList6<S1, S2, S3, S4, S5, S6> stored(x1, x2, x3, x4, x5, x6);
+		return connectEx(normalize_cast(obj), fastdelegate::MakeDelegate(obj, pmf), stored);
+	}
+
+	template<class T, class Y, class T1, class T2, class T3, class T4, class T5, class T6, class T7> AbstractConnection * connect(T * obj, Y pmf, T1 x1, T2 x2, T3 x3, T4 x4, T5 x5, T6 x6, T7 x7)
+	{
+		typedef typename StorageType<T1>::Type S1;
+		typedef typename StorageType<T2>::Type S2;
+		typedef typename StorageType<T3>::Type S3;
+		typedef typename StorageType<T4>::Type S4;
+		typedef typename StorageType<T5>::Type S5;
+		typedef typename StorageType<T6>::Type S6;
+		typedef typename StorageType<T7>::Type S7;
+		detail::ArgList7<S1, S2, S3, S4, S5, S6, S7> stored(x1, x2, x3, x4, x5, x6, x7);
+		return connectEx(normalize_cast(obj), fastdelegate::MakeDelegate(obj, pmf), stored);
+	}
+
 private:
 	AbstractConnection * addConnection(ConnectionType * conn)
 	{
@@ -560,7 +701,7 @@ public:
 	{
 		typedef typename StorageType<T1>::Type S1;
 		typedef typename StorageType<T2>::Type S2;
-		detail::ArgList2<S1,S2> stored(x1,x2);
+		detail::ArgList2<S1, S2> stored(x1, x2);
 		return connectEx(normalize_cast(obj), fastdelegate::MakeDelegate(obj, pmf), stored);
 	}
 
@@ -569,9 +710,56 @@ public:
 		typedef typename StorageType<T1>::Type S1;
 		typedef typename StorageType<T2>::Type S2;
 		typedef typename StorageType<T3>::Type S3;
-		detail::ArgList3<S1,S2,S3> stored(x1,x2,x3);
+		detail::ArgList3<S1, S2, S3> stored(x1, x2, x3);
 		return connectEx(normalize_cast(obj), fastdelegate::MakeDelegate(obj, pmf), stored);
 	}
+
+	template<class T, class Y, class T1, class T2, class T3, class T4> AbstractConnection * connect(T * obj, Y pmf, T1 x1, T2 x2, T3 x3, T4 x4)
+	{
+		typedef typename StorageType<T1>::Type S1;
+		typedef typename StorageType<T2>::Type S2;
+		typedef typename StorageType<T3>::Type S3;
+		typedef typename StorageType<T4>::Type S4;
+		detail::ArgList4<S1, S2, S3, S4> stored(x1, x2, x3, x4);
+		return connectEx(normalize_cast(obj), fastdelegate::MakeDelegate(obj, pmf), stored);
+	}
+
+	template<class T, class Y, class T1, class T2, class T3, class T4, class T5> AbstractConnection * connect(T * obj, Y pmf, T1 x1, T2 x2, T3 x3, T4 x4, T5 x5)
+	{
+		typedef typename StorageType<T1>::Type S1;
+		typedef typename StorageType<T2>::Type S2;
+		typedef typename StorageType<T3>::Type S3;
+		typedef typename StorageType<T4>::Type S4;
+		typedef typename StorageType<T5>::Type S5;
+		detail::ArgList5<S1, S2, S3, S4, S5> stored(x1, x2, x3, x4, x5);
+		return connectEx(normalize_cast(obj), fastdelegate::MakeDelegate(obj, pmf), stored);
+	}
+
+	template<class T, class Y, class T1, class T2, class T3, class T4, class T5, class T6> AbstractConnection * connect(T * obj, Y pmf, T1 x1, T2 x2, T3 x3, T4 x4, T5 x5, T6 x6)
+	{
+		typedef typename StorageType<T1>::Type S1;
+		typedef typename StorageType<T2>::Type S2;
+		typedef typename StorageType<T3>::Type S3;
+		typedef typename StorageType<T4>::Type S4;
+		typedef typename StorageType<T5>::Type S5;
+		typedef typename StorageType<T6>::Type S6;
+		detail::ArgList6<S1, S2, S3, S4, S5, S6> stored(x1, x2, x3, x4, x5, x6);
+		return connectEx(normalize_cast(obj), fastdelegate::MakeDelegate(obj, pmf), stored);
+	}
+
+	template<class T, class Y, class T1, class T2, class T3, class T4, class T5, class T6, class T7> AbstractConnection * connect(T * obj, Y pmf, T1 x1, T2 x2, T3 x3, T4 x4, T5 x5, T6 x6, T7 x7)
+	{
+		typedef typename StorageType<T1>::Type S1;
+		typedef typename StorageType<T2>::Type S2;
+		typedef typename StorageType<T3>::Type S3;
+		typedef typename StorageType<T4>::Type S4;
+		typedef typename StorageType<T5>::Type S5;
+		typedef typename StorageType<T6>::Type S6;
+		typedef typename StorageType<T7>::Type S7;
+		detail::ArgList7<S1, S2, S3, S4, S5, S6, S7> stored(x1, x2, x3, x4, x5, x6, x7);
+		return connectEx(normalize_cast(obj), fastdelegate::MakeDelegate(obj, pmf), stored);
+	}
+
 private:
 	AbstractConnection * addConnection(ConnectionType * conn)
 	{
@@ -708,7 +896,7 @@ public:
 	{
 		typedef typename StorageType<T1>::Type S1;
 		typedef typename StorageType<T2>::Type S2;
-		detail::ArgList2<S1,S2> stored(x1,x2);
+		detail::ArgList2<S1, S2> stored(x1, x2);
 		return connectEx(normalize_cast(obj), fastdelegate::MakeDelegate(obj, pmf), stored);
 	}
 
@@ -717,9 +905,56 @@ public:
 		typedef typename StorageType<T1>::Type S1;
 		typedef typename StorageType<T2>::Type S2;
 		typedef typename StorageType<T3>::Type S3;
-		detail::ArgList3<S1,S2,S3> stored(x1,x2,x3);
+		detail::ArgList3<S1, S2, S3> stored(x1, x2, x3);
 		return connectEx(normalize_cast(obj), fastdelegate::MakeDelegate(obj, pmf), stored);
 	}
+
+	template<class T, class Y, class T1, class T2, class T3, class T4> AbstractConnection * connect(T * obj, Y pmf, T1 x1, T2 x2, T3 x3, T4 x4)
+	{
+		typedef typename StorageType<T1>::Type S1;
+		typedef typename StorageType<T2>::Type S2;
+		typedef typename StorageType<T3>::Type S3;
+		typedef typename StorageType<T4>::Type S4;
+		detail::ArgList4<S1, S2, S3, S4> stored(x1, x2, x3, x4);
+		return connectEx(normalize_cast(obj), fastdelegate::MakeDelegate(obj, pmf), stored);
+	}
+
+	template<class T, class Y, class T1, class T2, class T3, class T4, class T5> AbstractConnection * connect(T * obj, Y pmf, T1 x1, T2 x2, T3 x3, T4 x4, T5 x5)
+	{
+		typedef typename StorageType<T1>::Type S1;
+		typedef typename StorageType<T2>::Type S2;
+		typedef typename StorageType<T3>::Type S3;
+		typedef typename StorageType<T4>::Type S4;
+		typedef typename StorageType<T5>::Type S5;
+		detail::ArgList5<S1, S2, S3, S4, S5> stored(x1, x2, x3, x4, x5);
+		return connectEx(normalize_cast(obj), fastdelegate::MakeDelegate(obj, pmf), stored);
+	}
+
+	template<class T, class Y, class T1, class T2, class T3, class T4, class T5, class T6> AbstractConnection * connect(T * obj, Y pmf, T1 x1, T2 x2, T3 x3, T4 x4, T5 x5, T6 x6)
+	{
+		typedef typename StorageType<T1>::Type S1;
+		typedef typename StorageType<T2>::Type S2;
+		typedef typename StorageType<T3>::Type S3;
+		typedef typename StorageType<T4>::Type S4;
+		typedef typename StorageType<T5>::Type S5;
+		typedef typename StorageType<T6>::Type S6;
+		detail::ArgList6<S1, S2, S3, S4, S5, S6> stored(x1, x2, x3, x4, x5, x6);
+		return connectEx(normalize_cast(obj), fastdelegate::MakeDelegate(obj, pmf), stored);
+	}
+
+	template<class T, class Y, class T1, class T2, class T3, class T4, class T5, class T6, class T7> AbstractConnection * connect(T * obj, Y pmf, T1 x1, T2 x2, T3 x3, T4 x4, T5 x5, T6 x6, T7 x7)
+	{
+		typedef typename StorageType<T1>::Type S1;
+		typedef typename StorageType<T2>::Type S2;
+		typedef typename StorageType<T3>::Type S3;
+		typedef typename StorageType<T4>::Type S4;
+		typedef typename StorageType<T5>::Type S5;
+		typedef typename StorageType<T6>::Type S6;
+		typedef typename StorageType<T7>::Type S7;
+		detail::ArgList7<S1, S2, S3, S4, S5, S6, S7> stored(x1, x2, x3, x4, x5, x6, x7);
+		return connectEx(normalize_cast(obj), fastdelegate::MakeDelegate(obj, pmf), stored);
+	}
+
 private:
 	AbstractConnection * addConnection(ConnectionType * conn)
 	{
@@ -856,7 +1091,7 @@ public:
 	{
 		typedef typename StorageType<T1>::Type S1;
 		typedef typename StorageType<T2>::Type S2;
-		detail::ArgList2<S1,S2> stored(x1,x2);
+		detail::ArgList2<S1, S2> stored(x1, x2);
 		return connectEx(normalize_cast(obj), fastdelegate::MakeDelegate(obj, pmf), stored);
 	}
 
@@ -865,9 +1100,56 @@ public:
 		typedef typename StorageType<T1>::Type S1;
 		typedef typename StorageType<T2>::Type S2;
 		typedef typename StorageType<T3>::Type S3;
-		detail::ArgList3<S1,S2,S3> stored(x1,x2,x3);
+		detail::ArgList3<S1, S2, S3> stored(x1, x2, x3);
 		return connectEx(normalize_cast(obj), fastdelegate::MakeDelegate(obj, pmf), stored);
 	}
+
+	template<class T, class Y, class T1, class T2, class T3, class T4> AbstractConnection * connect(T * obj, Y pmf, T1 x1, T2 x2, T3 x3, T4 x4)
+	{
+		typedef typename StorageType<T1>::Type S1;
+		typedef typename StorageType<T2>::Type S2;
+		typedef typename StorageType<T3>::Type S3;
+		typedef typename StorageType<T4>::Type S4;
+		detail::ArgList4<S1, S2, S3, S4> stored(x1, x2, x3, x4);
+		return connectEx(normalize_cast(obj), fastdelegate::MakeDelegate(obj, pmf), stored);
+	}
+
+	template<class T, class Y, class T1, class T2, class T3, class T4, class T5> AbstractConnection * connect(T * obj, Y pmf, T1 x1, T2 x2, T3 x3, T4 x4, T5 x5)
+	{
+		typedef typename StorageType<T1>::Type S1;
+		typedef typename StorageType<T2>::Type S2;
+		typedef typename StorageType<T3>::Type S3;
+		typedef typename StorageType<T4>::Type S4;
+		typedef typename StorageType<T5>::Type S5;
+		detail::ArgList5<S1, S2, S3, S4, S5> stored(x1, x2, x3, x4, x5);
+		return connectEx(normalize_cast(obj), fastdelegate::MakeDelegate(obj, pmf), stored);
+	}
+
+	template<class T, class Y, class T1, class T2, class T3, class T4, class T5, class T6> AbstractConnection * connect(T * obj, Y pmf, T1 x1, T2 x2, T3 x3, T4 x4, T5 x5, T6 x6)
+	{
+		typedef typename StorageType<T1>::Type S1;
+		typedef typename StorageType<T2>::Type S2;
+		typedef typename StorageType<T3>::Type S3;
+		typedef typename StorageType<T4>::Type S4;
+		typedef typename StorageType<T5>::Type S5;
+		typedef typename StorageType<T6>::Type S6;
+		detail::ArgList6<S1, S2, S3, S4, S5, S6> stored(x1, x2, x3, x4, x5, x6);
+		return connectEx(normalize_cast(obj), fastdelegate::MakeDelegate(obj, pmf), stored);
+	}
+
+	template<class T, class Y, class T1, class T2, class T3, class T4, class T5, class T6, class T7> AbstractConnection * connect(T * obj, Y pmf, T1 x1, T2 x2, T3 x3, T4 x4, T5 x5, T6 x6, T7 x7)
+	{
+		typedef typename StorageType<T1>::Type S1;
+		typedef typename StorageType<T2>::Type S2;
+		typedef typename StorageType<T3>::Type S3;
+		typedef typename StorageType<T4>::Type S4;
+		typedef typename StorageType<T5>::Type S5;
+		typedef typename StorageType<T6>::Type S6;
+		typedef typename StorageType<T7>::Type S7;
+		detail::ArgList7<S1, S2, S3, S4, S5, S6, S7> stored(x1, x2, x3, x4, x5, x6, x7);
+		return connectEx(normalize_cast(obj), fastdelegate::MakeDelegate(obj, pmf), stored);
+	}
+
 private:
 	AbstractConnection * addConnection(ConnectionType * conn)
 	{
@@ -1004,7 +1286,7 @@ public:
 	{
 		typedef typename StorageType<T1>::Type S1;
 		typedef typename StorageType<T2>::Type S2;
-		detail::ArgList2<S1,S2> stored(x1,x2);
+		detail::ArgList2<S1, S2> stored(x1, x2);
 		return connectEx(normalize_cast(obj), fastdelegate::MakeDelegate(obj, pmf), stored);
 	}
 
@@ -1013,9 +1295,56 @@ public:
 		typedef typename StorageType<T1>::Type S1;
 		typedef typename StorageType<T2>::Type S2;
 		typedef typename StorageType<T3>::Type S3;
-		detail::ArgList3<S1,S2,S3> stored(x1,x2,x3);
+		detail::ArgList3<S1, S2, S3> stored(x1, x2, x3);
 		return connectEx(normalize_cast(obj), fastdelegate::MakeDelegate(obj, pmf), stored);
 	}
+
+	template<class T, class Y, class T1, class T2, class T3, class T4> AbstractConnection * connect(T * obj, Y pmf, T1 x1, T2 x2, T3 x3, T4 x4)
+	{
+		typedef typename StorageType<T1>::Type S1;
+		typedef typename StorageType<T2>::Type S2;
+		typedef typename StorageType<T3>::Type S3;
+		typedef typename StorageType<T4>::Type S4;
+		detail::ArgList4<S1, S2, S3, S4> stored(x1, x2, x3, x4);
+		return connectEx(normalize_cast(obj), fastdelegate::MakeDelegate(obj, pmf), stored);
+	}
+
+	template<class T, class Y, class T1, class T2, class T3, class T4, class T5> AbstractConnection * connect(T * obj, Y pmf, T1 x1, T2 x2, T3 x3, T4 x4, T5 x5)
+	{
+		typedef typename StorageType<T1>::Type S1;
+		typedef typename StorageType<T2>::Type S2;
+		typedef typename StorageType<T3>::Type S3;
+		typedef typename StorageType<T4>::Type S4;
+		typedef typename StorageType<T5>::Type S5;
+		detail::ArgList5<S1, S2, S3, S4, S5> stored(x1, x2, x3, x4, x5);
+		return connectEx(normalize_cast(obj), fastdelegate::MakeDelegate(obj, pmf), stored);
+	}
+
+	template<class T, class Y, class T1, class T2, class T3, class T4, class T5, class T6> AbstractConnection * connect(T * obj, Y pmf, T1 x1, T2 x2, T3 x3, T4 x4, T5 x5, T6 x6)
+	{
+		typedef typename StorageType<T1>::Type S1;
+		typedef typename StorageType<T2>::Type S2;
+		typedef typename StorageType<T3>::Type S3;
+		typedef typename StorageType<T4>::Type S4;
+		typedef typename StorageType<T5>::Type S5;
+		typedef typename StorageType<T6>::Type S6;
+		detail::ArgList6<S1, S2, S3, S4, S5, S6> stored(x1, x2, x3, x4, x5, x6);
+		return connectEx(normalize_cast(obj), fastdelegate::MakeDelegate(obj, pmf), stored);
+	}
+
+	template<class T, class Y, class T1, class T2, class T3, class T4, class T5, class T6, class T7> AbstractConnection * connect(T * obj, Y pmf, T1 x1, T2 x2, T3 x3, T4 x4, T5 x5, T6 x6, T7 x7)
+	{
+		typedef typename StorageType<T1>::Type S1;
+		typedef typename StorageType<T2>::Type S2;
+		typedef typename StorageType<T3>::Type S3;
+		typedef typename StorageType<T4>::Type S4;
+		typedef typename StorageType<T5>::Type S5;
+		typedef typename StorageType<T6>::Type S6;
+		typedef typename StorageType<T7>::Type S7;
+		detail::ArgList7<S1, S2, S3, S4, S5, S6, S7> stored(x1, x2, x3, x4, x5, x6, x7);
+		return connectEx(normalize_cast(obj), fastdelegate::MakeDelegate(obj, pmf), stored);
+	}
+
 private:
 	AbstractConnection * addConnection(ConnectionType * conn)
 	{
@@ -1152,7 +1481,7 @@ public:
 	{
 		typedef typename StorageType<T1>::Type S1;
 		typedef typename StorageType<T2>::Type S2;
-		detail::ArgList2<S1,S2> stored(x1,x2);
+		detail::ArgList2<S1, S2> stored(x1, x2);
 		return connectEx(normalize_cast(obj), fastdelegate::MakeDelegate(obj, pmf), stored);
 	}
 
@@ -1161,9 +1490,56 @@ public:
 		typedef typename StorageType<T1>::Type S1;
 		typedef typename StorageType<T2>::Type S2;
 		typedef typename StorageType<T3>::Type S3;
-		detail::ArgList3<S1,S2,S3> stored(x1,x2,x3);
+		detail::ArgList3<S1, S2, S3> stored(x1, x2, x3);
 		return connectEx(normalize_cast(obj), fastdelegate::MakeDelegate(obj, pmf), stored);
 	}
+
+	template<class T, class Y, class T1, class T2, class T3, class T4> AbstractConnection * connect(T * obj, Y pmf, T1 x1, T2 x2, T3 x3, T4 x4)
+	{
+		typedef typename StorageType<T1>::Type S1;
+		typedef typename StorageType<T2>::Type S2;
+		typedef typename StorageType<T3>::Type S3;
+		typedef typename StorageType<T4>::Type S4;
+		detail::ArgList4<S1, S2, S3, S4> stored(x1, x2, x3, x4);
+		return connectEx(normalize_cast(obj), fastdelegate::MakeDelegate(obj, pmf), stored);
+	}
+
+	template<class T, class Y, class T1, class T2, class T3, class T4, class T5> AbstractConnection * connect(T * obj, Y pmf, T1 x1, T2 x2, T3 x3, T4 x4, T5 x5)
+	{
+		typedef typename StorageType<T1>::Type S1;
+		typedef typename StorageType<T2>::Type S2;
+		typedef typename StorageType<T3>::Type S3;
+		typedef typename StorageType<T4>::Type S4;
+		typedef typename StorageType<T5>::Type S5;
+		detail::ArgList5<S1, S2, S3, S4, S5> stored(x1, x2, x3, x4, x5);
+		return connectEx(normalize_cast(obj), fastdelegate::MakeDelegate(obj, pmf), stored);
+	}
+
+	template<class T, class Y, class T1, class T2, class T3, class T4, class T5, class T6> AbstractConnection * connect(T * obj, Y pmf, T1 x1, T2 x2, T3 x3, T4 x4, T5 x5, T6 x6)
+	{
+		typedef typename StorageType<T1>::Type S1;
+		typedef typename StorageType<T2>::Type S2;
+		typedef typename StorageType<T3>::Type S3;
+		typedef typename StorageType<T4>::Type S4;
+		typedef typename StorageType<T5>::Type S5;
+		typedef typename StorageType<T6>::Type S6;
+		detail::ArgList6<S1, S2, S3, S4, S5, S6> stored(x1, x2, x3, x4, x5, x6);
+		return connectEx(normalize_cast(obj), fastdelegate::MakeDelegate(obj, pmf), stored);
+	}
+
+	template<class T, class Y, class T1, class T2, class T3, class T4, class T5, class T6, class T7> AbstractConnection * connect(T * obj, Y pmf, T1 x1, T2 x2, T3 x3, T4 x4, T5 x5, T6 x6, T7 x7)
+	{
+		typedef typename StorageType<T1>::Type S1;
+		typedef typename StorageType<T2>::Type S2;
+		typedef typename StorageType<T3>::Type S3;
+		typedef typename StorageType<T4>::Type S4;
+		typedef typename StorageType<T5>::Type S5;
+		typedef typename StorageType<T6>::Type S6;
+		typedef typename StorageType<T7>::Type S7;
+		detail::ArgList7<S1, S2, S3, S4, S5, S6, S7> stored(x1, x2, x3, x4, x5, x6, x7);
+		return connectEx(normalize_cast(obj), fastdelegate::MakeDelegate(obj, pmf), stored);
+	}
+
 private:
 	AbstractConnection * addConnection(ConnectionType * conn)
 	{
