@@ -11,7 +11,7 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "EventsTest", "EventsTest\Ev
 		{4B58FC2C-D1DB-46F6-8FCF-5D24CB65F3CD} = {4B58FC2C-D1DB-46F6-8FCF-5D24CB65F3CD}
 	EndProjectSection
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "mcs", "mcs\mcs.vcproj", "{4B6E12BD-D859-4CB1-A497-E0B3B3FF1414}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "mcs", "mcs\msvs\mcs.vcproj", "{4B6E12BD-D859-4CB1-A497-E0B3B3FF1414}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
