@@ -15,7 +15,7 @@ public:
 	~ConnectionList() { disconnectAll(); }
 
 	AbstractConnection * addConnection(AbstractConnection * conn);
-	bool removeConnection(AbstractConnection const * conn);
+	bool removeConnection(AbstractConnection * conn);
 
 	bool hasAnyConnections() const { return !connections_.empty(); }	
 	bool hasConnectionsWithSender(void const * sender) const;
@@ -75,6 +75,7 @@ private:
 	ConnectionsVector connections_;
 
 	void connectionBroken(AbstractConnection const * conn);
+	bool doRemoveConnection(AbstractConnection const * conn);
 };
 
 #endif //CONNECTION_LIST__HPP

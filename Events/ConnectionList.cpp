@@ -13,7 +13,13 @@ AbstractConnection * ConnectionList::addConnection(AbstractConnection * conn)
 	return conn;
 }
 
-bool ConnectionList::removeConnection(AbstractConnection const * conn)
+bool ConnectionList::removeConnection(AbstractConnection * conn)
+{
+	conn->removeDisconnectListener(this, &ConnectionList::connectionBroken);
+	return doRemoveConnection(conn);
+}
+
+bool ConnectionList::doRemoveConnection(AbstractConnection const * conn)
 {
 	for(mutable_iterate(it, connections_))
 	{
@@ -111,6 +117,6 @@ bool ConnectionList::disconnectFromDelegate(fastdelegate::DelegateMemento const 
 
 void ConnectionList::connectionBroken(AbstractConnection const * conn)
 {
-	(void)removeConnection(conn);
+	(void)doRemoveConnection(conn);
 }
 
