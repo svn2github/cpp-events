@@ -5,50 +5,12 @@
 #include "ConnectionEx.hpp"
 #include "TypeTraits.hpp"
 
-template<class R> class EventFireHelper0 : public AbstractEvent
+class EventRef0;
+
+class Event0 : public AbstractEvent
 {
 public:
-	typedef Connection0<R> ConnectionType;
-
-	R fire() const
-	{
-		R retVal;
-		ConnectionsVector const & conns = connections();
-		for(ConnectionsVector::const_iterator it = conns.begin(); it != conns.end(); ++it)
-		{
-			retVal = static_cast<ConnectionType const *>(*it)->invoke();
-		}
-		return retVal;
-	}
-protected:
-	EventFireHelper0() {}
-	~EventFireHelper0() {}
-};
-
-template<> class EventFireHelper0<void> : public AbstractEvent
-{
-public:
-	void fire() const
-	{
-		ConnectionsVector const & conns = connections();
-		for(ConnectionsVector::const_iterator it = conns.begin(); it != conns.end(); ++it)
-		{
-			static_cast<ConnectionType const *>(*it)->invoke();
-		}
-	}
-protected:
-	typedef Connection0<void> ConnectionType;
-
-	EventFireHelper0() {}
-	~EventFireHelper0() {}
-};
-
-template<class R = void> class EventRef0;
-
-template<class R = void> class Event0 : public EventFireHelper0<R>
-{
-public:
-	typedef typename EventFireHelper0<R>::ConnectionType ConnectionType;
+	typedef Connection0 ConnectionType;
 
 	Event0() {}
 	~Event0() {}
@@ -57,31 +19,40 @@ public:
 	{
 		return AbstractEvent::addConnection(conn);
 	}
-
-	inline EventRef0<R> bind(void const * sender);
 	
-	template<class T> inline EventRef0<R> bind(T * sender);
+	void fire() const
+	{
+		ConnectionsVector const & conns = connections();
+		for(ConnectionsVector::const_iterator it = conns.begin(); it != conns.end(); ++it)
+		{
+			static_cast<ConnectionType const *>(*it)->invoke();
+		}
+	}
+
+	inline EventRef0 bind(void const * sender);
+	
+	template<class T> inline EventRef0 bind(T * sender);
 };
 
-template<class R> class EventRef0 : public AbstractEventRef
+class EventRef0 : public AbstractEventRef
 {
 public:
-	typedef Event0<R> EventType;
-	typedef typename EventType::ConnectionType ConnectionType;
+	typedef Event0 EventType;
+	typedef EventType::ConnectionType ConnectionType;
 
 	EventRef0(void const * sender, EventType * ev) : AbstractEventRef(sender, ev) {}
 
-	EventRef0<R> rebind(void const * newSender) const
+	EventRef0 rebind(void const * newSender) const
 	{
-		return EventRef0<R>(newSender, event_);
+		return EventRef0(newSender, static_cast<EventType*>(senderEvent()) );
 	}
 	
-	template<class T> inline EventRef0<R> rebind(T * newSender) const
+	template<class T> inline EventRef0 rebind(T * newSender) const
 	{
 		return rebind(normalize_cast(newSender));
 	}
 
-	template<class T, class Y> AbstractConnection * connect(T * obj, R (Y::*pmf)())
+	template<class T, class Y> AbstractConnection * connect(T * obj, void (Y::*pmf)())
 	{
 		ConnectionType * conn = new ConnectionType(
 			senderObject(), senderEvent(), normalize_cast(obj),
@@ -90,7 +61,7 @@ public:
 		return addConnection(conn);
 	}
 
-	template<class T, class Y> AbstractConnection * connect(T const * obj, R (Y::*pmf)() const)
+	template<class T, class Y> AbstractConnection * connect(T const * obj, void (Y::*pmf)() const)
 	{
 		ConnectionType * conn = new ConnectionType(
 			senderObject(), senderEvent(), normalize_cast(obj),
@@ -183,67 +154,29 @@ private:
 
 	template<class DelegateClass, class StoredListClass> AbstractConnection * connectEx(void const * obj, DelegateClass const & deleg, StoredListClass const & stored)
 	{
-		ConnectionType * conn = new ConnectionEx0<R, DelegateClass, StoredListClass>(
+		ConnectionType * conn = new ConnectionEx0<DelegateClass, StoredListClass>(
 			senderObject(), senderEvent(), obj, deleg, stored
 		);
 		return addConnection(conn);
 	}
 };
 
-template<class R> inline EventRef0<R> Event0<R>::bind(void const * sender)
+inline EventRef0 Event0::bind(void const * sender)
 {
-	return EventRef0<R>(sender, this);
+	return EventRef0(sender, this);
 }
 
-template<class R> template<class T> inline EventRef0<R> Event0<R>::bind(T * sender)
+template<class T> inline EventRef0 Event0::bind(T * sender)
 {
 	return bind(normalize_cast(sender));
 }
 
-template<class Param0, class R> class EventFireHelper1 : public AbstractEvent
+template<class Param0> class EventRef1;
+
+template<class Param0> class Event1 : public AbstractEvent
 {
 public:
-	typedef Connection1<Param0, R> ConnectionType;
-
-	R fire(Param0 p0) const
-	{
-		R retVal;
-		ConnectionsVector const & conns = connections();
-		for(ConnectionsVector::const_iterator it = conns.begin(); it != conns.end(); ++it)
-		{
-			retVal = static_cast<ConnectionType const *>(*it)->invoke(p0);
-		}
-		return retVal;
-	}
-protected:
-	EventFireHelper1() {}
-	~EventFireHelper1() {}
-};
-
-template<class Param0> class EventFireHelper1<Param0, void> : public AbstractEvent
-{
-public:
-	void fire(Param0 p0) const
-	{
-		ConnectionsVector const & conns = connections();
-		for(ConnectionsVector::const_iterator it = conns.begin(); it != conns.end(); ++it)
-		{
-			static_cast<ConnectionType const *>(*it)->invoke(p0);
-		}
-	}
-protected:
-	typedef Connection1<Param0, void> ConnectionType;
-
-	EventFireHelper1() {}
-	~EventFireHelper1() {}
-};
-
-template<class Param0, class R = void> class EventRef1;
-
-template<class Param0, class R = void> class Event1 : public EventFireHelper1<Param0, R>
-{
-public:
-	typedef typename EventFireHelper1<Param0, R>::ConnectionType ConnectionType;
+	typedef Connection1<Param0> ConnectionType;
 
 	Event1() {}
 	~Event1() {}
@@ -252,31 +185,40 @@ public:
 	{
 		return AbstractEvent::addConnection(conn);
 	}
-
-	inline EventRef1<Param0, R> bind(void const * sender);
 	
-	template<class T> inline EventRef1<Param0, R> bind(T * sender);
+	void fire(Param0 p0) const
+	{
+		ConnectionsVector const & conns = connections();
+		for(ConnectionsVector::const_iterator it = conns.begin(); it != conns.end(); ++it)
+		{
+			static_cast<ConnectionType const *>(*it)->invoke(p0);
+		}
+	}
+
+	inline EventRef1<Param0> bind(void const * sender);
+	
+	template<class T> inline EventRef1<Param0> bind(T * sender);
 };
 
-template<class Param0, class R> class EventRef1 : public AbstractEventRef
+template<class Param0> class EventRef1 : public AbstractEventRef
 {
 public:
-	typedef Event1<Param0, R> EventType;
+	typedef Event1<Param0> EventType;
 	typedef typename EventType::ConnectionType ConnectionType;
 
 	EventRef1(void const * sender, EventType * ev) : AbstractEventRef(sender, ev) {}
 
-	EventRef1<Param0, R> rebind(void const * newSender) const
+	EventRef1<Param0> rebind(void const * newSender) const
 	{
-		return EventRef1<Param0, R>(newSender, event_);
+		return EventRef1<Param0>(newSender, static_cast<EventType*>(senderEvent()) );
 	}
 	
-	template<class T> inline EventRef1<Param0, R> rebind(T * newSender) const
+	template<class T> inline EventRef1<Param0> rebind(T * newSender) const
 	{
 		return rebind(normalize_cast(newSender));
 	}
 
-	template<class T, class Y> AbstractConnection * connect(T * obj, R (Y::*pmf)(Param0 p0))
+	template<class T, class Y> AbstractConnection * connect(T * obj, void (Y::*pmf)(Param0 p0))
 	{
 		ConnectionType * conn = new ConnectionType(
 			senderObject(), senderEvent(), normalize_cast(obj),
@@ -285,7 +227,7 @@ public:
 		return addConnection(conn);
 	}
 
-	template<class T, class Y> AbstractConnection * connect(T const * obj, R (Y::*pmf)(Param0 p0) const)
+	template<class T, class Y> AbstractConnection * connect(T const * obj, void (Y::*pmf)(Param0 p0) const)
 	{
 		ConnectionType * conn = new ConnectionType(
 			senderObject(), senderEvent(), normalize_cast(obj),
@@ -378,67 +320,29 @@ private:
 
 	template<class DelegateClass, class StoredListClass> AbstractConnection * connectEx(void const * obj, DelegateClass const & deleg, StoredListClass const & stored)
 	{
-		ConnectionType * conn = new ConnectionEx1<Param0, R, DelegateClass, StoredListClass>(
+		ConnectionType * conn = new ConnectionEx1<Param0, DelegateClass, StoredListClass>(
 			senderObject(), senderEvent(), obj, deleg, stored
 		);
 		return addConnection(conn);
 	}
 };
 
-template<class Param0, class R> inline EventRef1<Param0, R> Event1<Param0, R>::bind(void const * sender)
+template<class Param0> inline EventRef1<Param0> Event1<Param0>::bind(void const * sender)
 {
-	return EventRef1<Param0, R>(sender, this);
+	return EventRef1<Param0>(sender, this);
 }
 
-template<class Param0, class R> template<class T> inline EventRef1<Param0, R> Event1<Param0, R>::bind(T * sender)
+template<class Param0> template<class T> inline EventRef1<Param0> Event1<Param0>::bind(T * sender)
 {
 	return bind(normalize_cast(sender));
 }
 
-template<class Param0, class Param1, class R> class EventFireHelper2 : public AbstractEvent
+template<class Param0, class Param1> class EventRef2;
+
+template<class Param0, class Param1> class Event2 : public AbstractEvent
 {
 public:
-	typedef Connection2<Param0, Param1, R> ConnectionType;
-
-	R fire(Param0 p0, Param1 p1) const
-	{
-		R retVal;
-		ConnectionsVector const & conns = connections();
-		for(ConnectionsVector::const_iterator it = conns.begin(); it != conns.end(); ++it)
-		{
-			retVal = static_cast<ConnectionType const *>(*it)->invoke(p0, p1);
-		}
-		return retVal;
-	}
-protected:
-	EventFireHelper2() {}
-	~EventFireHelper2() {}
-};
-
-template<class Param0, class Param1> class EventFireHelper2<Param0, Param1, void> : public AbstractEvent
-{
-public:
-	void fire(Param0 p0, Param1 p1) const
-	{
-		ConnectionsVector const & conns = connections();
-		for(ConnectionsVector::const_iterator it = conns.begin(); it != conns.end(); ++it)
-		{
-			static_cast<ConnectionType const *>(*it)->invoke(p0, p1);
-		}
-	}
-protected:
-	typedef Connection2<Param0, Param1, void> ConnectionType;
-
-	EventFireHelper2() {}
-	~EventFireHelper2() {}
-};
-
-template<class Param0, class Param1, class R = void> class EventRef2;
-
-template<class Param0, class Param1, class R = void> class Event2 : public EventFireHelper2<Param0, Param1, R>
-{
-public:
-	typedef typename EventFireHelper2<Param0, Param1, R>::ConnectionType ConnectionType;
+	typedef Connection2<Param0, Param1> ConnectionType;
 
 	Event2() {}
 	~Event2() {}
@@ -447,31 +351,40 @@ public:
 	{
 		return AbstractEvent::addConnection(conn);
 	}
-
-	inline EventRef2<Param0, Param1, R> bind(void const * sender);
 	
-	template<class T> inline EventRef2<Param0, Param1, R> bind(T * sender);
+	void fire(Param0 p0, Param1 p1) const
+	{
+		ConnectionsVector const & conns = connections();
+		for(ConnectionsVector::const_iterator it = conns.begin(); it != conns.end(); ++it)
+		{
+			static_cast<ConnectionType const *>(*it)->invoke(p0, p1);
+		}
+	}
+
+	inline EventRef2<Param0, Param1> bind(void const * sender);
+	
+	template<class T> inline EventRef2<Param0, Param1> bind(T * sender);
 };
 
-template<class Param0, class Param1, class R> class EventRef2 : public AbstractEventRef
+template<class Param0, class Param1> class EventRef2 : public AbstractEventRef
 {
 public:
-	typedef Event2<Param0, Param1, R> EventType;
+	typedef Event2<Param0, Param1> EventType;
 	typedef typename EventType::ConnectionType ConnectionType;
 
 	EventRef2(void const * sender, EventType * ev) : AbstractEventRef(sender, ev) {}
 
-	EventRef2<Param0, Param1, R> rebind(void const * newSender) const
+	EventRef2<Param0, Param1> rebind(void const * newSender) const
 	{
-		return EventRef2<Param0, Param1, R>(newSender, event_);
+		return EventRef2<Param0, Param1>(newSender, static_cast<EventType*>(senderEvent()) );
 	}
 	
-	template<class T> inline EventRef2<Param0, Param1, R> rebind(T * newSender) const
+	template<class T> inline EventRef2<Param0, Param1> rebind(T * newSender) const
 	{
 		return rebind(normalize_cast(newSender));
 	}
 
-	template<class T, class Y> AbstractConnection * connect(T * obj, R (Y::*pmf)(Param0 p0, Param1 p1))
+	template<class T, class Y> AbstractConnection * connect(T * obj, void (Y::*pmf)(Param0 p0, Param1 p1))
 	{
 		ConnectionType * conn = new ConnectionType(
 			senderObject(), senderEvent(), normalize_cast(obj),
@@ -480,7 +393,7 @@ public:
 		return addConnection(conn);
 	}
 
-	template<class T, class Y> AbstractConnection * connect(T const * obj, R (Y::*pmf)(Param0 p0, Param1 p1) const)
+	template<class T, class Y> AbstractConnection * connect(T const * obj, void (Y::*pmf)(Param0 p0, Param1 p1) const)
 	{
 		ConnectionType * conn = new ConnectionType(
 			senderObject(), senderEvent(), normalize_cast(obj),
@@ -573,67 +486,29 @@ private:
 
 	template<class DelegateClass, class StoredListClass> AbstractConnection * connectEx(void const * obj, DelegateClass const & deleg, StoredListClass const & stored)
 	{
-		ConnectionType * conn = new ConnectionEx2<Param0, Param1, R, DelegateClass, StoredListClass>(
+		ConnectionType * conn = new ConnectionEx2<Param0, Param1, DelegateClass, StoredListClass>(
 			senderObject(), senderEvent(), obj, deleg, stored
 		);
 		return addConnection(conn);
 	}
 };
 
-template<class Param0, class Param1, class R> inline EventRef2<Param0, Param1, R> Event2<Param0, Param1, R>::bind(void const * sender)
+template<class Param0, class Param1> inline EventRef2<Param0, Param1> Event2<Param0, Param1>::bind(void const * sender)
 {
-	return EventRef2<Param0, Param1, R>(sender, this);
+	return EventRef2<Param0, Param1>(sender, this);
 }
 
-template<class Param0, class Param1, class R> template<class T> inline EventRef2<Param0, Param1, R> Event2<Param0, Param1, R>::bind(T * sender)
+template<class Param0, class Param1> template<class T> inline EventRef2<Param0, Param1> Event2<Param0, Param1>::bind(T * sender)
 {
 	return bind(normalize_cast(sender));
 }
 
-template<class Param0, class Param1, class Param2, class R> class EventFireHelper3 : public AbstractEvent
+template<class Param0, class Param1, class Param2> class EventRef3;
+
+template<class Param0, class Param1, class Param2> class Event3 : public AbstractEvent
 {
 public:
-	typedef Connection3<Param0, Param1, Param2, R> ConnectionType;
-
-	R fire(Param0 p0, Param1 p1, Param2 p2) const
-	{
-		R retVal;
-		ConnectionsVector const & conns = connections();
-		for(ConnectionsVector::const_iterator it = conns.begin(); it != conns.end(); ++it)
-		{
-			retVal = static_cast<ConnectionType const *>(*it)->invoke(p0, p1, p2);
-		}
-		return retVal;
-	}
-protected:
-	EventFireHelper3() {}
-	~EventFireHelper3() {}
-};
-
-template<class Param0, class Param1, class Param2> class EventFireHelper3<Param0, Param1, Param2, void> : public AbstractEvent
-{
-public:
-	void fire(Param0 p0, Param1 p1, Param2 p2) const
-	{
-		ConnectionsVector const & conns = connections();
-		for(ConnectionsVector::const_iterator it = conns.begin(); it != conns.end(); ++it)
-		{
-			static_cast<ConnectionType const *>(*it)->invoke(p0, p1, p2);
-		}
-	}
-protected:
-	typedef Connection3<Param0, Param1, Param2, void> ConnectionType;
-
-	EventFireHelper3() {}
-	~EventFireHelper3() {}
-};
-
-template<class Param0, class Param1, class Param2, class R = void> class EventRef3;
-
-template<class Param0, class Param1, class Param2, class R = void> class Event3 : public EventFireHelper3<Param0, Param1, Param2, R>
-{
-public:
-	typedef typename EventFireHelper3<Param0, Param1, Param2, R>::ConnectionType ConnectionType;
+	typedef Connection3<Param0, Param1, Param2> ConnectionType;
 
 	Event3() {}
 	~Event3() {}
@@ -642,31 +517,40 @@ public:
 	{
 		return AbstractEvent::addConnection(conn);
 	}
-
-	inline EventRef3<Param0, Param1, Param2, R> bind(void const * sender);
 	
-	template<class T> inline EventRef3<Param0, Param1, Param2, R> bind(T * sender);
+	void fire(Param0 p0, Param1 p1, Param2 p2) const
+	{
+		ConnectionsVector const & conns = connections();
+		for(ConnectionsVector::const_iterator it = conns.begin(); it != conns.end(); ++it)
+		{
+			static_cast<ConnectionType const *>(*it)->invoke(p0, p1, p2);
+		}
+	}
+
+	inline EventRef3<Param0, Param1, Param2> bind(void const * sender);
+	
+	template<class T> inline EventRef3<Param0, Param1, Param2> bind(T * sender);
 };
 
-template<class Param0, class Param1, class Param2, class R> class EventRef3 : public AbstractEventRef
+template<class Param0, class Param1, class Param2> class EventRef3 : public AbstractEventRef
 {
 public:
-	typedef Event3<Param0, Param1, Param2, R> EventType;
+	typedef Event3<Param0, Param1, Param2> EventType;
 	typedef typename EventType::ConnectionType ConnectionType;
 
 	EventRef3(void const * sender, EventType * ev) : AbstractEventRef(sender, ev) {}
 
-	EventRef3<Param0, Param1, Param2, R> rebind(void const * newSender) const
+	EventRef3<Param0, Param1, Param2> rebind(void const * newSender) const
 	{
-		return EventRef3<Param0, Param1, Param2, R>(newSender, event_);
+		return EventRef3<Param0, Param1, Param2>(newSender, static_cast<EventType*>(senderEvent()) );
 	}
 	
-	template<class T> inline EventRef3<Param0, Param1, Param2, R> rebind(T * newSender) const
+	template<class T> inline EventRef3<Param0, Param1, Param2> rebind(T * newSender) const
 	{
 		return rebind(normalize_cast(newSender));
 	}
 
-	template<class T, class Y> AbstractConnection * connect(T * obj, R (Y::*pmf)(Param0 p0, Param1 p1, Param2 p2))
+	template<class T, class Y> AbstractConnection * connect(T * obj, void (Y::*pmf)(Param0 p0, Param1 p1, Param2 p2))
 	{
 		ConnectionType * conn = new ConnectionType(
 			senderObject(), senderEvent(), normalize_cast(obj),
@@ -675,7 +559,7 @@ public:
 		return addConnection(conn);
 	}
 
-	template<class T, class Y> AbstractConnection * connect(T const * obj, R (Y::*pmf)(Param0 p0, Param1 p1, Param2 p2) const)
+	template<class T, class Y> AbstractConnection * connect(T const * obj, void (Y::*pmf)(Param0 p0, Param1 p1, Param2 p2) const)
 	{
 		ConnectionType * conn = new ConnectionType(
 			senderObject(), senderEvent(), normalize_cast(obj),
@@ -768,67 +652,29 @@ private:
 
 	template<class DelegateClass, class StoredListClass> AbstractConnection * connectEx(void const * obj, DelegateClass const & deleg, StoredListClass const & stored)
 	{
-		ConnectionType * conn = new ConnectionEx3<Param0, Param1, Param2, R, DelegateClass, StoredListClass>(
+		ConnectionType * conn = new ConnectionEx3<Param0, Param1, Param2, DelegateClass, StoredListClass>(
 			senderObject(), senderEvent(), obj, deleg, stored
 		);
 		return addConnection(conn);
 	}
 };
 
-template<class Param0, class Param1, class Param2, class R> inline EventRef3<Param0, Param1, Param2, R> Event3<Param0, Param1, Param2, R>::bind(void const * sender)
+template<class Param0, class Param1, class Param2> inline EventRef3<Param0, Param1, Param2> Event3<Param0, Param1, Param2>::bind(void const * sender)
 {
-	return EventRef3<Param0, Param1, Param2, R>(sender, this);
+	return EventRef3<Param0, Param1, Param2>(sender, this);
 }
 
-template<class Param0, class Param1, class Param2, class R> template<class T> inline EventRef3<Param0, Param1, Param2, R> Event3<Param0, Param1, Param2, R>::bind(T * sender)
+template<class Param0, class Param1, class Param2> template<class T> inline EventRef3<Param0, Param1, Param2> Event3<Param0, Param1, Param2>::bind(T * sender)
 {
 	return bind(normalize_cast(sender));
 }
 
-template<class Param0, class Param1, class Param2, class Param3, class R> class EventFireHelper4 : public AbstractEvent
+template<class Param0, class Param1, class Param2, class Param3> class EventRef4;
+
+template<class Param0, class Param1, class Param2, class Param3> class Event4 : public AbstractEvent
 {
 public:
-	typedef Connection4<Param0, Param1, Param2, Param3, R> ConnectionType;
-
-	R fire(Param0 p0, Param1 p1, Param2 p2, Param3 p3) const
-	{
-		R retVal;
-		ConnectionsVector const & conns = connections();
-		for(ConnectionsVector::const_iterator it = conns.begin(); it != conns.end(); ++it)
-		{
-			retVal = static_cast<ConnectionType const *>(*it)->invoke(p0, p1, p2, p3);
-		}
-		return retVal;
-	}
-protected:
-	EventFireHelper4() {}
-	~EventFireHelper4() {}
-};
-
-template<class Param0, class Param1, class Param2, class Param3> class EventFireHelper4<Param0, Param1, Param2, Param3, void> : public AbstractEvent
-{
-public:
-	void fire(Param0 p0, Param1 p1, Param2 p2, Param3 p3) const
-	{
-		ConnectionsVector const & conns = connections();
-		for(ConnectionsVector::const_iterator it = conns.begin(); it != conns.end(); ++it)
-		{
-			static_cast<ConnectionType const *>(*it)->invoke(p0, p1, p2, p3);
-		}
-	}
-protected:
-	typedef Connection4<Param0, Param1, Param2, Param3, void> ConnectionType;
-
-	EventFireHelper4() {}
-	~EventFireHelper4() {}
-};
-
-template<class Param0, class Param1, class Param2, class Param3, class R = void> class EventRef4;
-
-template<class Param0, class Param1, class Param2, class Param3, class R = void> class Event4 : public EventFireHelper4<Param0, Param1, Param2, Param3, R>
-{
-public:
-	typedef typename EventFireHelper4<Param0, Param1, Param2, Param3, R>::ConnectionType ConnectionType;
+	typedef Connection4<Param0, Param1, Param2, Param3> ConnectionType;
 
 	Event4() {}
 	~Event4() {}
@@ -837,31 +683,40 @@ public:
 	{
 		return AbstractEvent::addConnection(conn);
 	}
-
-	inline EventRef4<Param0, Param1, Param2, Param3, R> bind(void const * sender);
 	
-	template<class T> inline EventRef4<Param0, Param1, Param2, Param3, R> bind(T * sender);
+	void fire(Param0 p0, Param1 p1, Param2 p2, Param3 p3) const
+	{
+		ConnectionsVector const & conns = connections();
+		for(ConnectionsVector::const_iterator it = conns.begin(); it != conns.end(); ++it)
+		{
+			static_cast<ConnectionType const *>(*it)->invoke(p0, p1, p2, p3);
+		}
+	}
+
+	inline EventRef4<Param0, Param1, Param2, Param3> bind(void const * sender);
+	
+	template<class T> inline EventRef4<Param0, Param1, Param2, Param3> bind(T * sender);
 };
 
-template<class Param0, class Param1, class Param2, class Param3, class R> class EventRef4 : public AbstractEventRef
+template<class Param0, class Param1, class Param2, class Param3> class EventRef4 : public AbstractEventRef
 {
 public:
-	typedef Event4<Param0, Param1, Param2, Param3, R> EventType;
+	typedef Event4<Param0, Param1, Param2, Param3> EventType;
 	typedef typename EventType::ConnectionType ConnectionType;
 
 	EventRef4(void const * sender, EventType * ev) : AbstractEventRef(sender, ev) {}
 
-	EventRef4<Param0, Param1, Param2, Param3, R> rebind(void const * newSender) const
+	EventRef4<Param0, Param1, Param2, Param3> rebind(void const * newSender) const
 	{
-		return EventRef4<Param0, Param1, Param2, Param3, R>(newSender, event_);
+		return EventRef4<Param0, Param1, Param2, Param3>(newSender, static_cast<EventType*>(senderEvent()) );
 	}
 	
-	template<class T> inline EventRef4<Param0, Param1, Param2, Param3, R> rebind(T * newSender) const
+	template<class T> inline EventRef4<Param0, Param1, Param2, Param3> rebind(T * newSender) const
 	{
 		return rebind(normalize_cast(newSender));
 	}
 
-	template<class T, class Y> AbstractConnection * connect(T * obj, R (Y::*pmf)(Param0 p0, Param1 p1, Param2 p2, Param3 p3))
+	template<class T, class Y> AbstractConnection * connect(T * obj, void (Y::*pmf)(Param0 p0, Param1 p1, Param2 p2, Param3 p3))
 	{
 		ConnectionType * conn = new ConnectionType(
 			senderObject(), senderEvent(), normalize_cast(obj),
@@ -870,7 +725,7 @@ public:
 		return addConnection(conn);
 	}
 
-	template<class T, class Y> AbstractConnection * connect(T const * obj, R (Y::*pmf)(Param0 p0, Param1 p1, Param2 p2, Param3 p3) const)
+	template<class T, class Y> AbstractConnection * connect(T const * obj, void (Y::*pmf)(Param0 p0, Param1 p1, Param2 p2, Param3 p3) const)
 	{
 		ConnectionType * conn = new ConnectionType(
 			senderObject(), senderEvent(), normalize_cast(obj),
@@ -963,67 +818,29 @@ private:
 
 	template<class DelegateClass, class StoredListClass> AbstractConnection * connectEx(void const * obj, DelegateClass const & deleg, StoredListClass const & stored)
 	{
-		ConnectionType * conn = new ConnectionEx4<Param0, Param1, Param2, Param3, R, DelegateClass, StoredListClass>(
+		ConnectionType * conn = new ConnectionEx4<Param0, Param1, Param2, Param3, DelegateClass, StoredListClass>(
 			senderObject(), senderEvent(), obj, deleg, stored
 		);
 		return addConnection(conn);
 	}
 };
 
-template<class Param0, class Param1, class Param2, class Param3, class R> inline EventRef4<Param0, Param1, Param2, Param3, R> Event4<Param0, Param1, Param2, Param3, R>::bind(void const * sender)
+template<class Param0, class Param1, class Param2, class Param3> inline EventRef4<Param0, Param1, Param2, Param3> Event4<Param0, Param1, Param2, Param3>::bind(void const * sender)
 {
-	return EventRef4<Param0, Param1, Param2, Param3, R>(sender, this);
+	return EventRef4<Param0, Param1, Param2, Param3>(sender, this);
 }
 
-template<class Param0, class Param1, class Param2, class Param3, class R> template<class T> inline EventRef4<Param0, Param1, Param2, Param3, R> Event4<Param0, Param1, Param2, Param3, R>::bind(T * sender)
+template<class Param0, class Param1, class Param2, class Param3> template<class T> inline EventRef4<Param0, Param1, Param2, Param3> Event4<Param0, Param1, Param2, Param3>::bind(T * sender)
 {
 	return bind(normalize_cast(sender));
 }
 
-template<class Param0, class Param1, class Param2, class Param3, class Param4, class R> class EventFireHelper5 : public AbstractEvent
+template<class Param0, class Param1, class Param2, class Param3, class Param4> class EventRef5;
+
+template<class Param0, class Param1, class Param2, class Param3, class Param4> class Event5 : public AbstractEvent
 {
 public:
-	typedef Connection5<Param0, Param1, Param2, Param3, Param4, R> ConnectionType;
-
-	R fire(Param0 p0, Param1 p1, Param2 p2, Param3 p3, Param4 p4) const
-	{
-		R retVal;
-		ConnectionsVector const & conns = connections();
-		for(ConnectionsVector::const_iterator it = conns.begin(); it != conns.end(); ++it)
-		{
-			retVal = static_cast<ConnectionType const *>(*it)->invoke(p0, p1, p2, p3, p4);
-		}
-		return retVal;
-	}
-protected:
-	EventFireHelper5() {}
-	~EventFireHelper5() {}
-};
-
-template<class Param0, class Param1, class Param2, class Param3, class Param4> class EventFireHelper5<Param0, Param1, Param2, Param3, Param4, void> : public AbstractEvent
-{
-public:
-	void fire(Param0 p0, Param1 p1, Param2 p2, Param3 p3, Param4 p4) const
-	{
-		ConnectionsVector const & conns = connections();
-		for(ConnectionsVector::const_iterator it = conns.begin(); it != conns.end(); ++it)
-		{
-			static_cast<ConnectionType const *>(*it)->invoke(p0, p1, p2, p3, p4);
-		}
-	}
-protected:
-	typedef Connection5<Param0, Param1, Param2, Param3, Param4, void> ConnectionType;
-
-	EventFireHelper5() {}
-	~EventFireHelper5() {}
-};
-
-template<class Param0, class Param1, class Param2, class Param3, class Param4, class R = void> class EventRef5;
-
-template<class Param0, class Param1, class Param2, class Param3, class Param4, class R = void> class Event5 : public EventFireHelper5<Param0, Param1, Param2, Param3, Param4, R>
-{
-public:
-	typedef typename EventFireHelper5<Param0, Param1, Param2, Param3, Param4, R>::ConnectionType ConnectionType;
+	typedef Connection5<Param0, Param1, Param2, Param3, Param4> ConnectionType;
 
 	Event5() {}
 	~Event5() {}
@@ -1032,31 +849,40 @@ public:
 	{
 		return AbstractEvent::addConnection(conn);
 	}
-
-	inline EventRef5<Param0, Param1, Param2, Param3, Param4, R> bind(void const * sender);
 	
-	template<class T> inline EventRef5<Param0, Param1, Param2, Param3, Param4, R> bind(T * sender);
+	void fire(Param0 p0, Param1 p1, Param2 p2, Param3 p3, Param4 p4) const
+	{
+		ConnectionsVector const & conns = connections();
+		for(ConnectionsVector::const_iterator it = conns.begin(); it != conns.end(); ++it)
+		{
+			static_cast<ConnectionType const *>(*it)->invoke(p0, p1, p2, p3, p4);
+		}
+	}
+
+	inline EventRef5<Param0, Param1, Param2, Param3, Param4> bind(void const * sender);
+	
+	template<class T> inline EventRef5<Param0, Param1, Param2, Param3, Param4> bind(T * sender);
 };
 
-template<class Param0, class Param1, class Param2, class Param3, class Param4, class R> class EventRef5 : public AbstractEventRef
+template<class Param0, class Param1, class Param2, class Param3, class Param4> class EventRef5 : public AbstractEventRef
 {
 public:
-	typedef Event5<Param0, Param1, Param2, Param3, Param4, R> EventType;
+	typedef Event5<Param0, Param1, Param2, Param3, Param4> EventType;
 	typedef typename EventType::ConnectionType ConnectionType;
 
 	EventRef5(void const * sender, EventType * ev) : AbstractEventRef(sender, ev) {}
 
-	EventRef5<Param0, Param1, Param2, Param3, Param4, R> rebind(void const * newSender) const
+	EventRef5<Param0, Param1, Param2, Param3, Param4> rebind(void const * newSender) const
 	{
-		return EventRef5<Param0, Param1, Param2, Param3, Param4, R>(newSender, event_);
+		return EventRef5<Param0, Param1, Param2, Param3, Param4>(newSender, static_cast<EventType*>(senderEvent()) );
 	}
 	
-	template<class T> inline EventRef5<Param0, Param1, Param2, Param3, Param4, R> rebind(T * newSender) const
+	template<class T> inline EventRef5<Param0, Param1, Param2, Param3, Param4> rebind(T * newSender) const
 	{
 		return rebind(normalize_cast(newSender));
 	}
 
-	template<class T, class Y> AbstractConnection * connect(T * obj, R (Y::*pmf)(Param0 p0, Param1 p1, Param2 p2, Param3 p3, Param4 p4))
+	template<class T, class Y> AbstractConnection * connect(T * obj, void (Y::*pmf)(Param0 p0, Param1 p1, Param2 p2, Param3 p3, Param4 p4))
 	{
 		ConnectionType * conn = new ConnectionType(
 			senderObject(), senderEvent(), normalize_cast(obj),
@@ -1065,7 +891,7 @@ public:
 		return addConnection(conn);
 	}
 
-	template<class T, class Y> AbstractConnection * connect(T const * obj, R (Y::*pmf)(Param0 p0, Param1 p1, Param2 p2, Param3 p3, Param4 p4) const)
+	template<class T, class Y> AbstractConnection * connect(T const * obj, void (Y::*pmf)(Param0 p0, Param1 p1, Param2 p2, Param3 p3, Param4 p4) const)
 	{
 		ConnectionType * conn = new ConnectionType(
 			senderObject(), senderEvent(), normalize_cast(obj),
@@ -1158,67 +984,29 @@ private:
 
 	template<class DelegateClass, class StoredListClass> AbstractConnection * connectEx(void const * obj, DelegateClass const & deleg, StoredListClass const & stored)
 	{
-		ConnectionType * conn = new ConnectionEx5<Param0, Param1, Param2, Param3, Param4, R, DelegateClass, StoredListClass>(
+		ConnectionType * conn = new ConnectionEx5<Param0, Param1, Param2, Param3, Param4, DelegateClass, StoredListClass>(
 			senderObject(), senderEvent(), obj, deleg, stored
 		);
 		return addConnection(conn);
 	}
 };
 
-template<class Param0, class Param1, class Param2, class Param3, class Param4, class R> inline EventRef5<Param0, Param1, Param2, Param3, Param4, R> Event5<Param0, Param1, Param2, Param3, Param4, R>::bind(void const * sender)
+template<class Param0, class Param1, class Param2, class Param3, class Param4> inline EventRef5<Param0, Param1, Param2, Param3, Param4> Event5<Param0, Param1, Param2, Param3, Param4>::bind(void const * sender)
 {
-	return EventRef5<Param0, Param1, Param2, Param3, Param4, R>(sender, this);
+	return EventRef5<Param0, Param1, Param2, Param3, Param4>(sender, this);
 }
 
-template<class Param0, class Param1, class Param2, class Param3, class Param4, class R> template<class T> inline EventRef5<Param0, Param1, Param2, Param3, Param4, R> Event5<Param0, Param1, Param2, Param3, Param4, R>::bind(T * sender)
+template<class Param0, class Param1, class Param2, class Param3, class Param4> template<class T> inline EventRef5<Param0, Param1, Param2, Param3, Param4> Event5<Param0, Param1, Param2, Param3, Param4>::bind(T * sender)
 {
 	return bind(normalize_cast(sender));
 }
 
-template<class Param0, class Param1, class Param2, class Param3, class Param4, class Param5, class R> class EventFireHelper6 : public AbstractEvent
+template<class Param0, class Param1, class Param2, class Param3, class Param4, class Param5> class EventRef6;
+
+template<class Param0, class Param1, class Param2, class Param3, class Param4, class Param5> class Event6 : public AbstractEvent
 {
 public:
-	typedef Connection6<Param0, Param1, Param2, Param3, Param4, Param5, R> ConnectionType;
-
-	R fire(Param0 p0, Param1 p1, Param2 p2, Param3 p3, Param4 p4, Param5 p5) const
-	{
-		R retVal;
-		ConnectionsVector const & conns = connections();
-		for(ConnectionsVector::const_iterator it = conns.begin(); it != conns.end(); ++it)
-		{
-			retVal = static_cast<ConnectionType const *>(*it)->invoke(p0, p1, p2, p3, p4, p5);
-		}
-		return retVal;
-	}
-protected:
-	EventFireHelper6() {}
-	~EventFireHelper6() {}
-};
-
-template<class Param0, class Param1, class Param2, class Param3, class Param4, class Param5> class EventFireHelper6<Param0, Param1, Param2, Param3, Param4, Param5, void> : public AbstractEvent
-{
-public:
-	void fire(Param0 p0, Param1 p1, Param2 p2, Param3 p3, Param4 p4, Param5 p5) const
-	{
-		ConnectionsVector const & conns = connections();
-		for(ConnectionsVector::const_iterator it = conns.begin(); it != conns.end(); ++it)
-		{
-			static_cast<ConnectionType const *>(*it)->invoke(p0, p1, p2, p3, p4, p5);
-		}
-	}
-protected:
-	typedef Connection6<Param0, Param1, Param2, Param3, Param4, Param5, void> ConnectionType;
-
-	EventFireHelper6() {}
-	~EventFireHelper6() {}
-};
-
-template<class Param0, class Param1, class Param2, class Param3, class Param4, class Param5, class R = void> class EventRef6;
-
-template<class Param0, class Param1, class Param2, class Param3, class Param4, class Param5, class R = void> class Event6 : public EventFireHelper6<Param0, Param1, Param2, Param3, Param4, Param5, R>
-{
-public:
-	typedef typename EventFireHelper6<Param0, Param1, Param2, Param3, Param4, Param5, R>::ConnectionType ConnectionType;
+	typedef Connection6<Param0, Param1, Param2, Param3, Param4, Param5> ConnectionType;
 
 	Event6() {}
 	~Event6() {}
@@ -1227,31 +1015,40 @@ public:
 	{
 		return AbstractEvent::addConnection(conn);
 	}
-
-	inline EventRef6<Param0, Param1, Param2, Param3, Param4, Param5, R> bind(void const * sender);
 	
-	template<class T> inline EventRef6<Param0, Param1, Param2, Param3, Param4, Param5, R> bind(T * sender);
+	void fire(Param0 p0, Param1 p1, Param2 p2, Param3 p3, Param4 p4, Param5 p5) const
+	{
+		ConnectionsVector const & conns = connections();
+		for(ConnectionsVector::const_iterator it = conns.begin(); it != conns.end(); ++it)
+		{
+			static_cast<ConnectionType const *>(*it)->invoke(p0, p1, p2, p3, p4, p5);
+		}
+	}
+
+	inline EventRef6<Param0, Param1, Param2, Param3, Param4, Param5> bind(void const * sender);
+	
+	template<class T> inline EventRef6<Param0, Param1, Param2, Param3, Param4, Param5> bind(T * sender);
 };
 
-template<class Param0, class Param1, class Param2, class Param3, class Param4, class Param5, class R> class EventRef6 : public AbstractEventRef
+template<class Param0, class Param1, class Param2, class Param3, class Param4, class Param5> class EventRef6 : public AbstractEventRef
 {
 public:
-	typedef Event6<Param0, Param1, Param2, Param3, Param4, Param5, R> EventType;
+	typedef Event6<Param0, Param1, Param2, Param3, Param4, Param5> EventType;
 	typedef typename EventType::ConnectionType ConnectionType;
 
 	EventRef6(void const * sender, EventType * ev) : AbstractEventRef(sender, ev) {}
 
-	EventRef6<Param0, Param1, Param2, Param3, Param4, Param5, R> rebind(void const * newSender) const
+	EventRef6<Param0, Param1, Param2, Param3, Param4, Param5> rebind(void const * newSender) const
 	{
-		return EventRef6<Param0, Param1, Param2, Param3, Param4, Param5, R>(newSender, event_);
+		return EventRef6<Param0, Param1, Param2, Param3, Param4, Param5>(newSender, static_cast<EventType*>(senderEvent()) );
 	}
 	
-	template<class T> inline EventRef6<Param0, Param1, Param2, Param3, Param4, Param5, R> rebind(T * newSender) const
+	template<class T> inline EventRef6<Param0, Param1, Param2, Param3, Param4, Param5> rebind(T * newSender) const
 	{
 		return rebind(normalize_cast(newSender));
 	}
 
-	template<class T, class Y> AbstractConnection * connect(T * obj, R (Y::*pmf)(Param0 p0, Param1 p1, Param2 p2, Param3 p3, Param4 p4, Param5 p5))
+	template<class T, class Y> AbstractConnection * connect(T * obj, void (Y::*pmf)(Param0 p0, Param1 p1, Param2 p2, Param3 p3, Param4 p4, Param5 p5))
 	{
 		ConnectionType * conn = new ConnectionType(
 			senderObject(), senderEvent(), normalize_cast(obj),
@@ -1260,7 +1057,7 @@ public:
 		return addConnection(conn);
 	}
 
-	template<class T, class Y> AbstractConnection * connect(T const * obj, R (Y::*pmf)(Param0 p0, Param1 p1, Param2 p2, Param3 p3, Param4 p4, Param5 p5) const)
+	template<class T, class Y> AbstractConnection * connect(T const * obj, void (Y::*pmf)(Param0 p0, Param1 p1, Param2 p2, Param3 p3, Param4 p4, Param5 p5) const)
 	{
 		ConnectionType * conn = new ConnectionType(
 			senderObject(), senderEvent(), normalize_cast(obj),
@@ -1353,67 +1150,29 @@ private:
 
 	template<class DelegateClass, class StoredListClass> AbstractConnection * connectEx(void const * obj, DelegateClass const & deleg, StoredListClass const & stored)
 	{
-		ConnectionType * conn = new ConnectionEx6<Param0, Param1, Param2, Param3, Param4, Param5, R, DelegateClass, StoredListClass>(
+		ConnectionType * conn = new ConnectionEx6<Param0, Param1, Param2, Param3, Param4, Param5, DelegateClass, StoredListClass>(
 			senderObject(), senderEvent(), obj, deleg, stored
 		);
 		return addConnection(conn);
 	}
 };
 
-template<class Param0, class Param1, class Param2, class Param3, class Param4, class Param5, class R> inline EventRef6<Param0, Param1, Param2, Param3, Param4, Param5, R> Event6<Param0, Param1, Param2, Param3, Param4, Param5, R>::bind(void const * sender)
+template<class Param0, class Param1, class Param2, class Param3, class Param4, class Param5> inline EventRef6<Param0, Param1, Param2, Param3, Param4, Param5> Event6<Param0, Param1, Param2, Param3, Param4, Param5>::bind(void const * sender)
 {
-	return EventRef6<Param0, Param1, Param2, Param3, Param4, Param5, R>(sender, this);
+	return EventRef6<Param0, Param1, Param2, Param3, Param4, Param5>(sender, this);
 }
 
-template<class Param0, class Param1, class Param2, class Param3, class Param4, class Param5, class R> template<class T> inline EventRef6<Param0, Param1, Param2, Param3, Param4, Param5, R> Event6<Param0, Param1, Param2, Param3, Param4, Param5, R>::bind(T * sender)
+template<class Param0, class Param1, class Param2, class Param3, class Param4, class Param5> template<class T> inline EventRef6<Param0, Param1, Param2, Param3, Param4, Param5> Event6<Param0, Param1, Param2, Param3, Param4, Param5>::bind(T * sender)
 {
 	return bind(normalize_cast(sender));
 }
 
-template<class Param0, class Param1, class Param2, class Param3, class Param4, class Param5, class Param6, class R> class EventFireHelper7 : public AbstractEvent
+template<class Param0, class Param1, class Param2, class Param3, class Param4, class Param5, class Param6> class EventRef7;
+
+template<class Param0, class Param1, class Param2, class Param3, class Param4, class Param5, class Param6> class Event7 : public AbstractEvent
 {
 public:
-	typedef Connection7<Param0, Param1, Param2, Param3, Param4, Param5, Param6, R> ConnectionType;
-
-	R fire(Param0 p0, Param1 p1, Param2 p2, Param3 p3, Param4 p4, Param5 p5, Param6 p6) const
-	{
-		R retVal;
-		ConnectionsVector const & conns = connections();
-		for(ConnectionsVector::const_iterator it = conns.begin(); it != conns.end(); ++it)
-		{
-			retVal = static_cast<ConnectionType const *>(*it)->invoke(p0, p1, p2, p3, p4, p5, p6);
-		}
-		return retVal;
-	}
-protected:
-	EventFireHelper7() {}
-	~EventFireHelper7() {}
-};
-
-template<class Param0, class Param1, class Param2, class Param3, class Param4, class Param5, class Param6> class EventFireHelper7<Param0, Param1, Param2, Param3, Param4, Param5, Param6, void> : public AbstractEvent
-{
-public:
-	void fire(Param0 p0, Param1 p1, Param2 p2, Param3 p3, Param4 p4, Param5 p5, Param6 p6) const
-	{
-		ConnectionsVector const & conns = connections();
-		for(ConnectionsVector::const_iterator it = conns.begin(); it != conns.end(); ++it)
-		{
-			static_cast<ConnectionType const *>(*it)->invoke(p0, p1, p2, p3, p4, p5, p6);
-		}
-	}
-protected:
-	typedef Connection7<Param0, Param1, Param2, Param3, Param4, Param5, Param6, void> ConnectionType;
-
-	EventFireHelper7() {}
-	~EventFireHelper7() {}
-};
-
-template<class Param0, class Param1, class Param2, class Param3, class Param4, class Param5, class Param6, class R = void> class EventRef7;
-
-template<class Param0, class Param1, class Param2, class Param3, class Param4, class Param5, class Param6, class R = void> class Event7 : public EventFireHelper7<Param0, Param1, Param2, Param3, Param4, Param5, Param6, R>
-{
-public:
-	typedef typename EventFireHelper7<Param0, Param1, Param2, Param3, Param4, Param5, Param6, R>::ConnectionType ConnectionType;
+	typedef Connection7<Param0, Param1, Param2, Param3, Param4, Param5, Param6> ConnectionType;
 
 	Event7() {}
 	~Event7() {}
@@ -1422,31 +1181,40 @@ public:
 	{
 		return AbstractEvent::addConnection(conn);
 	}
-
-	inline EventRef7<Param0, Param1, Param2, Param3, Param4, Param5, Param6, R> bind(void const * sender);
 	
-	template<class T> inline EventRef7<Param0, Param1, Param2, Param3, Param4, Param5, Param6, R> bind(T * sender);
+	void fire(Param0 p0, Param1 p1, Param2 p2, Param3 p3, Param4 p4, Param5 p5, Param6 p6) const
+	{
+		ConnectionsVector const & conns = connections();
+		for(ConnectionsVector::const_iterator it = conns.begin(); it != conns.end(); ++it)
+		{
+			static_cast<ConnectionType const *>(*it)->invoke(p0, p1, p2, p3, p4, p5, p6);
+		}
+	}
+
+	inline EventRef7<Param0, Param1, Param2, Param3, Param4, Param5, Param6> bind(void const * sender);
+	
+	template<class T> inline EventRef7<Param0, Param1, Param2, Param3, Param4, Param5, Param6> bind(T * sender);
 };
 
-template<class Param0, class Param1, class Param2, class Param3, class Param4, class Param5, class Param6, class R> class EventRef7 : public AbstractEventRef
+template<class Param0, class Param1, class Param2, class Param3, class Param4, class Param5, class Param6> class EventRef7 : public AbstractEventRef
 {
 public:
-	typedef Event7<Param0, Param1, Param2, Param3, Param4, Param5, Param6, R> EventType;
+	typedef Event7<Param0, Param1, Param2, Param3, Param4, Param5, Param6> EventType;
 	typedef typename EventType::ConnectionType ConnectionType;
 
 	EventRef7(void const * sender, EventType * ev) : AbstractEventRef(sender, ev) {}
 
-	EventRef7<Param0, Param1, Param2, Param3, Param4, Param5, Param6, R> rebind(void const * newSender) const
+	EventRef7<Param0, Param1, Param2, Param3, Param4, Param5, Param6> rebind(void const * newSender) const
 	{
-		return EventRef7<Param0, Param1, Param2, Param3, Param4, Param5, Param6, R>(newSender, event_);
+		return EventRef7<Param0, Param1, Param2, Param3, Param4, Param5, Param6>(newSender, static_cast<EventType*>(senderEvent()) );
 	}
 	
-	template<class T> inline EventRef7<Param0, Param1, Param2, Param3, Param4, Param5, Param6, R> rebind(T * newSender) const
+	template<class T> inline EventRef7<Param0, Param1, Param2, Param3, Param4, Param5, Param6> rebind(T * newSender) const
 	{
 		return rebind(normalize_cast(newSender));
 	}
 
-	template<class T, class Y> AbstractConnection * connect(T * obj, R (Y::*pmf)(Param0 p0, Param1 p1, Param2 p2, Param3 p3, Param4 p4, Param5 p5, Param6 p6))
+	template<class T, class Y> AbstractConnection * connect(T * obj, void (Y::*pmf)(Param0 p0, Param1 p1, Param2 p2, Param3 p3, Param4 p4, Param5 p5, Param6 p6))
 	{
 		ConnectionType * conn = new ConnectionType(
 			senderObject(), senderEvent(), normalize_cast(obj),
@@ -1455,7 +1223,7 @@ public:
 		return addConnection(conn);
 	}
 
-	template<class T, class Y> AbstractConnection * connect(T const * obj, R (Y::*pmf)(Param0 p0, Param1 p1, Param2 p2, Param3 p3, Param4 p4, Param5 p5, Param6 p6) const)
+	template<class T, class Y> AbstractConnection * connect(T const * obj, void (Y::*pmf)(Param0 p0, Param1 p1, Param2 p2, Param3 p3, Param4 p4, Param5 p5, Param6 p6) const)
 	{
 		ConnectionType * conn = new ConnectionType(
 			senderObject(), senderEvent(), normalize_cast(obj),
@@ -1548,19 +1316,19 @@ private:
 
 	template<class DelegateClass, class StoredListClass> AbstractConnection * connectEx(void const * obj, DelegateClass const & deleg, StoredListClass const & stored)
 	{
-		ConnectionType * conn = new ConnectionEx7<Param0, Param1, Param2, Param3, Param4, Param5, Param6, R, DelegateClass, StoredListClass>(
+		ConnectionType * conn = new ConnectionEx7<Param0, Param1, Param2, Param3, Param4, Param5, Param6, DelegateClass, StoredListClass>(
 			senderObject(), senderEvent(), obj, deleg, stored
 		);
 		return addConnection(conn);
 	}
 };
 
-template<class Param0, class Param1, class Param2, class Param3, class Param4, class Param5, class Param6, class R> inline EventRef7<Param0, Param1, Param2, Param3, Param4, Param5, Param6, R> Event7<Param0, Param1, Param2, Param3, Param4, Param5, Param6, R>::bind(void const * sender)
+template<class Param0, class Param1, class Param2, class Param3, class Param4, class Param5, class Param6> inline EventRef7<Param0, Param1, Param2, Param3, Param4, Param5, Param6> Event7<Param0, Param1, Param2, Param3, Param4, Param5, Param6>::bind(void const * sender)
 {
-	return EventRef7<Param0, Param1, Param2, Param3, Param4, Param5, Param6, R>(sender, this);
+	return EventRef7<Param0, Param1, Param2, Param3, Param4, Param5, Param6>(sender, this);
 }
 
-template<class Param0, class Param1, class Param2, class Param3, class Param4, class Param5, class Param6, class R> template<class T> inline EventRef7<Param0, Param1, Param2, Param3, Param4, Param5, Param6, R> Event7<Param0, Param1, Param2, Param3, Param4, Param5, Param6, R>::bind(T * sender)
+template<class Param0, class Param1, class Param2, class Param3, class Param4, class Param5, class Param6> template<class T> inline EventRef7<Param0, Param1, Param2, Param3, Param4, Param5, Param6> Event7<Param0, Param1, Param2, Param3, Param4, Param5, Param6>::bind(T * sender)
 {
 	return bind(normalize_cast(sender));
 }

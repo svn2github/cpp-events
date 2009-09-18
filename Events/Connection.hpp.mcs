@@ -4,12 +4,12 @@
 #include "AbstractConnection.hpp"
 
 @@for(int i=0; i<8; i+=1)
-template<@iter("class Param%, ", i)@class R> class Connection@i@ : public AbstractConnection
+@listx("template<%> ", "class Param%", i)@class Connection@i@ : public AbstractConnection
 {
 protected:
 	virtual ~Connection@i@() {}
 public:
-	typedef fastdelegate::FastDelegate@i@<@iter("Param%, ", i)@R> DelegateType;
+	typedef fastdelegate::FastDelegate@i@<@iter("Param%, ", i)@void> DelegateType;
 	
 	Connection@i@(
 		void const * sender, AbstractEvent * ev, 
@@ -19,7 +19,7 @@ public:
 		, delegate_(deleg)
 	{}
 
-	R invoke(@list("Param% p%", i)@) const { return delegate_(@list("p%",i)@); }
+	void invoke(@list("Param% p%", i)@) const { delegate_(@list("p%",i)@); }
 protected:
 	DelegateType delegate_;
 
