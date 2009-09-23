@@ -42,6 +42,11 @@ public:
 	typedef @if(i > 0) "typename " end@EventType::ConnectionType ConnectionType;
 
 	EventRef@i@(void const * sender, EventType * ev) : AbstractEventRef(sender, ev) {}
+	
+	EventType * senderEvent() const
+	{
+		return static_cast<EventType*>(AbstractEventRef::senderEvent());
+	}
 
 	EventRef@i;selArgs("<", i, ">")@ rebind(void const * newSender) const
 	{
@@ -91,7 +96,7 @@ public:
 private:
 	AbstractConnection * addConnection(ConnectionType * conn)
 	{
-		return static_cast<EventType*>(senderEvent())->addConnection(conn);
+		return senderEvent()->addConnection(conn);
 	}
 
 	template<class DelegateClass, class StoredListClass> AbstractConnection * connectEx(void const * obj, DelegateClass const & deleg, StoredListClass const & stored)

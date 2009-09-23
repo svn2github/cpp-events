@@ -41,6 +41,11 @@ public:
 	typedef EventType::ConnectionType ConnectionType;
 
 	EventRef0(void const * sender, EventType * ev) : AbstractEventRef(sender, ev) {}
+	
+	EventType * senderEvent() const
+	{
+		return static_cast<EventType*>(AbstractEventRef::senderEvent());
+	}
 
 	EventRef0 rebind(void const * newSender) const
 	{
@@ -149,7 +154,7 @@ public:
 private:
 	AbstractConnection * addConnection(ConnectionType * conn)
 	{
-		return static_cast<EventType*>(senderEvent())->addConnection(conn);
+		return senderEvent()->addConnection(conn);
 	}
 
 	template<class DelegateClass, class StoredListClass> AbstractConnection * connectEx(void const * obj, DelegateClass const & deleg, StoredListClass const & stored)
@@ -207,6 +212,11 @@ public:
 	typedef typename EventType::ConnectionType ConnectionType;
 
 	EventRef1(void const * sender, EventType * ev) : AbstractEventRef(sender, ev) {}
+	
+	EventType * senderEvent() const
+	{
+		return static_cast<EventType*>(AbstractEventRef::senderEvent());
+	}
 
 	EventRef1<Param0> rebind(void const * newSender) const
 	{
@@ -315,7 +325,7 @@ public:
 private:
 	AbstractConnection * addConnection(ConnectionType * conn)
 	{
-		return static_cast<EventType*>(senderEvent())->addConnection(conn);
+		return senderEvent()->addConnection(conn);
 	}
 
 	template<class DelegateClass, class StoredListClass> AbstractConnection * connectEx(void const * obj, DelegateClass const & deleg, StoredListClass const & stored)
@@ -373,6 +383,11 @@ public:
 	typedef typename EventType::ConnectionType ConnectionType;
 
 	EventRef2(void const * sender, EventType * ev) : AbstractEventRef(sender, ev) {}
+	
+	EventType * senderEvent() const
+	{
+		return static_cast<EventType*>(AbstractEventRef::senderEvent());
+	}
 
 	EventRef2<Param0, Param1> rebind(void const * newSender) const
 	{
@@ -481,7 +496,7 @@ public:
 private:
 	AbstractConnection * addConnection(ConnectionType * conn)
 	{
-		return static_cast<EventType*>(senderEvent())->addConnection(conn);
+		return senderEvent()->addConnection(conn);
 	}
 
 	template<class DelegateClass, class StoredListClass> AbstractConnection * connectEx(void const * obj, DelegateClass const & deleg, StoredListClass const & stored)
@@ -539,6 +554,11 @@ public:
 	typedef typename EventType::ConnectionType ConnectionType;
 
 	EventRef3(void const * sender, EventType * ev) : AbstractEventRef(sender, ev) {}
+	
+	EventType * senderEvent() const
+	{
+		return static_cast<EventType*>(AbstractEventRef::senderEvent());
+	}
 
 	EventRef3<Param0, Param1, Param2> rebind(void const * newSender) const
 	{
@@ -647,7 +667,7 @@ public:
 private:
 	AbstractConnection * addConnection(ConnectionType * conn)
 	{
-		return static_cast<EventType*>(senderEvent())->addConnection(conn);
+		return senderEvent()->addConnection(conn);
 	}
 
 	template<class DelegateClass, class StoredListClass> AbstractConnection * connectEx(void const * obj, DelegateClass const & deleg, StoredListClass const & stored)
@@ -705,6 +725,11 @@ public:
 	typedef typename EventType::ConnectionType ConnectionType;
 
 	EventRef4(void const * sender, EventType * ev) : AbstractEventRef(sender, ev) {}
+	
+	EventType * senderEvent() const
+	{
+		return static_cast<EventType*>(AbstractEventRef::senderEvent());
+	}
 
 	EventRef4<Param0, Param1, Param2, Param3> rebind(void const * newSender) const
 	{
@@ -813,7 +838,7 @@ public:
 private:
 	AbstractConnection * addConnection(ConnectionType * conn)
 	{
-		return static_cast<EventType*>(senderEvent())->addConnection(conn);
+		return senderEvent()->addConnection(conn);
 	}
 
 	template<class DelegateClass, class StoredListClass> AbstractConnection * connectEx(void const * obj, DelegateClass const & deleg, StoredListClass const & stored)
@@ -871,6 +896,11 @@ public:
 	typedef typename EventType::ConnectionType ConnectionType;
 
 	EventRef5(void const * sender, EventType * ev) : AbstractEventRef(sender, ev) {}
+	
+	EventType * senderEvent() const
+	{
+		return static_cast<EventType*>(AbstractEventRef::senderEvent());
+	}
 
 	EventRef5<Param0, Param1, Param2, Param3, Param4> rebind(void const * newSender) const
 	{
@@ -979,7 +1009,7 @@ public:
 private:
 	AbstractConnection * addConnection(ConnectionType * conn)
 	{
-		return static_cast<EventType*>(senderEvent())->addConnection(conn);
+		return senderEvent()->addConnection(conn);
 	}
 
 	template<class DelegateClass, class StoredListClass> AbstractConnection * connectEx(void const * obj, DelegateClass const & deleg, StoredListClass const & stored)
@@ -1037,6 +1067,11 @@ public:
 	typedef typename EventType::ConnectionType ConnectionType;
 
 	EventRef6(void const * sender, EventType * ev) : AbstractEventRef(sender, ev) {}
+	
+	EventType * senderEvent() const
+	{
+		return static_cast<EventType*>(AbstractEventRef::senderEvent());
+	}
 
 	EventRef6<Param0, Param1, Param2, Param3, Param4, Param5> rebind(void const * newSender) const
 	{
@@ -1145,7 +1180,7 @@ public:
 private:
 	AbstractConnection * addConnection(ConnectionType * conn)
 	{
-		return static_cast<EventType*>(senderEvent())->addConnection(conn);
+		return senderEvent()->addConnection(conn);
 	}
 
 	template<class DelegateClass, class StoredListClass> AbstractConnection * connectEx(void const * obj, DelegateClass const & deleg, StoredListClass const & stored)
@@ -1203,6 +1238,11 @@ public:
 	typedef typename EventType::ConnectionType ConnectionType;
 
 	EventRef7(void const * sender, EventType * ev) : AbstractEventRef(sender, ev) {}
+	
+	EventType * senderEvent() const
+	{
+		return static_cast<EventType*>(AbstractEventRef::senderEvent());
+	}
 
 	EventRef7<Param0, Param1, Param2, Param3, Param4, Param5, Param6> rebind(void const * newSender) const
 	{
@@ -1311,7 +1351,7 @@ public:
 private:
 	AbstractConnection * addConnection(ConnectionType * conn)
 	{
-		return static_cast<EventType*>(senderEvent())->addConnection(conn);
+		return senderEvent()->addConnection(conn);
 	}
 
 	template<class DelegateClass, class StoredListClass> AbstractConnection * connectEx(void const * obj, DelegateClass const & deleg, StoredListClass const & stored)
