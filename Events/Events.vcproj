@@ -176,6 +176,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\AbstractDelegate.hpp"
+				>
+			</File>
+			<File
 				RelativePath=".\AbstractEvent.hpp"
 				>
 			</File>
