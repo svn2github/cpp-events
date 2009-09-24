@@ -25,7 +25,7 @@ protected:
 
 	Connection@i@(
 		void const * sender, AbstractEvent * ev, 
-		void const * reciever, fastdelegate::DelegateMemento const & memento
+		void const * reciever, AbstractDelegate const & memento
 	)
 		: AbstractConnection(sender, ev, reciever, memento)
 		, delegate_()

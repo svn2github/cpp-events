@@ -21,13 +21,13 @@ public:
 	bool hasConnectionsWithSender(void const * sender) const;
 	bool hasConnectionsWithReciever(void const * reciever) const;
 	bool hasConnectionsWithEvent(AbstractEventRef const & ev) const;
-	bool hasConnectionsWithDelegate(fastdelegate::DelegateMemento const & deleg) const;
+	bool hasConnectionsWithDelegate(AbstractDelegate const & deleg) const;
 
 	void disconnectAll();
 	bool disconnectFromSender(void const * sender);
 	bool disconnectFromReciver(void const * reciver);
 	bool disconnectFromEvent(AbstractEventRef const & ev);
-	bool disconnectFromDelegate(fastdelegate::DelegateMemento const & deleg);
+	bool disconnectFromDelegate(AbstractDelegate const & deleg);
 
 	ConnectionList & operator += (AbstractConnection * conn)
 	{

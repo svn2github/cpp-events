@@ -24,7 +24,7 @@ protected:
 
 	Connection0(
 		void const * sender, AbstractEvent * ev, 
-		void const * reciever, fastdelegate::DelegateMemento const & memento
+		void const * reciever, AbstractDelegate const & memento
 	)
 		: AbstractConnection(sender, ev, reciever, memento)
 		, delegate_()
@@ -52,7 +52,7 @@ protected:
 
 	Connection1(
 		void const * sender, AbstractEvent * ev, 
-		void const * reciever, fastdelegate::DelegateMemento const & memento
+		void const * reciever, AbstractDelegate const & memento
 	)
 		: AbstractConnection(sender, ev, reciever, memento)
 		, delegate_()
@@ -80,7 +80,7 @@ protected:
 
 	Connection2(
 		void const * sender, AbstractEvent * ev, 
-		void const * reciever, fastdelegate::DelegateMemento const & memento
+		void const * reciever, AbstractDelegate const & memento
 	)
 		: AbstractConnection(sender, ev, reciever, memento)
 		, delegate_()
@@ -108,7 +108,7 @@ protected:
 
 	Connection3(
 		void const * sender, AbstractEvent * ev, 
-		void const * reciever, fastdelegate::DelegateMemento const & memento
+		void const * reciever, AbstractDelegate const & memento
 	)
 		: AbstractConnection(sender, ev, reciever, memento)
 		, delegate_()
@@ -136,7 +136,7 @@ protected:
 
 	Connection4(
 		void const * sender, AbstractEvent * ev, 
-		void const * reciever, fastdelegate::DelegateMemento const & memento
+		void const * reciever, AbstractDelegate const & memento
 	)
 		: AbstractConnection(sender, ev, reciever, memento)
 		, delegate_()
@@ -164,7 +164,7 @@ protected:
 
 	Connection5(
 		void const * sender, AbstractEvent * ev, 
-		void const * reciever, fastdelegate::DelegateMemento const & memento
+		void const * reciever, AbstractDelegate const & memento
 	)
 		: AbstractConnection(sender, ev, reciever, memento)
 		, delegate_()
@@ -192,7 +192,7 @@ protected:
 
 	Connection6(
 		void const * sender, AbstractEvent * ev, 
-		void const * reciever, fastdelegate::DelegateMemento const & memento
+		void const * reciever, AbstractDelegate const & memento
 	)
 		: AbstractConnection(sender, ev, reciever, memento)
 		, delegate_()
@@ -220,7 +220,7 @@ protected:
 
 	Connection7(
 		void const * sender, AbstractEvent * ev, 
-		void const * reciever, fastdelegate::DelegateMemento const & memento
+		void const * reciever, AbstractDelegate const & memento
 	)
 		: AbstractConnection(sender, ev, reciever, memento)
 		, delegate_()

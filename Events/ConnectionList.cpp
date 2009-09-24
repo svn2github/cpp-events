@@ -53,9 +53,9 @@ bool ConnectionList::hasConnectionsWithEvent(AbstractEventRef const & ev) const
 	CHECK_FOR_CONNECTIONS((*it)->senderEventRef() == ev);
 }
 
-bool ConnectionList::hasConnectionsWithDelegate(fastdelegate::DelegateMemento const & deleg) const
+bool ConnectionList::hasConnectionsWithDelegate(AbstractDelegate const & deleg) const
 {
-	CHECK_FOR_CONNECTIONS((*it)->recieverDelegate().IsEqual(deleg));
+	CHECK_FOR_CONNECTIONS((*it)->recieverDelegate() == deleg);
 }
 
 
@@ -108,9 +108,9 @@ bool ConnectionList::disconnectFromEvent(AbstractEventRef const & ev)
 	DISCONNECT_CONNECTIONS(conn->senderEventRef() == ev);
 }
 
-bool ConnectionList::disconnectFromDelegate(fastdelegate::DelegateMemento const & deleg)
+bool ConnectionList::disconnectFromDelegate(AbstractDelegate const & deleg)
 {
-	DISCONNECT_CONNECTIONS(conn->recieverDelegate().IsEqual(deleg));
+	DISCONNECT_CONNECTIONS(conn->recieverDelegate() == deleg);
 }
 
 #undef DISCONNECT_CONNECTIONS

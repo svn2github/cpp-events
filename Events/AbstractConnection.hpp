@@ -7,6 +7,30 @@
 class AbstractEvent;
 class AbstractEventRef;
 
+//! Abstract class that represents arbitary delegate in a common form.
+class AbstractDelegate
+{
+public:
+	AbstractDelegate() : d_() {}
+	AbstractDelegate(fastdelegate::DelegateMemento const & d) : d_(d) {}
+
+	template<class T, class Y> AbstractDelegate(T obj, Y pmf)
+		: d_(fastdelegate::MakeDelegate(obj, pmf))
+	{}
+
+	bool isNull() const { return d_.empty(); }
+	void clear() { d_.clear(); }
+
+	bool operator<(AbstractDelegate const & r) const { return d_.IsLess(r.d_); }
+	bool operator>(AbstractDelegate const & r) const { return r.d_.IsLess(d_); }
+	bool operator==(AbstractDelegate const & r) const { return d_.IsEqual(r.d_); }
+	bool operator!=(AbstractDelegate const & r) const { return !d_.IsEqual(r.d_); }
+	bool operator>=(AbstractDelegate const & r) const { return !d_.IsLess(r.d_); }
+	bool operator<=(AbstractDelegate const & r) const { return !r.d_.IsLess(d_); }
+private:
+	fastdelegate::DelegateMemento d_;
+};
+
 //! Root class for all template connection classes.
 class AbstractConnection
 {
@@ -22,7 +46,7 @@ public:
 	// Typeless pointer to the receiver object (retrieved via dynamic_cast<void const *>(pObj)).
 	void const * recieverObject() const { return reciever_; }
 	// Typeless delegate of the receiver object that can be used for comparison, but cannot be invoked.
-	fastdelegate::DelegateMemento recieverDelegate() const { return targetDelegate_; }
+	AbstractDelegate recieverDelegate() const { return targetDelegate_; }
 
 	void disconnect();
 
@@ -46,7 +70,7 @@ public:
 		doRemoveDisconnectListener(fastdelegate::MakeDelegate(obj, pmf));
 	}
 protected:
-	AbstractConnection(void const * sender, AbstractEvent * ev, void const * reciever, fastdelegate::DelegateMemento const & targetDelegate)
+	AbstractConnection(void const * sender, AbstractEvent * ev, void const * reciever, AbstractDelegate const & targetDelegate)
 		: sender_(sender), event_(ev)
 		, reciever_(reciever)
 		, targetDelegate_(targetDelegate)
@@ -59,7 +83,7 @@ private:
 	void const * sender_;
 	AbstractEvent * event_;
 	void const * reciever_;
-	fastdelegate::DelegateMemento targetDelegate_;
+	AbstractDelegate targetDelegate_;
 	// Array of listeners that will be notified when this connection is broken.
 	// Order of notifications is undefined.
 	ListenersList listeners_;
