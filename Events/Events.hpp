@@ -22,7 +22,8 @@ public:
 	
 	void fire() const
 	{
-		ConnectionsVector const & conns = connections();
+		FireLock lock(this);
+		ConnectionsVector const & conns = lock.connections();
 		for(ConnectionsVector::const_iterator it = conns.begin(); it != conns.end(); ++it)
 		{
 			static_cast<ConnectionType const *>(*it)->invoke();
@@ -181,7 +182,8 @@ public:
 	
 	void fire(Param0 p0) const
 	{
-		ConnectionsVector const & conns = connections();
+		FireLock lock(this);
+		ConnectionsVector const & conns = lock.connections();
 		for(ConnectionsVector::const_iterator it = conns.begin(); it != conns.end(); ++it)
 		{
 			static_cast<ConnectionType const *>(*it)->invoke(p0);
@@ -340,7 +342,8 @@ public:
 	
 	void fire(Param0 p0, Param1 p1) const
 	{
-		ConnectionsVector const & conns = connections();
+		FireLock lock(this);
+		ConnectionsVector const & conns = lock.connections();
 		for(ConnectionsVector::const_iterator it = conns.begin(); it != conns.end(); ++it)
 		{
 			static_cast<ConnectionType const *>(*it)->invoke(p0, p1);
@@ -499,7 +502,8 @@ public:
 	
 	void fire(Param0 p0, Param1 p1, Param2 p2) const
 	{
-		ConnectionsVector const & conns = connections();
+		FireLock lock(this);
+		ConnectionsVector const & conns = lock.connections();
 		for(ConnectionsVector::const_iterator it = conns.begin(); it != conns.end(); ++it)
 		{
 			static_cast<ConnectionType const *>(*it)->invoke(p0, p1, p2);
@@ -658,7 +662,8 @@ public:
 	
 	void fire(Param0 p0, Param1 p1, Param2 p2, Param3 p3) const
 	{
-		ConnectionsVector const & conns = connections();
+		FireLock lock(this);
+		ConnectionsVector const & conns = lock.connections();
 		for(ConnectionsVector::const_iterator it = conns.begin(); it != conns.end(); ++it)
 		{
 			static_cast<ConnectionType const *>(*it)->invoke(p0, p1, p2, p3);
@@ -817,7 +822,8 @@ public:
 	
 	void fire(Param0 p0, Param1 p1, Param2 p2, Param3 p3, Param4 p4) const
 	{
-		ConnectionsVector const & conns = connections();
+		FireLock lock(this);
+		ConnectionsVector const & conns = lock.connections();
 		for(ConnectionsVector::const_iterator it = conns.begin(); it != conns.end(); ++it)
 		{
 			static_cast<ConnectionType const *>(*it)->invoke(p0, p1, p2, p3, p4);
@@ -976,7 +982,8 @@ public:
 	
 	void fire(Param0 p0, Param1 p1, Param2 p2, Param3 p3, Param4 p4, Param5 p5) const
 	{
-		ConnectionsVector const & conns = connections();
+		FireLock lock(this);
+		ConnectionsVector const & conns = lock.connections();
 		for(ConnectionsVector::const_iterator it = conns.begin(); it != conns.end(); ++it)
 		{
 			static_cast<ConnectionType const *>(*it)->invoke(p0, p1, p2, p3, p4, p5);
@@ -1135,7 +1142,8 @@ public:
 	
 	void fire(Param0 p0, Param1 p1, Param2 p2, Param3 p3, Param4 p4, Param5 p5, Param6 p6) const
 	{
-		ConnectionsVector const & conns = connections();
+		FireLock lock(this);
+		ConnectionsVector const & conns = lock.connections();
 		for(ConnectionsVector::const_iterator it = conns.begin(); it != conns.end(); ++it)
 		{
 			static_cast<ConnectionType const *>(*it)->invoke(p0, p1, p2, p3, p4, p5, p6);

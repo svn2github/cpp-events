@@ -31,6 +31,8 @@ private:
 
 void main()
 {
+	Process process;
+
 	bool x = isPolymorphic<TestClass>();
 
 	int const size_of_Client = sizeof(Client);
@@ -87,8 +89,8 @@ void main()
 		server2->processData(2, data3);
 		printf("{7}\n");
 
-		server2->dataArrived().disconnectFrom(&client);
-		server1->dataArrived().disconnectFrom(&client);
+		server2->dataArrived().disconnect(&client);
+		server1->dataArrived().disconnect(&client);
 	}
 
 	server1->processData(2, data2);

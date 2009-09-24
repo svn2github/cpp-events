@@ -128,10 +128,10 @@ private:
 class ThreadDataLocker
 {
 public:
-	ThreadDataLocker(ThreadDataRef & x) : x_(x) { x_.lock(); }
+	ThreadDataLocker(ThreadDataRef const & x) : x_(x) { x_.lock(); }
 	~ThreadDataLocker() { x_.unlock(); }
 private:
-	ThreadDataRef & x_;
+	ThreadDataRef x_;
 };
 
 #endif //THREADING__HPP

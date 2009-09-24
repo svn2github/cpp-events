@@ -23,7 +23,8 @@ public:
 	
 	void fire(@funcArgs(i)@) const
 	{
-		ConnectionsVector const & conns = connections();
+		FireLock lock(this);
+		ConnectionsVector const & conns = lock.connections();
 		for(ConnectionsVector::const_iterator it = conns.begin(); it != conns.end(); ++it)
 		{
 			static_cast<ConnectionType const *>(*it)->invoke(@callArgs(i)@);

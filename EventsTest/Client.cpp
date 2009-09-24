@@ -15,7 +15,7 @@ void Client::setServer(Server * serv)
 {
 	if(server_)
 	{
-		connections_.disconnectFromSender(server_);
+		connections_.disconnect(server_, anyReciever());
 	}
 	
 	server_ = serv;

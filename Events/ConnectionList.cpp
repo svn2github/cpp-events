@@ -35,7 +35,7 @@ void AbstractConnection::doDisconnect()
 		xt = targetList_->connections_.back();
 		xt->targetIndex_ = targetIndex_;
 		targetList_->connections_.pop_back();
-		sourceIndex_ = npos; sourceList_ = 0;
+		targetIndex_ = npos; targetList_ = 0;
 		release();
 	}
 }
@@ -81,34 +81,78 @@ void ConnectionList::connect(ConnectionList * tracker, AbstractConnection * conn
 #define const_iterate(it, container) \
 	ConnectionsVector::const_iterator it = (container).begin(); it != (container).end(); ++it
 
-#define CHECK_FOR_CONNECTIONS(Test) \
+#define A_COND true
+#define B_COND conn->recieverObject() == reciever
+#define C_COND conn->recieverDelegate() == deleg
+
+#define A_ARG anyReciever
+#define B_ARG AbstractObjectRef reciever
+#define C_ARG AbstractDelegate const & deleg
+
+#define X_COND true
+#define Y_COND conn->senderObject() == sender
+#define Z_COND conn->senderEventRef() == ev
+
+#define X_ARG anySender
+#define Y_ARG AbstractObjectRef sender
+#define Z_ARG AbstractEventRef const & ev
+
+#define MAKE_OVERLOADS(GENERATOR) \
+GENERATOR((X_ARG, B_ARG), (X_COND, B_COND)) \
+GENERATOR((X_ARG, C_ARG), (X_COND, C_COND)) \
+GENERATOR((Y_ARG, A_ARG), (Y_COND, A_COND)) \
+GENERATOR((Y_ARG, B_ARG), (Y_COND, B_COND)) \
+GENERATOR((Y_ARG, C_ARG), (Y_COND, C_COND)) \
+GENERATOR((Z_ARG, A_ARG), (Z_COND, A_COND)) \
+GENERATOR((Z_ARG, B_ARG), (Z_COND, B_COND)) \
+GENERATOR((Z_ARG, C_ARG), (Z_COND, C_COND)) \
+
+size_t ConnectionList::connectionCount() const
+{
+	ThreadDataLocker lock(lock_);
+	return connections_.size();
+}
+
+#define CONNECTION_COUNT_GENERATOR(Sign, Test) \
+size_t ConnectionList::connectionCount Sign const \
+{ \
+	ThreadDataLocker lock(lock_); \
+	size_t retVal = 0; \
 	for(const_iterate(it, connections_)) \
-	{ if(Test) return true; } \
-	return false;
+	{ \
+		AbstractConnection * conn = *it; \
+		if(Test) ++retVal; \
+	} \
+	return retVal; \
+} \
 
-bool ConnectionList::hasConnectionsWithSender(AbstractObjectRef sender) const
+MAKE_OVERLOADS(CONNECTION_COUNT_GENERATOR)
+
+#undef CONNECTION_COUNT_GENERATOR
+
+bool ConnectionList::hasConnections() const
 {
-	CHECK_FOR_CONNECTIONS((*it)->senderObject() == sender);
+	ThreadDataLocker lock(lock_);
+	return !connections_.empty();
 }
 
-bool ConnectionList::hasConnectionsWithReciever(AbstractObjectRef reciever) const
-{
-	CHECK_FOR_CONNECTIONS((*it)->recieverObject() == reciever);
-}
+#define HAS_CONNECTIONS_GENERATOR(Sign, Test) \
+bool ConnectionList::hasConnections Sign const \
+{ \
+	ThreadDataLocker lock(lock_); \
+	for(const_iterate(it, connections_)) \
+	{ \
+		AbstractConnection * conn = *it; \
+		if(Test) return true; \
+	} \
+	return false; \
+} \
 
-bool ConnectionList::hasConnectionsWithEvent(AbstractEventRef const & ev) const
-{
-	CHECK_FOR_CONNECTIONS((*it)->senderEventRef() == ev);
-}
+MAKE_OVERLOADS(HAS_CONNECTIONS_GENERATOR)
 
-bool ConnectionList::hasConnectionsWithDelegate(AbstractDelegate const & deleg) const
-{
-	CHECK_FOR_CONNECTIONS((*it)->recieverDelegate() == deleg);
-}
+#undef HAS_CONNECTIONS_GENERATOR
 
-#undef CHECK_FOR_CONNECTIONS
-
-#define DISCONNECT_CONNECTIONS(Test) \
+#define DISCONNECT_BODY_GENERATOR(Test) \
 	ConnectionsVector needRelock; \
 	size_t retVal = 0; \
 	{ \
@@ -139,40 +183,23 @@ bool ConnectionList::hasConnectionsWithDelegate(AbstractDelegate const & deleg) 
 	} \
 	return retVal;
 
+#define DISCONNECT_GENERATOR(Sign, Test) \
+size_t ConnectionList::disconnect Sign \
+{ \
+	DISCONNECT_BODY_GENERATOR(Test) \
+} \
 
 size_t ConnectionList::disconnectAll()
 {
-	DISCONNECT_CONNECTIONS(true);
+	DISCONNECT_BODY_GENERATOR(true);
 }
 
-size_t ConnectionList::disconnectFromSender(AbstractObjectRef sender)
-{
-	DISCONNECT_CONNECTIONS(conn->senderObject() == sender);
-}
+MAKE_OVERLOADS(DISCONNECT_GENERATOR)
 
-size_t ConnectionList::disconnectFromReciver(AbstractObjectRef reciever)
-{
-	DISCONNECT_CONNECTIONS(conn->recieverObject() == reciever);
-}
+#undef DISCONNECT_GENERATOR
+#undef DISCONNECT_BODY_GENERATOR
 
-size_t ConnectionList::disconnectFromEvent(AbstractEventRef const & ev)
-{
-	DISCONNECT_CONNECTIONS(conn->senderEventRef() == ev);
-}
-
-size_t ConnectionList::disconnectFromDelegate(AbstractDelegate const & deleg)
-{
-	DISCONNECT_CONNECTIONS(conn->recieverDelegate() == deleg);
-}
-
-size_t ConnectionList::disconnectObjects(AbstractObjectRef sender, AbstractObjectRef reciever)
-{
-	DISCONNECT_CONNECTIONS((conn->senderObject() == sender) && (conn->recieverObject() == reciever));
-}
-
-#undef DISCONNECT_CONNECTIONS
-
-bool ConnectionList::disconnectConnection(AbstractEventRef const & ev, AbstractDelegate const & deleg)
+bool ConnectionList::disconnectOne(AbstractEventRef const & ev, AbstractDelegate const & deleg)
 {
 	AbstractConnection * needRelock = 0;
 	{
@@ -199,4 +226,22 @@ bool ConnectionList::disconnectConnection(AbstractEventRef const & ev, AbstractD
 	needRelock->release();
 	return true;
 }
+
+#undef MAKE_OVERLOADS
+
+#undef A_COND
+#undef B_COND
+#undef C_COND
+
+#undef A_ARG
+#undef B_ARG
+#undef C_ARG
+
+#undef X_COND
+#undef Y_COND
+#undef Z_COND
+
+#undef X_ARG
+#undef Y_ARG
+#undef Z_ARG
 
