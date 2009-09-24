@@ -158,11 +158,11 @@
 			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}"
 			>
 			<File
-				RelativePath=".\AbstractConnection.cpp"
+				RelativePath=".\ConnectionList.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\ConnectionList.cpp"
+				RelativePath=".\Threading_win32.cpp"
 				>
 			</File>
 		</Filter>
@@ -192,6 +192,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\AtomicReferenceCounter.hpp"
+				>
+			</File>
+			<File
 				RelativePath=".\Connection.hpp"
 				>
 			</File>
@@ -213,6 +217,10 @@
 			</File>
 			<File
 				RelativePath=".\normalize_cast.hpp"
+				>
+			</File>
+			<File
+				RelativePath=".\Threading.hpp"
 				>
 			</File>
 			<File

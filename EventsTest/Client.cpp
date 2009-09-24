@@ -22,7 +22,7 @@ void Client::setServer(Server * serv)
 	
 	if(server_)
 	{
-		connections_ += server_->dataArrived().connect(this, &Client::processData);
+		server_->dataArrived().connect(&connections_, this, &Client::processData);
 	}
 }
 

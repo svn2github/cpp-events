@@ -12,7 +12,7 @@ public:
 	bool hasConnections() const { return connections_.hasAnyConnections(); }
 	void disconnectAll() { connections_.disconnectAll(); }
 
-	template<class T> bool isConnectedTo(T * reciever) const
+	bool isConnectedTo(AbstractObjectRef reciever) const
 	{
 		return connections_.hasConnectionsWithReciever(reciever);
 	}
@@ -22,24 +22,29 @@ public:
 		return connections_.hasConnectionsWithDelegate(reciever, pMemberFunc);
 	}
 
-	bool disconnectAllWithSender(AbstractObjectRef sender)
+	size_t disconnectAllWithSender(AbstractObjectRef sender)
 	{
 		return connections_.disconnectFromSender(sender);
 	}
 
-	bool disconnectFrom(AbstractObjectRef reciever)
+	size_t disconnectFrom(AbstractObjectRef reciever)
 	{
 		return connections_.disconnectFromReciver(reciever);
 	}
 	
-	template<class T, class Y> bool disconnectFrom(T * reciever, Y pMemberFunc)
+	template<class T, class Y> size_t disconnectFrom(T * reciever, Y pMemberFunc)
 	{
 		return disconnectFromDelegate(reciever, pMemberFunc);
 	}
 protected:
 	typedef ConnectionList::ConnectionsVector ConnectionsVector;
+	
 	ConnectionsVector const & connections() const { return connections_.connections_; }
-	AbstractConnection *  addConnection(AbstractConnection * conn){ return connections_.addConnection(conn); }
+	
+	void addConnection(ConnectionList * tracker, AbstractConnection * conn)
+	{
+		connections_.connect(tracker, conn);
+	}
 private:
 	ConnectionList connections_;
 };
@@ -69,17 +74,17 @@ public:
 		return event_ != other.event_ || sender_ != other.sender_;
 	}
 
-	bool disconnectAll()
+	size_t disconnectAll()
 	{
 		return event_->disconnectAllWithSender(sender_);
 	}
 
-	template<class T> bool disconnectFrom(T * reciever)
+	size_t disconnectFrom(AbstractObjectRef reciever)
 	{
 		return event_->disconnectFrom(reciever);
 	}
 
-	template<class T, class Y> bool disconnectFrom(T * reciever, Y pMemberFunc)
+	template<class T, class Y> size_t disconnectFrom(T * reciever, Y pMemberFunc)
 	{
 		return event_->disconnectFrom(reciever, pMemberFunc);
 	}

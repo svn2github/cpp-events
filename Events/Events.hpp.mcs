@@ -16,9 +16,9 @@ public:
 	Event@i@() {}
 	~Event@i@() {}
 
-	AbstractConnection * addConnection(ConnectionType * conn)
+	void addConnection(ConnectionList * tracker, ConnectionType * conn)
 	{
-		return AbstractEvent::addConnection(conn);
+		AbstractEvent::addConnection(tracker, conn);
 	}
 	
 	void fire(@funcArgs(i)@) const
@@ -51,53 +51,53 @@ public:
 		return EventRef@i;selArgs("<", i, ">")@(newSender, static_cast<EventType*>(senderEvent()) );
 	}
 
-	template<class T, class Y> AbstractConnection * connect(T * obj, void (Y::*pmf)(@funcArgs(i)@))
+	template<class T, class Y> void connect(ConnectionList * tracker, T * obj, void (Y::*pmf)(@funcArgs(i)@))
 	{
 		ConnectionType * conn = new ConnectionType(
 			senderObject(), senderEvent(), obj,
 			fastdelegate::MakeDelegate(obj, pmf)
 		);
-		return addConnection(conn);
+		addConnection(tracker, conn);
 	}
 
-	template<class T, class Y> AbstractConnection * connect(T const * obj, void (Y::*pmf)(@funcArgs(i)@) const)
+	template<class T, class Y> void connect(ConnectionList * tracker, T const * obj, void (Y::*pmf)(@funcArgs(i)@) const)
 	{
 		ConnectionType * conn = new ConnectionType(
 			senderObject(), senderEvent(), obj,
 			fastdelegate::MakeDelegate(obj, pmf)
 		);
-		return addConnection(conn);
+		addConnection(tracker, conn);
 	}
 
-	template<class T, class Y> AbstractConnection * connect(T * obj, Y pmf)
+	template<class T, class Y> void connect(ConnectionList * tracker, T * obj, Y pmf)
 	{
 		detail::ArgList0 stored;
-		return connectEx(obj, fastdelegate::MakeDelegate(obj, pmf), stored);
+		connectEx(tracker, obj, fastdelegate::MakeDelegate(obj, pmf), stored);
 	}
 
 @@for(int j=1; j<8; j+=1)
-	template<class T, class Y, @list("class T%", 1, j)@> AbstractConnection * connect(T * obj, Y pmf, @list("T% x%", 1, j)@)
+	template<class T, class Y, @list("class T%", 1, j)@> void connect(ConnectionList * tracker, T * obj, Y pmf, @list("T% x%", 1, j)@)
 	{
 @@for(int k=1; k<=j; k+=1)
 		typedef typename StorageType<T@k@>::Type S@k@;
 @@next
 		detail::ArgList@j@<@list("S%", 1, j)@> stored(@list("x%", 1, j)@);
-		return connectEx(obj, fastdelegate::MakeDelegate(obj, pmf), stored);
+		connectEx(tracker, obj, fastdelegate::MakeDelegate(obj, pmf), stored);
 	}
 
 @@next
 private:
-	AbstractConnection * addConnection(ConnectionType * conn)
+	void addConnection(ConnectionList * tracker, ConnectionType * conn)
 	{
-		return senderEvent()->addConnection(conn);
+		senderEvent()->addConnection(tracker, conn);
 	}
 
-	template<class DelegateClass, class StoredListClass> AbstractConnection * connectEx(AbstractObjectRef obj, DelegateClass const & deleg, StoredListClass const & stored)
+	template<class DelegateClass, class StoredListClass> void connectEx(ConnectionList * tracker, AbstractObjectRef obj, DelegateClass const & deleg, StoredListClass const & stored)
 	{
 		ConnectionType * conn = new ConnectionEx@i@<@selArgs(i, ", ")@DelegateClass, StoredListClass>(
 			senderObject(), senderEvent(), obj, deleg, stored
 		);
-		return addConnection(conn);
+		addConnection(tracker, conn);
 	}
 };
 

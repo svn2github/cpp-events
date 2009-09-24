@@ -19,6 +19,8 @@ public:
 	void test();
 
 	void registerData(Server * server);
+
+	ConnectionList * tracker() { return &connections_; }
 private:
 	Server * server_;
 	ConnectionList connections_;

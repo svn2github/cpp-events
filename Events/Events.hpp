@@ -15,9 +15,9 @@ public:
 	Event0() {}
 	~Event0() {}
 
-	AbstractConnection * addConnection(ConnectionType * conn)
+	void addConnection(ConnectionList * tracker, ConnectionType * conn)
 	{
-		return AbstractEvent::addConnection(conn);
+		AbstractEvent::addConnection(tracker, conn);
 	}
 	
 	void fire() const
@@ -50,65 +50,65 @@ public:
 		return EventRef0(newSender, static_cast<EventType*>(senderEvent()) );
 	}
 
-	template<class T, class Y> AbstractConnection * connect(T * obj, void (Y::*pmf)())
+	template<class T, class Y> void connect(ConnectionList * tracker, T * obj, void (Y::*pmf)())
 	{
 		ConnectionType * conn = new ConnectionType(
 			senderObject(), senderEvent(), obj,
 			fastdelegate::MakeDelegate(obj, pmf)
 		);
-		return addConnection(conn);
+		addConnection(tracker, conn);
 	}
 
-	template<class T, class Y> AbstractConnection * connect(T const * obj, void (Y::*pmf)() const)
+	template<class T, class Y> void connect(ConnectionList * tracker, T const * obj, void (Y::*pmf)() const)
 	{
 		ConnectionType * conn = new ConnectionType(
 			senderObject(), senderEvent(), obj,
 			fastdelegate::MakeDelegate(obj, pmf)
 		);
-		return addConnection(conn);
+		addConnection(tracker, conn);
 	}
 
-	template<class T, class Y> AbstractConnection * connect(T * obj, Y pmf)
+	template<class T, class Y> void connect(ConnectionList * tracker, T * obj, Y pmf)
 	{
 		detail::ArgList0 stored;
-		return connectEx(obj, fastdelegate::MakeDelegate(obj, pmf), stored);
+		connectEx(tracker, obj, fastdelegate::MakeDelegate(obj, pmf), stored);
 	}
 
-	template<class T, class Y, class T1> AbstractConnection * connect(T * obj, Y pmf, T1 x1)
+	template<class T, class Y, class T1> void connect(ConnectionList * tracker, T * obj, Y pmf, T1 x1)
 	{
 		typedef typename StorageType<T1>::Type S1;
 		detail::ArgList1<S1> stored(x1);
-		return connectEx(obj, fastdelegate::MakeDelegate(obj, pmf), stored);
+		connectEx(tracker, obj, fastdelegate::MakeDelegate(obj, pmf), stored);
 	}
 
-	template<class T, class Y, class T1, class T2> AbstractConnection * connect(T * obj, Y pmf, T1 x1, T2 x2)
+	template<class T, class Y, class T1, class T2> void connect(ConnectionList * tracker, T * obj, Y pmf, T1 x1, T2 x2)
 	{
 		typedef typename StorageType<T1>::Type S1;
 		typedef typename StorageType<T2>::Type S2;
 		detail::ArgList2<S1, S2> stored(x1, x2);
-		return connectEx(obj, fastdelegate::MakeDelegate(obj, pmf), stored);
+		connectEx(tracker, obj, fastdelegate::MakeDelegate(obj, pmf), stored);
 	}
 
-	template<class T, class Y, class T1, class T2, class T3> AbstractConnection * connect(T * obj, Y pmf, T1 x1, T2 x2, T3 x3)
+	template<class T, class Y, class T1, class T2, class T3> void connect(ConnectionList * tracker, T * obj, Y pmf, T1 x1, T2 x2, T3 x3)
 	{
 		typedef typename StorageType<T1>::Type S1;
 		typedef typename StorageType<T2>::Type S2;
 		typedef typename StorageType<T3>::Type S3;
 		detail::ArgList3<S1, S2, S3> stored(x1, x2, x3);
-		return connectEx(obj, fastdelegate::MakeDelegate(obj, pmf), stored);
+		connectEx(tracker, obj, fastdelegate::MakeDelegate(obj, pmf), stored);
 	}
 
-	template<class T, class Y, class T1, class T2, class T3, class T4> AbstractConnection * connect(T * obj, Y pmf, T1 x1, T2 x2, T3 x3, T4 x4)
+	template<class T, class Y, class T1, class T2, class T3, class T4> void connect(ConnectionList * tracker, T * obj, Y pmf, T1 x1, T2 x2, T3 x3, T4 x4)
 	{
 		typedef typename StorageType<T1>::Type S1;
 		typedef typename StorageType<T2>::Type S2;
 		typedef typename StorageType<T3>::Type S3;
 		typedef typename StorageType<T4>::Type S4;
 		detail::ArgList4<S1, S2, S3, S4> stored(x1, x2, x3, x4);
-		return connectEx(obj, fastdelegate::MakeDelegate(obj, pmf), stored);
+		connectEx(tracker, obj, fastdelegate::MakeDelegate(obj, pmf), stored);
 	}
 
-	template<class T, class Y, class T1, class T2, class T3, class T4, class T5> AbstractConnection * connect(T * obj, Y pmf, T1 x1, T2 x2, T3 x3, T4 x4, T5 x5)
+	template<class T, class Y, class T1, class T2, class T3, class T4, class T5> void connect(ConnectionList * tracker, T * obj, Y pmf, T1 x1, T2 x2, T3 x3, T4 x4, T5 x5)
 	{
 		typedef typename StorageType<T1>::Type S1;
 		typedef typename StorageType<T2>::Type S2;
@@ -116,10 +116,10 @@ public:
 		typedef typename StorageType<T4>::Type S4;
 		typedef typename StorageType<T5>::Type S5;
 		detail::ArgList5<S1, S2, S3, S4, S5> stored(x1, x2, x3, x4, x5);
-		return connectEx(obj, fastdelegate::MakeDelegate(obj, pmf), stored);
+		connectEx(tracker, obj, fastdelegate::MakeDelegate(obj, pmf), stored);
 	}
 
-	template<class T, class Y, class T1, class T2, class T3, class T4, class T5, class T6> AbstractConnection * connect(T * obj, Y pmf, T1 x1, T2 x2, T3 x3, T4 x4, T5 x5, T6 x6)
+	template<class T, class Y, class T1, class T2, class T3, class T4, class T5, class T6> void connect(ConnectionList * tracker, T * obj, Y pmf, T1 x1, T2 x2, T3 x3, T4 x4, T5 x5, T6 x6)
 	{
 		typedef typename StorageType<T1>::Type S1;
 		typedef typename StorageType<T2>::Type S2;
@@ -128,10 +128,10 @@ public:
 		typedef typename StorageType<T5>::Type S5;
 		typedef typename StorageType<T6>::Type S6;
 		detail::ArgList6<S1, S2, S3, S4, S5, S6> stored(x1, x2, x3, x4, x5, x6);
-		return connectEx(obj, fastdelegate::MakeDelegate(obj, pmf), stored);
+		connectEx(tracker, obj, fastdelegate::MakeDelegate(obj, pmf), stored);
 	}
 
-	template<class T, class Y, class T1, class T2, class T3, class T4, class T5, class T6, class T7> AbstractConnection * connect(T * obj, Y pmf, T1 x1, T2 x2, T3 x3, T4 x4, T5 x5, T6 x6, T7 x7)
+	template<class T, class Y, class T1, class T2, class T3, class T4, class T5, class T6, class T7> void connect(ConnectionList * tracker, T * obj, Y pmf, T1 x1, T2 x2, T3 x3, T4 x4, T5 x5, T6 x6, T7 x7)
 	{
 		typedef typename StorageType<T1>::Type S1;
 		typedef typename StorageType<T2>::Type S2;
@@ -141,21 +141,21 @@ public:
 		typedef typename StorageType<T6>::Type S6;
 		typedef typename StorageType<T7>::Type S7;
 		detail::ArgList7<S1, S2, S3, S4, S5, S6, S7> stored(x1, x2, x3, x4, x5, x6, x7);
-		return connectEx(obj, fastdelegate::MakeDelegate(obj, pmf), stored);
+		connectEx(tracker, obj, fastdelegate::MakeDelegate(obj, pmf), stored);
 	}
 
 private:
-	AbstractConnection * addConnection(ConnectionType * conn)
+	void addConnection(ConnectionList * tracker, ConnectionType * conn)
 	{
-		return senderEvent()->addConnection(conn);
+		senderEvent()->addConnection(tracker, conn);
 	}
 
-	template<class DelegateClass, class StoredListClass> AbstractConnection * connectEx(AbstractObjectRef obj, DelegateClass const & deleg, StoredListClass const & stored)
+	template<class DelegateClass, class StoredListClass> void connectEx(ConnectionList * tracker, AbstractObjectRef obj, DelegateClass const & deleg, StoredListClass const & stored)
 	{
 		ConnectionType * conn = new ConnectionEx0<DelegateClass, StoredListClass>(
 			senderObject(), senderEvent(), obj, deleg, stored
 		);
-		return addConnection(conn);
+		addConnection(tracker, conn);
 	}
 };
 
@@ -174,9 +174,9 @@ public:
 	Event1() {}
 	~Event1() {}
 
-	AbstractConnection * addConnection(ConnectionType * conn)
+	void addConnection(ConnectionList * tracker, ConnectionType * conn)
 	{
-		return AbstractEvent::addConnection(conn);
+		AbstractEvent::addConnection(tracker, conn);
 	}
 	
 	void fire(Param0 p0) const
@@ -209,65 +209,65 @@ public:
 		return EventRef1<Param0>(newSender, static_cast<EventType*>(senderEvent()) );
 	}
 
-	template<class T, class Y> AbstractConnection * connect(T * obj, void (Y::*pmf)(Param0 p0))
+	template<class T, class Y> void connect(ConnectionList * tracker, T * obj, void (Y::*pmf)(Param0 p0))
 	{
 		ConnectionType * conn = new ConnectionType(
 			senderObject(), senderEvent(), obj,
 			fastdelegate::MakeDelegate(obj, pmf)
 		);
-		return addConnection(conn);
+		addConnection(tracker, conn);
 	}
 
-	template<class T, class Y> AbstractConnection * connect(T const * obj, void (Y::*pmf)(Param0 p0) const)
+	template<class T, class Y> void connect(ConnectionList * tracker, T const * obj, void (Y::*pmf)(Param0 p0) const)
 	{
 		ConnectionType * conn = new ConnectionType(
 			senderObject(), senderEvent(), obj,
 			fastdelegate::MakeDelegate(obj, pmf)
 		);
-		return addConnection(conn);
+		addConnection(tracker, conn);
 	}
 
-	template<class T, class Y> AbstractConnection * connect(T * obj, Y pmf)
+	template<class T, class Y> void connect(ConnectionList * tracker, T * obj, Y pmf)
 	{
 		detail::ArgList0 stored;
-		return connectEx(obj, fastdelegate::MakeDelegate(obj, pmf), stored);
+		connectEx(tracker, obj, fastdelegate::MakeDelegate(obj, pmf), stored);
 	}
 
-	template<class T, class Y, class T1> AbstractConnection * connect(T * obj, Y pmf, T1 x1)
+	template<class T, class Y, class T1> void connect(ConnectionList * tracker, T * obj, Y pmf, T1 x1)
 	{
 		typedef typename StorageType<T1>::Type S1;
 		detail::ArgList1<S1> stored(x1);
-		return connectEx(obj, fastdelegate::MakeDelegate(obj, pmf), stored);
+		connectEx(tracker, obj, fastdelegate::MakeDelegate(obj, pmf), stored);
 	}
 
-	template<class T, class Y, class T1, class T2> AbstractConnection * connect(T * obj, Y pmf, T1 x1, T2 x2)
+	template<class T, class Y, class T1, class T2> void connect(ConnectionList * tracker, T * obj, Y pmf, T1 x1, T2 x2)
 	{
 		typedef typename StorageType<T1>::Type S1;
 		typedef typename StorageType<T2>::Type S2;
 		detail::ArgList2<S1, S2> stored(x1, x2);
-		return connectEx(obj, fastdelegate::MakeDelegate(obj, pmf), stored);
+		connectEx(tracker, obj, fastdelegate::MakeDelegate(obj, pmf), stored);
 	}
 
-	template<class T, class Y, class T1, class T2, class T3> AbstractConnection * connect(T * obj, Y pmf, T1 x1, T2 x2, T3 x3)
+	template<class T, class Y, class T1, class T2, class T3> void connect(ConnectionList * tracker, T * obj, Y pmf, T1 x1, T2 x2, T3 x3)
 	{
 		typedef typename StorageType<T1>::Type S1;
 		typedef typename StorageType<T2>::Type S2;
 		typedef typename StorageType<T3>::Type S3;
 		detail::ArgList3<S1, S2, S3> stored(x1, x2, x3);
-		return connectEx(obj, fastdelegate::MakeDelegate(obj, pmf), stored);
+		connectEx(tracker, obj, fastdelegate::MakeDelegate(obj, pmf), stored);
 	}
 
-	template<class T, class Y, class T1, class T2, class T3, class T4> AbstractConnection * connect(T * obj, Y pmf, T1 x1, T2 x2, T3 x3, T4 x4)
+	template<class T, class Y, class T1, class T2, class T3, class T4> void connect(ConnectionList * tracker, T * obj, Y pmf, T1 x1, T2 x2, T3 x3, T4 x4)
 	{
 		typedef typename StorageType<T1>::Type S1;
 		typedef typename StorageType<T2>::Type S2;
 		typedef typename StorageType<T3>::Type S3;
 		typedef typename StorageType<T4>::Type S4;
 		detail::ArgList4<S1, S2, S3, S4> stored(x1, x2, x3, x4);
-		return connectEx(obj, fastdelegate::MakeDelegate(obj, pmf), stored);
+		connectEx(tracker, obj, fastdelegate::MakeDelegate(obj, pmf), stored);
 	}
 
-	template<class T, class Y, class T1, class T2, class T3, class T4, class T5> AbstractConnection * connect(T * obj, Y pmf, T1 x1, T2 x2, T3 x3, T4 x4, T5 x5)
+	template<class T, class Y, class T1, class T2, class T3, class T4, class T5> void connect(ConnectionList * tracker, T * obj, Y pmf, T1 x1, T2 x2, T3 x3, T4 x4, T5 x5)
 	{
 		typedef typename StorageType<T1>::Type S1;
 		typedef typename StorageType<T2>::Type S2;
@@ -275,10 +275,10 @@ public:
 		typedef typename StorageType<T4>::Type S4;
 		typedef typename StorageType<T5>::Type S5;
 		detail::ArgList5<S1, S2, S3, S4, S5> stored(x1, x2, x3, x4, x5);
-		return connectEx(obj, fastdelegate::MakeDelegate(obj, pmf), stored);
+		connectEx(tracker, obj, fastdelegate::MakeDelegate(obj, pmf), stored);
 	}
 
-	template<class T, class Y, class T1, class T2, class T3, class T4, class T5, class T6> AbstractConnection * connect(T * obj, Y pmf, T1 x1, T2 x2, T3 x3, T4 x4, T5 x5, T6 x6)
+	template<class T, class Y, class T1, class T2, class T3, class T4, class T5, class T6> void connect(ConnectionList * tracker, T * obj, Y pmf, T1 x1, T2 x2, T3 x3, T4 x4, T5 x5, T6 x6)
 	{
 		typedef typename StorageType<T1>::Type S1;
 		typedef typename StorageType<T2>::Type S2;
@@ -287,10 +287,10 @@ public:
 		typedef typename StorageType<T5>::Type S5;
 		typedef typename StorageType<T6>::Type S6;
 		detail::ArgList6<S1, S2, S3, S4, S5, S6> stored(x1, x2, x3, x4, x5, x6);
-		return connectEx(obj, fastdelegate::MakeDelegate(obj, pmf), stored);
+		connectEx(tracker, obj, fastdelegate::MakeDelegate(obj, pmf), stored);
 	}
 
-	template<class T, class Y, class T1, class T2, class T3, class T4, class T5, class T6, class T7> AbstractConnection * connect(T * obj, Y pmf, T1 x1, T2 x2, T3 x3, T4 x4, T5 x5, T6 x6, T7 x7)
+	template<class T, class Y, class T1, class T2, class T3, class T4, class T5, class T6, class T7> void connect(ConnectionList * tracker, T * obj, Y pmf, T1 x1, T2 x2, T3 x3, T4 x4, T5 x5, T6 x6, T7 x7)
 	{
 		typedef typename StorageType<T1>::Type S1;
 		typedef typename StorageType<T2>::Type S2;
@@ -300,21 +300,21 @@ public:
 		typedef typename StorageType<T6>::Type S6;
 		typedef typename StorageType<T7>::Type S7;
 		detail::ArgList7<S1, S2, S3, S4, S5, S6, S7> stored(x1, x2, x3, x4, x5, x6, x7);
-		return connectEx(obj, fastdelegate::MakeDelegate(obj, pmf), stored);
+		connectEx(tracker, obj, fastdelegate::MakeDelegate(obj, pmf), stored);
 	}
 
 private:
-	AbstractConnection * addConnection(ConnectionType * conn)
+	void addConnection(ConnectionList * tracker, ConnectionType * conn)
 	{
-		return senderEvent()->addConnection(conn);
+		senderEvent()->addConnection(tracker, conn);
 	}
 
-	template<class DelegateClass, class StoredListClass> AbstractConnection * connectEx(AbstractObjectRef obj, DelegateClass const & deleg, StoredListClass const & stored)
+	template<class DelegateClass, class StoredListClass> void connectEx(ConnectionList * tracker, AbstractObjectRef obj, DelegateClass const & deleg, StoredListClass const & stored)
 	{
 		ConnectionType * conn = new ConnectionEx1<Param0, DelegateClass, StoredListClass>(
 			senderObject(), senderEvent(), obj, deleg, stored
 		);
-		return addConnection(conn);
+		addConnection(tracker, conn);
 	}
 };
 
@@ -333,9 +333,9 @@ public:
 	Event2() {}
 	~Event2() {}
 
-	AbstractConnection * addConnection(ConnectionType * conn)
+	void addConnection(ConnectionList * tracker, ConnectionType * conn)
 	{
-		return AbstractEvent::addConnection(conn);
+		AbstractEvent::addConnection(tracker, conn);
 	}
 	
 	void fire(Param0 p0, Param1 p1) const
@@ -368,65 +368,65 @@ public:
 		return EventRef2<Param0, Param1>(newSender, static_cast<EventType*>(senderEvent()) );
 	}
 
-	template<class T, class Y> AbstractConnection * connect(T * obj, void (Y::*pmf)(Param0 p0, Param1 p1))
+	template<class T, class Y> void connect(ConnectionList * tracker, T * obj, void (Y::*pmf)(Param0 p0, Param1 p1))
 	{
 		ConnectionType * conn = new ConnectionType(
 			senderObject(), senderEvent(), obj,
 			fastdelegate::MakeDelegate(obj, pmf)
 		);
-		return addConnection(conn);
+		addConnection(tracker, conn);
 	}
 
-	template<class T, class Y> AbstractConnection * connect(T const * obj, void (Y::*pmf)(Param0 p0, Param1 p1) const)
+	template<class T, class Y> void connect(ConnectionList * tracker, T const * obj, void (Y::*pmf)(Param0 p0, Param1 p1) const)
 	{
 		ConnectionType * conn = new ConnectionType(
 			senderObject(), senderEvent(), obj,
 			fastdelegate::MakeDelegate(obj, pmf)
 		);
-		return addConnection(conn);
+		addConnection(tracker, conn);
 	}
 
-	template<class T, class Y> AbstractConnection * connect(T * obj, Y pmf)
+	template<class T, class Y> void connect(ConnectionList * tracker, T * obj, Y pmf)
 	{
 		detail::ArgList0 stored;
-		return connectEx(obj, fastdelegate::MakeDelegate(obj, pmf), stored);
+		connectEx(tracker, obj, fastdelegate::MakeDelegate(obj, pmf), stored);
 	}
 
-	template<class T, class Y, class T1> AbstractConnection * connect(T * obj, Y pmf, T1 x1)
+	template<class T, class Y, class T1> void connect(ConnectionList * tracker, T * obj, Y pmf, T1 x1)
 	{
 		typedef typename StorageType<T1>::Type S1;
 		detail::ArgList1<S1> stored(x1);
-		return connectEx(obj, fastdelegate::MakeDelegate(obj, pmf), stored);
+		connectEx(tracker, obj, fastdelegate::MakeDelegate(obj, pmf), stored);
 	}
 
-	template<class T, class Y, class T1, class T2> AbstractConnection * connect(T * obj, Y pmf, T1 x1, T2 x2)
+	template<class T, class Y, class T1, class T2> void connect(ConnectionList * tracker, T * obj, Y pmf, T1 x1, T2 x2)
 	{
 		typedef typename StorageType<T1>::Type S1;
 		typedef typename StorageType<T2>::Type S2;
 		detail::ArgList2<S1, S2> stored(x1, x2);
-		return connectEx(obj, fastdelegate::MakeDelegate(obj, pmf), stored);
+		connectEx(tracker, obj, fastdelegate::MakeDelegate(obj, pmf), stored);
 	}
 
-	template<class T, class Y, class T1, class T2, class T3> AbstractConnection * connect(T * obj, Y pmf, T1 x1, T2 x2, T3 x3)
+	template<class T, class Y, class T1, class T2, class T3> void connect(ConnectionList * tracker, T * obj, Y pmf, T1 x1, T2 x2, T3 x3)
 	{
 		typedef typename StorageType<T1>::Type S1;
 		typedef typename StorageType<T2>::Type S2;
 		typedef typename StorageType<T3>::Type S3;
 		detail::ArgList3<S1, S2, S3> stored(x1, x2, x3);
-		return connectEx(obj, fastdelegate::MakeDelegate(obj, pmf), stored);
+		connectEx(tracker, obj, fastdelegate::MakeDelegate(obj, pmf), stored);
 	}
 
-	template<class T, class Y, class T1, class T2, class T3, class T4> AbstractConnection * connect(T * obj, Y pmf, T1 x1, T2 x2, T3 x3, T4 x4)
+	template<class T, class Y, class T1, class T2, class T3, class T4> void connect(ConnectionList * tracker, T * obj, Y pmf, T1 x1, T2 x2, T3 x3, T4 x4)
 	{
 		typedef typename StorageType<T1>::Type S1;
 		typedef typename StorageType<T2>::Type S2;
 		typedef typename StorageType<T3>::Type S3;
 		typedef typename StorageType<T4>::Type S4;
 		detail::ArgList4<S1, S2, S3, S4> stored(x1, x2, x3, x4);
-		return connectEx(obj, fastdelegate::MakeDelegate(obj, pmf), stored);
+		connectEx(tracker, obj, fastdelegate::MakeDelegate(obj, pmf), stored);
 	}
 
-	template<class T, class Y, class T1, class T2, class T3, class T4, class T5> AbstractConnection * connect(T * obj, Y pmf, T1 x1, T2 x2, T3 x3, T4 x4, T5 x5)
+	template<class T, class Y, class T1, class T2, class T3, class T4, class T5> void connect(ConnectionList * tracker, T * obj, Y pmf, T1 x1, T2 x2, T3 x3, T4 x4, T5 x5)
 	{
 		typedef typename StorageType<T1>::Type S1;
 		typedef typename StorageType<T2>::Type S2;
@@ -434,10 +434,10 @@ public:
 		typedef typename StorageType<T4>::Type S4;
 		typedef typename StorageType<T5>::Type S5;
 		detail::ArgList5<S1, S2, S3, S4, S5> stored(x1, x2, x3, x4, x5);
-		return connectEx(obj, fastdelegate::MakeDelegate(obj, pmf), stored);
+		connectEx(tracker, obj, fastdelegate::MakeDelegate(obj, pmf), stored);
 	}
 
-	template<class T, class Y, class T1, class T2, class T3, class T4, class T5, class T6> AbstractConnection * connect(T * obj, Y pmf, T1 x1, T2 x2, T3 x3, T4 x4, T5 x5, T6 x6)
+	template<class T, class Y, class T1, class T2, class T3, class T4, class T5, class T6> void connect(ConnectionList * tracker, T * obj, Y pmf, T1 x1, T2 x2, T3 x3, T4 x4, T5 x5, T6 x6)
 	{
 		typedef typename StorageType<T1>::Type S1;
 		typedef typename StorageType<T2>::Type S2;
@@ -446,10 +446,10 @@ public:
 		typedef typename StorageType<T5>::Type S5;
 		typedef typename StorageType<T6>::Type S6;
 		detail::ArgList6<S1, S2, S3, S4, S5, S6> stored(x1, x2, x3, x4, x5, x6);
-		return connectEx(obj, fastdelegate::MakeDelegate(obj, pmf), stored);
+		connectEx(tracker, obj, fastdelegate::MakeDelegate(obj, pmf), stored);
 	}
 
-	template<class T, class Y, class T1, class T2, class T3, class T4, class T5, class T6, class T7> AbstractConnection * connect(T * obj, Y pmf, T1 x1, T2 x2, T3 x3, T4 x4, T5 x5, T6 x6, T7 x7)
+	template<class T, class Y, class T1, class T2, class T3, class T4, class T5, class T6, class T7> void connect(ConnectionList * tracker, T * obj, Y pmf, T1 x1, T2 x2, T3 x3, T4 x4, T5 x5, T6 x6, T7 x7)
 	{
 		typedef typename StorageType<T1>::Type S1;
 		typedef typename StorageType<T2>::Type S2;
@@ -459,21 +459,21 @@ public:
 		typedef typename StorageType<T6>::Type S6;
 		typedef typename StorageType<T7>::Type S7;
 		detail::ArgList7<S1, S2, S3, S4, S5, S6, S7> stored(x1, x2, x3, x4, x5, x6, x7);
-		return connectEx(obj, fastdelegate::MakeDelegate(obj, pmf), stored);
+		connectEx(tracker, obj, fastdelegate::MakeDelegate(obj, pmf), stored);
 	}
 
 private:
-	AbstractConnection * addConnection(ConnectionType * conn)
+	void addConnection(ConnectionList * tracker, ConnectionType * conn)
 	{
-		return senderEvent()->addConnection(conn);
+		senderEvent()->addConnection(tracker, conn);
 	}
 
-	template<class DelegateClass, class StoredListClass> AbstractConnection * connectEx(AbstractObjectRef obj, DelegateClass const & deleg, StoredListClass const & stored)
+	template<class DelegateClass, class StoredListClass> void connectEx(ConnectionList * tracker, AbstractObjectRef obj, DelegateClass const & deleg, StoredListClass const & stored)
 	{
 		ConnectionType * conn = new ConnectionEx2<Param0, Param1, DelegateClass, StoredListClass>(
 			senderObject(), senderEvent(), obj, deleg, stored
 		);
-		return addConnection(conn);
+		addConnection(tracker, conn);
 	}
 };
 
@@ -492,9 +492,9 @@ public:
 	Event3() {}
 	~Event3() {}
 
-	AbstractConnection * addConnection(ConnectionType * conn)
+	void addConnection(ConnectionList * tracker, ConnectionType * conn)
 	{
-		return AbstractEvent::addConnection(conn);
+		AbstractEvent::addConnection(tracker, conn);
 	}
 	
 	void fire(Param0 p0, Param1 p1, Param2 p2) const
@@ -527,65 +527,65 @@ public:
 		return EventRef3<Param0, Param1, Param2>(newSender, static_cast<EventType*>(senderEvent()) );
 	}
 
-	template<class T, class Y> AbstractConnection * connect(T * obj, void (Y::*pmf)(Param0 p0, Param1 p1, Param2 p2))
+	template<class T, class Y> void connect(ConnectionList * tracker, T * obj, void (Y::*pmf)(Param0 p0, Param1 p1, Param2 p2))
 	{
 		ConnectionType * conn = new ConnectionType(
 			senderObject(), senderEvent(), obj,
 			fastdelegate::MakeDelegate(obj, pmf)
 		);
-		return addConnection(conn);
+		addConnection(tracker, conn);
 	}
 
-	template<class T, class Y> AbstractConnection * connect(T const * obj, void (Y::*pmf)(Param0 p0, Param1 p1, Param2 p2) const)
+	template<class T, class Y> void connect(ConnectionList * tracker, T const * obj, void (Y::*pmf)(Param0 p0, Param1 p1, Param2 p2) const)
 	{
 		ConnectionType * conn = new ConnectionType(
 			senderObject(), senderEvent(), obj,
 			fastdelegate::MakeDelegate(obj, pmf)
 		);
-		return addConnection(conn);
+		addConnection(tracker, conn);
 	}
 
-	template<class T, class Y> AbstractConnection * connect(T * obj, Y pmf)
+	template<class T, class Y> void connect(ConnectionList * tracker, T * obj, Y pmf)
 	{
 		detail::ArgList0 stored;
-		return connectEx(obj, fastdelegate::MakeDelegate(obj, pmf), stored);
+		connectEx(tracker, obj, fastdelegate::MakeDelegate(obj, pmf), stored);
 	}
 
-	template<class T, class Y, class T1> AbstractConnection * connect(T * obj, Y pmf, T1 x1)
+	template<class T, class Y, class T1> void connect(ConnectionList * tracker, T * obj, Y pmf, T1 x1)
 	{
 		typedef typename StorageType<T1>::Type S1;
 		detail::ArgList1<S1> stored(x1);
-		return connectEx(obj, fastdelegate::MakeDelegate(obj, pmf), stored);
+		connectEx(tracker, obj, fastdelegate::MakeDelegate(obj, pmf), stored);
 	}
 
-	template<class T, class Y, class T1, class T2> AbstractConnection * connect(T * obj, Y pmf, T1 x1, T2 x2)
+	template<class T, class Y, class T1, class T2> void connect(ConnectionList * tracker, T * obj, Y pmf, T1 x1, T2 x2)
 	{
 		typedef typename StorageType<T1>::Type S1;
 		typedef typename StorageType<T2>::Type S2;
 		detail::ArgList2<S1, S2> stored(x1, x2);
-		return connectEx(obj, fastdelegate::MakeDelegate(obj, pmf), stored);
+		connectEx(tracker, obj, fastdelegate::MakeDelegate(obj, pmf), stored);
 	}
 
-	template<class T, class Y, class T1, class T2, class T3> AbstractConnection * connect(T * obj, Y pmf, T1 x1, T2 x2, T3 x3)
+	template<class T, class Y, class T1, class T2, class T3> void connect(ConnectionList * tracker, T * obj, Y pmf, T1 x1, T2 x2, T3 x3)
 	{
 		typedef typename StorageType<T1>::Type S1;
 		typedef typename StorageType<T2>::Type S2;
 		typedef typename StorageType<T3>::Type S3;
 		detail::ArgList3<S1, S2, S3> stored(x1, x2, x3);
-		return connectEx(obj, fastdelegate::MakeDelegate(obj, pmf), stored);
+		connectEx(tracker, obj, fastdelegate::MakeDelegate(obj, pmf), stored);
 	}
 
-	template<class T, class Y, class T1, class T2, class T3, class T4> AbstractConnection * connect(T * obj, Y pmf, T1 x1, T2 x2, T3 x3, T4 x4)
+	template<class T, class Y, class T1, class T2, class T3, class T4> void connect(ConnectionList * tracker, T * obj, Y pmf, T1 x1, T2 x2, T3 x3, T4 x4)
 	{
 		typedef typename StorageType<T1>::Type S1;
 		typedef typename StorageType<T2>::Type S2;
 		typedef typename StorageType<T3>::Type S3;
 		typedef typename StorageType<T4>::Type S4;
 		detail::ArgList4<S1, S2, S3, S4> stored(x1, x2, x3, x4);
-		return connectEx(obj, fastdelegate::MakeDelegate(obj, pmf), stored);
+		connectEx(tracker, obj, fastdelegate::MakeDelegate(obj, pmf), stored);
 	}
 
-	template<class T, class Y, class T1, class T2, class T3, class T4, class T5> AbstractConnection * connect(T * obj, Y pmf, T1 x1, T2 x2, T3 x3, T4 x4, T5 x5)
+	template<class T, class Y, class T1, class T2, class T3, class T4, class T5> void connect(ConnectionList * tracker, T * obj, Y pmf, T1 x1, T2 x2, T3 x3, T4 x4, T5 x5)
 	{
 		typedef typename StorageType<T1>::Type S1;
 		typedef typename StorageType<T2>::Type S2;
@@ -593,10 +593,10 @@ public:
 		typedef typename StorageType<T4>::Type S4;
 		typedef typename StorageType<T5>::Type S5;
 		detail::ArgList5<S1, S2, S3, S4, S5> stored(x1, x2, x3, x4, x5);
-		return connectEx(obj, fastdelegate::MakeDelegate(obj, pmf), stored);
+		connectEx(tracker, obj, fastdelegate::MakeDelegate(obj, pmf), stored);
 	}
 
-	template<class T, class Y, class T1, class T2, class T3, class T4, class T5, class T6> AbstractConnection * connect(T * obj, Y pmf, T1 x1, T2 x2, T3 x3, T4 x4, T5 x5, T6 x6)
+	template<class T, class Y, class T1, class T2, class T3, class T4, class T5, class T6> void connect(ConnectionList * tracker, T * obj, Y pmf, T1 x1, T2 x2, T3 x3, T4 x4, T5 x5, T6 x6)
 	{
 		typedef typename StorageType<T1>::Type S1;
 		typedef typename StorageType<T2>::Type S2;
@@ -605,10 +605,10 @@ public:
 		typedef typename StorageType<T5>::Type S5;
 		typedef typename StorageType<T6>::Type S6;
 		detail::ArgList6<S1, S2, S3, S4, S5, S6> stored(x1, x2, x3, x4, x5, x6);
-		return connectEx(obj, fastdelegate::MakeDelegate(obj, pmf), stored);
+		connectEx(tracker, obj, fastdelegate::MakeDelegate(obj, pmf), stored);
 	}
 
-	template<class T, class Y, class T1, class T2, class T3, class T4, class T5, class T6, class T7> AbstractConnection * connect(T * obj, Y pmf, T1 x1, T2 x2, T3 x3, T4 x4, T5 x5, T6 x6, T7 x7)
+	template<class T, class Y, class T1, class T2, class T3, class T4, class T5, class T6, class T7> void connect(ConnectionList * tracker, T * obj, Y pmf, T1 x1, T2 x2, T3 x3, T4 x4, T5 x5, T6 x6, T7 x7)
 	{
 		typedef typename StorageType<T1>::Type S1;
 		typedef typename StorageType<T2>::Type S2;
@@ -618,21 +618,21 @@ public:
 		typedef typename StorageType<T6>::Type S6;
 		typedef typename StorageType<T7>::Type S7;
 		detail::ArgList7<S1, S2, S3, S4, S5, S6, S7> stored(x1, x2, x3, x4, x5, x6, x7);
-		return connectEx(obj, fastdelegate::MakeDelegate(obj, pmf), stored);
+		connectEx(tracker, obj, fastdelegate::MakeDelegate(obj, pmf), stored);
 	}
 
 private:
-	AbstractConnection * addConnection(ConnectionType * conn)
+	void addConnection(ConnectionList * tracker, ConnectionType * conn)
 	{
-		return senderEvent()->addConnection(conn);
+		senderEvent()->addConnection(tracker, conn);
 	}
 
-	template<class DelegateClass, class StoredListClass> AbstractConnection * connectEx(AbstractObjectRef obj, DelegateClass const & deleg, StoredListClass const & stored)
+	template<class DelegateClass, class StoredListClass> void connectEx(ConnectionList * tracker, AbstractObjectRef obj, DelegateClass const & deleg, StoredListClass const & stored)
 	{
 		ConnectionType * conn = new ConnectionEx3<Param0, Param1, Param2, DelegateClass, StoredListClass>(
 			senderObject(), senderEvent(), obj, deleg, stored
 		);
-		return addConnection(conn);
+		addConnection(tracker, conn);
 	}
 };
 
@@ -651,9 +651,9 @@ public:
 	Event4() {}
 	~Event4() {}
 
-	AbstractConnection * addConnection(ConnectionType * conn)
+	void addConnection(ConnectionList * tracker, ConnectionType * conn)
 	{
-		return AbstractEvent::addConnection(conn);
+		AbstractEvent::addConnection(tracker, conn);
 	}
 	
 	void fire(Param0 p0, Param1 p1, Param2 p2, Param3 p3) const
@@ -686,65 +686,65 @@ public:
 		return EventRef4<Param0, Param1, Param2, Param3>(newSender, static_cast<EventType*>(senderEvent()) );
 	}
 
-	template<class T, class Y> AbstractConnection * connect(T * obj, void (Y::*pmf)(Param0 p0, Param1 p1, Param2 p2, Param3 p3))
+	template<class T, class Y> void connect(ConnectionList * tracker, T * obj, void (Y::*pmf)(Param0 p0, Param1 p1, Param2 p2, Param3 p3))
 	{
 		ConnectionType * conn = new ConnectionType(
 			senderObject(), senderEvent(), obj,
 			fastdelegate::MakeDelegate(obj, pmf)
 		);
-		return addConnection(conn);
+		addConnection(tracker, conn);
 	}
 
-	template<class T, class Y> AbstractConnection * connect(T const * obj, void (Y::*pmf)(Param0 p0, Param1 p1, Param2 p2, Param3 p3) const)
+	template<class T, class Y> void connect(ConnectionList * tracker, T const * obj, void (Y::*pmf)(Param0 p0, Param1 p1, Param2 p2, Param3 p3) const)
 	{
 		ConnectionType * conn = new ConnectionType(
 			senderObject(), senderEvent(), obj,
 			fastdelegate::MakeDelegate(obj, pmf)
 		);
-		return addConnection(conn);
+		addConnection(tracker, conn);
 	}
 
-	template<class T, class Y> AbstractConnection * connect(T * obj, Y pmf)
+	template<class T, class Y> void connect(ConnectionList * tracker, T * obj, Y pmf)
 	{
 		detail::ArgList0 stored;
-		return connectEx(obj, fastdelegate::MakeDelegate(obj, pmf), stored);
+		connectEx(tracker, obj, fastdelegate::MakeDelegate(obj, pmf), stored);
 	}
 
-	template<class T, class Y, class T1> AbstractConnection * connect(T * obj, Y pmf, T1 x1)
+	template<class T, class Y, class T1> void connect(ConnectionList * tracker, T * obj, Y pmf, T1 x1)
 	{
 		typedef typename StorageType<T1>::Type S1;
 		detail::ArgList1<S1> stored(x1);
-		return connectEx(obj, fastdelegate::MakeDelegate(obj, pmf), stored);
+		connectEx(tracker, obj, fastdelegate::MakeDelegate(obj, pmf), stored);
 	}
 
-	template<class T, class Y, class T1, class T2> AbstractConnection * connect(T * obj, Y pmf, T1 x1, T2 x2)
+	template<class T, class Y, class T1, class T2> void connect(ConnectionList * tracker, T * obj, Y pmf, T1 x1, T2 x2)
 	{
 		typedef typename StorageType<T1>::Type S1;
 		typedef typename StorageType<T2>::Type S2;
 		detail::ArgList2<S1, S2> stored(x1, x2);
-		return connectEx(obj, fastdelegate::MakeDelegate(obj, pmf), stored);
+		connectEx(tracker, obj, fastdelegate::MakeDelegate(obj, pmf), stored);
 	}
 
-	template<class T, class Y, class T1, class T2, class T3> AbstractConnection * connect(T * obj, Y pmf, T1 x1, T2 x2, T3 x3)
+	template<class T, class Y, class T1, class T2, class T3> void connect(ConnectionList * tracker, T * obj, Y pmf, T1 x1, T2 x2, T3 x3)
 	{
 		typedef typename StorageType<T1>::Type S1;
 		typedef typename StorageType<T2>::Type S2;
 		typedef typename StorageType<T3>::Type S3;
 		detail::ArgList3<S1, S2, S3> stored(x1, x2, x3);
-		return connectEx(obj, fastdelegate::MakeDelegate(obj, pmf), stored);
+		connectEx(tracker, obj, fastdelegate::MakeDelegate(obj, pmf), stored);
 	}
 
-	template<class T, class Y, class T1, class T2, class T3, class T4> AbstractConnection * connect(T * obj, Y pmf, T1 x1, T2 x2, T3 x3, T4 x4)
+	template<class T, class Y, class T1, class T2, class T3, class T4> void connect(ConnectionList * tracker, T * obj, Y pmf, T1 x1, T2 x2, T3 x3, T4 x4)
 	{
 		typedef typename StorageType<T1>::Type S1;
 		typedef typename StorageType<T2>::Type S2;
 		typedef typename StorageType<T3>::Type S3;
 		typedef typename StorageType<T4>::Type S4;
 		detail::ArgList4<S1, S2, S3, S4> stored(x1, x2, x3, x4);
-		return connectEx(obj, fastdelegate::MakeDelegate(obj, pmf), stored);
+		connectEx(tracker, obj, fastdelegate::MakeDelegate(obj, pmf), stored);
 	}
 
-	template<class T, class Y, class T1, class T2, class T3, class T4, class T5> AbstractConnection * connect(T * obj, Y pmf, T1 x1, T2 x2, T3 x3, T4 x4, T5 x5)
+	template<class T, class Y, class T1, class T2, class T3, class T4, class T5> void connect(ConnectionList * tracker, T * obj, Y pmf, T1 x1, T2 x2, T3 x3, T4 x4, T5 x5)
 	{
 		typedef typename StorageType<T1>::Type S1;
 		typedef typename StorageType<T2>::Type S2;
@@ -752,10 +752,10 @@ public:
 		typedef typename StorageType<T4>::Type S4;
 		typedef typename StorageType<T5>::Type S5;
 		detail::ArgList5<S1, S2, S3, S4, S5> stored(x1, x2, x3, x4, x5);
-		return connectEx(obj, fastdelegate::MakeDelegate(obj, pmf), stored);
+		connectEx(tracker, obj, fastdelegate::MakeDelegate(obj, pmf), stored);
 	}
 
-	template<class T, class Y, class T1, class T2, class T3, class T4, class T5, class T6> AbstractConnection * connect(T * obj, Y pmf, T1 x1, T2 x2, T3 x3, T4 x4, T5 x5, T6 x6)
+	template<class T, class Y, class T1, class T2, class T3, class T4, class T5, class T6> void connect(ConnectionList * tracker, T * obj, Y pmf, T1 x1, T2 x2, T3 x3, T4 x4, T5 x5, T6 x6)
 	{
 		typedef typename StorageType<T1>::Type S1;
 		typedef typename StorageType<T2>::Type S2;
@@ -764,10 +764,10 @@ public:
 		typedef typename StorageType<T5>::Type S5;
 		typedef typename StorageType<T6>::Type S6;
 		detail::ArgList6<S1, S2, S3, S4, S5, S6> stored(x1, x2, x3, x4, x5, x6);
-		return connectEx(obj, fastdelegate::MakeDelegate(obj, pmf), stored);
+		connectEx(tracker, obj, fastdelegate::MakeDelegate(obj, pmf), stored);
 	}
 
-	template<class T, class Y, class T1, class T2, class T3, class T4, class T5, class T6, class T7> AbstractConnection * connect(T * obj, Y pmf, T1 x1, T2 x2, T3 x3, T4 x4, T5 x5, T6 x6, T7 x7)
+	template<class T, class Y, class T1, class T2, class T3, class T4, class T5, class T6, class T7> void connect(ConnectionList * tracker, T * obj, Y pmf, T1 x1, T2 x2, T3 x3, T4 x4, T5 x5, T6 x6, T7 x7)
 	{
 		typedef typename StorageType<T1>::Type S1;
 		typedef typename StorageType<T2>::Type S2;
@@ -777,21 +777,21 @@ public:
 		typedef typename StorageType<T6>::Type S6;
 		typedef typename StorageType<T7>::Type S7;
 		detail::ArgList7<S1, S2, S3, S4, S5, S6, S7> stored(x1, x2, x3, x4, x5, x6, x7);
-		return connectEx(obj, fastdelegate::MakeDelegate(obj, pmf), stored);
+		connectEx(tracker, obj, fastdelegate::MakeDelegate(obj, pmf), stored);
 	}
 
 private:
-	AbstractConnection * addConnection(ConnectionType * conn)
+	void addConnection(ConnectionList * tracker, ConnectionType * conn)
 	{
-		return senderEvent()->addConnection(conn);
+		senderEvent()->addConnection(tracker, conn);
 	}
 
-	template<class DelegateClass, class StoredListClass> AbstractConnection * connectEx(AbstractObjectRef obj, DelegateClass const & deleg, StoredListClass const & stored)
+	template<class DelegateClass, class StoredListClass> void connectEx(ConnectionList * tracker, AbstractObjectRef obj, DelegateClass const & deleg, StoredListClass const & stored)
 	{
 		ConnectionType * conn = new ConnectionEx4<Param0, Param1, Param2, Param3, DelegateClass, StoredListClass>(
 			senderObject(), senderEvent(), obj, deleg, stored
 		);
-		return addConnection(conn);
+		addConnection(tracker, conn);
 	}
 };
 
@@ -810,9 +810,9 @@ public:
 	Event5() {}
 	~Event5() {}
 
-	AbstractConnection * addConnection(ConnectionType * conn)
+	void addConnection(ConnectionList * tracker, ConnectionType * conn)
 	{
-		return AbstractEvent::addConnection(conn);
+		AbstractEvent::addConnection(tracker, conn);
 	}
 	
 	void fire(Param0 p0, Param1 p1, Param2 p2, Param3 p3, Param4 p4) const
@@ -845,65 +845,65 @@ public:
 		return EventRef5<Param0, Param1, Param2, Param3, Param4>(newSender, static_cast<EventType*>(senderEvent()) );
 	}
 
-	template<class T, class Y> AbstractConnection * connect(T * obj, void (Y::*pmf)(Param0 p0, Param1 p1, Param2 p2, Param3 p3, Param4 p4))
+	template<class T, class Y> void connect(ConnectionList * tracker, T * obj, void (Y::*pmf)(Param0 p0, Param1 p1, Param2 p2, Param3 p3, Param4 p4))
 	{
 		ConnectionType * conn = new ConnectionType(
 			senderObject(), senderEvent(), obj,
 			fastdelegate::MakeDelegate(obj, pmf)
 		);
-		return addConnection(conn);
+		addConnection(tracker, conn);
 	}
 
-	template<class T, class Y> AbstractConnection * connect(T const * obj, void (Y::*pmf)(Param0 p0, Param1 p1, Param2 p2, Param3 p3, Param4 p4) const)
+	template<class T, class Y> void connect(ConnectionList * tracker, T const * obj, void (Y::*pmf)(Param0 p0, Param1 p1, Param2 p2, Param3 p3, Param4 p4) const)
 	{
 		ConnectionType * conn = new ConnectionType(
 			senderObject(), senderEvent(), obj,
 			fastdelegate::MakeDelegate(obj, pmf)
 		);
-		return addConnection(conn);
+		addConnection(tracker, conn);
 	}
 
-	template<class T, class Y> AbstractConnection * connect(T * obj, Y pmf)
+	template<class T, class Y> void connect(ConnectionList * tracker, T * obj, Y pmf)
 	{
 		detail::ArgList0 stored;
-		return connectEx(obj, fastdelegate::MakeDelegate(obj, pmf), stored);
+		connectEx(tracker, obj, fastdelegate::MakeDelegate(obj, pmf), stored);
 	}
 
-	template<class T, class Y, class T1> AbstractConnection * connect(T * obj, Y pmf, T1 x1)
+	template<class T, class Y, class T1> void connect(ConnectionList * tracker, T * obj, Y pmf, T1 x1)
 	{
 		typedef typename StorageType<T1>::Type S1;
 		detail::ArgList1<S1> stored(x1);
-		return connectEx(obj, fastdelegate::MakeDelegate(obj, pmf), stored);
+		connectEx(tracker, obj, fastdelegate::MakeDelegate(obj, pmf), stored);
 	}
 
-	template<class T, class Y, class T1, class T2> AbstractConnection * connect(T * obj, Y pmf, T1 x1, T2 x2)
+	template<class T, class Y, class T1, class T2> void connect(ConnectionList * tracker, T * obj, Y pmf, T1 x1, T2 x2)
 	{
 		typedef typename StorageType<T1>::Type S1;
 		typedef typename StorageType<T2>::Type S2;
 		detail::ArgList2<S1, S2> stored(x1, x2);
-		return connectEx(obj, fastdelegate::MakeDelegate(obj, pmf), stored);
+		connectEx(tracker, obj, fastdelegate::MakeDelegate(obj, pmf), stored);
 	}
 
-	template<class T, class Y, class T1, class T2, class T3> AbstractConnection * connect(T * obj, Y pmf, T1 x1, T2 x2, T3 x3)
+	template<class T, class Y, class T1, class T2, class T3> void connect(ConnectionList * tracker, T * obj, Y pmf, T1 x1, T2 x2, T3 x3)
 	{
 		typedef typename StorageType<T1>::Type S1;
 		typedef typename StorageType<T2>::Type S2;
 		typedef typename StorageType<T3>::Type S3;
 		detail::ArgList3<S1, S2, S3> stored(x1, x2, x3);
-		return connectEx(obj, fastdelegate::MakeDelegate(obj, pmf), stored);
+		connectEx(tracker, obj, fastdelegate::MakeDelegate(obj, pmf), stored);
 	}
 
-	template<class T, class Y, class T1, class T2, class T3, class T4> AbstractConnection * connect(T * obj, Y pmf, T1 x1, T2 x2, T3 x3, T4 x4)
+	template<class T, class Y, class T1, class T2, class T3, class T4> void connect(ConnectionList * tracker, T * obj, Y pmf, T1 x1, T2 x2, T3 x3, T4 x4)
 	{
 		typedef typename StorageType<T1>::Type S1;
 		typedef typename StorageType<T2>::Type S2;
 		typedef typename StorageType<T3>::Type S3;
 		typedef typename StorageType<T4>::Type S4;
 		detail::ArgList4<S1, S2, S3, S4> stored(x1, x2, x3, x4);
-		return connectEx(obj, fastdelegate::MakeDelegate(obj, pmf), stored);
+		connectEx(tracker, obj, fastdelegate::MakeDelegate(obj, pmf), stored);
 	}
 
-	template<class T, class Y, class T1, class T2, class T3, class T4, class T5> AbstractConnection * connect(T * obj, Y pmf, T1 x1, T2 x2, T3 x3, T4 x4, T5 x5)
+	template<class T, class Y, class T1, class T2, class T3, class T4, class T5> void connect(ConnectionList * tracker, T * obj, Y pmf, T1 x1, T2 x2, T3 x3, T4 x4, T5 x5)
 	{
 		typedef typename StorageType<T1>::Type S1;
 		typedef typename StorageType<T2>::Type S2;
@@ -911,10 +911,10 @@ public:
 		typedef typename StorageType<T4>::Type S4;
 		typedef typename StorageType<T5>::Type S5;
 		detail::ArgList5<S1, S2, S3, S4, S5> stored(x1, x2, x3, x4, x5);
-		return connectEx(obj, fastdelegate::MakeDelegate(obj, pmf), stored);
+		connectEx(tracker, obj, fastdelegate::MakeDelegate(obj, pmf), stored);
 	}
 
-	template<class T, class Y, class T1, class T2, class T3, class T4, class T5, class T6> AbstractConnection * connect(T * obj, Y pmf, T1 x1, T2 x2, T3 x3, T4 x4, T5 x5, T6 x6)
+	template<class T, class Y, class T1, class T2, class T3, class T4, class T5, class T6> void connect(ConnectionList * tracker, T * obj, Y pmf, T1 x1, T2 x2, T3 x3, T4 x4, T5 x5, T6 x6)
 	{
 		typedef typename StorageType<T1>::Type S1;
 		typedef typename StorageType<T2>::Type S2;
@@ -923,10 +923,10 @@ public:
 		typedef typename StorageType<T5>::Type S5;
 		typedef typename StorageType<T6>::Type S6;
 		detail::ArgList6<S1, S2, S3, S4, S5, S6> stored(x1, x2, x3, x4, x5, x6);
-		return connectEx(obj, fastdelegate::MakeDelegate(obj, pmf), stored);
+		connectEx(tracker, obj, fastdelegate::MakeDelegate(obj, pmf), stored);
 	}
 
-	template<class T, class Y, class T1, class T2, class T3, class T4, class T5, class T6, class T7> AbstractConnection * connect(T * obj, Y pmf, T1 x1, T2 x2, T3 x3, T4 x4, T5 x5, T6 x6, T7 x7)
+	template<class T, class Y, class T1, class T2, class T3, class T4, class T5, class T6, class T7> void connect(ConnectionList * tracker, T * obj, Y pmf, T1 x1, T2 x2, T3 x3, T4 x4, T5 x5, T6 x6, T7 x7)
 	{
 		typedef typename StorageType<T1>::Type S1;
 		typedef typename StorageType<T2>::Type S2;
@@ -936,21 +936,21 @@ public:
 		typedef typename StorageType<T6>::Type S6;
 		typedef typename StorageType<T7>::Type S7;
 		detail::ArgList7<S1, S2, S3, S4, S5, S6, S7> stored(x1, x2, x3, x4, x5, x6, x7);
-		return connectEx(obj, fastdelegate::MakeDelegate(obj, pmf), stored);
+		connectEx(tracker, obj, fastdelegate::MakeDelegate(obj, pmf), stored);
 	}
 
 private:
-	AbstractConnection * addConnection(ConnectionType * conn)
+	void addConnection(ConnectionList * tracker, ConnectionType * conn)
 	{
-		return senderEvent()->addConnection(conn);
+		senderEvent()->addConnection(tracker, conn);
 	}
 
-	template<class DelegateClass, class StoredListClass> AbstractConnection * connectEx(AbstractObjectRef obj, DelegateClass const & deleg, StoredListClass const & stored)
+	template<class DelegateClass, class StoredListClass> void connectEx(ConnectionList * tracker, AbstractObjectRef obj, DelegateClass const & deleg, StoredListClass const & stored)
 	{
 		ConnectionType * conn = new ConnectionEx5<Param0, Param1, Param2, Param3, Param4, DelegateClass, StoredListClass>(
 			senderObject(), senderEvent(), obj, deleg, stored
 		);
-		return addConnection(conn);
+		addConnection(tracker, conn);
 	}
 };
 
@@ -969,9 +969,9 @@ public:
 	Event6() {}
 	~Event6() {}
 
-	AbstractConnection * addConnection(ConnectionType * conn)
+	void addConnection(ConnectionList * tracker, ConnectionType * conn)
 	{
-		return AbstractEvent::addConnection(conn);
+		AbstractEvent::addConnection(tracker, conn);
 	}
 	
 	void fire(Param0 p0, Param1 p1, Param2 p2, Param3 p3, Param4 p4, Param5 p5) const
@@ -1004,65 +1004,65 @@ public:
 		return EventRef6<Param0, Param1, Param2, Param3, Param4, Param5>(newSender, static_cast<EventType*>(senderEvent()) );
 	}
 
-	template<class T, class Y> AbstractConnection * connect(T * obj, void (Y::*pmf)(Param0 p0, Param1 p1, Param2 p2, Param3 p3, Param4 p4, Param5 p5))
+	template<class T, class Y> void connect(ConnectionList * tracker, T * obj, void (Y::*pmf)(Param0 p0, Param1 p1, Param2 p2, Param3 p3, Param4 p4, Param5 p5))
 	{
 		ConnectionType * conn = new ConnectionType(
 			senderObject(), senderEvent(), obj,
 			fastdelegate::MakeDelegate(obj, pmf)
 		);
-		return addConnection(conn);
+		addConnection(tracker, conn);
 	}
 
-	template<class T, class Y> AbstractConnection * connect(T const * obj, void (Y::*pmf)(Param0 p0, Param1 p1, Param2 p2, Param3 p3, Param4 p4, Param5 p5) const)
+	template<class T, class Y> void connect(ConnectionList * tracker, T const * obj, void (Y::*pmf)(Param0 p0, Param1 p1, Param2 p2, Param3 p3, Param4 p4, Param5 p5) const)
 	{
 		ConnectionType * conn = new ConnectionType(
 			senderObject(), senderEvent(), obj,
 			fastdelegate::MakeDelegate(obj, pmf)
 		);
-		return addConnection(conn);
+		addConnection(tracker, conn);
 	}
 
-	template<class T, class Y> AbstractConnection * connect(T * obj, Y pmf)
+	template<class T, class Y> void connect(ConnectionList * tracker, T * obj, Y pmf)
 	{
 		detail::ArgList0 stored;
-		return connectEx(obj, fastdelegate::MakeDelegate(obj, pmf), stored);
+		connectEx(tracker, obj, fastdelegate::MakeDelegate(obj, pmf), stored);
 	}
 
-	template<class T, class Y, class T1> AbstractConnection * connect(T * obj, Y pmf, T1 x1)
+	template<class T, class Y, class T1> void connect(ConnectionList * tracker, T * obj, Y pmf, T1 x1)
 	{
 		typedef typename StorageType<T1>::Type S1;
 		detail::ArgList1<S1> stored(x1);
-		return connectEx(obj, fastdelegate::MakeDelegate(obj, pmf), stored);
+		connectEx(tracker, obj, fastdelegate::MakeDelegate(obj, pmf), stored);
 	}
 
-	template<class T, class Y, class T1, class T2> AbstractConnection * connect(T * obj, Y pmf, T1 x1, T2 x2)
+	template<class T, class Y, class T1, class T2> void connect(ConnectionList * tracker, T * obj, Y pmf, T1 x1, T2 x2)
 	{
 		typedef typename StorageType<T1>::Type S1;
 		typedef typename StorageType<T2>::Type S2;
 		detail::ArgList2<S1, S2> stored(x1, x2);
-		return connectEx(obj, fastdelegate::MakeDelegate(obj, pmf), stored);
+		connectEx(tracker, obj, fastdelegate::MakeDelegate(obj, pmf), stored);
 	}
 
-	template<class T, class Y, class T1, class T2, class T3> AbstractConnection * connect(T * obj, Y pmf, T1 x1, T2 x2, T3 x3)
+	template<class T, class Y, class T1, class T2, class T3> void connect(ConnectionList * tracker, T * obj, Y pmf, T1 x1, T2 x2, T3 x3)
 	{
 		typedef typename StorageType<T1>::Type S1;
 		typedef typename StorageType<T2>::Type S2;
 		typedef typename StorageType<T3>::Type S3;
 		detail::ArgList3<S1, S2, S3> stored(x1, x2, x3);
-		return connectEx(obj, fastdelegate::MakeDelegate(obj, pmf), stored);
+		connectEx(tracker, obj, fastdelegate::MakeDelegate(obj, pmf), stored);
 	}
 
-	template<class T, class Y, class T1, class T2, class T3, class T4> AbstractConnection * connect(T * obj, Y pmf, T1 x1, T2 x2, T3 x3, T4 x4)
+	template<class T, class Y, class T1, class T2, class T3, class T4> void connect(ConnectionList * tracker, T * obj, Y pmf, T1 x1, T2 x2, T3 x3, T4 x4)
 	{
 		typedef typename StorageType<T1>::Type S1;
 		typedef typename StorageType<T2>::Type S2;
 		typedef typename StorageType<T3>::Type S3;
 		typedef typename StorageType<T4>::Type S4;
 		detail::ArgList4<S1, S2, S3, S4> stored(x1, x2, x3, x4);
-		return connectEx(obj, fastdelegate::MakeDelegate(obj, pmf), stored);
+		connectEx(tracker, obj, fastdelegate::MakeDelegate(obj, pmf), stored);
 	}
 
-	template<class T, class Y, class T1, class T2, class T3, class T4, class T5> AbstractConnection * connect(T * obj, Y pmf, T1 x1, T2 x2, T3 x3, T4 x4, T5 x5)
+	template<class T, class Y, class T1, class T2, class T3, class T4, class T5> void connect(ConnectionList * tracker, T * obj, Y pmf, T1 x1, T2 x2, T3 x3, T4 x4, T5 x5)
 	{
 		typedef typename StorageType<T1>::Type S1;
 		typedef typename StorageType<T2>::Type S2;
@@ -1070,10 +1070,10 @@ public:
 		typedef typename StorageType<T4>::Type S4;
 		typedef typename StorageType<T5>::Type S5;
 		detail::ArgList5<S1, S2, S3, S4, S5> stored(x1, x2, x3, x4, x5);
-		return connectEx(obj, fastdelegate::MakeDelegate(obj, pmf), stored);
+		connectEx(tracker, obj, fastdelegate::MakeDelegate(obj, pmf), stored);
 	}
 
-	template<class T, class Y, class T1, class T2, class T3, class T4, class T5, class T6> AbstractConnection * connect(T * obj, Y pmf, T1 x1, T2 x2, T3 x3, T4 x4, T5 x5, T6 x6)
+	template<class T, class Y, class T1, class T2, class T3, class T4, class T5, class T6> void connect(ConnectionList * tracker, T * obj, Y pmf, T1 x1, T2 x2, T3 x3, T4 x4, T5 x5, T6 x6)
 	{
 		typedef typename StorageType<T1>::Type S1;
 		typedef typename StorageType<T2>::Type S2;
@@ -1082,10 +1082,10 @@ public:
 		typedef typename StorageType<T5>::Type S5;
 		typedef typename StorageType<T6>::Type S6;
 		detail::ArgList6<S1, S2, S3, S4, S5, S6> stored(x1, x2, x3, x4, x5, x6);
-		return connectEx(obj, fastdelegate::MakeDelegate(obj, pmf), stored);
+		connectEx(tracker, obj, fastdelegate::MakeDelegate(obj, pmf), stored);
 	}
 
-	template<class T, class Y, class T1, class T2, class T3, class T4, class T5, class T6, class T7> AbstractConnection * connect(T * obj, Y pmf, T1 x1, T2 x2, T3 x3, T4 x4, T5 x5, T6 x6, T7 x7)
+	template<class T, class Y, class T1, class T2, class T3, class T4, class T5, class T6, class T7> void connect(ConnectionList * tracker, T * obj, Y pmf, T1 x1, T2 x2, T3 x3, T4 x4, T5 x5, T6 x6, T7 x7)
 	{
 		typedef typename StorageType<T1>::Type S1;
 		typedef typename StorageType<T2>::Type S2;
@@ -1095,21 +1095,21 @@ public:
 		typedef typename StorageType<T6>::Type S6;
 		typedef typename StorageType<T7>::Type S7;
 		detail::ArgList7<S1, S2, S3, S4, S5, S6, S7> stored(x1, x2, x3, x4, x5, x6, x7);
-		return connectEx(obj, fastdelegate::MakeDelegate(obj, pmf), stored);
+		connectEx(tracker, obj, fastdelegate::MakeDelegate(obj, pmf), stored);
 	}
 
 private:
-	AbstractConnection * addConnection(ConnectionType * conn)
+	void addConnection(ConnectionList * tracker, ConnectionType * conn)
 	{
-		return senderEvent()->addConnection(conn);
+		senderEvent()->addConnection(tracker, conn);
 	}
 
-	template<class DelegateClass, class StoredListClass> AbstractConnection * connectEx(AbstractObjectRef obj, DelegateClass const & deleg, StoredListClass const & stored)
+	template<class DelegateClass, class StoredListClass> void connectEx(ConnectionList * tracker, AbstractObjectRef obj, DelegateClass const & deleg, StoredListClass const & stored)
 	{
 		ConnectionType * conn = new ConnectionEx6<Param0, Param1, Param2, Param3, Param4, Param5, DelegateClass, StoredListClass>(
 			senderObject(), senderEvent(), obj, deleg, stored
 		);
-		return addConnection(conn);
+		addConnection(tracker, conn);
 	}
 };
 
@@ -1128,9 +1128,9 @@ public:
 	Event7() {}
 	~Event7() {}
 
-	AbstractConnection * addConnection(ConnectionType * conn)
+	void addConnection(ConnectionList * tracker, ConnectionType * conn)
 	{
-		return AbstractEvent::addConnection(conn);
+		AbstractEvent::addConnection(tracker, conn);
 	}
 	
 	void fire(Param0 p0, Param1 p1, Param2 p2, Param3 p3, Param4 p4, Param5 p5, Param6 p6) const
@@ -1163,65 +1163,65 @@ public:
 		return EventRef7<Param0, Param1, Param2, Param3, Param4, Param5, Param6>(newSender, static_cast<EventType*>(senderEvent()) );
 	}
 
-	template<class T, class Y> AbstractConnection * connect(T * obj, void (Y::*pmf)(Param0 p0, Param1 p1, Param2 p2, Param3 p3, Param4 p4, Param5 p5, Param6 p6))
+	template<class T, class Y> void connect(ConnectionList * tracker, T * obj, void (Y::*pmf)(Param0 p0, Param1 p1, Param2 p2, Param3 p3, Param4 p4, Param5 p5, Param6 p6))
 	{
 		ConnectionType * conn = new ConnectionType(
 			senderObject(), senderEvent(), obj,
 			fastdelegate::MakeDelegate(obj, pmf)
 		);
-		return addConnection(conn);
+		addConnection(tracker, conn);
 	}
 
-	template<class T, class Y> AbstractConnection * connect(T const * obj, void (Y::*pmf)(Param0 p0, Param1 p1, Param2 p2, Param3 p3, Param4 p4, Param5 p5, Param6 p6) const)
+	template<class T, class Y> void connect(ConnectionList * tracker, T const * obj, void (Y::*pmf)(Param0 p0, Param1 p1, Param2 p2, Param3 p3, Param4 p4, Param5 p5, Param6 p6) const)
 	{
 		ConnectionType * conn = new ConnectionType(
 			senderObject(), senderEvent(), obj,
 			fastdelegate::MakeDelegate(obj, pmf)
 		);
-		return addConnection(conn);
+		addConnection(tracker, conn);
 	}
 
-	template<class T, class Y> AbstractConnection * connect(T * obj, Y pmf)
+	template<class T, class Y> void connect(ConnectionList * tracker, T * obj, Y pmf)
 	{
 		detail::ArgList0 stored;
-		return connectEx(obj, fastdelegate::MakeDelegate(obj, pmf), stored);
+		connectEx(tracker, obj, fastdelegate::MakeDelegate(obj, pmf), stored);
 	}
 
-	template<class T, class Y, class T1> AbstractConnection * connect(T * obj, Y pmf, T1 x1)
+	template<class T, class Y, class T1> void connect(ConnectionList * tracker, T * obj, Y pmf, T1 x1)
 	{
 		typedef typename StorageType<T1>::Type S1;
 		detail::ArgList1<S1> stored(x1);
-		return connectEx(obj, fastdelegate::MakeDelegate(obj, pmf), stored);
+		connectEx(tracker, obj, fastdelegate::MakeDelegate(obj, pmf), stored);
 	}
 
-	template<class T, class Y, class T1, class T2> AbstractConnection * connect(T * obj, Y pmf, T1 x1, T2 x2)
+	template<class T, class Y, class T1, class T2> void connect(ConnectionList * tracker, T * obj, Y pmf, T1 x1, T2 x2)
 	{
 		typedef typename StorageType<T1>::Type S1;
 		typedef typename StorageType<T2>::Type S2;
 		detail::ArgList2<S1, S2> stored(x1, x2);
-		return connectEx(obj, fastdelegate::MakeDelegate(obj, pmf), stored);
+		connectEx(tracker, obj, fastdelegate::MakeDelegate(obj, pmf), stored);
 	}
 
-	template<class T, class Y, class T1, class T2, class T3> AbstractConnection * connect(T * obj, Y pmf, T1 x1, T2 x2, T3 x3)
+	template<class T, class Y, class T1, class T2, class T3> void connect(ConnectionList * tracker, T * obj, Y pmf, T1 x1, T2 x2, T3 x3)
 	{
 		typedef typename StorageType<T1>::Type S1;
 		typedef typename StorageType<T2>::Type S2;
 		typedef typename StorageType<T3>::Type S3;
 		detail::ArgList3<S1, S2, S3> stored(x1, x2, x3);
-		return connectEx(obj, fastdelegate::MakeDelegate(obj, pmf), stored);
+		connectEx(tracker, obj, fastdelegate::MakeDelegate(obj, pmf), stored);
 	}
 
-	template<class T, class Y, class T1, class T2, class T3, class T4> AbstractConnection * connect(T * obj, Y pmf, T1 x1, T2 x2, T3 x3, T4 x4)
+	template<class T, class Y, class T1, class T2, class T3, class T4> void connect(ConnectionList * tracker, T * obj, Y pmf, T1 x1, T2 x2, T3 x3, T4 x4)
 	{
 		typedef typename StorageType<T1>::Type S1;
 		typedef typename StorageType<T2>::Type S2;
 		typedef typename StorageType<T3>::Type S3;
 		typedef typename StorageType<T4>::Type S4;
 		detail::ArgList4<S1, S2, S3, S4> stored(x1, x2, x3, x4);
-		return connectEx(obj, fastdelegate::MakeDelegate(obj, pmf), stored);
+		connectEx(tracker, obj, fastdelegate::MakeDelegate(obj, pmf), stored);
 	}
 
-	template<class T, class Y, class T1, class T2, class T3, class T4, class T5> AbstractConnection * connect(T * obj, Y pmf, T1 x1, T2 x2, T3 x3, T4 x4, T5 x5)
+	template<class T, class Y, class T1, class T2, class T3, class T4, class T5> void connect(ConnectionList * tracker, T * obj, Y pmf, T1 x1, T2 x2, T3 x3, T4 x4, T5 x5)
 	{
 		typedef typename StorageType<T1>::Type S1;
 		typedef typename StorageType<T2>::Type S2;
@@ -1229,10 +1229,10 @@ public:
 		typedef typename StorageType<T4>::Type S4;
 		typedef typename StorageType<T5>::Type S5;
 		detail::ArgList5<S1, S2, S3, S4, S5> stored(x1, x2, x3, x4, x5);
-		return connectEx(obj, fastdelegate::MakeDelegate(obj, pmf), stored);
+		connectEx(tracker, obj, fastdelegate::MakeDelegate(obj, pmf), stored);
 	}
 
-	template<class T, class Y, class T1, class T2, class T3, class T4, class T5, class T6> AbstractConnection * connect(T * obj, Y pmf, T1 x1, T2 x2, T3 x3, T4 x4, T5 x5, T6 x6)
+	template<class T, class Y, class T1, class T2, class T3, class T4, class T5, class T6> void connect(ConnectionList * tracker, T * obj, Y pmf, T1 x1, T2 x2, T3 x3, T4 x4, T5 x5, T6 x6)
 	{
 		typedef typename StorageType<T1>::Type S1;
 		typedef typename StorageType<T2>::Type S2;
@@ -1241,10 +1241,10 @@ public:
 		typedef typename StorageType<T5>::Type S5;
 		typedef typename StorageType<T6>::Type S6;
 		detail::ArgList6<S1, S2, S3, S4, S5, S6> stored(x1, x2, x3, x4, x5, x6);
-		return connectEx(obj, fastdelegate::MakeDelegate(obj, pmf), stored);
+		connectEx(tracker, obj, fastdelegate::MakeDelegate(obj, pmf), stored);
 	}
 
-	template<class T, class Y, class T1, class T2, class T3, class T4, class T5, class T6, class T7> AbstractConnection * connect(T * obj, Y pmf, T1 x1, T2 x2, T3 x3, T4 x4, T5 x5, T6 x6, T7 x7)
+	template<class T, class Y, class T1, class T2, class T3, class T4, class T5, class T6, class T7> void connect(ConnectionList * tracker, T * obj, Y pmf, T1 x1, T2 x2, T3 x3, T4 x4, T5 x5, T6 x6, T7 x7)
 	{
 		typedef typename StorageType<T1>::Type S1;
 		typedef typename StorageType<T2>::Type S2;
@@ -1254,21 +1254,21 @@ public:
 		typedef typename StorageType<T6>::Type S6;
 		typedef typename StorageType<T7>::Type S7;
 		detail::ArgList7<S1, S2, S3, S4, S5, S6, S7> stored(x1, x2, x3, x4, x5, x6, x7);
-		return connectEx(obj, fastdelegate::MakeDelegate(obj, pmf), stored);
+		connectEx(tracker, obj, fastdelegate::MakeDelegate(obj, pmf), stored);
 	}
 
 private:
-	AbstractConnection * addConnection(ConnectionType * conn)
+	void addConnection(ConnectionList * tracker, ConnectionType * conn)
 	{
-		return senderEvent()->addConnection(conn);
+		senderEvent()->addConnection(tracker, conn);
 	}
 
-	template<class DelegateClass, class StoredListClass> AbstractConnection * connectEx(AbstractObjectRef obj, DelegateClass const & deleg, StoredListClass const & stored)
+	template<class DelegateClass, class StoredListClass> void connectEx(ConnectionList * tracker, AbstractObjectRef obj, DelegateClass const & deleg, StoredListClass const & stored)
 	{
 		ConnectionType * conn = new ConnectionEx7<Param0, Param1, Param2, Param3, Param4, Param5, Param6, DelegateClass, StoredListClass>(
 			senderObject(), senderEvent(), obj, deleg, stored
 		);
-		return addConnection(conn);
+		addConnection(tracker, conn);
 	}
 };
 

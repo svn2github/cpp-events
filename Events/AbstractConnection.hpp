@@ -1,16 +1,21 @@
 #ifndef ABSTRACT_CONNECTION__HPP
 #define ABSTRACT_CONNECTION__HPP
 
+#include "AtomicReferenceCounter.hpp"
 #include "AbstractDelegate.hpp"
 #include "AbstractObjectRef.hpp"
+#include "Threading.hpp"
 #include <vector>
 
 class AbstractEvent;
 class AbstractEventRef;
 
+class ConnectionList;
+
 //! Root class for all template connection classes.
 class AbstractConnection
 {
+	friend class ConnectionList;
 private:
 	//Connections cannot be copied.
 	AbstractConnection(AbstractConnection const &);
@@ -26,47 +31,44 @@ public:
 	AbstractDelegate recieverDelegate() const { return targetDelegate_; }
 
 	void disconnect();
-
-	template<class T, class Y> void addDisconnectListener(T * obj, void (Y::*pmf)(AbstractConnection const *))
-	{
-		doAddDisconnectListener(fastdelegate::MakeDelegate(obj, pmf));
-	}
-
-	template<class T, class Y> void addDisconnectListener(T const * obj, void (Y::*pmf)(AbstractConnection const *) const)
-	{
-		doAddDisconnectListener(fastdelegate::MakeDelegate(obj, pmf));
-	}
-
-	template<class T, class Y> void removeDisconnectListener(T * obj, void (Y::*pmf)(AbstractConnection const *))
-	{
-		doRemoveDisconnectListener(fastdelegate::MakeDelegate(obj, pmf));
-	}
-
-	template<class T, class Y> void removeDisconnectListener(T const * obj, void (Y::*pmf)(AbstractConnection const *) const)
-	{
-		doRemoveDisconnectListener(fastdelegate::MakeDelegate(obj, pmf));
-	}
 protected:
 	AbstractConnection(AbstractObjectRef sender, AbstractEvent * ev, AbstractObjectRef reciever, AbstractDelegate const & targetDelegate)
-		: sender_(sender), event_(ev)
+		: refCounter_()
+		, outerLock_(ThreadDataRef::null())
+		, innerLock_(ThreadDataRef::null())
+		, sender_(sender), event_(ev)
 		, reciever_(reciever)
 		, targetDelegate_(targetDelegate)
+		, sourceList_(), sourceIndex_(npos)
+		, targetList_(), targetIndex_(npos)
 	{}
-	virtual ~AbstractConnection() {}
-private:
-	typedef fastdelegate::FastDelegate1<AbstractConnection const *> DisconnectDelegate;
-	typedef std::vector<DisconnectDelegate> ListenersList;
 
+	virtual ~AbstractConnection()
+	{
+		assert(!sourceList_ && !targetList_);
+		assert(sourceIndex_ == npos && targetIndex_ == npos);
+	}
+private:
+	static const size_t npos = (size_t)-1;
+
+	AtomicReferenceCounter refCounter_;
+	ThreadDataRef outerLock_;
+	ThreadDataRef innerLock_;
 	AbstractObjectRef sender_;
 	AbstractEvent * event_;
 	AbstractObjectRef reciever_;
 	AbstractDelegate targetDelegate_;
-	// Array of listeners that will be notified when this connection is broken.
-	// Order of notifications is undefined.
-	ListenersList listeners_;
+	ConnectionList * sourceList_;
+	size_t sourceIndex_;
+	ConnectionList * targetList_;
+	size_t targetIndex_;
 
-	void doAddDisconnectListener(DisconnectDelegate const & deleg);
-	void doRemoveDisconnectListener(DisconnectDelegate const & deleg);
+	void retain() { refCounter_.retain(); }
+	void release() { if(refCounter_.release()) delete this; }
+
+	bool tryDisconnectWithLock(ThreadDataRef const & lock);
+
+	void doDisconnect();
 };
 
 #endif //ABSTRACT_CONNECTION__HPP
