@@ -28,6 +28,8 @@ public:
 	bool disconnectFromReciver(void const * reciver);
 	bool disconnectFromEvent(AbstractEventRef const & ev);
 	bool disconnectFromDelegate(AbstractDelegate const & deleg);
+	bool disconnectObjects(void const * sender, void const * reciever);
+	bool disconnectConnection(AbstractEventRef const & ev, AbstractDelegate const & deleg);
 
 	ConnectionList & operator += (AbstractConnection * conn)
 	{
@@ -69,6 +71,16 @@ public:
 	template<class T, class Y> bool disconnectFromDelegate(T * obj, Y pmf)
 	{
 		return disconnectFromDelegate(fastdelegate::MakeDelegate(obj, pmf).GetMemento());
+	}
+	
+	template<class T, class Z> bool disconnectObjects(T const * sender, Z const * reciever)
+	{
+		return disconnectObjects(normalize_cast(sender), normalize_cast(reciever));
+	}
+	
+	template<class T, class Y> bool disconnectConnection(AbstractEventRef const & ev, T * obj, Y pmf)
+	{
+		return disconnectConnection(ev, AbstractDelegate(obj, pmf));
 	}
 private:
 	typedef std::vector<AbstractConnection*> ConnectionsVector;

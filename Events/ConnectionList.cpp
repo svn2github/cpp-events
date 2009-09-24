@@ -58,6 +58,7 @@ bool ConnectionList::hasConnectionsWithDelegate(AbstractDelegate const & deleg) 
 	CHECK_FOR_CONNECTIONS((*it)->recieverDelegate() == deleg);
 }
 
+#undef CHECK_FOR_CONNECTIONS
 
 void ConnectionList::disconnectAll()
 {
@@ -69,8 +70,6 @@ void ConnectionList::disconnectAll()
 		(*it)->disconnect();
 	}
 }
-
-#undef CHECK_FOR_CONNECTIONS
 
 #define DISCONNECT_CONNECTIONS(Test) \
 	ConnectionsVector before, after; \
@@ -93,9 +92,9 @@ void ConnectionList::disconnectAll()
 	connections_.swap(after); \
 	return retVal;
 
-bool ConnectionList::disconnectFromSender(void const * reciever)
+bool ConnectionList::disconnectFromSender(void const * sender)
 {
-	DISCONNECT_CONNECTIONS(conn->senderObject() == reciever);
+	DISCONNECT_CONNECTIONS(conn->senderObject() == sender);
 }
 
 bool ConnectionList::disconnectFromReciver(void const * reciever)
@@ -113,7 +112,26 @@ bool ConnectionList::disconnectFromDelegate(AbstractDelegate const & deleg)
 	DISCONNECT_CONNECTIONS(conn->recieverDelegate() == deleg);
 }
 
+bool ConnectionList::disconnectObjects(void const * sender, void const * reciever)
+{
+	DISCONNECT_CONNECTIONS((conn->senderObject() == sender) && (conn->recieverObject() == reciever));
+}
+
 #undef DISCONNECT_CONNECTIONS
+
+bool ConnectionList::disconnectConnection(AbstractEventRef const & ev, AbstractDelegate const & deleg)
+{
+	for(const_iterate(it, connections_))
+	{
+		AbstractConnection * conn = *it;
+		if(conn->senderEventRef() == ev && conn->recieverDelegate() == deleg)
+		{
+			conn->disconnect();
+			return true;
+		}
+	}
+	return false;
+}
 
 void ConnectionList::connectionBroken(AbstractConnection const * conn)
 {
