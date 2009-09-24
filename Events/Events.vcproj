@@ -184,6 +184,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\AbstractObjectRef.hpp"
+				>
+			</File>
+			<File
 				RelativePath=".\ArgList.hpp"
 				>
 			</File>

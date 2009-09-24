@@ -2,6 +2,7 @@
 #define ABSTRACT_CONNECTION__HPP
 
 #include "AbstractDelegate.hpp"
+#include "AbstractObjectRef.hpp"
 #include <vector>
 
 class AbstractEvent;
@@ -16,11 +17,11 @@ private:
 	AbstractConnection & operator=(AbstractConnection const &);
 public:
 	// Typeless pointer to the sender object (retrieved via dynamic_cast<void*>(pObj)).
-	void const * senderObject() const { return sender_; }
-	AbstractEvent const * senderEvent() const { return event_; }
+	AbstractObjectRef senderObject() const { return sender_; }
+	// Typeless event reference
 	inline AbstractEventRef senderEventRef() const;
 	// Typeless pointer to the receiver object (retrieved via dynamic_cast<void const *>(pObj)).
-	void const * recieverObject() const { return reciever_; }
+	AbstractObjectRef recieverObject() const { return reciever_; }
 	// Typeless delegate of the receiver object that can be used for comparison, but cannot be invoked.
 	AbstractDelegate recieverDelegate() const { return targetDelegate_; }
 
@@ -46,7 +47,7 @@ public:
 		doRemoveDisconnectListener(fastdelegate::MakeDelegate(obj, pmf));
 	}
 protected:
-	AbstractConnection(void const * sender, AbstractEvent * ev, void const * reciever, AbstractDelegate const & targetDelegate)
+	AbstractConnection(AbstractObjectRef sender, AbstractEvent * ev, AbstractObjectRef reciever, AbstractDelegate const & targetDelegate)
 		: sender_(sender), event_(ev)
 		, reciever_(reciever)
 		, targetDelegate_(targetDelegate)
@@ -56,9 +57,9 @@ private:
 	typedef fastdelegate::FastDelegate1<AbstractConnection const *> DisconnectDelegate;
 	typedef std::vector<DisconnectDelegate> ListenersList;
 
-	void const * sender_;
+	AbstractObjectRef sender_;
 	AbstractEvent * event_;
-	void const * reciever_;
+	AbstractObjectRef reciever_;
 	AbstractDelegate targetDelegate_;
 	// Array of listeners that will be notified when this connection is broken.
 	// Order of notifications is undefined.

@@ -12,8 +12,8 @@ public:
 	typedef fastdelegate::FastDelegate@i@<@iter("Param%, ", i)@void> DelegateType;
 	
 	Connection@i@(
-		void const * sender, AbstractEvent * ev, 
-		void const * reciever, DelegateType const & deleg
+		AbstractObjectRef sender, AbstractEvent * ev, 
+		AbstractObjectRef reciever, DelegateType const & deleg
 	)
 		: AbstractConnection(sender, ev, reciever, deleg.GetMemento())
 		, delegate_(deleg)
@@ -24,8 +24,8 @@ protected:
 	DelegateType delegate_;
 
 	Connection@i@(
-		void const * sender, AbstractEvent * ev, 
-		void const * reciever, AbstractDelegate const & memento
+		AbstractObjectRef sender, AbstractEvent * ev, 
+		AbstractObjectRef reciever, AbstractDelegate const & memento
 	)
 		: AbstractConnection(sender, ev, reciever, memento)
 		, delegate_()

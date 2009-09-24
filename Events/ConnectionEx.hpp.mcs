@@ -13,7 +13,7 @@ public:
 	typedef ConnectionEx@i@<@selArgs(i,",")@DelegateClass, StoredListClass> ThisType;
 
 	ConnectionEx@i@(
-		void const * sender, AbstractEvent * ev, void const * reciever,
+		AbstractObjectRef sender, AbstractEvent * ev, AbstractObjectRef reciever,
 		DelegateClass const & deleg, StoredListClass const & stored
 	)
 		: BaseType(sender, ev, reciever, deleg.GetMemento())

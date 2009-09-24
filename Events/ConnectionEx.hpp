@@ -12,7 +12,7 @@ public:
 	typedef ConnectionEx0<DelegateClass, StoredListClass> ThisType;
 
 	ConnectionEx0(
-		void const * sender, AbstractEvent * ev, void const * reciever,
+		AbstractObjectRef sender, AbstractEvent * ev, AbstractObjectRef reciever,
 		DelegateClass const & deleg, StoredListClass const & stored
 	)
 		: BaseType(sender, ev, reciever, deleg.GetMemento())
@@ -39,7 +39,7 @@ public:
 	typedef ConnectionEx1<Param0,DelegateClass, StoredListClass> ThisType;
 
 	ConnectionEx1(
-		void const * sender, AbstractEvent * ev, void const * reciever,
+		AbstractObjectRef sender, AbstractEvent * ev, AbstractObjectRef reciever,
 		DelegateClass const & deleg, StoredListClass const & stored
 	)
 		: BaseType(sender, ev, reciever, deleg.GetMemento())
@@ -66,7 +66,7 @@ public:
 	typedef ConnectionEx2<Param0, Param1,DelegateClass, StoredListClass> ThisType;
 
 	ConnectionEx2(
-		void const * sender, AbstractEvent * ev, void const * reciever,
+		AbstractObjectRef sender, AbstractEvent * ev, AbstractObjectRef reciever,
 		DelegateClass const & deleg, StoredListClass const & stored
 	)
 		: BaseType(sender, ev, reciever, deleg.GetMemento())
@@ -93,7 +93,7 @@ public:
 	typedef ConnectionEx3<Param0, Param1, Param2,DelegateClass, StoredListClass> ThisType;
 
 	ConnectionEx3(
-		void const * sender, AbstractEvent * ev, void const * reciever,
+		AbstractObjectRef sender, AbstractEvent * ev, AbstractObjectRef reciever,
 		DelegateClass const & deleg, StoredListClass const & stored
 	)
 		: BaseType(sender, ev, reciever, deleg.GetMemento())
@@ -120,7 +120,7 @@ public:
 	typedef ConnectionEx4<Param0, Param1, Param2, Param3,DelegateClass, StoredListClass> ThisType;
 
 	ConnectionEx4(
-		void const * sender, AbstractEvent * ev, void const * reciever,
+		AbstractObjectRef sender, AbstractEvent * ev, AbstractObjectRef reciever,
 		DelegateClass const & deleg, StoredListClass const & stored
 	)
 		: BaseType(sender, ev, reciever, deleg.GetMemento())
@@ -147,7 +147,7 @@ public:
 	typedef ConnectionEx5<Param0, Param1, Param2, Param3, Param4,DelegateClass, StoredListClass> ThisType;
 
 	ConnectionEx5(
-		void const * sender, AbstractEvent * ev, void const * reciever,
+		AbstractObjectRef sender, AbstractEvent * ev, AbstractObjectRef reciever,
 		DelegateClass const & deleg, StoredListClass const & stored
 	)
 		: BaseType(sender, ev, reciever, deleg.GetMemento())
@@ -174,7 +174,7 @@ public:
 	typedef ConnectionEx6<Param0, Param1, Param2, Param3, Param4, Param5,DelegateClass, StoredListClass> ThisType;
 
 	ConnectionEx6(
-		void const * sender, AbstractEvent * ev, void const * reciever,
+		AbstractObjectRef sender, AbstractEvent * ev, AbstractObjectRef reciever,
 		DelegateClass const & deleg, StoredListClass const & stored
 	)
 		: BaseType(sender, ev, reciever, deleg.GetMemento())
@@ -201,7 +201,7 @@ public:
 	typedef ConnectionEx7<Param0, Param1, Param2, Param3, Param4, Param5, Param6,DelegateClass, StoredListClass> ThisType;
 
 	ConnectionEx7(
-		void const * sender, AbstractEvent * ev, void const * reciever,
+		AbstractObjectRef sender, AbstractEvent * ev, AbstractObjectRef reciever,
 		DelegateClass const & deleg, StoredListClass const & stored
 	)
 		: BaseType(sender, ev, reciever, deleg.GetMemento())

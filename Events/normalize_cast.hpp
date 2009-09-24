@@ -22,6 +22,8 @@ template<class T> class PolymorphicTestHelper : public T
 
 } //namespace detail
 
+inline const void * normalize_cast(const void * ptr) { return ptr; }
+
 template<class T> inline void const * normalize_cast(T * ptr)
 {
 	static char const object_has_imcomplete_type[sizeof(T) ? +1 : -1] = {};

@@ -30,9 +30,7 @@ public:
 		}
 	}
 
-	inline EventRef@i@@selArgs("<", i, ">")@ bind(void const * sender);
-	
-	template<class T> inline EventRef@i@@selArgs("<", i, ">")@ bind(T * sender);
+	inline EventRef@i@@selArgs("<", i, ">")@ bind(AbstractObjectRef sender);
 };
 
 @classArgs("template<", i, "> ")@class EventRef@i@ : public AbstractEventRef
@@ -41,27 +39,22 @@ public:
 	typedef Event@i;selArgs("<", i, ">")@ EventType;
 	typedef @if(i > 0) "typename " end@EventType::ConnectionType ConnectionType;
 
-	EventRef@i@(void const * sender, EventType * ev) : AbstractEventRef(sender, ev) {}
+	EventRef@i@(AbstractObjectRef sender, EventType * ev) : AbstractEventRef(sender, ev) {}
 	
 	EventType * senderEvent() const
 	{
 		return static_cast<EventType*>(AbstractEventRef::senderEvent());
 	}
 
-	EventRef@i;selArgs("<", i, ">")@ rebind(void const * newSender) const
+	EventRef@i;selArgs("<", i, ">")@ rebind(AbstractObjectRef newSender) const
 	{
 		return EventRef@i;selArgs("<", i, ">")@(newSender, static_cast<EventType*>(senderEvent()) );
-	}
-	
-	template<class T> inline EventRef@i;selArgs("<", i, ">")@ rebind(T * newSender) const
-	{
-		return rebind(normalize_cast(newSender));
 	}
 
 	template<class T, class Y> AbstractConnection * connect(T * obj, void (Y::*pmf)(@funcArgs(i)@))
 	{
 		ConnectionType * conn = new ConnectionType(
-			senderObject(), senderEvent(), normalize_cast(obj),
+			senderObject(), senderEvent(), obj,
 			fastdelegate::MakeDelegate(obj, pmf)
 		);
 		return addConnection(conn);
@@ -70,7 +63,7 @@ public:
 	template<class T, class Y> AbstractConnection * connect(T const * obj, void (Y::*pmf)(@funcArgs(i)@) const)
 	{
 		ConnectionType * conn = new ConnectionType(
-			senderObject(), senderEvent(), normalize_cast(obj),
+			senderObject(), senderEvent(), obj,
 			fastdelegate::MakeDelegate(obj, pmf)
 		);
 		return addConnection(conn);
@@ -79,7 +72,7 @@ public:
 	template<class T, class Y> AbstractConnection * connect(T * obj, Y pmf)
 	{
 		detail::ArgList0 stored;
-		return connectEx(normalize_cast(obj), fastdelegate::MakeDelegate(obj, pmf), stored);
+		return connectEx(obj, fastdelegate::MakeDelegate(obj, pmf), stored);
 	}
 
 @@for(int j=1; j<8; j+=1)
@@ -89,7 +82,7 @@ public:
 		typedef typename StorageType<T@k@>::Type S@k@;
 @@next
 		detail::ArgList@j@<@list("S%", 1, j)@> stored(@list("x%", 1, j)@);
-		return connectEx(normalize_cast(obj), fastdelegate::MakeDelegate(obj, pmf), stored);
+		return connectEx(obj, fastdelegate::MakeDelegate(obj, pmf), stored);
 	}
 
 @@next
@@ -99,7 +92,7 @@ private:
 		return senderEvent()->addConnection(conn);
 	}
 
-	template<class DelegateClass, class StoredListClass> AbstractConnection * connectEx(void const * obj, DelegateClass const & deleg, StoredListClass const & stored)
+	template<class DelegateClass, class StoredListClass> AbstractConnection * connectEx(AbstractObjectRef obj, DelegateClass const & deleg, StoredListClass const & stored)
 	{
 		ConnectionType * conn = new ConnectionEx@i@<@selArgs(i, ", ")@DelegateClass, StoredListClass>(
 			senderObject(), senderEvent(), obj, deleg, stored
@@ -108,14 +101,9 @@ private:
 	}
 };
 
-@classArgs("template<", i, "> ")@inline EventRef@i;selArgs("<", i, ">")@ Event@i;selArgs("<", i, ">")@::bind(void const * sender)
+@classArgs("template<", i, "> ")@inline EventRef@i;selArgs("<", i, ">")@ Event@i;selArgs("<", i, ">")@::bind(AbstractObjectRef sender)
 {
 	return EventRef@i;selArgs("<", i, ">")@(sender, this);
-}
-
-@classArgs("template<", i, "> ")@template<class T> inline EventRef@i;selArgs("<", i, ">")@ Event@i;selArgs("<", i, ">")@::bind(T * sender)
-{
-	return bind(normalize_cast(sender));
 }
 
 @@next

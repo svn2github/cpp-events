@@ -38,12 +38,12 @@ bool ConnectionList::doRemoveConnection(AbstractConnection const * conn)
 	{ if(Test) return true; } \
 	return false;
 
-bool ConnectionList::hasConnectionsWithSender(void const * sender) const
+bool ConnectionList::hasConnectionsWithSender(AbstractObjectRef sender) const
 {
 	CHECK_FOR_CONNECTIONS((*it)->senderObject() == sender);
 }
 
-bool ConnectionList::hasConnectionsWithReciever(void const * reciever) const
+bool ConnectionList::hasConnectionsWithReciever(AbstractObjectRef reciever) const
 {
 	CHECK_FOR_CONNECTIONS((*it)->recieverObject() == reciever);
 }
@@ -92,12 +92,12 @@ void ConnectionList::disconnectAll()
 	connections_.swap(after); \
 	return retVal;
 
-bool ConnectionList::disconnectFromSender(void const * sender)
+bool ConnectionList::disconnectFromSender(AbstractObjectRef sender)
 {
 	DISCONNECT_CONNECTIONS(conn->senderObject() == sender);
 }
 
-bool ConnectionList::disconnectFromReciver(void const * reciever)
+bool ConnectionList::disconnectFromReciver(AbstractObjectRef reciever)
 {
 	DISCONNECT_CONNECTIONS(conn->recieverObject() == reciever);
 }
@@ -112,7 +112,7 @@ bool ConnectionList::disconnectFromDelegate(AbstractDelegate const & deleg)
 	DISCONNECT_CONNECTIONS(conn->recieverDelegate() == deleg);
 }
 
-bool ConnectionList::disconnectObjects(void const * sender, void const * reciever)
+bool ConnectionList::disconnectObjects(AbstractObjectRef sender, AbstractObjectRef reciever)
 {
 	DISCONNECT_CONNECTIONS((conn->senderObject() == sender) && (conn->recieverObject() == reciever));
 }

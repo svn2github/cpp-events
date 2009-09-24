@@ -22,12 +22,12 @@ public:
 		return connections_.hasConnectionsWithDelegate(reciever, pMemberFunc);
 	}
 
-	template<class T> bool disconnectAllWithSender(T * sender)
+	bool disconnectAllWithSender(AbstractObjectRef sender)
 	{
 		return connections_.disconnectFromSender(sender);
 	}
 
-	template<class T> bool disconnectFrom(T * reciever)
+	bool disconnectFrom(AbstractObjectRef reciever)
 	{
 		return connections_.disconnectFromReciver(reciever);
 	}
@@ -47,7 +47,7 @@ private:
 class AbstractEventRef
 {
 public:
-	AbstractEventRef(void const * sender, AbstractEvent * ev)
+	AbstractEventRef(AbstractObjectRef sender, AbstractEvent * ev)
 		: sender_(sender)
 		, event_(ev)
 	{}
@@ -56,7 +56,7 @@ public:
 		, event_(other.event_)
 	{}
 
-	void const * senderObject() const { return sender_; }
+	AbstractObjectRef senderObject() const { return sender_; }
 	AbstractEvent * senderEvent() const { return event_; }
 
 	bool operator==(AbstractEventRef const & other) const
@@ -84,7 +84,7 @@ public:
 		return event_->disconnectFrom(reciever, pMemberFunc);
 	}
 private:
-	void const * sender_;
+	AbstractObjectRef sender_;
 	AbstractEvent * event_;
 };
 

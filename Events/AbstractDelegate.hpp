@@ -3,7 +3,7 @@
 
 #include "../FastDelegate/src/FastDelegate.h"
 
-//! Abstract class that represents arbitary delegate in a common form.
+//! Value type that represents arbitary delegate in a common form.
 class AbstractDelegate
 {
 public:
