@@ -184,6 +184,48 @@
 				>
 			</File>
 		</Filter>
+		<Filter
+			Name="Test_EqualMemberAddress"
+			>
+			<File
+				RelativePath=".\Test_EqualMemberAddress\File1.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\Test_EqualMemberAddress\File2.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\Test_EqualMemberAddress\TestClass.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\Test_EqualMemberAddress\TestClass.hpp"
+				>
+			</File>
+			<File
+				RelativePath=".\Test_EqualMemberAddress\TheTest.cpp"
+				>
+				<FileConfiguration
+					Name="Debug|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						ObjectFile="$(IntDir)\$(InputName)1.obj"
+						XMLDocumentationFileName="$(IntDir)\$(InputName)1.xdc"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						ObjectFile="$(IntDir)\$(InputName)1.obj"
+						XMLDocumentationFileName="$(IntDir)\$(InputName)1.xdc"
+					/>
+				</FileConfiguration>
+			</File>
+		</Filter>
 		<File
 			RelativePath=".\main.cpp"
 			>
