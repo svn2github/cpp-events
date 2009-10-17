@@ -20,6 +20,11 @@ template<class T> class PolymorphicTestHelper : public T
 	virtual ~PolymorphicTestHelper() = 0;
 };
 
+template<class T> struct IsPolymorphic
+{
+	enum { value = sizeof(detail::PolymorphicTestHelper<T>) == sizeof(T) ? 1 : 0 };
+};
+
 } //namespace detail
 
 inline const void * normalize_cast(const void * ptr) { return ptr; }
@@ -29,7 +34,7 @@ template<class T> inline void const * normalize_cast(T * ptr)
 	static char const object_has_imcomplete_type[sizeof(T) ? +1 : -1] = {};
 	(void)sizeof(object_has_imcomplete_type);
 
-	enum { isPolymorphic = sizeof(detail::PolymorphicTestHelper<T>) == sizeof(T) ? 1 : 0 };
+	enum { isPolymorphic =  detail::IsPolymorphic<T>::value };
 	return detail::Caster<T, isPolymorphic>::cast(ptr);
 }
 

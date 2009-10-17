@@ -13,6 +13,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "EventsTest", "EventsTest\Ev
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "mcs", "mcs\msvs\mcs.vcproj", "{4B6E12BD-D859-4CB1-A497-E0B3B3FF1414}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "UnitTests", "UnitTests\UnitTests.vcproj", "{18137197-A464-41BD-8A62-E24A35D8BE7D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -38,6 +40,12 @@ Global
 		{4B6E12BD-D859-4CB1-A497-E0B3B3FF1414}.MCS Debug|Win32.Build.0 = Debug|Win32
 		{4B6E12BD-D859-4CB1-A497-E0B3B3FF1414}.Release|Win32.ActiveCfg = Release|Win32
 		{4B6E12BD-D859-4CB1-A497-E0B3B3FF1414}.Release|Win32.Build.0 = Release|Win32
+		{18137197-A464-41BD-8A62-E24A35D8BE7D}.Debug|Win32.ActiveCfg = Debug|Win32
+		{18137197-A464-41BD-8A62-E24A35D8BE7D}.Debug|Win32.Build.0 = Debug|Win32
+		{18137197-A464-41BD-8A62-E24A35D8BE7D}.MCS Debug|Win32.ActiveCfg = Debug|Win32
+		{18137197-A464-41BD-8A62-E24A35D8BE7D}.MCS Debug|Win32.Build.0 = Debug|Win32
+		{18137197-A464-41BD-8A62-E24A35D8BE7D}.Release|Win32.ActiveCfg = Release|Win32
+		{18137197-A464-41BD-8A62-E24A35D8BE7D}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
