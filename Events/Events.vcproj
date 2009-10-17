@@ -162,7 +162,7 @@
 				>
 			</File>
 			<File
-				RelativePath=".\Threading_win32.cpp"
+				RelativePath=".\Threading.cpp"
 				>
 			</File>
 		</Filter>
@@ -193,6 +193,10 @@
 			</File>
 			<File
 				RelativePath=".\AtomicReferenceCounter.hpp"
+				>
+			</File>
+			<File
+				RelativePath=".\Config.hpp"
 				>
 			</File>
 			<File
@@ -262,6 +266,18 @@
 						OutputFile="$(InputDir)..\src\$(InputName)"
 					/>
 				</FileConfiguration>
+			</File>
+		</Filter>
+		<Filter
+			Name="Win32"
+			>
+			<File
+				RelativePath=".\Win32\PlatformSpecific_AtomicReferenceCounter.hpp"
+				>
+			</File>
+			<File
+				RelativePath=".\Win32\PlatformSpecific_Threading.inl"
+				>
 			</File>
 		</Filter>
 		<File
