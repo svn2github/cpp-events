@@ -11,7 +11,7 @@ public:
 	AbstractDelegate(fastdelegate::DelegateMemento const & d) : d_(d) {}
 
 	template<class T, class Y> AbstractDelegate(T obj, Y pmf)
-		: d_(fastdelegate::MakeDelegate(obj, pmf))
+		: d_(fastdelegate::MakeDelegate(obj, pmf).GetMemento())
 	{}
 
 	bool isNull() const { return d_.empty(); }
