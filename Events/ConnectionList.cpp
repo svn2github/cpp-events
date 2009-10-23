@@ -81,16 +81,39 @@ void ConnectionList::connect(ConnectionList * tracker, AbstractConnection * conn
 #define const_iterate(it, container) \
 	ConnectionsVector::const_iterator it = (container).begin(); it != (container).end(); ++it
 
-#define A_COND conn->senderEventRef() == ev
-#define A_ARG AbstractEventRef const & ev
-#define B_COND conn->recieverDelegate() == deleg
-#define B_ARG AbstractDelegate const & deleg
+class NullComparer
+{
+public:
+	bool operator()(AbstractConnection const * conn) const { (void)conn; return true; }
+};
 
-#define MAKE_OVERLOADS(GENERATOR) \
-GENERATOR((A_ARG), (A_COND)) \
-GENERATOR((B_ARG), (B_COND)) \
-GENERATOR((A_ARG, B_ARG), ((A_COND) && (B_COND))) \
+class DelegateComparer
+{
+public:
+	DelegateComparer(AbstractDelegate const & deleg) : deleg_(deleg) {}
+	bool operator()(AbstractConnection const * conn) const { return conn->recieverDelegate() == deleg_; }
+private:
+	AbstractDelegate const & deleg_;
+};
 
+class EventComparer
+{
+public:
+	EventComparer(AbstractEventRef const & ev) : ev_(ev) {}
+	bool operator()(AbstractConnection const * conn) const { return conn->senderEventRef() == ev_; }
+private:
+	AbstractEventRef const & ev_;
+};
+
+class FullComparer
+{
+public:
+	FullComparer(AbstractEventRef const & ev, AbstractDelegate const & deleg) : e_(ev), d_(deleg) {}
+	bool operator()(AbstractConnection const * conn) const { return e_(conn) && d_(conn); }
+private:
+	EventComparer e_;
+	DelegateComparer d_;
+};
 
 size_t ConnectionList::connectionCount() const
 {
@@ -98,22 +121,35 @@ size_t ConnectionList::connectionCount() const
 	return connections_.size();
 }
 
-#define CONNECTION_COUNT_GENERATOR(Sign, Test) \
-size_t ConnectionList::connectionCount Sign const \
-{ \
-	ThreadDataLocker lock(lock_); \
-	size_t retVal = 0; \
-	for(const_iterate(it, connections_)) \
-	{ \
-		AbstractConnection * conn = *it; \
-		if(Test) ++retVal; \
-	} \
-	return retVal; \
-} \
+template<class Comparer> inline size_t ConnectionList::getConnectionCount(Comparer const & comp) const
+{
+	ThreadDataLocker lock(lock_);
+	size_t retVal = 0;
+	for(const_iterate(it, connections_))
+	{
+		AbstractConnection * conn = *it;
+		if(comp(conn)) ++retVal;
+	}
+	return retVal;
+}
 
-MAKE_OVERLOADS(CONNECTION_COUNT_GENERATOR)
+size_t ConnectionList::connectionCount(AbstractDelegate const & deleg) const
+{
+	DelegateComparer comp(deleg);
+	return getConnectionCount(comp);
+}
 
-#undef CONNECTION_COUNT_GENERATOR
+size_t ConnectionList::connectionCount(AbstractEventRef const & deleg) const
+{
+	EventComparer comp(deleg);
+	return getConnectionCount(comp);
+}
+
+size_t ConnectionList::connectionCount(AbstractEventRef const & ev, AbstractDelegate const & deleg) const
+{
+	FullComparer comp(ev, deleg);
+	return getConnectionCount(comp);
+}
 
 bool ConnectionList::hasConnections() const
 {
@@ -121,83 +157,107 @@ bool ConnectionList::hasConnections() const
 	return !connections_.empty();
 }
 
-#define HAS_CONNECTIONS_GENERATOR(Sign, Test) \
-bool ConnectionList::hasConnections Sign const \
-{ \
-	ThreadDataLocker lock(lock_); \
-	for(const_iterate(it, connections_)) \
-	{ \
-		AbstractConnection * conn = *it; \
-		if(Test) return true; \
-	} \
-	return false; \
-} \
+template<class Comparer> inline bool ConnectionList::getHasConnections(Comparer const & comp) const
+{
+	ThreadDataLocker lock(lock_);
+	for(const_iterate(it, connections_))
+	{
+		AbstractConnection * conn = *it;
+		if(comp(conn)) return true;
+	}
+	return false;
+}
 
-MAKE_OVERLOADS(HAS_CONNECTIONS_GENERATOR)
+bool ConnectionList::hasConnections(AbstractDelegate const & deleg) const
+{
+	DelegateComparer comp(deleg);
+	return getHasConnections(comp);
+}
 
-#undef HAS_CONNECTIONS_GENERATOR
+bool ConnectionList::hasConnections(AbstractEventRef const & deleg) const
+{
+	EventComparer comp(deleg);
+	return getHasConnections(comp);
+}
 
-#define DISCONNECT_BODY_GENERATOR(Test) \
-	ConnectionsVector needRelock; \
-	size_t retVal = 0; \
-	{ \
-		ThreadDataLocker lock(lock_); \
-		for(size_t i=0; i<connections_.size(); ) \
-		{ \
-			AbstractConnection * conn = connections_.at(i); \
-			if(!(Test)) \
-			{ \
-				++i; \
-				continue; \
-			} \
-			++retVal; \
-			bool done = conn->tryDisconnectWithLock(lock_); \
-			if(!done) \
-			{ \
-				conn->retain(); \
-				needRelock.push_back(conn); \
-				++i; \
-			} \
-		} \
-	} \
-	for(const_iterate(it, needRelock)) \
-	{ \
-		AbstractConnection * conn = *it; \
-		conn->disconnect(); \
-		conn->release(); \
-	} \
+bool ConnectionList::hasConnections(AbstractEventRef const & ev, AbstractDelegate const & deleg) const
+{
+	FullComparer comp(ev, deleg);
+	return getHasConnections(comp);
+}
+
+template<class Comparer> inline size_t ConnectionList::doDisconnect(Comparer const & comp)
+{
+	ConnectionsVector needRelock;
+	size_t retVal = 0;
+	{
+		ThreadDataLocker lock(lock_);
+		for(size_t i=0; i<connections_.size(); )
+		{
+			AbstractConnection * conn = connections_.at(i);
+			if(!comp(conn))
+			{
+				++i;
+				continue;
+			}
+			++retVal;
+			bool done = conn->tryDisconnectWithLock(lock_);
+			if(!done)
+			{
+				conn->retain();
+				needRelock.push_back(conn);
+				++i;
+			}
+		}
+	}
+	for(const_iterate(it, needRelock))
+	{
+		AbstractConnection * conn = *it;
+		conn->disconnect();
+		conn->release();
+	}
 	return retVal;
-
-#define DISCONNECT_GENERATOR(Sign, Test) \
-size_t ConnectionList::disconnectAll Sign \
-{ \
-	DISCONNECT_BODY_GENERATOR(Test) \
-} \
+}
 
 size_t ConnectionList::disconnectAll()
 {
-	DISCONNECT_BODY_GENERATOR(true);
+	NullComparer comp;
+	return doDisconnect(comp);
 }
 
-MAKE_OVERLOADS(DISCONNECT_GENERATOR)
+size_t ConnectionList::disconnectAll(AbstractDelegate const & deleg)
+{
+	DelegateComparer comp(deleg);
+	return doDisconnect(comp);
+}
 
-#undef DISCONNECT_GENERATOR
-#undef DISCONNECT_BODY_GENERATOR
+size_t ConnectionList::disconnectAll(AbstractEventRef const & ev, AbstractDelegate const & deleg)
+{
+	FullComparer comp(ev, deleg);
+	return doDisconnect(comp);
+}
+
+size_t ConnectionList::disconnectAll(AbstractEventRef const & ev)
+{
+	EventComparer comp(ev);
+	return doDisconnect(comp);
+}
 
 bool ConnectionList::disconnectOne(AbstractEventRef const & ev, AbstractDelegate const & deleg)
 {
+	FullComparer comp(ev, deleg);
 	AbstractConnection * needRelock = 0;
 	{
 		ThreadDataLocker lock(lock_);
 		for(size_t i=0; i<connections_.size(); )
 		{
 			AbstractConnection * conn = connections_.at(i);
-			if(!(conn->senderEventRef() == ev && conn->recieverDelegate() == deleg)) \
+			if(!comp(conn))
 			{
 				++i;
 				continue;
 			}
-			bool done = conn->tryDisconnectWithLock(lock_); \
+			bool done = conn->tryDisconnectWithLock(lock_);
 			if(done) return true;
 			needRelock = conn;
 			conn->retain();
@@ -211,22 +271,3 @@ bool ConnectionList::disconnectOne(AbstractEventRef const & ev, AbstractDelegate
 	needRelock->release();
 	return true;
 }
-
-#undef MAKE_OVERLOADS
-
-#undef A_COND
-#undef B_COND
-#undef C_COND
-
-#undef A_ARG
-#undef B_ARG
-#undef C_ARG
-
-#undef X_COND
-#undef Y_COND
-#undef Z_COND
-
-#undef X_ARG
-#undef Y_ARG
-#undef Z_ARG
-

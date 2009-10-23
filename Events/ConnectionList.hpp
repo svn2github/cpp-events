@@ -62,6 +62,10 @@ private:
 	typedef std::vector<AbstractConnection*> ConnectionsVector;
 	mutable ThreadDataRef lock_;
 	ConnectionsVector connections_;
+
+	template<class Comparer> inline size_t getConnectionCount(Comparer const &) const;
+	template<class Comparer> inline bool getHasConnections(Comparer const &) const;
+	template<class Comparer> inline size_t doDisconnect(Comparer const & );
 };
 
 #endif //CONNECTION_LIST__HPP
