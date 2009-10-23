@@ -81,31 +81,16 @@ void ConnectionList::connect(ConnectionList * tracker, AbstractConnection * conn
 #define const_iterate(it, container) \
 	ConnectionsVector::const_iterator it = (container).begin(); it != (container).end(); ++it
 
-#define A_COND true
-#define B_COND conn->recieverObject() == reciever
-#define C_COND conn->recieverDelegate() == deleg
-
-#define A_ARG anyReciever
-#define B_ARG AbstractObjectRef reciever
-#define C_ARG AbstractDelegate const & deleg
-
-#define X_COND true
-#define Y_COND conn->senderObject() == sender
-#define Z_COND conn->senderEventRef() == ev
-
-#define X_ARG anySender
-#define Y_ARG AbstractObjectRef sender
-#define Z_ARG AbstractEventRef const & ev
+#define A_COND conn->senderEventRef() == ev
+#define A_ARG AbstractEventRef const & ev
+#define B_COND conn->recieverDelegate() == deleg
+#define B_ARG AbstractDelegate const & deleg
 
 #define MAKE_OVERLOADS(GENERATOR) \
-GENERATOR((X_ARG, B_ARG), (X_COND, B_COND)) \
-GENERATOR((X_ARG, C_ARG), (X_COND, C_COND)) \
-GENERATOR((Y_ARG, A_ARG), (Y_COND, A_COND)) \
-GENERATOR((Y_ARG, B_ARG), (Y_COND, B_COND)) \
-GENERATOR((Y_ARG, C_ARG), (Y_COND, C_COND)) \
-GENERATOR((Z_ARG, A_ARG), (Z_COND, A_COND)) \
-GENERATOR((Z_ARG, B_ARG), (Z_COND, B_COND)) \
-GENERATOR((Z_ARG, C_ARG), (Z_COND, C_COND)) \
+GENERATOR((A_ARG), (A_COND)) \
+GENERATOR((B_ARG), (B_COND)) \
+GENERATOR((A_ARG, B_ARG), ((A_COND) && (B_COND))) \
+
 
 size_t ConnectionList::connectionCount() const
 {
@@ -184,7 +169,7 @@ MAKE_OVERLOADS(HAS_CONNECTIONS_GENERATOR)
 	return retVal;
 
 #define DISCONNECT_GENERATOR(Sign, Test) \
-size_t ConnectionList::disconnect Sign \
+size_t ConnectionList::disconnectAll Sign \
 { \
 	DISCONNECT_BODY_GENERATOR(Test) \
 } \

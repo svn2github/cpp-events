@@ -12,11 +12,8 @@ public:
 	typedef Connection@i;selArgs("<",i,">")@ BaseType;
 	typedef ConnectionEx@i@<@selArgs(i,",")@DelegateClass, StoredListClass> ThisType;
 
-	ConnectionEx@i@(
-		AbstractObjectRef sender, AbstractEvent * ev, AbstractObjectRef reciever,
-		DelegateClass const & deleg, StoredListClass const & stored
-	)
-		: BaseType(sender, ev, reciever, deleg.GetMemento())
+	ConnectionEx@i@(AbstractEvent * ev, DelegateClass const & deleg, StoredListClass const & stored)
+		: BaseType(ev, deleg.GetMemento())
 		, deleg_(deleg), stored_(stored)
 	{
 		BaseType::delegate_ = fastdelegate::MakeDelegate(this, &ThisType::invokeHelper);
@@ -33,5 +30,4 @@ private:
 };
 
 @@next
-
 #endif //CONNECTION_EX__HPP

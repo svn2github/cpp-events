@@ -89,8 +89,8 @@ void main()
 		server2->processData(2, data3);
 		printf("{7}\n");
 
-		server2->dataArrived().disconnect(&client);
-		server1->dataArrived().disconnect(&client);
+		server2->dataArrived().disconnectOne(&client, &Client::registerData);
+		server1->dataArrived().disconnectOne(&client, &Client::registerData);
 	}
 
 	server1->processData(2, data2);

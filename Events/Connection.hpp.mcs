@@ -11,11 +11,8 @@ protected:
 public:
 	typedef fastdelegate::FastDelegate@i@<@iter("Param%, ", i)@void> DelegateType;
 	
-	Connection@i@(
-		AbstractObjectRef sender, AbstractEvent * ev, 
-		AbstractObjectRef reciever, DelegateType const & deleg
-	)
-		: AbstractConnection(sender, ev, reciever, deleg.GetMemento())
+	Connection@i@(AbstractEvent * ev, DelegateType const & deleg)
+		: AbstractConnection(ev, deleg.GetMemento())
 		, delegate_(deleg)
 	{}
 
@@ -23,15 +20,11 @@ public:
 protected:
 	DelegateType delegate_;
 
-	Connection@i@(
-		AbstractObjectRef sender, AbstractEvent * ev, 
-		AbstractObjectRef reciever, AbstractDelegate const & memento
-	)
-		: AbstractConnection(sender, ev, reciever, memento)
+	Connection@i@(AbstractEvent * ev, AbstractDelegate const & memento)
+		: AbstractConnection(ev, memento)
 		, delegate_()
 	{}
 };
 
 @@next
-
 #endif //CONNECTION_HPP

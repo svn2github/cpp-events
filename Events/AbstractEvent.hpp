@@ -13,129 +13,48 @@ public:
 	{
 		return connections_.connectionCount();
 	}
-	size_t connectionCount(anySender, anyReciever) const
+	size_t connectionCount(AbstractDelegate const & deleg) const
 	{
-		return connections_.connectionCount();
-	}
-	size_t connectionCount(anySender, AbstractObjectRef reciever) const
-	{
-		return connections_.connectionCount(anySender(), reciever);
-	}
-	size_t connectionCount(anySender, AbstractDelegate const & deleg) const
-	{
-		return connections_.connectionCount(anySender(), deleg);
+		return connections_.connectionCount(deleg);
 	}
 
-	size_t connectionCount(AbstractObjectRef sender) const
+	template<class T, class Y> size_t connectionCount(T * obj, Y pMemberFunc) const
 	{
-		return connections_.connectionCount(sender, anyReciever());
-	}
-	size_t connectionCount(AbstractObjectRef sender, anyReciever) const
-	{
-		return connections_.connectionCount(sender, anyReciever());
-	}
-	size_t connectionCount(AbstractObjectRef sender, AbstractObjectRef reciever) const
-	{
-		return connections_.connectionCount(sender, reciever);
-	}
-	size_t connectionCount(AbstractObjectRef sender, AbstractDelegate const & deleg) const
-	{
-		return connections_.connectionCount(sender, deleg);
-	}
-
-	template<class T, class Y> size_t connectionCount(anySender, T * obj, Y pMemberFunc) const
-	{
-		return connectionCount(anySender(), AbstractDelegate(obj, pMemberFunc));
-	}
-	template<class T, class Y> size_t connectionCount(AbstractObjectRef sender, T * obj, Y pMemberFunc) const
-	{
-		return connectionCount(sender, AbstractDelegate(obj, pMemberFunc));
+		return connectionCount(AbstractDelegate(obj, pMemberFunc));
 	}
 
 	bool hasConnections() const
 	{
 		return connections_.hasConnections();
 	}
-	bool hasConnections(anySender, anyReciever) const
+	bool hasConnections(AbstractDelegate const & deleg) const
 	{
-		return connections_.hasConnections();
-	}
-	bool hasConnections(anySender, AbstractObjectRef reciever) const
-	{
-		return connections_.hasConnections(anySender(), reciever);
-	}
-	bool hasConnections(anySender, AbstractDelegate const & deleg) const
-	{
-		return connections_.hasConnections(anySender(), deleg);
-	}
-
-	bool hasConnections(AbstractObjectRef sender) const
-	{
-		return connections_.hasConnections(sender, anyReciever());
-	}
-	bool hasConnections(AbstractObjectRef sender, anyReciever) const
-	{
-		return connections_.hasConnections(sender, anyReciever());
-	}
-	bool hasConnections(AbstractObjectRef sender, AbstractObjectRef reciever) const
-	{
-		return connections_.hasConnections(sender, reciever);
-	}
-	bool hasConnections(AbstractObjectRef sender, AbstractDelegate const & deleg) const
-	{
-		return connections_.hasConnections(sender, deleg);
+		return connections_.hasConnections(deleg);
 	}
 
 	template<class T, class Y> bool hasConnections(T * obj, Y pMemberFunc) const
 	{
-		return hasConnections(anySender(), AbstractDelegate(obj, pMemberFunc));
-	}
-	template<class T, class Y> bool hasConnections(AbstractObjectRef sender, T * obj, Y pMemberFunc) const
-	{
-		return hasConnections(sender, AbstractDelegate(obj, pMemberFunc));
+		return hasConnections(AbstractDelegate(obj, pMemberFunc));
 	}
 
 	size_t disconnectAll()
 	{
 		return connections_.disconnectAll();
 	}
-	size_t disconnect(anySender, anyReciever)
+	size_t disconnectAll(AbstractDelegate const & deleg)
 	{
-		return connections_.disconnectAll();
-	}
-	size_t disconnect(anySender, AbstractObjectRef reciever)
-	{
-		return connections_.disconnect(anySender(), reciever);
-	}
-	size_t disconnect(anySender, AbstractDelegate const & deleg)
-	{
-		return connections_.disconnect(anySender(), deleg);
+		return connections_.disconnectAll(deleg);
 	}
 
-	size_t disconnectAll(AbstractObjectRef sender)
-	{
-		return connections_.disconnect(sender, anyReciever());
-	}
-	size_t disconnect(AbstractObjectRef sender, anyReciever)
-	{
-		return connections_.disconnect(sender, anyReciever());
-	}
-	size_t disconnect(AbstractObjectRef sender, AbstractObjectRef reciever)
-	{
-		return connections_.disconnect(sender, reciever);
-	}
-	size_t disconnect(AbstractObjectRef sender, AbstractDelegate const & deleg)
-	{
-		return connections_.disconnect(sender, deleg);
-	}
+	inline bool disconnectOne(AbstractDelegate const & deleg);
 
-	template<class T, class Y> size_t disconnect(anySender, T * obj, Y pMemberFunc)
+	template<class T, class Y> size_t disconnectAll(T * obj, Y pMemberFunc)
 	{
-		return disconnect(anySender(), AbstractDelegate(obj, pMemberFunc));
+		return disconnectAll(AbstractDelegate(obj, pMemberFunc));
 	}
-	template<class T, class Y> size_t disconnect(AbstractObjectRef sender, T * obj, Y pMemberFunc)
+	template<class T, class Y> bool disconnectOne(T * obj, Y pMemberFunc)
 	{
-		return disconnect(sender, AbstractDelegate(obj, pMemberFunc));
+		return disconnectOne(AbstractDelegate(obj, pMemberFunc));
 	}
 protected:
 	typedef ConnectionList::ConnectionsVector ConnectionsVector;
@@ -171,95 +90,84 @@ private:
 class AbstractEventRef
 {
 public:
-	AbstractEventRef(AbstractObjectRef sender, AbstractEvent * ev)
-		: sender_(sender)
-		, event_(ev)
+	AbstractEventRef(AbstractEvent * ev)
+		: event_(ev)
 	{}
 	AbstractEventRef(AbstractEventRef const & other)
-		: sender_(other.sender_)
-		, event_(other.event_)
+		: event_(other.event_)
 	{}
-
-	AbstractObjectRef senderObject() const { return sender_; }
 
 	bool operator==(AbstractEventRef const & other) const
 	{
-		return event_ == other.event_ && sender_ == other.sender_;
+		return event_ == other.event_;
 	}
 
 	bool operator!=(AbstractEventRef const & other) const
 	{
-		return event_ != other.event_ || sender_ != other.sender_;
+		return event_ != other.event_;
 	}
 
 	size_t connectionCount() const
 	{
-		return event_->connectionCount(sender_);
-	}
-	size_t connectionCount(anyReciever) const
-	{
-		return event_->connectionCount(sender_);
-	}
-	size_t connectionCount(AbstractObjectRef reciever) const
-	{
-		return event_->connectionCount(sender_, reciever);
+		return event_->connectionCount();
 	}
 	size_t connectionCount(AbstractDelegate const & deleg) const
 	{
-		return event_->connectionCount(sender_, deleg);
+		return event_->connectionCount(deleg);
 	}
 	template<class T, class Y> size_t connectionCount(T * reciever, Y pMemberFunc) const
 	{
-		return event_->connectionCount(sender_, reciever, pMemberFunc);
+		return event_->connectionCount(reciever, pMemberFunc);
 	}
 
 	bool hasConnections() const
 	{
-		return event_->hasConnections(sender_);
-	}
-	bool hasConnections(anyReciever) const
-	{
-		return event_->hasConnections(sender_);
-	}
-	bool hasConnections(AbstractObjectRef reciever) const
-	{
-		return event_->hasConnections(sender_, reciever);
+		return event_->hasConnections();
 	}
 	bool hasConnections(AbstractDelegate const & deleg) const
 	{
-		return event_->hasConnections(sender_, deleg);
+		return event_->hasConnections(deleg);
 	}
 	template<class T, class Y> bool hasConnections(T * reciever, Y pMemberFunc) const
 	{
-		return event_->hasConnections(sender_, reciever, pMemberFunc);
+		return event_->hasConnections(reciever, pMemberFunc);
 	}
 
 	size_t disconnectAll()
 	{
-		return event_->disconnectAll(sender_);
+		return event_->disconnectAll();
 	}
-	size_t disconnect(AbstractObjectRef reciever)
+	size_t disconnectAll(AbstractDelegate const & deleg)
 	{
-		return event_->disconnect(sender_, reciever);
+		return event_->disconnectAll(deleg);
 	}
-	size_t disconnect(AbstractDelegate const & deleg)
+	template<class T, class Y> size_t disconnectAll(T * reciever, Y pMemberFunc)
 	{
-		return event_->disconnect(sender_, deleg);
+		return event_->disconnectAll(reciever, pMemberFunc);
 	}
-	template<class T, class Y> size_t disconnect(T * reciever, Y pMemberFunc)
+	bool disconnectOne(AbstractDelegate const & deleg)
 	{
-		return event_->disconnect(sender_, reciever, pMemberFunc);
+		return event_->disconnectOne(deleg);
+	}
+	template<class T, class Y> bool disconnectOne(T * reciever, Y pMemberFunc)
+	{
+		return event_->disconnectOne(reciever, pMemberFunc);
 	}
 protected:
 	AbstractEvent * senderEvent() const { return event_; }
 private:
-	AbstractObjectRef sender_;
 	AbstractEvent * event_;
 };
 
 inline AbstractEventRef AbstractConnection::senderEventRef() const
 {
-	return AbstractEventRef(sender_, event_);
+	return AbstractEventRef(event_);
 }
+
+inline bool AbstractEvent::disconnectOne(AbstractDelegate const & deleg)
+{
+	return connections_.disconnectOne(AbstractEventRef(this), deleg);
+}
+
 
 #endif //ABSTRACT_EVENT__HPP

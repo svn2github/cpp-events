@@ -11,11 +11,8 @@ public:
 	typedef Connection0 BaseType;
 	typedef ConnectionEx0<DelegateClass, StoredListClass> ThisType;
 
-	ConnectionEx0(
-		AbstractObjectRef sender, AbstractEvent * ev, AbstractObjectRef reciever,
-		DelegateClass const & deleg, StoredListClass const & stored
-	)
-		: BaseType(sender, ev, reciever, deleg.GetMemento())
+	ConnectionEx0(AbstractEvent * ev, DelegateClass const & deleg, StoredListClass const & stored)
+		: BaseType(ev, deleg.GetMemento())
 		, deleg_(deleg), stored_(stored)
 	{
 		BaseType::delegate_ = fastdelegate::MakeDelegate(this, &ThisType::invokeHelper);
@@ -38,11 +35,8 @@ public:
 	typedef Connection1<Param0> BaseType;
 	typedef ConnectionEx1<Param0,DelegateClass, StoredListClass> ThisType;
 
-	ConnectionEx1(
-		AbstractObjectRef sender, AbstractEvent * ev, AbstractObjectRef reciever,
-		DelegateClass const & deleg, StoredListClass const & stored
-	)
-		: BaseType(sender, ev, reciever, deleg.GetMemento())
+	ConnectionEx1(AbstractEvent * ev, DelegateClass const & deleg, StoredListClass const & stored)
+		: BaseType(ev, deleg.GetMemento())
 		, deleg_(deleg), stored_(stored)
 	{
 		BaseType::delegate_ = fastdelegate::MakeDelegate(this, &ThisType::invokeHelper);
@@ -65,11 +59,8 @@ public:
 	typedef Connection2<Param0, Param1> BaseType;
 	typedef ConnectionEx2<Param0, Param1,DelegateClass, StoredListClass> ThisType;
 
-	ConnectionEx2(
-		AbstractObjectRef sender, AbstractEvent * ev, AbstractObjectRef reciever,
-		DelegateClass const & deleg, StoredListClass const & stored
-	)
-		: BaseType(sender, ev, reciever, deleg.GetMemento())
+	ConnectionEx2(AbstractEvent * ev, DelegateClass const & deleg, StoredListClass const & stored)
+		: BaseType(ev, deleg.GetMemento())
 		, deleg_(deleg), stored_(stored)
 	{
 		BaseType::delegate_ = fastdelegate::MakeDelegate(this, &ThisType::invokeHelper);
@@ -92,11 +83,8 @@ public:
 	typedef Connection3<Param0, Param1, Param2> BaseType;
 	typedef ConnectionEx3<Param0, Param1, Param2,DelegateClass, StoredListClass> ThisType;
 
-	ConnectionEx3(
-		AbstractObjectRef sender, AbstractEvent * ev, AbstractObjectRef reciever,
-		DelegateClass const & deleg, StoredListClass const & stored
-	)
-		: BaseType(sender, ev, reciever, deleg.GetMemento())
+	ConnectionEx3(AbstractEvent * ev, DelegateClass const & deleg, StoredListClass const & stored)
+		: BaseType(ev, deleg.GetMemento())
 		, deleg_(deleg), stored_(stored)
 	{
 		BaseType::delegate_ = fastdelegate::MakeDelegate(this, &ThisType::invokeHelper);
@@ -119,11 +107,8 @@ public:
 	typedef Connection4<Param0, Param1, Param2, Param3> BaseType;
 	typedef ConnectionEx4<Param0, Param1, Param2, Param3,DelegateClass, StoredListClass> ThisType;
 
-	ConnectionEx4(
-		AbstractObjectRef sender, AbstractEvent * ev, AbstractObjectRef reciever,
-		DelegateClass const & deleg, StoredListClass const & stored
-	)
-		: BaseType(sender, ev, reciever, deleg.GetMemento())
+	ConnectionEx4(AbstractEvent * ev, DelegateClass const & deleg, StoredListClass const & stored)
+		: BaseType(ev, deleg.GetMemento())
 		, deleg_(deleg), stored_(stored)
 	{
 		BaseType::delegate_ = fastdelegate::MakeDelegate(this, &ThisType::invokeHelper);
@@ -146,11 +131,8 @@ public:
 	typedef Connection5<Param0, Param1, Param2, Param3, Param4> BaseType;
 	typedef ConnectionEx5<Param0, Param1, Param2, Param3, Param4,DelegateClass, StoredListClass> ThisType;
 
-	ConnectionEx5(
-		AbstractObjectRef sender, AbstractEvent * ev, AbstractObjectRef reciever,
-		DelegateClass const & deleg, StoredListClass const & stored
-	)
-		: BaseType(sender, ev, reciever, deleg.GetMemento())
+	ConnectionEx5(AbstractEvent * ev, DelegateClass const & deleg, StoredListClass const & stored)
+		: BaseType(ev, deleg.GetMemento())
 		, deleg_(deleg), stored_(stored)
 	{
 		BaseType::delegate_ = fastdelegate::MakeDelegate(this, &ThisType::invokeHelper);
@@ -173,11 +155,8 @@ public:
 	typedef Connection6<Param0, Param1, Param2, Param3, Param4, Param5> BaseType;
 	typedef ConnectionEx6<Param0, Param1, Param2, Param3, Param4, Param5,DelegateClass, StoredListClass> ThisType;
 
-	ConnectionEx6(
-		AbstractObjectRef sender, AbstractEvent * ev, AbstractObjectRef reciever,
-		DelegateClass const & deleg, StoredListClass const & stored
-	)
-		: BaseType(sender, ev, reciever, deleg.GetMemento())
+	ConnectionEx6(AbstractEvent * ev, DelegateClass const & deleg, StoredListClass const & stored)
+		: BaseType(ev, deleg.GetMemento())
 		, deleg_(deleg), stored_(stored)
 	{
 		BaseType::delegate_ = fastdelegate::MakeDelegate(this, &ThisType::invokeHelper);
@@ -200,11 +179,8 @@ public:
 	typedef Connection7<Param0, Param1, Param2, Param3, Param4, Param5, Param6> BaseType;
 	typedef ConnectionEx7<Param0, Param1, Param2, Param3, Param4, Param5, Param6,DelegateClass, StoredListClass> ThisType;
 
-	ConnectionEx7(
-		AbstractObjectRef sender, AbstractEvent * ev, AbstractObjectRef reciever,
-		DelegateClass const & deleg, StoredListClass const & stored
-	)
-		: BaseType(sender, ev, reciever, deleg.GetMemento())
+	ConnectionEx7(AbstractEvent * ev, DelegateClass const & deleg, StoredListClass const & stored)
+		: BaseType(ev, deleg.GetMemento())
 		, deleg_(deleg), stored_(stored)
 	{
 		BaseType::delegate_ = fastdelegate::MakeDelegate(this, &ThisType::invokeHelper);
@@ -219,6 +195,5 @@ private:
 		return detail::invokeDelegate(deleg_, stored_, paramList);
 	}
 };
-
 
 #endif //CONNECTION_EX__HPP

@@ -11,7 +11,7 @@ public:
 
 	char const * name() const { return name_; }
 
-	EventRef1<float> dataArrived() { return dataArrived_.bind(this); }
+	EventRef1<float> dataArrived() { return &dataArrived_; }
 
 	void processData(int count, float const * data);
 private:

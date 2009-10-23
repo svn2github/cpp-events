@@ -10,11 +10,8 @@ protected:
 public:
 	typedef fastdelegate::FastDelegate0<void> DelegateType;
 	
-	Connection0(
-		AbstractObjectRef sender, AbstractEvent * ev, 
-		AbstractObjectRef reciever, DelegateType const & deleg
-	)
-		: AbstractConnection(sender, ev, reciever, deleg.GetMemento())
+	Connection0(AbstractEvent * ev, DelegateType const & deleg)
+		: AbstractConnection(ev, deleg.GetMemento())
 		, delegate_(deleg)
 	{}
 
@@ -22,11 +19,8 @@ public:
 protected:
 	DelegateType delegate_;
 
-	Connection0(
-		AbstractObjectRef sender, AbstractEvent * ev, 
-		AbstractObjectRef reciever, AbstractDelegate const & memento
-	)
-		: AbstractConnection(sender, ev, reciever, memento)
+	Connection0(AbstractEvent * ev, AbstractDelegate const & memento)
+		: AbstractConnection(ev, memento)
 		, delegate_()
 	{}
 };
@@ -38,11 +32,8 @@ protected:
 public:
 	typedef fastdelegate::FastDelegate1<Param0, void> DelegateType;
 	
-	Connection1(
-		AbstractObjectRef sender, AbstractEvent * ev, 
-		AbstractObjectRef reciever, DelegateType const & deleg
-	)
-		: AbstractConnection(sender, ev, reciever, deleg.GetMemento())
+	Connection1(AbstractEvent * ev, DelegateType const & deleg)
+		: AbstractConnection(ev, deleg.GetMemento())
 		, delegate_(deleg)
 	{}
 
@@ -50,11 +41,8 @@ public:
 protected:
 	DelegateType delegate_;
 
-	Connection1(
-		AbstractObjectRef sender, AbstractEvent * ev, 
-		AbstractObjectRef reciever, AbstractDelegate const & memento
-	)
-		: AbstractConnection(sender, ev, reciever, memento)
+	Connection1(AbstractEvent * ev, AbstractDelegate const & memento)
+		: AbstractConnection(ev, memento)
 		, delegate_()
 	{}
 };
@@ -66,11 +54,8 @@ protected:
 public:
 	typedef fastdelegate::FastDelegate2<Param0, Param1, void> DelegateType;
 	
-	Connection2(
-		AbstractObjectRef sender, AbstractEvent * ev, 
-		AbstractObjectRef reciever, DelegateType const & deleg
-	)
-		: AbstractConnection(sender, ev, reciever, deleg.GetMemento())
+	Connection2(AbstractEvent * ev, DelegateType const & deleg)
+		: AbstractConnection(ev, deleg.GetMemento())
 		, delegate_(deleg)
 	{}
 
@@ -78,11 +63,8 @@ public:
 protected:
 	DelegateType delegate_;
 
-	Connection2(
-		AbstractObjectRef sender, AbstractEvent * ev, 
-		AbstractObjectRef reciever, AbstractDelegate const & memento
-	)
-		: AbstractConnection(sender, ev, reciever, memento)
+	Connection2(AbstractEvent * ev, AbstractDelegate const & memento)
+		: AbstractConnection(ev, memento)
 		, delegate_()
 	{}
 };
@@ -94,11 +76,8 @@ protected:
 public:
 	typedef fastdelegate::FastDelegate3<Param0, Param1, Param2, void> DelegateType;
 	
-	Connection3(
-		AbstractObjectRef sender, AbstractEvent * ev, 
-		AbstractObjectRef reciever, DelegateType const & deleg
-	)
-		: AbstractConnection(sender, ev, reciever, deleg.GetMemento())
+	Connection3(AbstractEvent * ev, DelegateType const & deleg)
+		: AbstractConnection(ev, deleg.GetMemento())
 		, delegate_(deleg)
 	{}
 
@@ -106,11 +85,8 @@ public:
 protected:
 	DelegateType delegate_;
 
-	Connection3(
-		AbstractObjectRef sender, AbstractEvent * ev, 
-		AbstractObjectRef reciever, AbstractDelegate const & memento
-	)
-		: AbstractConnection(sender, ev, reciever, memento)
+	Connection3(AbstractEvent * ev, AbstractDelegate const & memento)
+		: AbstractConnection(ev, memento)
 		, delegate_()
 	{}
 };
@@ -122,11 +98,8 @@ protected:
 public:
 	typedef fastdelegate::FastDelegate4<Param0, Param1, Param2, Param3, void> DelegateType;
 	
-	Connection4(
-		AbstractObjectRef sender, AbstractEvent * ev, 
-		AbstractObjectRef reciever, DelegateType const & deleg
-	)
-		: AbstractConnection(sender, ev, reciever, deleg.GetMemento())
+	Connection4(AbstractEvent * ev, DelegateType const & deleg)
+		: AbstractConnection(ev, deleg.GetMemento())
 		, delegate_(deleg)
 	{}
 
@@ -134,11 +107,8 @@ public:
 protected:
 	DelegateType delegate_;
 
-	Connection4(
-		AbstractObjectRef sender, AbstractEvent * ev, 
-		AbstractObjectRef reciever, AbstractDelegate const & memento
-	)
-		: AbstractConnection(sender, ev, reciever, memento)
+	Connection4(AbstractEvent * ev, AbstractDelegate const & memento)
+		: AbstractConnection(ev, memento)
 		, delegate_()
 	{}
 };
@@ -150,11 +120,8 @@ protected:
 public:
 	typedef fastdelegate::FastDelegate5<Param0, Param1, Param2, Param3, Param4, void> DelegateType;
 	
-	Connection5(
-		AbstractObjectRef sender, AbstractEvent * ev, 
-		AbstractObjectRef reciever, DelegateType const & deleg
-	)
-		: AbstractConnection(sender, ev, reciever, deleg.GetMemento())
+	Connection5(AbstractEvent * ev, DelegateType const & deleg)
+		: AbstractConnection(ev, deleg.GetMemento())
 		, delegate_(deleg)
 	{}
 
@@ -162,11 +129,8 @@ public:
 protected:
 	DelegateType delegate_;
 
-	Connection5(
-		AbstractObjectRef sender, AbstractEvent * ev, 
-		AbstractObjectRef reciever, AbstractDelegate const & memento
-	)
-		: AbstractConnection(sender, ev, reciever, memento)
+	Connection5(AbstractEvent * ev, AbstractDelegate const & memento)
+		: AbstractConnection(ev, memento)
 		, delegate_()
 	{}
 };
@@ -178,11 +142,8 @@ protected:
 public:
 	typedef fastdelegate::FastDelegate6<Param0, Param1, Param2, Param3, Param4, Param5, void> DelegateType;
 	
-	Connection6(
-		AbstractObjectRef sender, AbstractEvent * ev, 
-		AbstractObjectRef reciever, DelegateType const & deleg
-	)
-		: AbstractConnection(sender, ev, reciever, deleg.GetMemento())
+	Connection6(AbstractEvent * ev, DelegateType const & deleg)
+		: AbstractConnection(ev, deleg.GetMemento())
 		, delegate_(deleg)
 	{}
 
@@ -190,11 +151,8 @@ public:
 protected:
 	DelegateType delegate_;
 
-	Connection6(
-		AbstractObjectRef sender, AbstractEvent * ev, 
-		AbstractObjectRef reciever, AbstractDelegate const & memento
-	)
-		: AbstractConnection(sender, ev, reciever, memento)
+	Connection6(AbstractEvent * ev, AbstractDelegate const & memento)
+		: AbstractConnection(ev, memento)
 		, delegate_()
 	{}
 };
@@ -206,11 +164,8 @@ protected:
 public:
 	typedef fastdelegate::FastDelegate7<Param0, Param1, Param2, Param3, Param4, Param5, Param6, void> DelegateType;
 	
-	Connection7(
-		AbstractObjectRef sender, AbstractEvent * ev, 
-		AbstractObjectRef reciever, DelegateType const & deleg
-	)
-		: AbstractConnection(sender, ev, reciever, deleg.GetMemento())
+	Connection7(AbstractEvent * ev, DelegateType const & deleg)
+		: AbstractConnection(ev, deleg.GetMemento())
 		, delegate_(deleg)
 	{}
 
@@ -218,14 +173,10 @@ public:
 protected:
 	DelegateType delegate_;
 
-	Connection7(
-		AbstractObjectRef sender, AbstractEvent * ev, 
-		AbstractObjectRef reciever, AbstractDelegate const & memento
-	)
-		: AbstractConnection(sender, ev, reciever, memento)
+	Connection7(AbstractEvent * ev, AbstractDelegate const & memento)
+		: AbstractConnection(ev, memento)
 		, delegate_()
 	{}
 };
-
 
 #endif //CONNECTION_HPP
