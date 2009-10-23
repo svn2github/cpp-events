@@ -76,9 +76,9 @@ protected:
 		ThreadDataLocker locker_;
 	};
 	
-	void addConnection(ConnectionList * tracker, AbstractConnection * conn)
+	void addConnection(ConnectionList * tracker, AbstractDelegate const & deleg, ExtraDelegateData * data)
 	{
-		connections_.connect(tracker, conn);
+		connections_.connect(tracker, deleg, data);
 	}
 private:
 	ConnectionList connections_;
@@ -159,14 +159,9 @@ private:
 	AbstractEvent * event_;
 };
 
-inline AbstractEventRef AbstractConnection::senderEventRef() const
-{
-	return AbstractEventRef(event_);
-}
-
 inline bool AbstractEvent::disconnectOne(AbstractDelegate const & deleg)
 {
-	return connections_.disconnectOne(AbstractEventRef(this), deleg);
+	return connections_.disconnectOne(&connections_, deleg);
 }
 
 

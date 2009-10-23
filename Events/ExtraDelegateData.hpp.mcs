@@ -1,0 +1,30 @@
+#ifndef CONNECTION_EX__HPP
+#define CONNECTION_EX__HPP
+
+#include "ConnectionList.hpp"
+#include "ArgList.hpp"
+
+@@for(int i=0; i<8; i+=1)
+template<@classArgs(i, ", ")@class DelegateClass, class StoredListClass>
+class ExtraDelegateData@i@ : public ExtraDelegateData
+{
+public:
+	ExtraDelegateData@i@(DelegateClass const & deleg, StoredListClass const & stored)
+		: ExtraDelegateData(deleg)
+		, deleg_(deleg)
+		, stored_(stored)
+	{
+	}
+	
+	void invokeHelper(@funcArgs(i)@) const
+	{
+		detail::ArgList@i;selArgs("<", i, ">")@ paramList@callArgs("(", i, ")")@;
+		return detail::invokeDelegate(deleg_, stored_, paramList);
+	}
+private:
+	DelegateClass deleg_;
+	StoredListClass stored_;
+};
+
+@@next
+#endif //CONNECTION_EX__HPP

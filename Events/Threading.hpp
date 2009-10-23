@@ -7,6 +7,7 @@ class Threading
 {
 public:
 	// Implementation-specific
+	// TODO: make reference counter public for better inlining
 	class ThreadData;
 
 	static void processInit();
@@ -97,16 +98,9 @@ public:
 		r.ptr_ = d;
 	}
 
-	void order(ThreadDataRef & r)
+	bool isBefore(ThreadDataRef const & r) const
 	{
-		if(ptr_ > r.ptr_)
-		{
-			swap(r);
-		}
-		else if(ptr_ == r.ptr_)
-		{
-			r.clear();
-		}
+		return ptr_ < r.ptr_;
 	}
 
 	bool operator==(ThreadDataRef const & r) const { return ptr_ == r.ptr_; }
@@ -132,6 +126,31 @@ public:
 	~ThreadDataLocker() { x_.unlock(); }
 private:
 	ThreadDataRef x_;
+};
+
+class OrderedThreadDataLocker
+{
+public:
+	OrderedThreadDataLocker(ThreadDataRef const & a, ThreadDataRef const & b)
+		: outer_(a), inner_(b)
+	{
+		if(inner_.isBefore(outer_))
+		{
+			inner_.swap(outer_);
+		}
+
+		outer_.lock();
+		inner_.lock();
+	}
+
+	~OrderedThreadDataLocker()
+	{
+		inner_.unlock();
+		outer_.unlock();
+	}
+private:
+	ThreadDataRef outer_;
+	ThreadDataRef inner_;
 };
 
 #endif //THREADING__HPP

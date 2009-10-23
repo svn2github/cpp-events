@@ -172,10 +172,6 @@
 			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}"
 			>
 			<File
-				RelativePath=".\AbstractConnection.hpp"
-				>
-			</File>
-			<File
 				RelativePath=".\AbstractDelegate.hpp"
 				>
 			</File>
@@ -200,19 +196,15 @@
 				>
 			</File>
 			<File
-				RelativePath=".\Connection.hpp"
-				>
-			</File>
-			<File
-				RelativePath=".\ConnectionEx.hpp"
-				>
-			</File>
-			<File
 				RelativePath=".\ConnectionList.hpp"
 				>
 			</File>
 			<File
 				RelativePath=".\Events.hpp"
+				>
+			</File>
+			<File
+				RelativePath=".\ExtraDelegateData.hpp"
 				>
 			</File>
 			<File
@@ -244,15 +236,11 @@
 				>
 			</File>
 			<File
-				RelativePath=".\Connection.hpp.mcs"
-				>
-			</File>
-			<File
-				RelativePath=".\ConnectionEx.hpp.mcs"
-				>
-			</File>
-			<File
 				RelativePath=".\Events.hpp.mcs"
+				>
+			</File>
+			<File
+				RelativePath=".\ExtraDelegateData.hpp.mcs"
 				>
 			</File>
 			<File
