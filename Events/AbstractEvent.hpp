@@ -161,7 +161,7 @@ private:
 
 inline bool AbstractEvent::disconnectOne(AbstractDelegate const & deleg)
 {
-	return connections_.disconnectOne(&connections_, deleg);
+	return connections_.disconnectOne(deleg);
 }
 
 

@@ -47,6 +47,9 @@ public:
 	size_t disconnectAll(AbstractDelegate const & deleg);
 	size_t disconnectAll(ConnectionList * peer);
 	size_t disconnectAll(ConnectionList * peer, AbstractDelegate const & deleg);
+
+	bool disconnectOne(AbstractDelegate const & deleg);
+	bool disconnectOne(ConnectionList * peer);
 	bool disconnectOne(ConnectionList * peer, AbstractDelegate const & deleg);
 
 	template<class T, class Y> size_t connectionCount(T * obj, Y pMemberFunc) const
@@ -145,6 +148,7 @@ private:
 	template<class Comparer> inline size_t getConnectionCount(Comparer const &) const;
 	template<class Comparer> inline bool getHasConnections(Comparer const &) const;
 	template<class Comparer> inline size_t doDisconnectAll(Comparer const & );
+	template<class Comparer> inline bool doDisconnectOne(Comparer const & );
 
 	bool tryDisconnectWithLock(size_t index);
 	void disconnectAt(size_t index);

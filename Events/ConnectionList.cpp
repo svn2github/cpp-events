@@ -207,9 +207,8 @@ size_t ConnectionList::disconnectAll(ConnectionList * peer)
 	return doDisconnectAll(comp);
 }
 
-bool ConnectionList::disconnectOne(ConnectionList * peer, AbstractDelegate const & deleg)
+template<class Comparer> inline bool ConnectionList::doDisconnectOne(Comparer const & comp)
 {
-	FullComparer comp(peer, deleg);
 	size_t needRelock = ConnectionData::npos;
 	{
 		ThreadDataLocker lock(lock_);
@@ -233,6 +232,24 @@ bool ConnectionList::disconnectOne(ConnectionList * peer, AbstractDelegate const
 	disconnectAt(needRelock);
 	releaseConn(needRelock);
 	return true;
+}
+
+bool ConnectionList::disconnectOne(AbstractDelegate const & deleg)
+{
+	DelegateComparer comp(deleg);
+	return doDisconnectOne(comp);
+}
+
+bool ConnectionList::disconnectOne(ConnectionList * peer)
+{
+	PeerComparer comp(peer);
+	return doDisconnectOne(comp);
+}
+
+bool ConnectionList::disconnectOne(ConnectionList * peer, AbstractDelegate const & deleg)
+{
+	FullComparer comp(peer, deleg);
+	return doDisconnectOne(comp);
 }
 
 void ConnectionList::disconnectAt(size_t index)
