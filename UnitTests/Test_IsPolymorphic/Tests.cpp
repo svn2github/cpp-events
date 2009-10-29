@@ -6,7 +6,7 @@
 // For checking polymorphy special template class is derived from class being tested.
 // This potentially may cause compilation problems if some special members of base class are inaccessible.
 // This test is designed for detecting these problems. Test is passed if it compiles.
-TEST(Test_IsPolymorphic, TestCompilability)
+TEST(Test_IsPolymorphic, Compilability)
 {
 	bool const b = detail::IsPolymorphic<ClassWithUndefinedPrivateCtorAndDtor>::value;
 	(void)b;
@@ -35,7 +35,7 @@ namespace {
 }
 
 
-TEST(Test_IsPolymorphic, TestAlignmentIssues)
+TEST(Test_IsPolymorphic, AlignmentIssues)
 {
 	testAlignmentIssues(ClassOfSize< sizeof(void*) * 2 >());
 }
@@ -44,7 +44,7 @@ TEST(Test_IsPolymorphic, TestAlignmentIssues)
 // This test checks classes that are naturally non-polymorphic.
 // The TestAlignmentIssues does the same but does it better.
 // Thus this test is not much useful but let it be.
-TEST(Test_IsPolymorphic, TestNaturallyNonPolymorphic)
+TEST(Test_IsPolymorphic, NaturallyNonPolymorphic)
 {
 	ASSERT_FALSE(detail::IsPolymorphic< NonVirtualClass1 >::value);
 	ASSERT_FALSE(detail::IsPolymorphic< NonVirtualClass2_1 >::value);
@@ -58,7 +58,7 @@ TEST(Test_IsPolymorphic, TestNaturallyNonPolymorphic)
 
 ////////////////////////////////////////////////////////////////////////////////
 // This test ensures that all naturally polymorphic classes are detected as polymorphic.
-TEST(Test_IsPolymorphic, TestNaturallyPolymorphic)
+TEST(Test_IsPolymorphic, NaturallyPolymorphic)
 {
 	//This class are naturally polymorphic
 	ASSERT_TRUE(detail::IsPolymorphic< VirtualByDestructor >::value);
@@ -73,7 +73,7 @@ TEST(Test_IsPolymorphic, TestNaturallyPolymorphic)
 ////////////////////////////////////////////////////////////////////////////////
 // This test ensures that classes that have non-virtual hierarchy root and have
 // added virtuality later in the hierarchy tree are detected as polymorphic.
-TEST(Test_IsPolymorphic, TestPolymorphized)
+TEST(Test_IsPolymorphic, Polymorphized)
 {
 	//This classes 
 	ASSERT_TRUE(detail::IsPolymorphic< ClassThatAddsVirtuality1 >::value);
@@ -91,7 +91,7 @@ TEST(Test_IsPolymorphic, TestPolymorphized)
 ////////////////////////////////////////////////////////////////////////////////
 // This test ensures that classes that use virtual inheritance, but does not
 // have any virtual functions are detected as non-polymorphic.
-TEST(Test_IsPolymorphic, TestVirtualInheritanceDoesNotMakeClassesPolymorphic)
+TEST(Test_IsPolymorphic, VirtualInheritanceDoesNotMakeClassesPolymorphic)
 {
 	ASSERT_FALSE(detail::IsPolymorphic< VirtualInhLeft >::value);
 	ASSERT_FALSE(detail::IsPolymorphic< VirtualInhRight >::value);
@@ -101,7 +101,7 @@ TEST(Test_IsPolymorphic, TestVirtualInheritanceDoesNotMakeClassesPolymorphic)
 ////////////////////////////////////////////////////////////////////////////////
 // This test ensures that classes that have virtual functions, but use virtual
 // inheritance still are polymorphic.
-TEST(Test_IsPolymorphic, TestVirtualInheritanceDoesNotExcludePolymorphism)
+TEST(Test_IsPolymorphic, VirtualInheritanceDoesNotExcludePolymorphism)
 {
 	ASSERT_TRUE(detail::IsPolymorphic< VirtualInhExtraL >::value);
 	ASSERT_TRUE(detail::IsPolymorphic< VirtualInhExtraR >::value);

@@ -35,6 +35,9 @@ template<class T> std::ostream & operator << (std::ostream & os, FunctionData<T>
 	return os;
 }
 
+////////////////////////////////////////////////////////////////////////////////
+// This test ensures that member functions generated in different translation
+// units have have equal addresses.
 TEST(Test_EqualMemberAddress, TheTest)
 {
 	TestDataArray a;
