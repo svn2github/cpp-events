@@ -1,7 +1,7 @@
 #ifndef SERVER_HPP
 #define SERVER_HPP
 
-#include "../Events/Events.hpp"
+#include "../Events/CppEvents.hpp"
 
 class Server
 {

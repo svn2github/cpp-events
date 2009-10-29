@@ -1,7 +1,7 @@
 #ifndef CLIENT_HPP
 #define CLIENT_HPP
 
-#include "../Events/ConnectionList.hpp"
+#include "../Events/CppEvents.hpp"
 
 class Server;
 
