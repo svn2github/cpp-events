@@ -72,7 +72,7 @@ protected:
 			return connections_;
 		}
 	private:
-		ConnectionsVector const & connections_;
+		ConnectionsVector connections_;
 		ThreadDataLocker locker_;
 	};
 	
