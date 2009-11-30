@@ -11,11 +11,11 @@ protected:
 public:
 	size_t connectionCount() const
 	{
-		return connections_.connectionCount();
+		return connectionList_.connectionCount();
 	}
 	size_t connectionCount(AbstractDelegate const & deleg) const
 	{
-		return connections_.connectionCount(deleg);
+		return connectionList_.connectionCount(deleg);
 	}
 
 	template<class T, class Y> size_t connectionCount(T * obj, Y pMemberFunc) const
@@ -25,11 +25,11 @@ public:
 
 	bool hasConnections() const
 	{
-		return connections_.hasConnections();
+		return connectionList_.hasConnections();
 	}
 	bool hasConnections(AbstractDelegate const & deleg) const
 	{
-		return connections_.hasConnections(deleg);
+		return connectionList_.hasConnections(deleg);
 	}
 
 	template<class T, class Y> bool hasConnections(T * obj, Y pMemberFunc) const
@@ -39,11 +39,11 @@ public:
 
 	size_t disconnectAll()
 	{
-		return connections_.disconnectAll();
+		return connectionList_.disconnectAll();
 	}
 	size_t disconnectAll(AbstractDelegate const & deleg)
 	{
-		return connections_.disconnectAll(deleg);
+		return connectionList_.disconnectAll(deleg);
 	}
 
 	inline bool disconnectOne(AbstractDelegate const & deleg);
@@ -78,13 +78,13 @@ protected:
 	
 	void addConnection(ConnectionList * tracker, AbstractDelegate const & deleg, ExtraDelegateData * data)
 	{
-		connections_.connect(tracker, deleg, data);
+		connectionList_.connect(tracker, deleg, data);
 	}
 private:
-	ConnectionList connections_;
+	ConnectionList connectionList_;
 
-	ThreadDataRef & connectionsLock() const { return connections_.lock_; }
-	ConnectionsVector const & connections() const { return connections_.connections_; }
+	ThreadDataRef & connectionsLock() const { return connectionList_.lock_; }
+	ConnectionsVector const & connections() const { return connectionList_.connections_; }
 };
 
 class AbstractEventRef
@@ -161,7 +161,7 @@ private:
 
 inline bool AbstractEvent::disconnectOne(AbstractDelegate const & deleg)
 {
-	return connections_.disconnectOne(deleg);
+	return connectionList_.disconnectOne(deleg);
 }
 
 
