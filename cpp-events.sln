@@ -15,6 +15,10 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "mcs", "mcs\msvs\mcs.vcproj"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "UnitTests", "UnitTests\UnitTests.vcproj", "{18137197-A464-41BD-8A62-E24A35D8BE7D}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Probes", "Probes", "{E194FAAF-E10C-446F-9601-F1BCF4FF8AC3}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "FunctionDeclarator", "Probes\FunctionDeclarator\FunctionDeclarator.vcproj", "{1660DC83-761A-48B0-8F32-935A08919294}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -46,8 +50,17 @@ Global
 		{18137197-A464-41BD-8A62-E24A35D8BE7D}.MCS Debug|Win32.Build.0 = Debug|Win32
 		{18137197-A464-41BD-8A62-E24A35D8BE7D}.Release|Win32.ActiveCfg = Release|Win32
 		{18137197-A464-41BD-8A62-E24A35D8BE7D}.Release|Win32.Build.0 = Release|Win32
+		{1660DC83-761A-48B0-8F32-935A08919294}.Debug|Win32.ActiveCfg = Debug|Win32
+		{1660DC83-761A-48B0-8F32-935A08919294}.Debug|Win32.Build.0 = Debug|Win32
+		{1660DC83-761A-48B0-8F32-935A08919294}.MCS Debug|Win32.ActiveCfg = Debug|Win32
+		{1660DC83-761A-48B0-8F32-935A08919294}.MCS Debug|Win32.Build.0 = Debug|Win32
+		{1660DC83-761A-48B0-8F32-935A08919294}.Release|Win32.ActiveCfg = Release|Win32
+		{1660DC83-761A-48B0-8F32-935A08919294}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{1660DC83-761A-48B0-8F32-935A08919294} = {E194FAAF-E10C-446F-9601-F1BCF4FF8AC3}
 	EndGlobalSection
 EndGlobal
