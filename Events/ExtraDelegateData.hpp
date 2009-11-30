@@ -1,5 +1,5 @@
-#ifndef CONNECTION_EX__HPP
-#define CONNECTION_EX__HPP
+#ifndef EXTRA_DELEGATE_DATA__HPP
+#define EXTRA_DELEGATE_DATA__HPP
 
 #include "ConnectionList.hpp"
 #include "ArgList.hpp"
@@ -172,4 +172,4 @@ private:
 	StoredListClass stored_;
 };
 
-#endif //CONNECTION_EX__HPP
+#endif //EXTRA_DELEGATE_DATA__HPP
