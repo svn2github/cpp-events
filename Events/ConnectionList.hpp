@@ -144,11 +144,15 @@ private:
 
 	mutable ThreadDataRef lock_;
 	ConnectionsVector connections_;
+	ConnectionsVector * stolenConnections_;
 
 	template<class Comparer> inline size_t getConnectionCount(Comparer const &) const;
 	template<class Comparer> inline bool getHasConnections(Comparer const &) const;
 	template<class Comparer> inline size_t doDisconnectAll(Comparer const & );
 	template<class Comparer> inline bool doDisconnectOne(Comparer const & );
+
+	ConnectionsVector const & constRef() const;
+	void detach();
 
 	bool tryDisconnectWithLock(size_t index);
 	void disconnectAt(size_t index);

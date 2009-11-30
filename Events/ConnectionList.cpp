@@ -2,6 +2,8 @@
 
 ConnectionList::ConnectionList()
 	: lock_(ThreadDataRef::current())
+	, connections_()
+	, stolenConnections_()
 {
 }
 
@@ -13,6 +15,7 @@ ConnectionList::~ConnectionList()
 void ConnectionList::connect(ConnectionList * peer, AbstractDelegate const & deleg, ExtraDelegateData * data)
 {
 	OrderedThreadDataLocker locker(lock_, peer->lock_);
+	detach();
 	size_t const thisIndex = this->connections_.size();
 	size_t const peerIndex = peer->connections_.size();
 	{
@@ -82,14 +85,15 @@ private:
 size_t ConnectionList::connectionCount() const
 {
 	ThreadDataLocker lock(lock_);
-	return connections_.size();
+	return constRef().size();
 }
 
 template<class Comparer> inline size_t ConnectionList::getConnectionCount(Comparer const & comp) const
 {
 	ThreadDataLocker lock(lock_);
+	ConnectionsVector const & conns = constRef();
 	size_t retVal = 0;
-	for(const_iterate(it, connections_))
+	for(const_iterate(it, conns))
 	{
 		ConnectionData const & conn = *it;
 		if(comp(conn)) ++retVal;
@@ -118,13 +122,14 @@ size_t ConnectionList::connectionCount(ConnectionList * peer, AbstractDelegate c
 bool ConnectionList::hasConnections() const
 {
 	ThreadDataLocker lock(lock_);
-	return !connections_.empty();
+	return !constRef().empty();
 }
 
 template<class Comparer> inline bool ConnectionList::getHasConnections(Comparer const & comp) const
 {
 	ThreadDataLocker lock(lock_);
-	for(const_iterate(it, connections_))
+	ConnectionsVector const & conns = constRef();	
+	for(const_iterate(it, conns))
 	{
 		ConnectionData const & conn = *it;
 		if(comp(conn)) return true;
@@ -156,6 +161,7 @@ template<class Comparer> inline size_t ConnectionList::doDisconnectAll(Comparer 
 	size_t retVal = 0;
 	{
 		ThreadDataLocker lock(lock_);
+		detach();
 		for(size_t i=0; i<connections_.size(); )
 		{
 			ConnectionData const & conn = connections_[i];
@@ -212,6 +218,7 @@ template<class Comparer> inline bool ConnectionList::doDisconnectOne(Comparer co
 	size_t needRelock = ConnectionData::npos;
 	{
 		ThreadDataLocker lock(lock_);
+		detach();
 		for(size_t i=0; i<connections_.size(); )
 		{
 			ConnectionData & conn = connections_[i];
@@ -257,6 +264,27 @@ void ConnectionList::disconnectAt(size_t index)
 	ConnectionData * thisConn = &connections_[index];
 	OrderedThreadDataLocker locker(lock_, thisConn->peerLock_);
 	doDisconnect(index);
+}
+
+ConnectionList::ConnectionsVector const & ConnectionList::constRef() const
+{
+	if(stolenConnections_)
+	{
+		assert(connections_.empty());
+		return *stolenConnections_;
+	}
+	return connections_;
+}
+
+void ConnectionList::detach()
+{
+	if(stolenConnections_)
+	{
+		assert(connections_.empty());
+		ConnectionList * _this = const_cast<ConnectionList*>(this);
+		_this->connections_ = *(_this->stolenConnections_);
+		_this->stolenConnections_ = 0;
+	}
 }
 
 bool ConnectionList::tryDisconnectWithLock(size_t index)
