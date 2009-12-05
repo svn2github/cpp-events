@@ -196,6 +196,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\BorrowableData.hpp"
+				>
+			</File>
+			<File
 				RelativePath=".\Config.hpp"
 				>
 			</File>

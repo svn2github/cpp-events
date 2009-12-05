@@ -60,8 +60,6 @@ public:
 		return disconnectOne(AbstractDelegate(obj, pMemberFunc));
 	}
 protected:
-	typedef ConnectionList::FireLock::ConnectionsVector ConnectionsVector;
-
 	class FireLock
 	{
 	public:

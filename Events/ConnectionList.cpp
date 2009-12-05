@@ -21,20 +21,22 @@ void AbstractConnection::doDisconnect()
 	assert(sourceList_ && targetList_);
 
 	{
-		AbstractConnection * & xs = sourceList_->connections_[sourceIndex_];
+		ConnectionsVector & connections = sourceList_->data_.mutableRef();
+		AbstractConnection * & xs = connections[sourceIndex_];
 		assert(xs == this);
-		xs = sourceList_->connections_.back();
+		xs = connections.back();
 		xs->sourceIndex_ = sourceIndex_;
-		sourceList_->connections_.pop_back();
+		connections.pop_back();
 		sourceIndex_ = npos; sourceList_ = 0;
 		release();
 	}
 	{
-		AbstractConnection * & xt = targetList_->connections_[targetIndex_];
+		ConnectionsVector & connections = targetList_->data_.mutableRef();
+		AbstractConnection * & xt = connections[targetIndex_];
 		assert(xt == this);
-		xt = targetList_->connections_.back();
+		xt = connections.back();
 		xt->targetIndex_ = targetIndex_;
-		targetList_->connections_.pop_back();
+		connections.pop_back();
 		targetIndex_ = npos; targetList_ = 0;
 		release();
 	}
@@ -42,13 +44,13 @@ void AbstractConnection::doDisconnect()
 
 ConnectionList::ConnectionList()
 	: lock_(ThreadDataRef::current())
-	, connections_()
-	, stolenConnections_()
+	, data_()
 {
 }
 
 ConnectionList::~ConnectionList()
 {
+	assert(!data_.isBorrowed());
 	disconnectAll();
 }
 
@@ -63,16 +65,18 @@ void ConnectionList::connect(ConnectionList * peer, AbstractConnection * conn)
 
 	{
 		assert(!conn->sourceList_ && conn->sourceIndex_ == AbstractConnection::npos);
+		ConnectionsVector & connections = data_.mutableRef();
 		conn->sourceList_ = this;
-		conn->sourceIndex_ = connections_.size();
-		connections_.push_back(conn);
+		conn->sourceIndex_ = connections.size();
+		connections.push_back(conn);
 		conn->retain();
 	}
 	{
 		assert(!conn->targetList_ && conn->targetIndex_ == AbstractConnection::npos);
+		ConnectionsVector & connections = data_.mutableRef();
 		conn->targetList_ = peer;
-		conn->targetIndex_ = peer->connections_.size();
-		peer->connections_.push_back(conn);
+		conn->targetIndex_ = connections.size();
+		connections.push_back(conn);
 		conn->retain();
 	}
 }
@@ -120,15 +124,15 @@ private:
 size_t ConnectionList::connectionCount() const
 {
 	ThreadDataLocker lock(lock_);
-	return constRef().size();
+	return data_.constRef().size();
 }
 
 template<class Comparer> inline size_t ConnectionList::getConnectionCount(Comparer const & comp) const
 {
 	ThreadDataLocker lock(lock_);
-	ConnectionsVector const & conns = constRef();
+	ConnectionsVector const & connections = data_.constRef();
 	size_t retVal = 0;
-	for(const_iterate(it, conns))
+	for(const_iterate(it, connections))
 	{
 		AbstractConnection const * conn = *it;
 		if(comp(conn)) ++retVal;
@@ -157,14 +161,14 @@ size_t ConnectionList::connectionCount(ConnectionList * peer, AbstractDelegate c
 bool ConnectionList::hasConnections() const
 {
 	ThreadDataLocker lock(lock_);
-	return !constRef().empty();
+	return !data_.constRef().empty();
 }
 
 template<class Comparer> inline bool ConnectionList::getHasConnections(Comparer const & comp) const
 {
 	ThreadDataLocker lock(lock_);
-	ConnectionsVector const & conns = constRef();	
-	for(const_iterate(it, conns))
+	ConnectionsVector const & connections = data_.constRef();	
+	for(const_iterate(it, connections))
 	{
 		AbstractConnection const * conn = *it;
 		if(comp(conn)) return true;
@@ -196,10 +200,10 @@ template<class Comparer> inline size_t ConnectionList::doDisconnectAll(Comparer 
 	size_t retVal = 0;
 	{
 		ThreadDataLocker lock(lock_);
-		detach();
-		for(size_t i=0; i<connections_.size(); )
+		ConnectionsVector & connections = data_.mutableRef();
+		for(size_t i = 0; i < connections.size(); )
 		{
-			AbstractConnection * conn = connections_.at(i);
+			AbstractConnection * conn = connections.at(i);
 			if(!comp(conn))
 			{
 				++i;
@@ -253,10 +257,10 @@ template<class Comparer> inline bool ConnectionList::doDisconnectOne(Comparer co
 	AbstractConnection * needRelock = 0;
 	{
 		ThreadDataLocker lock(lock_);
-		detach();
-		for(size_t i=0; i<connections_.size(); )
+		ConnectionsVector & connections = data_.mutableRef();
+		for(size_t i = 0; i < connections.size(); )
 		{
-			AbstractConnection * conn = connections_.at(i);
+			AbstractConnection * conn = connections.at(i);
 			if(!comp(conn))
 			{
 				++i;
@@ -293,24 +297,4 @@ bool ConnectionList::disconnectOne(ConnectionList * peer, AbstractDelegate const
 {
 	FullComparer comp(peer, deleg);
 	return doDisconnectOne(comp);
-}
-ConnectionList::ConnectionsVector const & ConnectionList::constRef() const
-{
-	if(stolenConnections_)
-	{
-		assert(connections_.empty());
-		return *stolenConnections_;
-	}
-	return connections_;
-}
-
-void ConnectionList::detach()
-{
-	if(stolenConnections_)
-	{
-		assert(connections_.empty());
-		ConnectionList * _this = const_cast<ConnectionList*>(this);
-		_this->connections_ = *(_this->stolenConnections_);
-		_this->stolenConnections_ = 0;
-	}
 }

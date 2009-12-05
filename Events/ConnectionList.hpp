@@ -1,8 +1,7 @@
 #ifndef CONNECTION_LIST__HPP
 #define CONNECTION_LIST__HPP
 
-#include "AbstractConnection.hpp"
-#include <vector>
+#include "BorrowableData.hpp"
 
 class ConnectionList
 {
@@ -64,58 +63,35 @@ public:
 		return disconnect(peer, AbstractDelegate(obj, pMemberFunc));
 	}
 private:
-	typedef std::vector<AbstractConnection*> ConnectionsVector;
 	class NullComparer;
 	class DelegateComparer;
 	class PeerComparer;
 	class FullComparer;
 
 	mutable ThreadDataRef lock_;
-	ConnectionsVector connections_;
-	ConnectionsVector * stolenConnections_;
+	BorrowableData data_;
 
 	template<class Comparer> inline size_t getConnectionCount(Comparer const &) const;
 	template<class Comparer> inline bool getHasConnections(Comparer const &) const;
 	template<class Comparer> inline size_t doDisconnectAll(Comparer const & );
 	template<class Comparer> inline bool doDisconnectOne(Comparer const & );
-
-	ConnectionsVector const & constRef() const;
-	void detach();
 };
 
 class ConnectionList::FireLock
 {
-private:
-	FireLock(FireLock const & other);
-	FireLock & operator=(FireLock const &);
 public:
-	typedef ConnectionList::ConnectionsVector ConnectionsVector;
-
 	FireLock(ConnectionList const * list)
 		: locker_(list->lock_)
-		, list_(const_cast<ConnectionList*>(list))
-		, data_()
-	{
-		assert(!list_->stolenConnections_ && !"Data can be borrowed only once");
-		data_.swap(list_->connections_);
-		list_->stolenConnections_ = &data_;
-	}
+		, borrower_(&list->data_)
+	{}
 
-	~FireLock()
+	ConnectionsVector const & constData() const
 	{
-		if(list_->stolenConnections_ == &data_)
-		{
-			assert(list_->connections_.empty());
-			data_.swap(list_->connections_);
-			list_->stolenConnections_ = 0;
-		}
+		return borrower_.constData();
 	}
-
-	ConnectionsVector const & constData() const { return data_; }
 private:
 	ThreadDataLocker locker_;
-	ConnectionList * list_;
-	ConnectionsVector data_;
+	BorrowableData::Borrower borrower_;
 };
 
 #endif //CONNECTION_LIST__HPP
