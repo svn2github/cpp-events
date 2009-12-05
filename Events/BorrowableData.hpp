@@ -8,6 +8,7 @@ typedef std::vector<AbstractConnection*> ConnectionsVector;
 
 class BorrowableData
 {
+	DISABLE_COPY(BorrowableData)
 public:
 	class Borrower;
 
@@ -55,9 +56,7 @@ private:
 
 class BorrowableData::Borrower
 {
-private:
-	Borrower(Borrower const & other);
-	Borrower & operator=(Borrower const &);
+	DISABLE_COPY(Borrower)
 public:
 	Borrower(BorrowableData const * src)
 		: src_(const_cast<BorrowableData*>(src))

@@ -11,10 +11,7 @@ class ConnectionList;
 class AbstractConnection
 {
 	friend class ConnectionList;
-private:
-	//Connections cannot be copied.
-	AbstractConnection(AbstractConnection const &);
-	AbstractConnection & operator=(AbstractConnection const &);
+	DISABLE_COPY(AbstractConnection)
 public:
 	// Typeless delegate of the receiver object that can be used for comparison, but cannot be invoked.
 	AbstractDelegate recieverDelegate() const { return targetDelegate_; }

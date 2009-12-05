@@ -5,6 +5,7 @@
 
 class AbstractEvent
 {
+	DISABLE_COPY(AbstractEvent)
 protected:
 	AbstractEvent() {}
 	~AbstractEvent() {}
