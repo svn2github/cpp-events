@@ -46,7 +46,10 @@ public:
 		return connectionList_.disconnectAll(deleg);
 	}
 
-	inline bool disconnectOne(AbstractDelegate const & deleg);
+	bool disconnectOne(AbstractDelegate const & deleg)
+	{
+		return connectionList_.disconnectOne(deleg);
+	}
 
 	template<class T, class Y> size_t disconnectAll(T * obj, Y pMemberFunc)
 	{
@@ -153,11 +156,5 @@ protected:
 private:
 	AbstractEvent * event_;
 };
-
-inline bool AbstractEvent::disconnectOne(AbstractDelegate const & deleg)
-{
-	return connectionList_.disconnectOne(deleg);
-}
-
 
 #endif //ABSTRACT_EVENT__HPP
