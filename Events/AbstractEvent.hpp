@@ -57,32 +57,21 @@ public:
 		return disconnectOne(AbstractDelegate(obj, pMemberFunc));
 	}
 protected:
-	typedef ConnectionList::ConnectionsVector ConnectionsVector;
+	typedef ConnectionList::FireLock::ConnectionsVector ConnectionsVector;
 
 	class FireLock
 	{
 	public:
 		FireLock(AbstractEvent const * e)
-			: event_(e)
-			, connections_()
-			, locker_(e->connectionsLock())
-		{
-			const_cast<AbstractEvent*>(event_)->takeConnections(connections_);
-		}
-
-		~FireLock()
-		{
-			const_cast<AbstractEvent*>(event_)->returnConnections(connections_);
-		}
+			: impl_(&e->connectionList_)
+		{}
 
 		ConnectionsVector const & connections() const
 		{
-			return connections_;
+			return impl_.constData();
 		}
 	private:
-		AbstractEvent const * event_;
-		ConnectionsVector connections_;
-		ThreadDataLocker locker_;
+		ConnectionList::FireLock impl_;
 	};
 	
 	void addConnection(ConnectionList * tracker, AbstractConnection * conn)
@@ -91,26 +80,6 @@ protected:
 	}
 private:
 	ConnectionList connectionList_;
-
-	ThreadDataRef & connectionsLock() const { return connectionList_.lock_; }
-	
-	void takeConnections(ConnectionsVector & other)
-	{
-		assert(other.empty());
-		assert(!connectionList_.stolenConnections_);
-		other.swap(connectionList_.connections_);
-		connectionList_.stolenConnections_ = &other;
-	}
-
-	void returnConnections(ConnectionsVector & other)
-	{
-		if(connectionList_.stolenConnections_ == &other)
-		{
-			assert(connectionList_.connections_.empty());
-			other.swap(connectionList_.connections_);
-			connectionList_.stolenConnections_ = 0;
-		}
-	}
 };
 
 class AbstractEventRef

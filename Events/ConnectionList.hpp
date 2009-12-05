@@ -6,12 +6,13 @@
 
 class ConnectionList
 {
-	friend class AbstractEvent;
 	friend void AbstractConnection::doDisconnect();
 private:
 	ConnectionList(ConnectionList const & other);
 	ConnectionList & operator=(ConnectionList const & other);
 public:
+	class FireLock;
+
 	ConnectionList();
 	~ConnectionList();
 
@@ -80,6 +81,41 @@ private:
 
 	ConnectionsVector const & constRef() const;
 	void detach();
+};
+
+class ConnectionList::FireLock
+{
+private:
+	FireLock(FireLock const & other);
+	FireLock & operator=(FireLock const &);
+public:
+	typedef ConnectionList::ConnectionsVector ConnectionsVector;
+
+	FireLock(ConnectionList const * list)
+		: locker_(list->lock_)
+		, list_(const_cast<ConnectionList*>(list))
+		, data_()
+	{
+		assert(!list_->stolenConnections_ && !"Data can be borrowed only once");
+		data_.swap(list_->connections_);
+		list_->stolenConnections_ = &data_;
+	}
+
+	~FireLock()
+	{
+		if(list_->stolenConnections_ == &data_)
+		{
+			assert(list_->connections_.empty());
+			data_.swap(list_->connections_);
+			list_->stolenConnections_ = 0;
+		}
+	}
+
+	ConnectionsVector const & constData() const { return data_; }
+private:
+	ThreadDataLocker locker_;
+	ConnectionList * list_;
+	ConnectionsVector data_;
 };
 
 #endif //CONNECTION_LIST__HPP
