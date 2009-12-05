@@ -1,0 +1,33 @@
+#ifndef CONNECTION_EX__HPP
+#define CONNECTION_EX__HPP
+
+#include "Connection.hpp"
+#include "ArgList.hpp"
+
+@@for(int i=0; i<8; i+=1)
+template<@classArgs(i, ", ")@class DelegateClass, class StoredListClass>
+class ConnectionEx@i@ : public Connection@i;selArgs("<",i,">")@
+{
+public:
+	typedef Connection@i;selArgs("<",i,">")@ BaseType;
+	typedef ConnectionEx@i@<@selArgs(i,",")@DelegateClass, StoredListClass> ThisType;
+
+	ConnectionEx@i@(DelegateClass const & deleg, StoredListClass const & stored)
+		: BaseType(AbstractDelegate(deleg))
+		, deleg_(deleg), stored_(stored)
+	{
+		BaseType::delegate_ = fastdelegate::MakeDelegate(this, &ThisType::invokeHelper);
+	}
+private:
+	DelegateClass deleg_;
+	StoredListClass stored_;
+
+	void invokeHelper(@funcArgs(i)@) const
+	{
+		detail::ArgList@i;selArgs("<", i, ">")@ paramList@callArgs("(", i, ")")@;
+		return detail::invokeDelegate(deleg_, stored_, paramList);
+	}
+};
+
+@@next
+#endif //CONNECTION_EX__HPP

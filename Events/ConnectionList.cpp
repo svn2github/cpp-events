@@ -1,5 +1,45 @@
 #include "ConnectionList.hpp"
 
+void AbstractConnection::disconnect()
+{
+	ThreadDataLocker lock1(outerLock_);
+	ThreadDataLocker lock2(innerLock_);
+	doDisconnect();
+}
+
+bool AbstractConnection::tryDisconnectWithLock(ThreadDataRef const & lock)
+{
+	if(lock != outerLock_) return false;
+	ThreadDataLocker lock2(innerLock_);
+	doDisconnect();
+	return true;
+}
+
+void AbstractConnection::doDisconnect()
+{
+	if(!sourceList_ && !targetList_) return;
+	assert(sourceList_ && targetList_);
+
+	{
+		AbstractConnection * & xs = sourceList_->connections_[sourceIndex_];
+		assert(xs == this);
+		xs = sourceList_->connections_.back();
+		xs->sourceIndex_ = sourceIndex_;
+		sourceList_->connections_.pop_back();
+		sourceIndex_ = npos; sourceList_ = 0;
+		release();
+	}
+	{
+		AbstractConnection * & xt = targetList_->connections_[targetIndex_];
+		assert(xt == this);
+		xt = targetList_->connections_.back();
+		xt->targetIndex_ = targetIndex_;
+		targetList_->connections_.pop_back();
+		targetIndex_ = npos; targetList_ = 0;
+		release();
+	}
+}
+
 ConnectionList::ConnectionList()
 	: lock_(ThreadDataRef::current())
 	, connections_()
@@ -12,33 +52,28 @@ ConnectionList::~ConnectionList()
 	disconnectAll();
 }
 
-void ConnectionList::connect(ConnectionList * peer, AbstractDelegate const & deleg, ExtraDelegateData * data)
+void ConnectionList::connect(ConnectionList * peer, AbstractConnection * conn)
 {
-	OrderedThreadDataLocker locker(lock_, peer->lock_);
-	detach();
-	size_t const thisIndex = this->connections_.size();
-	size_t const peerIndex = peer->connections_.size();
+	conn->outerLock_ = this->lock_;
+	conn->innerLock_ = peer->lock_;
+	conn->outerLock_.makeBefore(conn->innerLock_);
+
+	ThreadDataLocker lock1(conn->outerLock_);
+	ThreadDataLocker lock2(conn->innerLock_);
+
 	{
-		connections_.resize(thisIndex + 1);
-		ConnectionData * d = &connections_[thisIndex];
-		d->ref_.retain();
-		d->peerLock_ = peer->lock_;
-		d->peer_ = peer;
-		d->indexInPeer_ = peerIndex;
-		d->extraData_ = data;
-		if(data) data->retain();
-		d->delegate_ = deleg;
+		assert(!conn->sourceList_ && conn->sourceIndex_ == AbstractConnection::npos);
+		conn->sourceList_ = this;
+		conn->sourceIndex_ = connections_.size();
+		connections_.push_back(conn);
+		conn->retain();
 	}
 	{
-		peer->connections_.resize(peerIndex + 1);
-		ConnectionData * d = &peer->connections_[peerIndex];
-		d->ref_.retain();
-		d->peerLock_ = this->lock_;
-		d->peer_ = this;
-		d->indexInPeer_ = thisIndex;
-		d->extraData_ = data;
-		if(data) data->retain();
-		d->delegate_ = deleg;
+		assert(!conn->targetList_ && conn->targetIndex_ == AbstractConnection::npos);
+		conn->targetList_ = peer;
+		conn->targetIndex_ = peer->connections_.size();
+		peer->connections_.push_back(conn);
+		conn->retain();
 	}
 }
 
@@ -51,14 +86,14 @@ void ConnectionList::connect(ConnectionList * peer, AbstractDelegate const & del
 class ConnectionList::NullComparer
 {
 public:
-	bool operator()(ConnectionData const & conn) const { (void)conn; return true; }
+	bool operator()(AbstractConnection const * conn) const { (void)conn; return true; }
 };
 
 class ConnectionList::DelegateComparer
 {
 public:
 	DelegateComparer(AbstractDelegate const & deleg) : deleg_(deleg) {}
-	bool operator()(ConnectionData const & conn) const { return conn.targetDelegate() == deleg_; }
+	bool operator()(AbstractConnection const * conn) const { return conn->recieverDelegate() == deleg_; }
 private:
 	AbstractDelegate const & deleg_;
 };
@@ -67,7 +102,7 @@ class ConnectionList::PeerComparer
 {
 public:
 	PeerComparer(ConnectionList * peer) : peer_(peer) {}
-	bool operator()(ConnectionData const & conn) const { return conn.peer_ == peer_; }
+	bool operator()(AbstractConnection const * conn) const { return conn->hasPeer(peer_); }
 private:
 	ConnectionList * const peer_;
 };
@@ -76,7 +111,7 @@ class ConnectionList::FullComparer
 {
 public:
 	FullComparer(ConnectionList * peer, AbstractDelegate const & deleg) : e_(peer), d_(deleg) {}
-	bool operator()(ConnectionData const & conn) const { return e_(conn) && d_(conn); }
+	bool operator()(AbstractConnection const * conn) const { return e_(conn) && d_(conn); }
 private:
 	PeerComparer e_;
 	DelegateComparer d_;
@@ -95,7 +130,7 @@ template<class Comparer> inline size_t ConnectionList::getConnectionCount(Compar
 	size_t retVal = 0;
 	for(const_iterate(it, conns))
 	{
-		ConnectionData const & conn = *it;
+		AbstractConnection const * conn = *it;
 		if(comp(conn)) ++retVal;
 	}
 	return retVal;
@@ -131,7 +166,7 @@ template<class Comparer> inline bool ConnectionList::getHasConnections(Comparer 
 	ConnectionsVector const & conns = constRef();	
 	for(const_iterate(it, conns))
 	{
-		ConnectionData const & conn = *it;
+		AbstractConnection const * conn = *it;
 		if(comp(conn)) return true;
 	}
 	return false;
@@ -157,34 +192,34 @@ bool ConnectionList::hasConnections(ConnectionList * peer, AbstractDelegate cons
 
 template<class Comparer> inline size_t ConnectionList::doDisconnectAll(Comparer const & comp)
 {
-	std::vector<size_t> needRelock;
+	ConnectionsVector needRelock;
 	size_t retVal = 0;
 	{
 		ThreadDataLocker lock(lock_);
 		detach();
 		for(size_t i=0; i<connections_.size(); )
 		{
-			ConnectionData const & conn = connections_[i];
+			AbstractConnection * conn = connections_.at(i);
 			if(!comp(conn))
 			{
 				++i;
 				continue;
 			}
 			++retVal;
-			bool done = tryDisconnectWithLock(i);
+			bool done = conn->tryDisconnectWithLock(lock_);
 			if(!done)
 			{
-				retainConn(i);
-				needRelock.push_back(i);
+				conn->retain();
+				needRelock.push_back(conn);
 				++i;
 			}
 		}
 	}
-	for(std::vector<size_t>::const_iterator it = needRelock.begin(); it != needRelock.end(); ++it)
+	for(const_iterate(it, needRelock))
 	{
-		size_t index = *it;
-		disconnectAt(index);
-		releaseConn(index);
+		AbstractConnection * conn = *it;
+		conn->disconnect();
+		conn->release();
 	}
 	return retVal;
 }
@@ -215,29 +250,30 @@ size_t ConnectionList::disconnectAll(ConnectionList * peer)
 
 template<class Comparer> inline bool ConnectionList::doDisconnectOne(Comparer const & comp)
 {
-	size_t needRelock = ConnectionData::npos;
+	AbstractConnection * needRelock = 0;
 	{
 		ThreadDataLocker lock(lock_);
 		detach();
 		for(size_t i=0; i<connections_.size(); )
 		{
-			ConnectionData & conn = connections_[i];
+			AbstractConnection * conn = connections_.at(i);
 			if(!comp(conn))
 			{
 				++i;
 				continue;
 			}
-			bool done = tryDisconnectWithLock(i);
+			bool done = conn->tryDisconnectWithLock(lock_);
 			if(done) return true;
-			needRelock = i;
-			retainConn(i);
+			needRelock = conn;
+			conn->retain();
 			break;
 		}
 	}
 
-	if(needRelock == ConnectionData::npos) return false;
-	disconnectAt(needRelock);
-	releaseConn(needRelock);
+	if(!needRelock) return false;
+
+	needRelock->disconnect();
+	needRelock->release();
 	return true;
 }
 
@@ -258,14 +294,6 @@ bool ConnectionList::disconnectOne(ConnectionList * peer, AbstractDelegate const
 	FullComparer comp(peer, deleg);
 	return doDisconnectOne(comp);
 }
-
-void ConnectionList::disconnectAt(size_t index)
-{
-	ConnectionData * thisConn = &connections_[index];
-	OrderedThreadDataLocker locker(lock_, thisConn->peerLock_);
-	doDisconnect(index);
-}
-
 ConnectionList::ConnectionsVector const & ConnectionList::constRef() const
 {
 	if(stolenConnections_)
@@ -284,51 +312,5 @@ void ConnectionList::detach()
 		ConnectionList * _this = const_cast<ConnectionList*>(this);
 		_this->connections_ = *(_this->stolenConnections_);
 		_this->stolenConnections_ = 0;
-	}
-}
-
-bool ConnectionList::tryDisconnectWithLock(size_t index)
-{
-	ConnectionData * thisConn = &connections_[index];
-	if(thisConn->peerLock_.isBefore(lock_)) return false;
-	ThreadDataLocker locker(thisConn->peerLock_);
-	doDisconnect(index);
-	return true;
-}
-
-void ConnectionList::doDisconnect(size_t index)
-{
-	ConnectionData * thisConn = &connections_[index];
-	if(thisConn->peer_)
-	{
-		ConnectionData * peerConn = thisConn->peerData();
-		peerConn->clear();
-		thisConn->peer_->releaseConn(thisConn->indexInPeer_);
-		thisConn->clear();
-	}
-	releaseConn(index);
-}
-
-void ConnectionList::retainConn(size_t index)
-{
-	connections_[index].ref_.retain();
-}
-
-void ConnectionList::releaseConn(size_t index)
-{
-	ConnectionData * conn = &connections_[index];
-	bool const isDead = conn->ref_.release();
-	
-	if(isDead)
-	{
-		if(index != connections_.size() - 1)
-		{
-			*conn = connections_.back();
-			if(conn->peer_)
-			{
-				conn->peerData()->indexInPeer_ = index;
-			}
-		}
-		connections_.pop_back();
 	}
 }

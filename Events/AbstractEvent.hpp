@@ -85,9 +85,9 @@ protected:
 		ThreadDataLocker locker_;
 	};
 	
-	void addConnection(ConnectionList * tracker, AbstractDelegate const & deleg, ExtraDelegateData * data)
+	void addConnection(ConnectionList * tracker, AbstractConnection * conn)
 	{
-		connectionList_.connect(tracker, deleg, data);
+		connectionList_.connect(tracker, conn);
 	}
 private:
 	ConnectionList connectionList_;

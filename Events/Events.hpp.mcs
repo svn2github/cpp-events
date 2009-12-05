@@ -9,14 +9,14 @@
 @classArgs("template<", i, "> ")@class Event@i@ : public AbstractEvent
 {
 public:
-	typedef fastdelegate::FastDelegate@i@<@iter("Param%, ", i)@void> DelegateType;
+	typedef Connection@i;selArgs("<", i, ">")@ ConnectionType;
 
 	Event@i@() {}
 	~Event@i@() {}
 
-	void addConnection(ConnectionList * tracker, DelegateType const & deleg, ExtraDelegateData * data)
+	void addConnection(ConnectionList * tracker, ConnectionType * conn)
 	{
-		AbstractEvent::addConnection(tracker, deleg, data);
+		AbstractEvent::addConnection(tracker, conn);
 	}
 	
 	void fire(@funcArgs(i)@) const
@@ -25,8 +25,7 @@ public:
 		ConnectionsVector const & conns = lock.connections();
 		for(ConnectionsVector::const_iterator it = conns.begin(); it != conns.end(); ++it)
 		{
-			DelegateType deleg = it->delegate_.castToDelegate<DelegateType>();
-			deleg(@callArgs(i)@);
+			static_cast<ConnectionType const *>(*it)->invoke(@callArgs(i)@);
 		}
 	}
 };
@@ -35,7 +34,7 @@ public:
 {
 public:
 	typedef Event@i;selArgs("<", i, ">")@ EventType;
-	typedef @if(i > 0) "typename " end@EventType::DelegateType DelegateType;
+	typedef @if(i > 0) "typename " end@EventType::ConnectionType ConnectionType;
 
 	EventRef@i@(EventType * ev) : AbstractEventRef(ev) {}
 	
@@ -46,12 +45,18 @@ public:
 
 	template<class T, class Y> void connect(ConnectionList * tracker, T * obj, void (Y::*pmf)(@funcArgs(i)@))
 	{
-		addConnection(tracker, fastdelegate::MakeDelegate(obj, pmf), 0);
+		ConnectionType * conn = new ConnectionType(
+			fastdelegate::MakeDelegate(obj, pmf)
+		);
+		addConnection(tracker, conn);
 	}
 
 	template<class T, class Y> void connect(ConnectionList * tracker, T const * obj, void (Y::*pmf)(@funcArgs(i)@) const)
 	{
-		addConnection(tracker, fastdelegate::MakeDelegate(obj, pmf), 0);
+		ConnectionType * conn = new ConnectionType(
+			fastdelegate::MakeDelegate(obj, pmf)
+		);
+		addConnection(tracker, conn);
 	}
 
 	template<class T, class Y> void connect(ConnectionList * tracker, T * obj, Y pmf)
@@ -72,16 +77,17 @@ public:
 
 @@next
 private:
-	void addConnection(ConnectionList * tracker, DelegateType const & deleg, ExtraDelegateData * data)
+	void addConnection(ConnectionList * tracker, ConnectionType * conn)
 	{
-		senderEvent()->addConnection(tracker, deleg, data);
+		senderEvent()->addConnection(tracker, conn);
 	}
 
 	template<class DelegateClass, class StoredListClass> void connectEx(ConnectionList * tracker, DelegateClass const & deleg, StoredListClass const & stored)
 	{
-		typedef ExtraDelegateData@i@<@selArgs(i, ", ")@DelegateClass, StoredListClass> ExtraDelegateDataType;
-		ExtraDelegateDataType * data = new ExtraDelegateDataType(deleg, stored);
-		addConnection(tracker, fastdelegate::MakeDelegate(data, &ExtraDelegateDataType::invokeHelper), data);
+		ConnectionType * conn = new ConnectionEx@i@<@selArgs(i, ", ")@DelegateClass, StoredListClass>(
+			deleg, stored
+		);
+		addConnection(tracker, conn);
 	}
 };
 

@@ -103,6 +103,15 @@ public:
 		return ptr_ < r.ptr_;
 	}
 
+	void makeBefore(ThreadDataRef & r)
+	{
+		if(r.isBefore(*this))
+		{
+			Threading::ThreadData * tmp = ptr_;
+			ptr_ = r.ptr_; r.ptr_ = tmp;
+		}
+	}
+
 	bool operator==(ThreadDataRef const & r) const { return ptr_ == r.ptr_; }
 	bool operator!=(ThreadDataRef const & r) const { return ptr_ != r.ptr_; }
 	bool operator <(ThreadDataRef const & r) const { return ptr_  < r.ptr_; }
