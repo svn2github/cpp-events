@@ -60,7 +60,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="gtestd.lib EventsD.lib"
+				AdditionalDependencies="gtestd.lib Events.lib"
 				LinkIncremental="2"
 				AdditionalLibraryDirectories="&quot;$(SolutionDir)$(ConfigurationName)&quot;"
 				IgnoreDefaultLibraryNames="MSVCRTD msvcprtd.lib"
