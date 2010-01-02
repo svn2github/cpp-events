@@ -25,6 +25,8 @@ void AbstractConnection::doDisconnect()
 		AbstractConnection * & xs = connections[sourceIndex_];
 		assert(xs == this);
 		xs = connections.back();
+		assert(xs->sourceList_ == sourceList_);
+		assert(xs->sourceIndex_ == connections.size() - 1);
 		xs->sourceIndex_ = sourceIndex_;
 		connections.pop_back();
 		sourceIndex_ = npos; sourceList_ = 0;
@@ -35,6 +37,8 @@ void AbstractConnection::doDisconnect()
 		AbstractConnection * & xt = connections[targetIndex_];
 		assert(xt == this);
 		xt = connections.back();
+		assert(xt->targetList_ == targetList_);
+		assert(xt->targetIndex_ == connections.size() - 1);
 		xt->targetIndex_ = targetIndex_;
 		connections.pop_back();
 		targetIndex_ = npos; targetList_ = 0;
