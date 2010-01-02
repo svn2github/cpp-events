@@ -73,7 +73,7 @@ void ConnectionList::connect(ConnectionList * peer, AbstractConnection * conn)
 	}
 	{
 		assert(!conn->targetList_ && conn->targetIndex_ == AbstractConnection::npos);
-		ConnectionsVector & connections = data_.mutableRef();
+		ConnectionsVector & connections = peer->data_.mutableRef();
 		conn->targetList_ = peer;
 		conn->targetIndex_ = connections.size();
 		connections.push_back(conn);
