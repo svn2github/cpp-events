@@ -37,11 +37,6 @@ public:
 	typedef @if(i > 0) "typename " end@EventType::ConnectionType ConnectionType;
 
 	EventRef@i@(EventType * ev) : AbstractEventRef(ev) {}
-	
-	EventType * senderEvent() const
-	{
-		return static_cast<EventType*>(AbstractEventRef::senderEvent());
-	}
 
 	template<class T, class Y> void connect(ConnectionList * tracker, T * obj, void (Y::*pmf)(@funcArgs(i)@))
 	{
@@ -79,7 +74,7 @@ public:
 private:
 	void addConnection(ConnectionList * tracker, ConnectionType * conn)
 	{
-		senderEvent()->addConnection(tracker, conn);
+		static_cast<EventType*>(senderEvent())->addConnection(tracker, conn);
 	}
 
 	template<class DelegateClass, class StoredListClass> void connectEx(ConnectionList * tracker, DelegateClass const & deleg, StoredListClass const & stored)

@@ -36,11 +36,6 @@ public:
 	typedef EventType::ConnectionType ConnectionType;
 
 	EventRef0(EventType * ev) : AbstractEventRef(ev) {}
-	
-	EventType * senderEvent() const
-	{
-		return static_cast<EventType*>(AbstractEventRef::senderEvent());
-	}
 
 	template<class T, class Y> void connect(ConnectionList * tracker, T * obj, void (Y::*pmf)())
 	{
@@ -137,7 +132,7 @@ public:
 private:
 	void addConnection(ConnectionList * tracker, ConnectionType * conn)
 	{
-		senderEvent()->addConnection(tracker, conn);
+		static_cast<EventType*>(senderEvent())->addConnection(tracker, conn);
 	}
 
 	template<class DelegateClass, class StoredListClass> void connectEx(ConnectionList * tracker, DelegateClass const & deleg, StoredListClass const & stored)
@@ -180,11 +175,6 @@ public:
 	typedef typename EventType::ConnectionType ConnectionType;
 
 	EventRef1(EventType * ev) : AbstractEventRef(ev) {}
-	
-	EventType * senderEvent() const
-	{
-		return static_cast<EventType*>(AbstractEventRef::senderEvent());
-	}
 
 	template<class T, class Y> void connect(ConnectionList * tracker, T * obj, void (Y::*pmf)(Param0 p0))
 	{
@@ -281,7 +271,7 @@ public:
 private:
 	void addConnection(ConnectionList * tracker, ConnectionType * conn)
 	{
-		senderEvent()->addConnection(tracker, conn);
+		static_cast<EventType*>(senderEvent())->addConnection(tracker, conn);
 	}
 
 	template<class DelegateClass, class StoredListClass> void connectEx(ConnectionList * tracker, DelegateClass const & deleg, StoredListClass const & stored)
@@ -324,11 +314,6 @@ public:
 	typedef typename EventType::ConnectionType ConnectionType;
 
 	EventRef2(EventType * ev) : AbstractEventRef(ev) {}
-	
-	EventType * senderEvent() const
-	{
-		return static_cast<EventType*>(AbstractEventRef::senderEvent());
-	}
 
 	template<class T, class Y> void connect(ConnectionList * tracker, T * obj, void (Y::*pmf)(Param0 p0, Param1 p1))
 	{
@@ -425,7 +410,7 @@ public:
 private:
 	void addConnection(ConnectionList * tracker, ConnectionType * conn)
 	{
-		senderEvent()->addConnection(tracker, conn);
+		static_cast<EventType*>(senderEvent())->addConnection(tracker, conn);
 	}
 
 	template<class DelegateClass, class StoredListClass> void connectEx(ConnectionList * tracker, DelegateClass const & deleg, StoredListClass const & stored)
@@ -468,11 +453,6 @@ public:
 	typedef typename EventType::ConnectionType ConnectionType;
 
 	EventRef3(EventType * ev) : AbstractEventRef(ev) {}
-	
-	EventType * senderEvent() const
-	{
-		return static_cast<EventType*>(AbstractEventRef::senderEvent());
-	}
 
 	template<class T, class Y> void connect(ConnectionList * tracker, T * obj, void (Y::*pmf)(Param0 p0, Param1 p1, Param2 p2))
 	{
@@ -569,7 +549,7 @@ public:
 private:
 	void addConnection(ConnectionList * tracker, ConnectionType * conn)
 	{
-		senderEvent()->addConnection(tracker, conn);
+		static_cast<EventType*>(senderEvent())->addConnection(tracker, conn);
 	}
 
 	template<class DelegateClass, class StoredListClass> void connectEx(ConnectionList * tracker, DelegateClass const & deleg, StoredListClass const & stored)
@@ -612,11 +592,6 @@ public:
 	typedef typename EventType::ConnectionType ConnectionType;
 
 	EventRef4(EventType * ev) : AbstractEventRef(ev) {}
-	
-	EventType * senderEvent() const
-	{
-		return static_cast<EventType*>(AbstractEventRef::senderEvent());
-	}
 
 	template<class T, class Y> void connect(ConnectionList * tracker, T * obj, void (Y::*pmf)(Param0 p0, Param1 p1, Param2 p2, Param3 p3))
 	{
@@ -713,7 +688,7 @@ public:
 private:
 	void addConnection(ConnectionList * tracker, ConnectionType * conn)
 	{
-		senderEvent()->addConnection(tracker, conn);
+		static_cast<EventType*>(senderEvent())->addConnection(tracker, conn);
 	}
 
 	template<class DelegateClass, class StoredListClass> void connectEx(ConnectionList * tracker, DelegateClass const & deleg, StoredListClass const & stored)
@@ -756,11 +731,6 @@ public:
 	typedef typename EventType::ConnectionType ConnectionType;
 
 	EventRef5(EventType * ev) : AbstractEventRef(ev) {}
-	
-	EventType * senderEvent() const
-	{
-		return static_cast<EventType*>(AbstractEventRef::senderEvent());
-	}
 
 	template<class T, class Y> void connect(ConnectionList * tracker, T * obj, void (Y::*pmf)(Param0 p0, Param1 p1, Param2 p2, Param3 p3, Param4 p4))
 	{
@@ -857,7 +827,7 @@ public:
 private:
 	void addConnection(ConnectionList * tracker, ConnectionType * conn)
 	{
-		senderEvent()->addConnection(tracker, conn);
+		static_cast<EventType*>(senderEvent())->addConnection(tracker, conn);
 	}
 
 	template<class DelegateClass, class StoredListClass> void connectEx(ConnectionList * tracker, DelegateClass const & deleg, StoredListClass const & stored)
@@ -900,11 +870,6 @@ public:
 	typedef typename EventType::ConnectionType ConnectionType;
 
 	EventRef6(EventType * ev) : AbstractEventRef(ev) {}
-	
-	EventType * senderEvent() const
-	{
-		return static_cast<EventType*>(AbstractEventRef::senderEvent());
-	}
 
 	template<class T, class Y> void connect(ConnectionList * tracker, T * obj, void (Y::*pmf)(Param0 p0, Param1 p1, Param2 p2, Param3 p3, Param4 p4, Param5 p5))
 	{
@@ -1001,7 +966,7 @@ public:
 private:
 	void addConnection(ConnectionList * tracker, ConnectionType * conn)
 	{
-		senderEvent()->addConnection(tracker, conn);
+		static_cast<EventType*>(senderEvent())->addConnection(tracker, conn);
 	}
 
 	template<class DelegateClass, class StoredListClass> void connectEx(ConnectionList * tracker, DelegateClass const & deleg, StoredListClass const & stored)
@@ -1044,11 +1009,6 @@ public:
 	typedef typename EventType::ConnectionType ConnectionType;
 
 	EventRef7(EventType * ev) : AbstractEventRef(ev) {}
-	
-	EventType * senderEvent() const
-	{
-		return static_cast<EventType*>(AbstractEventRef::senderEvent());
-	}
 
 	template<class T, class Y> void connect(ConnectionList * tracker, T * obj, void (Y::*pmf)(Param0 p0, Param1 p1, Param2 p2, Param3 p3, Param4 p4, Param5 p5, Param6 p6))
 	{
@@ -1145,7 +1105,7 @@ public:
 private:
 	void addConnection(ConnectionList * tracker, ConnectionType * conn)
 	{
-		senderEvent()->addConnection(tracker, conn);
+		static_cast<EventType*>(senderEvent())->addConnection(tracker, conn);
 	}
 
 	template<class DelegateClass, class StoredListClass> void connectEx(ConnectionList * tracker, DelegateClass const & deleg, StoredListClass const & stored)
