@@ -154,7 +154,7 @@ template<class T0, class T1> struct IntPow
 {
 	typedef typename IntMul<T0, typename IntPow<T0, typename IntDec<T1>::Type>::Type>::Type Type;
 };
-template<class T0> struct IntPow<T0, TypeForInt<0> > { typedef T0 Type; };
+template<class T0> struct IntPow<T0, TypeForInt<0> > { typedef TypeForInt<1> Type; };
 
 template<class T0, class T1> struct IntCompare
 {
