@@ -3,7 +3,7 @@
 #include <stdio.h>
 
 Client::Client()
-: server_(), connections_()
+: server_(), scope_()
 {
 }
 
@@ -15,14 +15,14 @@ void Client::setServer(Server * serv)
 {
 	if(server_)
 	{
-		server_->dataArrived().disconnectOne(this, &Client::processData);
+		scope_.disconnectOne(server_->dataArrived());
 	}
 	
 	server_ = serv;
 	
 	if(server_)
 	{
-		server_->dataArrived().connect(&connections_, this, &Client::processData);
+		scope_.connect(server_->dataArrived(), this, &Client::processData);
 	}
 }
 

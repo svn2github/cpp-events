@@ -1,0 +1,96 @@
+#ifndef CONNECTION_SCOPE__HPP
+#define CONNECTION_SCOPE__HPP
+
+#include "Events.hpp"
+
+//High-level wrapper for ConnectionList
+class ConnectionScope
+{
+public:
+	size_t connectionCount() const
+	{ return connectionList_.connectionCount(); }
+	size_t connectionCount(AbstractDelegate const & deleg) const
+	{ return connectionList_.connectionCount(deleg); }
+	size_t connectionCount(AbstractEventRef const & ev) const
+	{ return connectionList_.connectionCount(getConnList(ev)); }
+	size_t connectionCount(AbstractEventRef const & ev, AbstractDelegate const & deleg) const
+	{ return connectionList_.connectionCount(getConnList(ev), deleg); }
+
+	bool hasConnections() const
+	{ return connectionList_.hasConnections(); }
+	bool hasConnections(AbstractDelegate const & deleg) const
+	{ return connectionList_.hasConnections(deleg); }
+	bool hasConnections(AbstractEventRef const & ev) const
+	{ return connectionList_.hasConnections(getConnList(ev)); }
+	bool hasConnections(AbstractEventRef const & ev, AbstractDelegate const & deleg) const
+	{ return connectionList_.hasConnections(getConnList(ev), deleg); }
+
+	size_t disconnectAll()
+	{ return connectionList_.disconnectAll(); }
+	size_t disconnectAll(AbstractDelegate const & deleg)
+	{ return connectionList_.disconnectAll(deleg); }
+	size_t disconnectAll(AbstractEventRef const & ev)
+	{ return connectionList_.disconnectAll(getConnList(ev)); }
+	size_t disconnectAll(AbstractEventRef const & ev, AbstractDelegate const & deleg)
+	{ return connectionList_.disconnectAll(getConnList(ev), deleg); }
+
+	bool disconnectOne(AbstractDelegate const & deleg)
+	{ return connectionList_.disconnectOne(deleg); }
+	bool disconnectOne(AbstractEventRef const & ev)
+	{ return connectionList_.disconnectOne(getConnList(ev)); }
+	bool disconnectOne(AbstractEventRef const & ev, AbstractDelegate const & deleg)
+	{ return connectionList_.disconnectOne(getConnList(ev), deleg); }
+
+	template<class T, class Y> size_t connectionCount(T * obj, Y pMemberFunc) const
+	{
+		return connectionCount(AbstractDelegate(obj, pMemberFunc));
+	}
+	template<class T, class Y> size_t connectionCount(AbstractEventRef const & ev, T * obj, Y pMemberFunc) const
+	{
+		return connectionCount(ev, AbstractDelegate(obj, pMemberFunc));
+	}
+
+	template<class T, class Y> bool hasConnections(T * obj, Y pMemberFunc) const
+	{
+		return hasConnections(AbstractDelegate(obj, pMemberFunc));
+	}
+	template<class T, class Y> bool hasConnections(AbstractEventRef const & ev, T * obj, Y pMemberFunc) const
+	{
+		return hasConnections(ev, AbstractDelegate(obj, pMemberFunc));
+	}
+
+	template<class T, class Y> size_t disconnect(T * obj, Y pMemberFunc)
+	{
+		return disconnect(AbstractDelegate(obj, pMemberFunc));
+	}
+	template<class T, class Y> size_t disconnect(AbstractEventRef const & ev, T * obj, Y pMemberFunc)
+	{
+		return disconnect(ev, AbstractDelegate(obj, pMemberFunc));
+	}
+
+@@for(int k=1; k<10; k+=1)
+	template<class EvRefT, @list("class T%", 1, k)@>
+	void connect(EvRefT evRef, @list("T% x%", 1, k)@)
+	{
+		evRef.connect(&connectionList_, @list("x%", 1, k)@);
+	}
+
+@@next
+@@for(int k=1; k<9; k+=1)
+	template<class EvRefT, @list("class T%", 1, k)@>
+	void connectEvent(EvRefT evRef, @list("T% x%", 1, k)@)
+	{
+		evRef.connectEvent(&connectionList_, @list("x%", 1, k)@);
+	}
+
+@@next
+private:
+	ConnectionList connectionList_;
+
+	static ConnectionList * getConnList(AbstractEventRef const & ev)
+	{
+		return &ev.event_->connectionList_;
+	}
+};
+
+#endif //CONNECTION_SCOPE__HPP

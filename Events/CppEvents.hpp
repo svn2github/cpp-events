@@ -4,7 +4,6 @@
 // This file is a compile-time entry point into the library.
 // Include it to use all the stuff provided by the library.
 
-#include "ConnectionList.hpp"
-#include "Events.hpp"
+#include "ConnectionScope.hpp"
 
 #endif //CPP_EVENTS__HPP

@@ -33,33 +33,6 @@ public:
 	bool disconnectOne(AbstractDelegate const & deleg);
 	bool disconnectOne(ConnectionList * peer);
 	bool disconnectOne(ConnectionList * peer, AbstractDelegate const & deleg);
-
-	template<class T, class Y> size_t connectionCount(T * obj, Y pMemberFunc) const
-	{
-		return connectionCount(AbstractDelegate(obj, pMemberFunc));
-	}
-	template<class T, class Y> size_t connectionCount(ConnectionList * peer, T * obj, Y pMemberFunc) const
-	{
-		return connectionCount(peer, AbstractDelegate(obj, pMemberFunc));
-	}
-
-	template<class T, class Y> bool hasConnections(T * obj, Y pMemberFunc) const
-	{
-		return hasConnections(AbstractDelegate(obj, pMemberFunc));
-	}
-	template<class T, class Y> bool hasConnections(ConnectionList * peer, T * obj, Y pMemberFunc) const
-	{
-		return hasConnections(peer, AbstractDelegate(obj, pMemberFunc));
-	}
-
-	template<class T, class Y> size_t disconnect(T * obj, Y pMemberFunc)
-	{
-		return disconnect(AbstractDelegate(obj, pMemberFunc));
-	}
-	template<class T, class Y> size_t disconnect(ConnectionList * peer, T * obj, Y pMemberFunc)
-	{
-		return disconnect(peer, AbstractDelegate(obj, pMemberFunc));
-	}
 private:
 	class NullComparer;
 	class DelegateComparer;

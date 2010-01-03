@@ -3,8 +3,11 @@
 
 #include "ConnectionList.hpp"
 
+class ConnectionScope;
+
 class AbstractEvent
 {
+	friend class ConnectionScope;
 	DISABLE_COPY(AbstractEvent)
 protected:
 	AbstractEvent() {}
@@ -86,6 +89,7 @@ private:
 
 class AbstractEventRef
 {
+	friend class ConnectionScope;
 public:
 	AbstractEventRef(AbstractEvent * ev)
 		: event_(ev)

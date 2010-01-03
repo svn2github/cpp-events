@@ -13,7 +13,7 @@ void test(unsigned N)
 {
 	Event1<float> ev;
 	EventRef1<float> eventRef(&ev);
-	ConnectionList scope;
+	ConnectionScope scope;
 	
 	MyReciever rcv;
 
@@ -25,7 +25,7 @@ void test(unsigned N)
 
 		for(unsigned i = 0; i< N; ++i)
 		{
-			eventRef.connect(&scope, &rcv, &MyReciever::processFloat);
+			scope.connect(eventRef, &rcv, &MyReciever::processFloat);
 		}
 
 		clock_t c1 = clock();

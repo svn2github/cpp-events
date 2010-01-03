@@ -67,8 +67,8 @@ void main()
 	{
 		Client client;
 		
-		server1->dataArrived().connect(client.tracker(), &client, &Client::registerData, server1);
-		server2->dataArrived().connect(client.tracker(), &client, &Client::registerData, server2);
+		client.tracker()->connect(server1->dataArrived(), &client, &Client::registerData, server1);
+		client.tracker()->connect(server2->dataArrived(), &client, &Client::registerData, server2);
 
 		printf("{2}\n");
 		server1->processData(2, data2);

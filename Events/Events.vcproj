@@ -215,6 +215,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\ConnectionScope.hpp"
+				>
+			</File>
+			<File
 				RelativePath=".\CppEvents.hpp"
 				>
 			</File>
@@ -257,6 +261,10 @@
 			</File>
 			<File
 				RelativePath=".\ConnectionEx.hpp.mcs"
+				>
+			</File>
+			<File
+				RelativePath=".\ConnectionScope.hpp.mcs"
 				>
 			</File>
 			<File

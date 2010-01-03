@@ -45,17 +45,17 @@ class RecieverEx
 public:
 	RecieverEx()
 		: sender_()
-		, list_()
+		, scope_()
 		, val_()
 	{}
 
 	int value() const { return val_; }
 
-	void connect(SenderEx * sender, ConnectionList * list)
+	void connect(SenderEx * sender, ConnectionScope * scope)
 	{
 		sender_ = sender;
-		list_ = list;
-		sender->somethingHappened().connect(list, this, &RecieverEx::work);
+		scope_ = scope;
+		scope->connect(sender->somethingHappened(), this, &RecieverEx::work);
 	}
 
 	void work()
@@ -66,12 +66,12 @@ public:
 		if(stage < 4)
 		{
 			RecieverEx * next = this + stage;
-			next->connect(sender_, list_);
+			next->connect(sender_, scope_);
 		}
 	}
 private:
 	SenderEx * sender_;
-	ConnectionList * list_;
+	ConnectionScope * scope_;
 	int val_;
 };
 
@@ -81,35 +81,35 @@ TEST(Test_ConnectDisconnect, ManualConnectDisconnect)
 {
 	Sender sender;
 	Reciever r1, r2;
-	ConnectionList list;
+	ConnectionScope scope;
 
 	ASSERT_EQ(0, r1.value()); ASSERT_EQ(0, r2.value());
 	sender.fire();
 	ASSERT_EQ(0, r1.value()); ASSERT_EQ(0, r2.value());
 	
-	sender.somethingHappened().connect(&list, &r1, &Reciever::increment);
+	scope.connect(sender.somethingHappened(), &r1, &Reciever::increment);
 	sender.fire();	// +1-0 +0-0
 	ASSERT_EQ(1, r1.value()); ASSERT_EQ(0, r2.value());
 	sender.fire();	// +1-0 +0-0
 	ASSERT_EQ(2, r1.value()); ASSERT_EQ(0, r2.value());
 	
-	sender.somethingHappened().connect(&list, &r2, &Reciever::increment);
+	scope.connect(sender.somethingHappened(), &r2, &Reciever::increment);
 	sender.fire();	// +1-0 +1-0
 	ASSERT_EQ(3, r1.value()); ASSERT_EQ(1, r2.value());
 
-	sender.somethingHappened().connect(&list, &r1, &Reciever::decrement);
+	scope.connect(sender.somethingHappened(), &r1, &Reciever::decrement);
 	sender.fire();	// +1-1 +1-0
 	ASSERT_EQ(3, r1.value()); ASSERT_EQ(2, r2.value());
 
-	sender.somethingHappened().connect(&list, &r1, &Reciever::decrement);
+	scope.connect(sender.somethingHappened(), &r1, &Reciever::decrement);
 	sender.fire();	// +1-2 +1-0
 	ASSERT_EQ(2, r1.value()); ASSERT_EQ(3, r2.value());
 
-	sender.somethingHappened().connect(&list, &r2, &Reciever::decrement);
+	scope.connect(sender.somethingHappened(), &r2, &Reciever::decrement);
 	sender.fire();	// +1-2 +1-1
 	ASSERT_EQ(1, r1.value()); ASSERT_EQ(3, r2.value());
 
-	sender.somethingHappened().connect(&list, &r2, &Reciever::increment);
+	scope.connect(sender.somethingHappened(), &r2, &Reciever::increment);
 	sender.fire();	// +1-2 +2-1
 	ASSERT_EQ(0, r1.value()); ASSERT_EQ(4, r2.value());
 
@@ -188,10 +188,10 @@ TEST(Test_ConnectDisconnect, AutomaticDisconnect)
 TEST(Test_ConnectDisconnect, ConnectFromDelegate)
 {
 	RecieverEx rcv[8];
-	ConnectionList list;
+	ConnectionScope scope;
 	SenderEx sender;
 
-	rcv[0].connect(&sender, &list);
+	rcv[0].connect(&sender, &scope);
 
 	ASSERT_EQ(0, rcv[0].value());
 	ASSERT_EQ(0, rcv[1].value());

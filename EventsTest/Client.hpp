@@ -31,8 +31,8 @@ public:
 	DerivedClass()
 		: BaseClass()
 	{
-		BaseClass::testEvent2().connectEvent(&list_, &testEvent2x_);
-		BaseClass::testEvent2().connectEvent(&list_, &eventEx_, 3.14);
+		scope_.connectEvent(BaseClass::testEvent2(), &testEvent2x_);
+		scope_.connectEvent(BaseClass::testEvent2(), &eventEx_, 3.14);
 	}
 	~DerivedClass() {}
 
@@ -42,7 +42,7 @@ private:
 	Event1<bool> testEvent1_;
 	Event1<int> testEvent2x_;
 	Event2<double, int> eventEx_;
-	ConnectionList list_;
+	ConnectionScope scope_;
 };
 
 class Server;
@@ -62,10 +62,10 @@ public:
 
 	void registerData(Server * server);
 
-	ConnectionList * tracker() { return &connections_; }
+	ConnectionScope * tracker() { return &scope_; }
 private:
 	Server * server_;
-	ConnectionList connections_;
+	ConnectionScope scope_;
 
 	void processData(float x);
 };
