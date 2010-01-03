@@ -6,6 +6,10 @@
 #include "TypeTraits.hpp"
 
 @@for(int i=0; i<8; i+=1)
+@classArgs("template<", i, "> ")@class Event@i@;
+@@next
+
+@@for(int i=0; i<8; i+=1)
 @classArgs("template<", i, "> ")@class Event@i@ : public AbstractEvent
 {
 public:
@@ -70,6 +74,12 @@ public:
 		connectEx(tracker, fastdelegate::MakeDelegate(obj, pmf), stored);
 	}
 
+@@next
+@@for(int j=i; j<8; j+=1)
+	@listx("template<%> ", "class T%", j)@void connectEvent(ConnectionList * tracker, Event@j;listx("<%>", "T%", j)@ * ev@iter(", T% x%", j-i)@)
+	{
+		connect(tracker, ev, &Event@j;listx("<%>", "T%", j)@::fire@iter(", x%", 0, j-i)@);
+	}
 @@next
 private:
 	void addConnection(ConnectionList * tracker, ConnectionType * conn)

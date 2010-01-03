@@ -99,4 +99,7 @@ void main()
 	printf("{8}\n");
 
 	delete server1; delete server2;
+
+	DerivedClass obj;
+	obj.fireEvent2(211);
 }

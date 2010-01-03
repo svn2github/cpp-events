@@ -5,6 +5,15 @@
 #include "ConnectionEx.hpp"
 #include "TypeTraits.hpp"
 
+class Event0;
+template<class Param0> class Event1;
+template<class Param0, class Param1> class Event2;
+template<class Param0, class Param1, class Param2> class Event3;
+template<class Param0, class Param1, class Param2, class Param3> class Event4;
+template<class Param0, class Param1, class Param2, class Param3, class Param4> class Event5;
+template<class Param0, class Param1, class Param2, class Param3, class Param4, class Param5> class Event6;
+template<class Param0, class Param1, class Param2, class Param3, class Param4, class Param5, class Param6> class Event7;
+
 class Event0 : public AbstractEvent
 {
 public:
@@ -129,6 +138,38 @@ public:
 		connectEx(tracker, fastdelegate::MakeDelegate(obj, pmf), stored);
 	}
 
+	void connectEvent(ConnectionList * tracker, Event0 * ev)
+	{
+		connect(tracker, ev, &Event0::fire);
+	}
+	template<class T0> void connectEvent(ConnectionList * tracker, Event1<T0> * ev, T0 x0)
+	{
+		connect(tracker, ev, &Event1<T0>::fire, x0);
+	}
+	template<class T0, class T1> void connectEvent(ConnectionList * tracker, Event2<T0, T1> * ev, T0 x0, T1 x1)
+	{
+		connect(tracker, ev, &Event2<T0, T1>::fire, x0, x1);
+	}
+	template<class T0, class T1, class T2> void connectEvent(ConnectionList * tracker, Event3<T0, T1, T2> * ev, T0 x0, T1 x1, T2 x2)
+	{
+		connect(tracker, ev, &Event3<T0, T1, T2>::fire, x0, x1, x2);
+	}
+	template<class T0, class T1, class T2, class T3> void connectEvent(ConnectionList * tracker, Event4<T0, T1, T2, T3> * ev, T0 x0, T1 x1, T2 x2, T3 x3)
+	{
+		connect(tracker, ev, &Event4<T0, T1, T2, T3>::fire, x0, x1, x2, x3);
+	}
+	template<class T0, class T1, class T2, class T3, class T4> void connectEvent(ConnectionList * tracker, Event5<T0, T1, T2, T3, T4> * ev, T0 x0, T1 x1, T2 x2, T3 x3, T4 x4)
+	{
+		connect(tracker, ev, &Event5<T0, T1, T2, T3, T4>::fire, x0, x1, x2, x3, x4);
+	}
+	template<class T0, class T1, class T2, class T3, class T4, class T5> void connectEvent(ConnectionList * tracker, Event6<T0, T1, T2, T3, T4, T5> * ev, T0 x0, T1 x1, T2 x2, T3 x3, T4 x4, T5 x5)
+	{
+		connect(tracker, ev, &Event6<T0, T1, T2, T3, T4, T5>::fire, x0, x1, x2, x3, x4, x5);
+	}
+	template<class T0, class T1, class T2, class T3, class T4, class T5, class T6> void connectEvent(ConnectionList * tracker, Event7<T0, T1, T2, T3, T4, T5, T6> * ev, T0 x0, T1 x1, T2 x2, T3 x3, T4 x4, T5 x5, T6 x6)
+	{
+		connect(tracker, ev, &Event7<T0, T1, T2, T3, T4, T5, T6>::fire, x0, x1, x2, x3, x4, x5, x6);
+	}
 private:
 	void addConnection(ConnectionList * tracker, ConnectionType * conn)
 	{
@@ -268,6 +309,34 @@ public:
 		connectEx(tracker, fastdelegate::MakeDelegate(obj, pmf), stored);
 	}
 
+	template<class T0> void connectEvent(ConnectionList * tracker, Event1<T0> * ev)
+	{
+		connect(tracker, ev, &Event1<T0>::fire);
+	}
+	template<class T0, class T1> void connectEvent(ConnectionList * tracker, Event2<T0, T1> * ev, T0 x0)
+	{
+		connect(tracker, ev, &Event2<T0, T1>::fire, x0);
+	}
+	template<class T0, class T1, class T2> void connectEvent(ConnectionList * tracker, Event3<T0, T1, T2> * ev, T0 x0, T1 x1)
+	{
+		connect(tracker, ev, &Event3<T0, T1, T2>::fire, x0, x1);
+	}
+	template<class T0, class T1, class T2, class T3> void connectEvent(ConnectionList * tracker, Event4<T0, T1, T2, T3> * ev, T0 x0, T1 x1, T2 x2)
+	{
+		connect(tracker, ev, &Event4<T0, T1, T2, T3>::fire, x0, x1, x2);
+	}
+	template<class T0, class T1, class T2, class T3, class T4> void connectEvent(ConnectionList * tracker, Event5<T0, T1, T2, T3, T4> * ev, T0 x0, T1 x1, T2 x2, T3 x3)
+	{
+		connect(tracker, ev, &Event5<T0, T1, T2, T3, T4>::fire, x0, x1, x2, x3);
+	}
+	template<class T0, class T1, class T2, class T3, class T4, class T5> void connectEvent(ConnectionList * tracker, Event6<T0, T1, T2, T3, T4, T5> * ev, T0 x0, T1 x1, T2 x2, T3 x3, T4 x4)
+	{
+		connect(tracker, ev, &Event6<T0, T1, T2, T3, T4, T5>::fire, x0, x1, x2, x3, x4);
+	}
+	template<class T0, class T1, class T2, class T3, class T4, class T5, class T6> void connectEvent(ConnectionList * tracker, Event7<T0, T1, T2, T3, T4, T5, T6> * ev, T0 x0, T1 x1, T2 x2, T3 x3, T4 x4, T5 x5)
+	{
+		connect(tracker, ev, &Event7<T0, T1, T2, T3, T4, T5, T6>::fire, x0, x1, x2, x3, x4, x5);
+	}
 private:
 	void addConnection(ConnectionList * tracker, ConnectionType * conn)
 	{
@@ -407,6 +476,30 @@ public:
 		connectEx(tracker, fastdelegate::MakeDelegate(obj, pmf), stored);
 	}
 
+	template<class T0, class T1> void connectEvent(ConnectionList * tracker, Event2<T0, T1> * ev)
+	{
+		connect(tracker, ev, &Event2<T0, T1>::fire);
+	}
+	template<class T0, class T1, class T2> void connectEvent(ConnectionList * tracker, Event3<T0, T1, T2> * ev, T0 x0)
+	{
+		connect(tracker, ev, &Event3<T0, T1, T2>::fire, x0);
+	}
+	template<class T0, class T1, class T2, class T3> void connectEvent(ConnectionList * tracker, Event4<T0, T1, T2, T3> * ev, T0 x0, T1 x1)
+	{
+		connect(tracker, ev, &Event4<T0, T1, T2, T3>::fire, x0, x1);
+	}
+	template<class T0, class T1, class T2, class T3, class T4> void connectEvent(ConnectionList * tracker, Event5<T0, T1, T2, T3, T4> * ev, T0 x0, T1 x1, T2 x2)
+	{
+		connect(tracker, ev, &Event5<T0, T1, T2, T3, T4>::fire, x0, x1, x2);
+	}
+	template<class T0, class T1, class T2, class T3, class T4, class T5> void connectEvent(ConnectionList * tracker, Event6<T0, T1, T2, T3, T4, T5> * ev, T0 x0, T1 x1, T2 x2, T3 x3)
+	{
+		connect(tracker, ev, &Event6<T0, T1, T2, T3, T4, T5>::fire, x0, x1, x2, x3);
+	}
+	template<class T0, class T1, class T2, class T3, class T4, class T5, class T6> void connectEvent(ConnectionList * tracker, Event7<T0, T1, T2, T3, T4, T5, T6> * ev, T0 x0, T1 x1, T2 x2, T3 x3, T4 x4)
+	{
+		connect(tracker, ev, &Event7<T0, T1, T2, T3, T4, T5, T6>::fire, x0, x1, x2, x3, x4);
+	}
 private:
 	void addConnection(ConnectionList * tracker, ConnectionType * conn)
 	{
@@ -546,6 +639,26 @@ public:
 		connectEx(tracker, fastdelegate::MakeDelegate(obj, pmf), stored);
 	}
 
+	template<class T0, class T1, class T2> void connectEvent(ConnectionList * tracker, Event3<T0, T1, T2> * ev)
+	{
+		connect(tracker, ev, &Event3<T0, T1, T2>::fire);
+	}
+	template<class T0, class T1, class T2, class T3> void connectEvent(ConnectionList * tracker, Event4<T0, T1, T2, T3> * ev, T0 x0)
+	{
+		connect(tracker, ev, &Event4<T0, T1, T2, T3>::fire, x0);
+	}
+	template<class T0, class T1, class T2, class T3, class T4> void connectEvent(ConnectionList * tracker, Event5<T0, T1, T2, T3, T4> * ev, T0 x0, T1 x1)
+	{
+		connect(tracker, ev, &Event5<T0, T1, T2, T3, T4>::fire, x0, x1);
+	}
+	template<class T0, class T1, class T2, class T3, class T4, class T5> void connectEvent(ConnectionList * tracker, Event6<T0, T1, T2, T3, T4, T5> * ev, T0 x0, T1 x1, T2 x2)
+	{
+		connect(tracker, ev, &Event6<T0, T1, T2, T3, T4, T5>::fire, x0, x1, x2);
+	}
+	template<class T0, class T1, class T2, class T3, class T4, class T5, class T6> void connectEvent(ConnectionList * tracker, Event7<T0, T1, T2, T3, T4, T5, T6> * ev, T0 x0, T1 x1, T2 x2, T3 x3)
+	{
+		connect(tracker, ev, &Event7<T0, T1, T2, T3, T4, T5, T6>::fire, x0, x1, x2, x3);
+	}
 private:
 	void addConnection(ConnectionList * tracker, ConnectionType * conn)
 	{
@@ -685,6 +798,22 @@ public:
 		connectEx(tracker, fastdelegate::MakeDelegate(obj, pmf), stored);
 	}
 
+	template<class T0, class T1, class T2, class T3> void connectEvent(ConnectionList * tracker, Event4<T0, T1, T2, T3> * ev)
+	{
+		connect(tracker, ev, &Event4<T0, T1, T2, T3>::fire);
+	}
+	template<class T0, class T1, class T2, class T3, class T4> void connectEvent(ConnectionList * tracker, Event5<T0, T1, T2, T3, T4> * ev, T0 x0)
+	{
+		connect(tracker, ev, &Event5<T0, T1, T2, T3, T4>::fire, x0);
+	}
+	template<class T0, class T1, class T2, class T3, class T4, class T5> void connectEvent(ConnectionList * tracker, Event6<T0, T1, T2, T3, T4, T5> * ev, T0 x0, T1 x1)
+	{
+		connect(tracker, ev, &Event6<T0, T1, T2, T3, T4, T5>::fire, x0, x1);
+	}
+	template<class T0, class T1, class T2, class T3, class T4, class T5, class T6> void connectEvent(ConnectionList * tracker, Event7<T0, T1, T2, T3, T4, T5, T6> * ev, T0 x0, T1 x1, T2 x2)
+	{
+		connect(tracker, ev, &Event7<T0, T1, T2, T3, T4, T5, T6>::fire, x0, x1, x2);
+	}
 private:
 	void addConnection(ConnectionList * tracker, ConnectionType * conn)
 	{
@@ -824,6 +953,18 @@ public:
 		connectEx(tracker, fastdelegate::MakeDelegate(obj, pmf), stored);
 	}
 
+	template<class T0, class T1, class T2, class T3, class T4> void connectEvent(ConnectionList * tracker, Event5<T0, T1, T2, T3, T4> * ev)
+	{
+		connect(tracker, ev, &Event5<T0, T1, T2, T3, T4>::fire);
+	}
+	template<class T0, class T1, class T2, class T3, class T4, class T5> void connectEvent(ConnectionList * tracker, Event6<T0, T1, T2, T3, T4, T5> * ev, T0 x0)
+	{
+		connect(tracker, ev, &Event6<T0, T1, T2, T3, T4, T5>::fire, x0);
+	}
+	template<class T0, class T1, class T2, class T3, class T4, class T5, class T6> void connectEvent(ConnectionList * tracker, Event7<T0, T1, T2, T3, T4, T5, T6> * ev, T0 x0, T1 x1)
+	{
+		connect(tracker, ev, &Event7<T0, T1, T2, T3, T4, T5, T6>::fire, x0, x1);
+	}
 private:
 	void addConnection(ConnectionList * tracker, ConnectionType * conn)
 	{
@@ -963,6 +1104,14 @@ public:
 		connectEx(tracker, fastdelegate::MakeDelegate(obj, pmf), stored);
 	}
 
+	template<class T0, class T1, class T2, class T3, class T4, class T5> void connectEvent(ConnectionList * tracker, Event6<T0, T1, T2, T3, T4, T5> * ev)
+	{
+		connect(tracker, ev, &Event6<T0, T1, T2, T3, T4, T5>::fire);
+	}
+	template<class T0, class T1, class T2, class T3, class T4, class T5, class T6> void connectEvent(ConnectionList * tracker, Event7<T0, T1, T2, T3, T4, T5, T6> * ev, T0 x0)
+	{
+		connect(tracker, ev, &Event7<T0, T1, T2, T3, T4, T5, T6>::fire, x0);
+	}
 private:
 	void addConnection(ConnectionList * tracker, ConnectionType * conn)
 	{
@@ -1102,6 +1251,10 @@ public:
 		connectEx(tracker, fastdelegate::MakeDelegate(obj, pmf), stored);
 	}
 
+	template<class T0, class T1, class T2, class T3, class T4, class T5, class T6> void connectEvent(ConnectionList * tracker, Event7<T0, T1, T2, T3, T4, T5, T6> * ev)
+	{
+		connect(tracker, ev, &Event7<T0, T1, T2, T3, T4, T5, T6>::fire);
+	}
 private:
 	void addConnection(ConnectionList * tracker, ConnectionType * conn)
 	{
