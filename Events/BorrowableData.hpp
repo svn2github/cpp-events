@@ -62,7 +62,7 @@ public:
 		: src_(const_cast<BorrowableData*>(src))
 		, data_()
 	{
-		assert(!src_->borrowed_ && !"Data can be borrowed only once");
+		assert(!src_->borrowed_ && "Data can be borrowed only once");
 		data_.swap(src_->data_);
 		src_->borrowed_ = &data_;
 	}
