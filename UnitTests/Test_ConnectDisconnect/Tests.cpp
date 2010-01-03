@@ -5,7 +5,7 @@ class Sender
 {
 public:
 	void fire() { somethingHappened_.fire(); }
-	EventRef0 somethingHappened() { return &somethingHappened_; }
+	EventRef0 somethingHappened() { return somethingHappened_.ref(); }
 private:
 	Event0 somethingHappened_;
 };

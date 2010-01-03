@@ -10,6 +10,10 @@
 @@next
 
 @@for(int i=0; i<8; i+=1)
+@classArgs("template<", i, "> ")@class EventRef@i@;
+@@next
+
+@@for(int i=0; i<8; i+=1)
 @classArgs("template<", i, "> ")@class Event@i@ : public AbstractEvent
 {
 public:
@@ -17,6 +21,8 @@ public:
 
 	Event@i@() {}
 	~Event@i@() {}
+
+	inline EventRef@i;selArgs("<", i, ">")@ ref();
 
 	void addConnection(ConnectionList * tracker, ConnectionType * conn)
 	{
@@ -40,7 +46,7 @@ public:
 	typedef Event@i;selArgs("<", i, ">")@ EventType;
 	typedef @if(i > 0) "typename " end@EventType::ConnectionType ConnectionType;
 
-	EventRef@i@(EventType * ev) : AbstractEventRef(ev) {}
+	explicit EventRef@i@(EventType * ev) : AbstractEventRef(ev) {}
 
 	template<class T, class Y> void connect(ConnectionList * tracker, T * obj, void (Y::*pmf)(@funcArgs(i)@))
 	{
@@ -95,6 +101,12 @@ private:
 		addConnection(tracker, conn);
 	}
 };
+
+@classArgs("template<", i, "> ")@
+inline EventRef@i;selArgs("<", i, ">")@ Event@i;selArgs("<", i, ">")@::ref()
+{
+	return EventRef@i;selArgs("<", i, ">")@(this);
+}
 
 @@next
 #endif //EVENTS_H

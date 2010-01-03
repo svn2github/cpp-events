@@ -18,7 +18,7 @@ public:
 	BaseClass() {}
 	virtual ~BaseClass() {}
 
-	virtual EventRef1<int> testEvent2() { return &testEvent2_; }
+	virtual EventRef1<int> testEvent2() { return testEvent2_.ref(); }
 
 	void fireEvent2(int x) { testEvent2_.fire(x); }
 private:
@@ -36,8 +36,8 @@ public:
 	}
 	~DerivedClass() {}
 
-	virtual EventRef1<int> testEvent2() { return &testEvent2x_; }
-	virtual EventRef1<bool> testEvent1() { return &testEvent1_; }
+	virtual EventRef1<int> testEvent2() { return testEvent2x_.ref(); }
+	virtual EventRef1<bool> testEvent1() { return testEvent1_.ref(); }
 private:
 	Event1<bool> testEvent1_;
 	Event1<int> testEvent2x_;

@@ -14,6 +14,15 @@ template<class Param0, class Param1, class Param2, class Param3, class Param4> c
 template<class Param0, class Param1, class Param2, class Param3, class Param4, class Param5> class Event6;
 template<class Param0, class Param1, class Param2, class Param3, class Param4, class Param5, class Param6> class Event7;
 
+class EventRef0;
+template<class Param0> class EventRef1;
+template<class Param0, class Param1> class EventRef2;
+template<class Param0, class Param1, class Param2> class EventRef3;
+template<class Param0, class Param1, class Param2, class Param3> class EventRef4;
+template<class Param0, class Param1, class Param2, class Param3, class Param4> class EventRef5;
+template<class Param0, class Param1, class Param2, class Param3, class Param4, class Param5> class EventRef6;
+template<class Param0, class Param1, class Param2, class Param3, class Param4, class Param5, class Param6> class EventRef7;
+
 class Event0 : public AbstractEvent
 {
 public:
@@ -21,6 +30,8 @@ public:
 
 	Event0() {}
 	~Event0() {}
+
+	inline EventRef0 ref();
 
 	void addConnection(ConnectionList * tracker, ConnectionType * conn)
 	{
@@ -44,7 +55,7 @@ public:
 	typedef Event0 EventType;
 	typedef EventType::ConnectionType ConnectionType;
 
-	EventRef0(EventType * ev) : AbstractEventRef(ev) {}
+	explicit EventRef0(EventType * ev) : AbstractEventRef(ev) {}
 
 	template<class T, class Y> void connect(ConnectionList * tracker, T * obj, void (Y::*pmf)())
 	{
@@ -185,6 +196,12 @@ private:
 	}
 };
 
+
+inline EventRef0 Event0::ref()
+{
+	return EventRef0(this);
+}
+
 template<class Param0> class Event1 : public AbstractEvent
 {
 public:
@@ -192,6 +209,8 @@ public:
 
 	Event1() {}
 	~Event1() {}
+
+	inline EventRef1<Param0> ref();
 
 	void addConnection(ConnectionList * tracker, ConnectionType * conn)
 	{
@@ -215,7 +234,7 @@ public:
 	typedef Event1<Param0> EventType;
 	typedef typename EventType::ConnectionType ConnectionType;
 
-	EventRef1(EventType * ev) : AbstractEventRef(ev) {}
+	explicit EventRef1(EventType * ev) : AbstractEventRef(ev) {}
 
 	template<class T, class Y> void connect(ConnectionList * tracker, T * obj, void (Y::*pmf)(Param0 p0))
 	{
@@ -352,6 +371,12 @@ private:
 	}
 };
 
+template<class Param0> 
+inline EventRef1<Param0> Event1<Param0>::ref()
+{
+	return EventRef1<Param0>(this);
+}
+
 template<class Param0, class Param1> class Event2 : public AbstractEvent
 {
 public:
@@ -359,6 +384,8 @@ public:
 
 	Event2() {}
 	~Event2() {}
+
+	inline EventRef2<Param0, Param1> ref();
 
 	void addConnection(ConnectionList * tracker, ConnectionType * conn)
 	{
@@ -382,7 +409,7 @@ public:
 	typedef Event2<Param0, Param1> EventType;
 	typedef typename EventType::ConnectionType ConnectionType;
 
-	EventRef2(EventType * ev) : AbstractEventRef(ev) {}
+	explicit EventRef2(EventType * ev) : AbstractEventRef(ev) {}
 
 	template<class T, class Y> void connect(ConnectionList * tracker, T * obj, void (Y::*pmf)(Param0 p0, Param1 p1))
 	{
@@ -515,6 +542,12 @@ private:
 	}
 };
 
+template<class Param0, class Param1> 
+inline EventRef2<Param0, Param1> Event2<Param0, Param1>::ref()
+{
+	return EventRef2<Param0, Param1>(this);
+}
+
 template<class Param0, class Param1, class Param2> class Event3 : public AbstractEvent
 {
 public:
@@ -522,6 +555,8 @@ public:
 
 	Event3() {}
 	~Event3() {}
+
+	inline EventRef3<Param0, Param1, Param2> ref();
 
 	void addConnection(ConnectionList * tracker, ConnectionType * conn)
 	{
@@ -545,7 +580,7 @@ public:
 	typedef Event3<Param0, Param1, Param2> EventType;
 	typedef typename EventType::ConnectionType ConnectionType;
 
-	EventRef3(EventType * ev) : AbstractEventRef(ev) {}
+	explicit EventRef3(EventType * ev) : AbstractEventRef(ev) {}
 
 	template<class T, class Y> void connect(ConnectionList * tracker, T * obj, void (Y::*pmf)(Param0 p0, Param1 p1, Param2 p2))
 	{
@@ -674,6 +709,12 @@ private:
 	}
 };
 
+template<class Param0, class Param1, class Param2> 
+inline EventRef3<Param0, Param1, Param2> Event3<Param0, Param1, Param2>::ref()
+{
+	return EventRef3<Param0, Param1, Param2>(this);
+}
+
 template<class Param0, class Param1, class Param2, class Param3> class Event4 : public AbstractEvent
 {
 public:
@@ -681,6 +722,8 @@ public:
 
 	Event4() {}
 	~Event4() {}
+
+	inline EventRef4<Param0, Param1, Param2, Param3> ref();
 
 	void addConnection(ConnectionList * tracker, ConnectionType * conn)
 	{
@@ -704,7 +747,7 @@ public:
 	typedef Event4<Param0, Param1, Param2, Param3> EventType;
 	typedef typename EventType::ConnectionType ConnectionType;
 
-	EventRef4(EventType * ev) : AbstractEventRef(ev) {}
+	explicit EventRef4(EventType * ev) : AbstractEventRef(ev) {}
 
 	template<class T, class Y> void connect(ConnectionList * tracker, T * obj, void (Y::*pmf)(Param0 p0, Param1 p1, Param2 p2, Param3 p3))
 	{
@@ -829,6 +872,12 @@ private:
 	}
 };
 
+template<class Param0, class Param1, class Param2, class Param3> 
+inline EventRef4<Param0, Param1, Param2, Param3> Event4<Param0, Param1, Param2, Param3>::ref()
+{
+	return EventRef4<Param0, Param1, Param2, Param3>(this);
+}
+
 template<class Param0, class Param1, class Param2, class Param3, class Param4> class Event5 : public AbstractEvent
 {
 public:
@@ -836,6 +885,8 @@ public:
 
 	Event5() {}
 	~Event5() {}
+
+	inline EventRef5<Param0, Param1, Param2, Param3, Param4> ref();
 
 	void addConnection(ConnectionList * tracker, ConnectionType * conn)
 	{
@@ -859,7 +910,7 @@ public:
 	typedef Event5<Param0, Param1, Param2, Param3, Param4> EventType;
 	typedef typename EventType::ConnectionType ConnectionType;
 
-	EventRef5(EventType * ev) : AbstractEventRef(ev) {}
+	explicit EventRef5(EventType * ev) : AbstractEventRef(ev) {}
 
 	template<class T, class Y> void connect(ConnectionList * tracker, T * obj, void (Y::*pmf)(Param0 p0, Param1 p1, Param2 p2, Param3 p3, Param4 p4))
 	{
@@ -980,6 +1031,12 @@ private:
 	}
 };
 
+template<class Param0, class Param1, class Param2, class Param3, class Param4> 
+inline EventRef5<Param0, Param1, Param2, Param3, Param4> Event5<Param0, Param1, Param2, Param3, Param4>::ref()
+{
+	return EventRef5<Param0, Param1, Param2, Param3, Param4>(this);
+}
+
 template<class Param0, class Param1, class Param2, class Param3, class Param4, class Param5> class Event6 : public AbstractEvent
 {
 public:
@@ -987,6 +1044,8 @@ public:
 
 	Event6() {}
 	~Event6() {}
+
+	inline EventRef6<Param0, Param1, Param2, Param3, Param4, Param5> ref();
 
 	void addConnection(ConnectionList * tracker, ConnectionType * conn)
 	{
@@ -1010,7 +1069,7 @@ public:
 	typedef Event6<Param0, Param1, Param2, Param3, Param4, Param5> EventType;
 	typedef typename EventType::ConnectionType ConnectionType;
 
-	EventRef6(EventType * ev) : AbstractEventRef(ev) {}
+	explicit EventRef6(EventType * ev) : AbstractEventRef(ev) {}
 
 	template<class T, class Y> void connect(ConnectionList * tracker, T * obj, void (Y::*pmf)(Param0 p0, Param1 p1, Param2 p2, Param3 p3, Param4 p4, Param5 p5))
 	{
@@ -1127,6 +1186,12 @@ private:
 	}
 };
 
+template<class Param0, class Param1, class Param2, class Param3, class Param4, class Param5> 
+inline EventRef6<Param0, Param1, Param2, Param3, Param4, Param5> Event6<Param0, Param1, Param2, Param3, Param4, Param5>::ref()
+{
+	return EventRef6<Param0, Param1, Param2, Param3, Param4, Param5>(this);
+}
+
 template<class Param0, class Param1, class Param2, class Param3, class Param4, class Param5, class Param6> class Event7 : public AbstractEvent
 {
 public:
@@ -1134,6 +1199,8 @@ public:
 
 	Event7() {}
 	~Event7() {}
+
+	inline EventRef7<Param0, Param1, Param2, Param3, Param4, Param5, Param6> ref();
 
 	void addConnection(ConnectionList * tracker, ConnectionType * conn)
 	{
@@ -1157,7 +1224,7 @@ public:
 	typedef Event7<Param0, Param1, Param2, Param3, Param4, Param5, Param6> EventType;
 	typedef typename EventType::ConnectionType ConnectionType;
 
-	EventRef7(EventType * ev) : AbstractEventRef(ev) {}
+	explicit EventRef7(EventType * ev) : AbstractEventRef(ev) {}
 
 	template<class T, class Y> void connect(ConnectionList * tracker, T * obj, void (Y::*pmf)(Param0 p0, Param1 p1, Param2 p2, Param3 p3, Param4 p4, Param5 p5, Param6 p6))
 	{
@@ -1269,5 +1336,11 @@ private:
 		addConnection(tracker, conn);
 	}
 };
+
+template<class Param0, class Param1, class Param2, class Param3, class Param4, class Param5, class Param6> 
+inline EventRef7<Param0, Param1, Param2, Param3, Param4, Param5, Param6> Event7<Param0, Param1, Param2, Param3, Param4, Param5, Param6>::ref()
+{
+	return EventRef7<Param0, Param1, Param2, Param3, Param4, Param5, Param6>(this);
+}
 
 #endif //EVENTS_H
