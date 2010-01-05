@@ -180,11 +180,11 @@
 			Name="Test_IsPolymorphic"
 			>
 			<File
-				RelativePath=".\..\..\..\..\UnitTests\Test_IsPolymorphic\TestClasses.hpp"
+				RelativePath=".\..\..\..\..\tests\unit\Test_IsPolymorphic\TestClasses.hpp"
 				>
 			</File>
 			<File
-				RelativePath=".\..\..\..\..\UnitTests\Test_IsPolymorphic\Tests.cpp"
+				RelativePath=".\..\..\..\..\tests\unit\Test_IsPolymorphic\Tests.cpp"
 				>
 			</File>
 		</Filter>
@@ -192,23 +192,23 @@
 			Name="Test_EqualMemberAddress"
 			>
 			<File
-				RelativePath=".\..\..\..\..\UnitTests\Test_EqualMemberAddress\File1.cpp"
+				RelativePath=".\..\..\..\..\tests\unit\Test_EqualMemberAddress\File1.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\..\..\..\..\UnitTests\Test_EqualMemberAddress\File2.cpp"
+				RelativePath=".\..\..\..\..\tests\unit\Test_EqualMemberAddress\File2.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\..\..\..\..\UnitTests\Test_EqualMemberAddress\TestClass.cpp"
+				RelativePath=".\..\..\..\..\tests\unit\Test_EqualMemberAddress\TestClass.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\..\..\..\..\UnitTests\Test_EqualMemberAddress\TestClass.hpp"
+				RelativePath=".\..\..\..\..\tests\unit\Test_EqualMemberAddress\TestClass.hpp"
 				>
 			</File>
 			<File
-				RelativePath=".\..\..\..\..\UnitTests\Test_EqualMemberAddress\TheTest.cpp"
+				RelativePath=".\..\..\..\..\tests\unit\Test_EqualMemberAddress\TheTest.cpp"
 				>
 				<FileConfiguration
 					Name="Debug|Win32"
@@ -234,7 +234,7 @@
 			Name="Test_ConnectDisconnect"
 			>
 			<File
-				RelativePath=".\..\..\..\..\UnitTests\Test_ConnectDisconnect\Tests.cpp"
+				RelativePath=".\..\..\..\..\tests\unit\Test_ConnectDisconnect\Tests.cpp"
 				>
 				<FileConfiguration
 					Name="Debug|Win32"
@@ -257,7 +257,7 @@
 			</File>
 		</Filter>
 		<File
-			RelativePath=".\..\..\..\..\UnitTests\main.cpp"
+			RelativePath=".\..\..\..\..\tests\unit\main.cpp"
 			>
 		</File>
 	</Files>
