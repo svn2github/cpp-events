@@ -159,11 +159,11 @@
 			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}"
 			>
 			<File
-				RelativePath="..\..\..\Events\ConnectionList.cpp"
+				RelativePath="..\..\..\src\Cpp\Events\ConnectionList.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\Events\Threading.cpp"
+				RelativePath="..\..\..\src\Cpp\Events\Threading.cpp"
 				>
 			</File>
 		</Filter>
@@ -173,75 +173,75 @@
 			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}"
 			>
 			<File
-				RelativePath="..\..\..\Events\AbstractConnection.hpp"
+				RelativePath="..\..\..\src\Cpp\Events\AbstractConnection.hpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\Events\AbstractDelegate.hpp"
+				RelativePath="..\..\..\src\Cpp\Events\AbstractDelegate.hpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\Events\AbstractEvent.hpp"
+				RelativePath="..\..\..\src\Cpp\Events\AbstractEvent.hpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\Events\AbstractObjectRef.hpp"
+				RelativePath="..\..\..\src\Cpp\Events\AbstractObjectRef.hpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\Events\ArgList.hpp"
+				RelativePath="..\..\..\src\Cpp\Events\ArgList.hpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\Events\AtomicReferenceCounter.hpp"
+				RelativePath="..\..\..\src\Cpp\Events\AtomicReferenceCounter.hpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\Events\BorrowableData.hpp"
+				RelativePath="..\..\..\src\Cpp\Events\BorrowableData.hpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\Events\Config.hpp"
+				RelativePath="..\..\..\src\Cpp\Events\Config.hpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\Events\Connection.hpp"
+				RelativePath="..\..\..\src\Cpp\Events\Connection.hpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\Events\ConnectionEx.hpp"
+				RelativePath="..\..\..\src\Cpp\Events\ConnectionEx.hpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\Events\ConnectionList.hpp"
+				RelativePath="..\..\..\src\Cpp\Events\ConnectionList.hpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\Events\ConnectionScope.hpp"
+				RelativePath="..\..\..\src\Cpp\Events\ConnectionScope.hpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\Events\Events.hpp"
+				RelativePath="..\..\..\src\Cpp\Events\Events.hpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\FastDelegate\src\FastDelegate.h"
+				RelativePath="..\..\..\src\FastDelegate\src\FastDelegate.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\Events\normalize_cast.hpp"
+				RelativePath="..\..\..\src\Cpp\Events\normalize_cast.hpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\Events\Threading.hpp"
+				RelativePath="..\..\..\src\Cpp\Events\Threading.hpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\Events\TypeArithmetic.hpp"
+				RelativePath="..\..\..\src\Cpp\Events\TypeArithmetic.hpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\Events\TypeTraits.hpp"
+				RelativePath="..\..\..\src\Cpp\Events\TypeTraits.hpp"
 				>
 			</File>
 		</Filter>
@@ -250,27 +250,27 @@
 			Filter="*.mcs"
 			>
 			<File
-				RelativePath="..\..\..\Events\ArgList.hpp.mcs"
+				RelativePath="..\..\..\src\Cpp\Events\ArgList.hpp.mcs"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\Events\Connection.hpp.mcs"
+				RelativePath="..\..\..\src\Cpp\Events\Connection.hpp.mcs"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\Events\ConnectionEx.hpp.mcs"
+				RelativePath="..\..\..\src\Cpp\Events\ConnectionEx.hpp.mcs"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\Events\ConnectionScope.hpp.mcs"
+				RelativePath="..\..\..\src\Cpp\Events\ConnectionScope.hpp.mcs"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\Events\Events.hpp.mcs"
+				RelativePath="..\..\..\src\Cpp\Events\Events.hpp.mcs"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\FastDelegate\hopter\FastDelegate.h.mcs"
+				RelativePath="..\..\..\src\FastDelegate\hopter\FastDelegate.h.mcs"
 				>
 				<FileConfiguration
 					Name="Debug|Win32"
@@ -286,16 +286,16 @@
 			Name="Win32"
 			>
 			<File
-				RelativePath="..\..\..\Events\Win32\PlatformSpecific_AtomicReferenceCounter.hpp"
+				RelativePath="..\..\..\src\Cpp\Events\Win32\PlatformSpecific_AtomicReferenceCounter.hpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\Events\Win32\PlatformSpecific_Threading.inl"
+				RelativePath="..\..\..\src\Cpp\Events\Win32\PlatformSpecific_Threading.inl"
 				>
 			</File>
 		</Filter>
 		<File
-			RelativePath="..\..\..\Events\readme.txt"
+			RelativePath="..\..\..\src\Cpp\Events\readme.txt"
 			>
 		</File>
 	</Files>

@@ -1,7 +1,7 @@
 #ifndef ARG_LIST_HPP
 #define ARG_LIST_HPP
 
-#include "../FastDelegate/src/FastDelegate.h"
+#include "../../FastDelegate/src/FastDelegate.h"
 
 namespace detail {
 

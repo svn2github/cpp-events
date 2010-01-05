@@ -1,7 +1,7 @@
 #ifndef ABSTRACT_DELEGATE__HPP
 #define ABSTRACT_DELEGATE__HPP
 
-#include "../FastDelegate/src/FastDelegate.h"
+#include "../../FastDelegate/src/FastDelegate.h"
 
 //! Value type that represents arbitary delegate in a common form.
 class AbstractDelegate
