@@ -170,27 +170,27 @@
 	</References>
 	<Files>
 		<File
-			RelativePath="..\..\..\..\..\SpeedTests\SigSlotSpeedTest\main.cpp"
+			RelativePath="..\..\..\..\..\tests\speed\SigSlotSpeedTest\main.cpp"
 			>
 		</File>
 		<File
-			RelativePath="..\..\..\..\..\SpeedTests\SigSlotSpeedTest\main.inl"
+			RelativePath="..\..\..\..\..\tests\speed\SigSlotSpeedTest\main.inl"
 			>
 		</File>
 		<File
-			RelativePath="..\..\..\..\..\SpeedTests\SigSlotSpeedTest\run_test_mtg.cpp"
+			RelativePath="..\..\..\..\..\tests\speed\SigSlotSpeedTest\run_test_mtg.cpp"
 			>
 		</File>
 		<File
-			RelativePath="..\..\..\..\..\SpeedTests\SigSlotSpeedTest\run_test_mtl.cpp"
+			RelativePath="..\..\..\..\..\tests\speed\SigSlotSpeedTest\run_test_mtl.cpp"
 			>
 		</File>
 		<File
-			RelativePath="..\..\..\..\..\SpeedTests\SigSlotSpeedTest\run_test_st.cpp"
+			RelativePath="..\..\..\..\..\tests\speed\SigSlotSpeedTest\run_test_st.cpp"
 			>
 		</File>
 		<File
-			RelativePath="..\..\..\..\..\SpeedTests\SigSlotSpeedTest\sigslot.h"
+			RelativePath="..\..\..\..\..\tests\speed\SigSlotSpeedTest\sigslot.h"
 			>
 		</File>
 	</Files>

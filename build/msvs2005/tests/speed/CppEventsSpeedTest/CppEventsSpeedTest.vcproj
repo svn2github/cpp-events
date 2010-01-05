@@ -177,7 +177,7 @@
 	</References>
 	<Files>
 		<File
-			RelativePath="..\..\..\..\..\SpeedTests\CppEventsSpeedTest\main.cpp"
+			RelativePath="..\..\..\..\..\tests\speed\CppEventsSpeedTest\main.cpp"
 			>
 		</File>
 	</Files>

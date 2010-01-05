@@ -167,11 +167,11 @@
 			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}"
 			>
 			<File
-				RelativePath="..\..\..\..\..\SpeedTests\QtSpeedTest\main.cpp"
+				RelativePath="..\..\..\..\..\tests\speed\QtSpeedTest\main.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\..\..\SpeedTests\QtSpeedTest\test.inl"
+				RelativePath="..\..\..\..\..\tests\speed\QtSpeedTest\test.inl"
 				>
 			</File>
 		</Filter>
@@ -181,7 +181,7 @@
 			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}"
 			>
 			<File
-				RelativePath="..\..\..\..\..\SpeedTests\QtSpeedTest\Objects.hpp"
+				RelativePath="..\..\..\..\..\tests\speed\QtSpeedTest\Objects.hpp"
 				>
 				<FileConfiguration
 					Name="Release|Win32"
