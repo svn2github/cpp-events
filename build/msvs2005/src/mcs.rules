@@ -7,7 +7,7 @@
 		<CustomBuildRule
 			Name="MonkeyCodingScript"
 			DisplayName="Monkey Coding Script"
-			CommandLine="..\..\..\bin\Release\mcs.exe [OutputFile] &quot;$(InputPath)&quot;"
+			CommandLine="..\..\..\tools\mcs\bin\Release\mcs.exe [OutputFile] &quot;$(InputPath)&quot;"
 			Outputs="[$OutputFile]"
 			FileExtensions="*.mcs"
 			ExecutionDescription="Executing Monkey Coding Script..."
