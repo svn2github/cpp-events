@@ -1,4 +1,4 @@
-#include "../Events/CppEvents.hpp"
+#include <Cpp/Events.hpp>
 #include <gtest/gtest.h>
 #include <locale>
 

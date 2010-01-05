@@ -1,43 +1,43 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 9.00
 # Visual Studio 2005
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Events", "Events\Events.vcproj", "{4B58FC2C-D1DB-46F6-8FCF-5D24CB65F3CD}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "CppEvents", "src\CppEvents.vcproj", "{4B58FC2C-D1DB-46F6-8FCF-5D24CB65F3CD}"
 	ProjectSection(ProjectDependencies) = postProject
 		{4B6E12BD-D859-4CB1-A497-E0B3B3FF1414} = {4B6E12BD-D859-4CB1-A497-E0B3B3FF1414}
 	EndProjectSection
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "EventsTest", "EventsTest\EventsTest.vcproj", "{677F690D-D2A9-49A2-8B5C-74004198DD04}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "EventsTest", "examples\EventsTest.vcproj", "{677F690D-D2A9-49A2-8B5C-74004198DD04}"
 	ProjectSection(ProjectDependencies) = postProject
 		{4B58FC2C-D1DB-46F6-8FCF-5D24CB65F3CD} = {4B58FC2C-D1DB-46F6-8FCF-5D24CB65F3CD}
 	EndProjectSection
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "mcs", "mcs\msvs\mcs.vcproj", "{4B6E12BD-D859-4CB1-A497-E0B3B3FF1414}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "mcs", "..\..\mcs\build\msvs2005\mcs.vcproj", "{4B6E12BD-D859-4CB1-A497-E0B3B3FF1414}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "UnitTests", "UnitTests\UnitTests.vcproj", "{18137197-A464-41BD-8A62-E24A35D8BE7D}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "UnitTests", "tests\unit\UnitTests.vcproj", "{18137197-A464-41BD-8A62-E24A35D8BE7D}"
 	ProjectSection(ProjectDependencies) = postProject
 		{4B58FC2C-D1DB-46F6-8FCF-5D24CB65F3CD} = {4B58FC2C-D1DB-46F6-8FCF-5D24CB65F3CD}
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Probes", "Probes", "{E194FAAF-E10C-446F-9601-F1BCF4FF8AC3}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "FunctionDeclarator", "Probes\FunctionDeclarator\FunctionDeclarator.vcproj", "{1660DC83-761A-48B0-8F32-935A08919294}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "FunctionDeclarator", "..\..\Probes\FunctionDeclarator\FunctionDeclarator.vcproj", "{1660DC83-761A-48B0-8F32-935A08919294}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SpeedTests", "SpeedTests", "{8C8DEB58-7E9F-462F-927E-F960D76C427F}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "BoostSignalsSpeedTest", "SpeedTests\BoostSignalsSpeedTest\BoostSignalsSpeedTest.vcproj", "{9E723A4C-0BE7-4804-BF1A-29629854A89C}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "BoostSignalsSpeedTest", "tests\speed\BoostSignalsSpeedTest\BoostSignalsSpeedTest.vcproj", "{9E723A4C-0BE7-4804-BF1A-29629854A89C}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "LibSigCppSpeedTest", "SpeedTests\LibSigCppSpeedTest\LibSigCppSpeedTest.vcproj", "{3D548BD8-DACD-42D3-BE75-852102CF2135}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "LibSigCppSpeedTest", "tests\speed\LibSigCppSpeedTest\LibSigCppSpeedTest.vcproj", "{3D548BD8-DACD-42D3-BE75-852102CF2135}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "CppEventsSpeedTest", "SpeedTests\CppEventsSpeedTest\CppEventsSpeedTest.vcproj", "{14EC3FCF-4866-488B-8799-1A44C5469607}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "CppEventsSpeedTest", "tests\speed\CppEventsSpeedTest\CppEventsSpeedTest.vcproj", "{14EC3FCF-4866-488B-8799-1A44C5469607}"
 	ProjectSection(ProjectDependencies) = postProject
 		{4B58FC2C-D1DB-46F6-8FCF-5D24CB65F3CD} = {4B58FC2C-D1DB-46F6-8FCF-5D24CB65F3CD}
 	EndProjectSection
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "QtSpeedTest", "SpeedTests\QtSpeedTest\QtSpeedTest.vcproj", "{027B56F6-BDE1-4C15-88F6-32A1AD506FD5}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "QtSpeedTest", "tests\speed\QtSpeedTest\QtSpeedTest.vcproj", "{027B56F6-BDE1-4C15-88F6-32A1AD506FD5}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "SigSlotSpeedTest", "SpeedTests\SigSlotSpeedTest\SigSlotSpeedTest.vcproj", "{F69C76CA-3FB1-4543-B7CF-3F219D714983}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "SigSlotSpeedTest", "tests\speed\SigSlotSpeedTest\SigSlotSpeedTest.vcproj", "{F69C76CA-3FB1-4543-B7CF-3F219D714983}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DotNetSpeedTest", "SpeedTests\DotNetSpeedTest\DotNetSpeedTest.csproj", "{567EE69E-08B6-4034-8705-C7A5A425643C}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DotNetSpeedTest", "tests\speed\DotNetSpeedTest\DotNetSpeedTest.csproj", "{567EE69E-08B6-4034-8705-C7A5A425643C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -83,8 +83,8 @@ Global
 		{677F690D-D2A9-49A2-8B5C-74004198DD04}.Release|Win32.ActiveCfg = Release|Win32
 		{677F690D-D2A9-49A2-8B5C-74004198DD04}.Release|Win32.Build.0 = Release|Win32
 		{4B6E12BD-D859-4CB1-A497-E0B3B3FF1414}.Debug|Any CPU.ActiveCfg = Debug|Win32
-		{4B6E12BD-D859-4CB1-A497-E0B3B3FF1414}.Debug|Mixed Platforms.ActiveCfg = Debug|Win32
-		{4B6E12BD-D859-4CB1-A497-E0B3B3FF1414}.Debug|Mixed Platforms.Build.0 = Debug|Win32
+		{4B6E12BD-D859-4CB1-A497-E0B3B3FF1414}.Debug|Mixed Platforms.ActiveCfg = Release|Win32
+		{4B6E12BD-D859-4CB1-A497-E0B3B3FF1414}.Debug|Mixed Platforms.Build.0 = Release|Win32
 		{4B6E12BD-D859-4CB1-A497-E0B3B3FF1414}.Debug|Win32.ActiveCfg = Release|Win32
 		{4B6E12BD-D859-4CB1-A497-E0B3B3FF1414}.Debug|Win32.Build.0 = Release|Win32
 		{4B6E12BD-D859-4CB1-A497-E0B3B3FF1414}.MCS Debug|Any CPU.ActiveCfg = Debug|Win32

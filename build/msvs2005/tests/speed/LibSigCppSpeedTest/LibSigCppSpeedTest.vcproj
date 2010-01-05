@@ -2,9 +2,9 @@
 <VisualStudioProject
 	ProjectType="Visual C++"
 	Version="8,00"
-	Name="SigSlotSpeedTest"
-	ProjectGUID="{F69C76CA-3FB1-4543-B7CF-3F219D714983}"
-	RootNamespace="SigSlotSpeedTest"
+	Name="LibSigCppSpeedTest"
+	ProjectGUID="{3D548BD8-DACD-42D3-BE75-852102CF2135}"
+	RootNamespace="LibSigCppSpeedTest"
 	Keyword="Win32Proj"
 	>
 	<Platforms>
@@ -17,7 +17,7 @@
 	<Configurations>
 		<Configuration
 			Name="Debug|Win32"
-			OutputDirectory="$(SolutionDir)$(ConfigurationName)"
+			OutputDirectory="$(SolutionDir)\..\..\bin\$(ConfigurationName)\tests\speed"
 			IntermediateDirectory="$(ConfigurationName)"
 			ConfigurationType="1"
 			CharacterSet="1"
@@ -40,6 +40,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
+				AdditionalIncludeDirectories=""
 				PreprocessorDefinitions="WIN32;_DEBUG;_CONSOLE"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
@@ -60,7 +61,9 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
+				AdditionalDependencies="sigc-vc80-d-2_0.lib"
 				LinkIncremental="2"
+				AdditionalLibraryDirectories=""
 				GenerateDebugInformation="true"
 				SubSystem="1"
 				TargetMachine="1"
@@ -92,7 +95,7 @@
 		</Configuration>
 		<Configuration
 			Name="Release|Win32"
-			OutputDirectory="$(SolutionDir)$(ConfigurationName)"
+			OutputDirectory="$(SolutionDir)\..\..\bin\$(ConfigurationName)\tests\speed"
 			IntermediateDirectory="$(ConfigurationName)"
 			ConfigurationType="1"
 			CharacterSet="1"
@@ -115,6 +118,7 @@
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
+				AdditionalIncludeDirectories=""
 				PreprocessorDefinitions="WIN32;NDEBUG;_CONSOLE"
 				RuntimeLibrary="2"
 				UsePrecompiledHeader="0"
@@ -133,7 +137,9 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
+				AdditionalDependencies="sigc-vc80-2_0.lib"
 				LinkIncremental="1"
+				AdditionalLibraryDirectories=""
 				GenerateDebugInformation="true"
 				SubSystem="1"
 				OptimizeReferences="2"
@@ -170,27 +176,7 @@
 	</References>
 	<Files>
 		<File
-			RelativePath=".\main.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\main.inl"
-			>
-		</File>
-		<File
-			RelativePath=".\run_test_mtg.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\run_test_mtl.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\run_test_st.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\sigslot.h"
+			RelativePath="..\..\..\..\..\SpeedTests\LibSigCppSpeedTest\main.cpp"
 			>
 		</File>
 	</Files>

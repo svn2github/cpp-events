@@ -2,9 +2,9 @@
 <VisualStudioProject
 	ProjectType="Visual C++"
 	Version="8,00"
-	Name="BoostSignalsSpeedTest"
-	ProjectGUID="{9E723A4C-0BE7-4804-BF1A-29629854A89C}"
-	RootNamespace="BoostSignalsSpeedTest"
+	Name="UnitTests"
+	ProjectGUID="{18137197-A464-41BD-8A62-E24A35D8BE7D}"
+	RootNamespace="UnitTests"
 	Keyword="Win32Proj"
 	>
 	<Platforms>
@@ -17,7 +17,7 @@
 	<Configurations>
 		<Configuration
 			Name="Debug|Win32"
-			OutputDirectory="$(SolutionDir)$(ConfigurationName)"
+			OutputDirectory="$(SolutionDir)\..\..\bin\$(ConfigurationName)\tests"
 			IntermediateDirectory="$(ConfigurationName)"
 			ConfigurationType="1"
 			CharacterSet="1"
@@ -40,14 +40,15 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
+				AdditionalIncludeDirectories="$(SolutionDir)\..\..\include"
 				PreprocessorDefinitions="WIN32;_DEBUG;_CONSOLE"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
-				RuntimeLibrary="3"
+				RuntimeLibrary="1"
 				UsePrecompiledHeader="0"
 				WarningLevel="3"
 				Detect64BitPortabilityProblems="true"
-				DebugInformationFormat="4"
+				DebugInformationFormat="3"
 			/>
 			<Tool
 				Name="VCManagedResourceCompilerTool"
@@ -60,7 +61,10 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
+				AdditionalDependencies="gtestd.lib libCppEvents1.$(ConfigurationName).lib"
 				LinkIncremental="2"
+				AdditionalLibraryDirectories="&quot;$(SolutionDir)\..\..\lib&quot;"
+				IgnoreDefaultLibraryNames="MSVCRTD msvcprtd.lib"
 				GenerateDebugInformation="true"
 				SubSystem="1"
 				TargetMachine="1"
@@ -92,7 +96,7 @@
 		</Configuration>
 		<Configuration
 			Name="Release|Win32"
-			OutputDirectory="$(SolutionDir)$(ConfigurationName)"
+			OutputDirectory="$(SolutionDir)\..\..\bin\$(ConfigurationName)\tests"
 			IntermediateDirectory="$(ConfigurationName)"
 			ConfigurationType="1"
 			CharacterSet="1"
@@ -115,8 +119,9 @@
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
+				AdditionalIncludeDirectories="$(SolutionDir)\..\..\include"
 				PreprocessorDefinitions="WIN32;NDEBUG;_CONSOLE"
-				RuntimeLibrary="2"
+				RuntimeLibrary="0"
 				UsePrecompiledHeader="0"
 				WarningLevel="3"
 				Detect64BitPortabilityProblems="true"
@@ -133,7 +138,9 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
+				AdditionalDependencies="gtest.lib libCppEvents1.$(ConfigurationName).lib"
 				LinkIncremental="1"
+				AdditionalLibraryDirectories="&quot;$(SolutionDir)\..\..\lib&quot;"
 				GenerateDebugInformation="true"
 				SubSystem="1"
 				OptimizeReferences="2"
@@ -169,8 +176,88 @@
 	<References>
 	</References>
 	<Files>
+		<Filter
+			Name="Test_IsPolymorphic"
+			>
+			<File
+				RelativePath=".\..\..\..\..\UnitTests\Test_IsPolymorphic\TestClasses.hpp"
+				>
+			</File>
+			<File
+				RelativePath=".\..\..\..\..\UnitTests\Test_IsPolymorphic\Tests.cpp"
+				>
+			</File>
+		</Filter>
+		<Filter
+			Name="Test_EqualMemberAddress"
+			>
+			<File
+				RelativePath=".\..\..\..\..\UnitTests\Test_EqualMemberAddress\File1.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\..\..\..\..\UnitTests\Test_EqualMemberAddress\File2.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\..\..\..\..\UnitTests\Test_EqualMemberAddress\TestClass.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\..\..\..\..\UnitTests\Test_EqualMemberAddress\TestClass.hpp"
+				>
+			</File>
+			<File
+				RelativePath=".\..\..\..\..\UnitTests\Test_EqualMemberAddress\TheTest.cpp"
+				>
+				<FileConfiguration
+					Name="Debug|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						ObjectFile="$(IntDir)\$(InputName)1.obj"
+						XMLDocumentationFileName="$(IntDir)\$(InputName)1.xdc"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						ObjectFile="$(IntDir)\$(InputName)1.obj"
+						XMLDocumentationFileName="$(IntDir)\$(InputName)1.xdc"
+					/>
+				</FileConfiguration>
+			</File>
+		</Filter>
+		<Filter
+			Name="Test_ConnectDisconnect"
+			>
+			<File
+				RelativePath=".\..\..\..\..\UnitTests\Test_ConnectDisconnect\Tests.cpp"
+				>
+				<FileConfiguration
+					Name="Debug|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						ObjectFile="$(IntDir)\$(InputName)1.obj"
+						XMLDocumentationFileName="$(IntDir)\$(InputName)1.xdc"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						ObjectFile="$(IntDir)\$(InputName)1.obj"
+						XMLDocumentationFileName="$(IntDir)\$(InputName)1.xdc"
+					/>
+				</FileConfiguration>
+			</File>
+		</Filter>
 		<File
-			RelativePath=".\main.cpp"
+			RelativePath=".\..\..\..\..\UnitTests\main.cpp"
 			>
 		</File>
 	</Files>

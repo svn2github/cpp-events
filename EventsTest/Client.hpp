@@ -1,7 +1,7 @@
 #ifndef CLIENT_HPP
 #define CLIENT_HPP
 
-#include "../Events/CppEvents.hpp"
+#include <Cpp/Events.hpp>
 
 class ISomeInterface
 {
