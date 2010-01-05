@@ -170,7 +170,7 @@
 	</References>
 	<Files>
 		<File
-			RelativePath=".\main.cpp"
+			RelativePath=".\..\..\..\..\probes\FunctionDeclarator\main.cpp"
 			>
 		</File>
 	</Files>

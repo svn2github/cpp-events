@@ -15,7 +15,7 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "UnitTests", "tests\unit\Uni
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Probes", "Probes", "{E194FAAF-E10C-446F-9601-F1BCF4FF8AC3}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "FunctionDeclarator", "..\..\Probes\FunctionDeclarator\FunctionDeclarator.vcproj", "{1660DC83-761A-48B0-8F32-935A08919294}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "FunctionDeclarator", "probes\FunctionDeclarator\FunctionDeclarator.vcproj", "{1660DC83-761A-48B0-8F32-935A08919294}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SpeedTests", "SpeedTests", "{8C8DEB58-7E9F-462F-927E-F960D76C427F}"
 EndProject
