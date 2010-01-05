@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 9.00
 # Visual Studio 2005
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "CppEvents", "src\CppEvents.vcproj", "{4B58FC2C-D1DB-46F6-8FCF-5D24CB65F3CD}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "EventsTest", "examples\EventsTest.vcproj", "{677F690D-D2A9-49A2-8B5C-74004198DD04}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "EventsTest", "examples\EventsDemo\EventsDemo.vcproj", "{677F690D-D2A9-49A2-8B5C-74004198DD04}"
 	ProjectSection(ProjectDependencies) = postProject
 		{4B58FC2C-D1DB-46F6-8FCF-5D24CB65F3CD} = {4B58FC2C-D1DB-46F6-8FCF-5D24CB65F3CD}
 	EndProjectSection

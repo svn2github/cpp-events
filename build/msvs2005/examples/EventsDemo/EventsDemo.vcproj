@@ -2,9 +2,9 @@
 <VisualStudioProject
 	ProjectType="Visual C++"
 	Version="8,00"
-	Name="EventsTest"
+	Name="EventsDemo"
 	ProjectGUID="{677F690D-D2A9-49A2-8B5C-74004198DD04}"
-	RootNamespace="EventsTest"
+	RootNamespace="EventsDemo"
 	Keyword="Win32Proj"
 	>
 	<Platforms>
@@ -181,15 +181,15 @@
 			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}"
 			>
 			<File
-				RelativePath="..\..\..\EventsTest\Client.cpp"
+				RelativePath="..\..\..\..\examples\EventsDemo\Client.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\EventsTest\main.cpp"
+				RelativePath="..\..\..\..\examples\EventsDemo\main.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\EventsTest\Server.cpp"
+				RelativePath="..\..\..\..\examples\EventsDemo\Server.cpp"
 				>
 			</File>
 		</Filter>
@@ -199,11 +199,11 @@
 			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}"
 			>
 			<File
-				RelativePath="..\..\..\EventsTest\Client.hpp"
+				RelativePath="..\..\..\..\examples\EventsDemo\Client.hpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\EventsTest\Server.hpp"
+				RelativePath="..\..\..\..\examples\EventsDemo\Server.hpp"
 				>
 			</File>
 		</Filter>
