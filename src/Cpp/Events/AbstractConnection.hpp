@@ -1,5 +1,5 @@
-#ifndef ABSTRACT_CONNECTION__HPP
-#define ABSTRACT_CONNECTION__HPP
+#ifndef __CPP_EVENTS__ABSTRACT_CONNECTION__HPP
+#define __CPP_EVENTS__ABSTRACT_CONNECTION__HPP
 
 #include "AtomicReferenceCounter.hpp"
 #include "AbstractDelegate.hpp"
@@ -72,4 +72,4 @@ private:
 	void doDisconnect();
 };
 
-#endif //ABSTRACT_CONNECTION__HPP
+#endif //__CPP_EVENTS__ABSTRACT_CONNECTION__HPP

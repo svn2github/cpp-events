@@ -1,5 +1,5 @@
-#ifndef THREADING__HPP
-#define THREADING__HPP
+#ifndef __CPP_EVENTS__THREADING__HPP
+#define __CPP_EVENTS__THREADING__HPP
 
 #include <cassert>
 
@@ -162,4 +162,4 @@ private:
 	ThreadDataRef inner_;
 };
 
-#endif //THREADING__HPP
+#endif //__CPP_EVENTS__THREADING__HPP

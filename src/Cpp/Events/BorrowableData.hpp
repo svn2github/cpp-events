@@ -1,5 +1,5 @@
-#ifndef BORROWABLE_DATA__HPP
-#define BORROWABLE_DATA__HPP
+#ifndef __CPP_EVENTS__BORROWABLE_DATA__HPP
+#define __CPP_EVENTS__BORROWABLE_DATA__HPP
 
 #include "AbstractConnection.hpp"
 #include <vector>
@@ -83,5 +83,5 @@ private:
 	ConnectionsVector data_;
 };
 
-#endif //BORROWABLE_DATA__HPP
+#endif //__CPP_EVENTS__BORROWABLE_DATA__HPP
 

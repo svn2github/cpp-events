@@ -1,5 +1,5 @@
-#ifndef CONNECTION_SCOPE__HPP
-#define CONNECTION_SCOPE__HPP
+#ifndef __CPP_EVENTS__CONNECTION_SCOPE__HPP
+#define __CPP_EVENTS__CONNECTION_SCOPE__HPP
 
 #include "Events.hpp"
 
@@ -93,4 +93,4 @@ private:
 	}
 };
 
-#endif //CONNECTION_SCOPE__HPP
+#endif //__CPP_EVENTS__CONNECTION_SCOPE__HPP

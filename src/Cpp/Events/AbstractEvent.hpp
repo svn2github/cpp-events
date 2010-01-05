@@ -1,5 +1,5 @@
-#ifndef ABSTRACT_EVENT__HPP
-#define ABSTRACT_EVENT__HPP
+#ifndef __CPP_EVENTS__ABSTRACT_EVENT__HPP
+#define __CPP_EVENTS__ABSTRACT_EVENT__HPP
 
 #include "ConnectionList.hpp"
 

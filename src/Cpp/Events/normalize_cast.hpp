@@ -1,5 +1,5 @@
-#ifndef NORMALIZE_CAST__HPP
-#define NORMALIZE_CAST__HPP
+#ifndef __CPP_EVENTS__NORMALIZE_CAST__HPP
+#define __CPP_EVENTS__NORMALIZE_CAST__HPP
 
 namespace detail {
 
@@ -38,4 +38,4 @@ template<class T> inline void const * normalize_cast(T * ptr)
 	return detail::Caster<T, isPolymorphic>::cast(ptr);
 }
 
-#endif //NORMALIZE_CAST__HPP
+#endif //__CPP_EVENTS__NORMALIZE_CAST__HPP

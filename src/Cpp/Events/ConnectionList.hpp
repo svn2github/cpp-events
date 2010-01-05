@@ -1,5 +1,5 @@
-#ifndef CONNECTION_LIST__HPP
-#define CONNECTION_LIST__HPP
+#ifndef __CPP_EVENTS__CONNECTION_LIST__HPP
+#define __CPP_EVENTS__CONNECTION_LIST__HPP
 
 #include "BorrowableData.hpp"
 
@@ -66,4 +66,4 @@ private:
 	BorrowableData::Borrower borrower_;
 };
 
-#endif //CONNECTION_LIST__HPP
+#endif //__CPP_EVENTS__CONNECTION_LIST__HPP

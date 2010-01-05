@@ -1,5 +1,5 @@
-#ifndef ABSTRACT_OBJECT_REF__HPP
-#define ABSTRACT_OBJECT_REF__HPP
+#ifndef __CPP_EVENTS__ABSTRACT_OBJECT_REF__HPP
+#define __CPP_EVENTS__ABSTRACT_OBJECT_REF__HPP
 
 #include "normalize_cast.hpp"
 

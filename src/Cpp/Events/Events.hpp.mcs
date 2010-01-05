@@ -1,5 +1,5 @@
-#ifndef EVENTS_HPP
-#define EVENTS_HPP
+#ifndef __CPP_EVENTS__EVENTS_HPP
+#define __CPP_EVENTS__EVENTS_HPP
 
 #include "AbstractEvent.hpp"
 #include "ConnectionEx.hpp"
@@ -109,4 +109,4 @@ inline EventRef@i;selArgs("<", i, ">")@ Event@i;selArgs("<", i, ">")@::ref()
 }
 
 @@next
-#endif //EVENTS_H
+#endif //__CPP_EVENTS__EVENTS_HPP

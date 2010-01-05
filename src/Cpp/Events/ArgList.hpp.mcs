@@ -1,6 +1,6 @@
 @@int N=8;
-#ifndef ARG_LIST_HPP
-#define ARG_LIST_HPP
+#ifndef __CPP_EVENTS__ARG_LIST_HPP
+#define __CPP_EVENTS__ARG_LIST_HPP
 
 #include "../../FastDelegate/src/FastDelegate.h"
 
@@ -90,4 +90,4 @@ template<class R@listx(", %", "class T%", i)@, class StoredList, class ParamList
 @@next
 } //namespace detail
 
-#endif //ARG_LIST_HPP
+#endif //__CPP_EVENTS__ARG_LIST_HPP

@@ -1,5 +1,5 @@
-#ifndef ABSTRACT_DELEGATE__HPP
-#define ABSTRACT_DELEGATE__HPP
+#ifndef __CPP_EVENTS__ABSTRACT_DELEGATE__HPP
+#define __CPP_EVENTS__ABSTRACT_DELEGATE__HPP
 
 #include "../../FastDelegate/src/FastDelegate.h"
 

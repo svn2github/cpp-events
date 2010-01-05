@@ -1,5 +1,5 @@
-#ifndef CONFIG__HPP
-#define CONFIG__HPP
+#ifndef __CPP_EVENTS__CONFIG__HPP
+#define __CPP_EVENTS__CONFIG__HPP
 
 //Platform detection
 
@@ -23,4 +23,4 @@ private: \
 	Class(Class const &); \
 	Class & operator=(Class const &);
 
-#endif //CONFIG__HPP
+#endif //__CPP_EVENTS__CONFIG__HPP

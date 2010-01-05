@@ -1,5 +1,5 @@
-#ifndef EVENTS_HPP
-#define EVENTS_HPP
+#ifndef __CPP_EVENTS__EVENTS_HPP
+#define __CPP_EVENTS__EVENTS_HPP
 
 #include "AbstractEvent.hpp"
 #include "ConnectionEx.hpp"
@@ -1343,4 +1343,4 @@ inline EventRef7<Param0, Param1, Param2, Param3, Param4, Param5, Param6> Event7<
 	return EventRef7<Param0, Param1, Param2, Param3, Param4, Param5, Param6>(this);
 }
 
-#endif //EVENTS_H
+#endif //__CPP_EVENTS__EVENTS_HPP

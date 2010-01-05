@@ -1,5 +1,5 @@
-#ifndef TYPE_TRAITS__HPP
-#define TYPE_TRAITS__HPP
+#ifndef __CPP_EVENTS__TYPE_TRAITS__HPP
+#define __CPP_EVENTS__TYPE_TRAITS__HPP
 
 #include "TypeArithmetic.hpp"
 
@@ -191,4 +191,4 @@ template<class T0, class T1> struct IsSubclass
 	>::Type Type;
 };
 
-#endif //TYPE_TRAITS__HPP
+#endif //__CPP_EVENTS__TYPE_TRAITS__HPP

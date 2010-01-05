@@ -1,5 +1,5 @@
-#ifndef ARG_LIST_HPP
-#define ARG_LIST_HPP
+#ifndef __CPP_EVENTS__ARG_LIST_HPP
+#define __CPP_EVENTS__ARG_LIST_HPP
 
 #include "../../FastDelegate/src/FastDelegate.h"
 
@@ -283,4 +283,4 @@ template<class R, class T0, class T1, class T2, class T3, class T4, class T5, cl
 
 } //namespace detail
 
-#endif //ARG_LIST_HPP
+#endif //__CPP_EVENTS__ARG_LIST_HPP

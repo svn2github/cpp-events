@@ -1,5 +1,5 @@
-#ifndef CONNECTION_HPP
-#define CONNECTION_HPP
+#ifndef __CPP_EVENTS__CONNECTION_HPP
+#define __CPP_EVENTS__CONNECTION_HPP
 
 #include "AbstractConnection.hpp"
 
@@ -27,4 +27,4 @@ protected:
 };
 
 @@next
-#endif //CONNECTION_HPP
+#endif //__CPP_EVENTS__CONNECTION_HPP

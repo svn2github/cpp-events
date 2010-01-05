@@ -1,5 +1,5 @@
-#ifndef TYPE_ARITHMETIC
-#define TYPE_ARITHMETIC
+#ifndef __CPP_EVENTS__TYPE_ARITHMETIC__HPP
+#define __CPP_EVENTS__TYPE_ARITHMETIC__HPP
 
 struct NullType {};
 struct InvalidType {};
@@ -189,4 +189,4 @@ template<class Cond, class ThenClass, class ElseClass> struct TypeIf
 	, public Private::TypeIfPrivate::TypeIfHelper<typename BoolNot<Cond>::Type, ElseClass>
 {};
 
-#endif //TYPE_ARITHMETIC
+#endif //__CPP_EVENTS__TYPE_ARITHMETIC__HPP

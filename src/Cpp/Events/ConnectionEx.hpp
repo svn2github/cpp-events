@@ -1,5 +1,5 @@
-#ifndef CONNECTION_EX__HPP
-#define CONNECTION_EX__HPP
+#ifndef __CPP_EVENTS__CONNECTION_EX__HPP
+#define __CPP_EVENTS__CONNECTION_EX__HPP
 
 #include "Connection.hpp"
 #include "ArgList.hpp"
@@ -196,4 +196,4 @@ private:
 	}
 };
 
-#endif //CONNECTION_EX__HPP
+#endif //__CPP_EVENTS__CONNECTION_EX__HPP
