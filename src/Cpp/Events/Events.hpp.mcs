@@ -1,3 +1,4 @@
+@@int N=8;
 #ifndef __CPP_EVENTS__EVENTS_HPP
 #define __CPP_EVENTS__EVENTS_HPP
 
@@ -7,24 +8,30 @@
 
 namespace Cpp {
 //------------------------------------------------------------------------------
-@@for(int i=0; i<8; i+=1)
-@classArgs("template<", i, "> ")@class Event@i@;
+template<
+@@for(int i=0; i<=N; i+=1)
+	class Param@i@ = NullType@if(i < N) "," end@
 @@next
+> class Event;
 //------------------------------------------------------------------------------
-@@for(int i=0; i<8; i+=1)
-@classArgs("template<", i, "> ")@class EventRef@i@;
+template<
+@@for(int i=0; i<=N; i+=1)
+	class Param@i@ = NullType@if(i < N) "," end@
 @@next
+> class EventRef;
 //------------------------------------------------------------------------------
-@@for(int i=0; i<8; i+=1)
-@classArgs("template<", i, "> ")@class Event@i@ : public AbstractEvent
+@@for(int i=0; i<=N; i+=1)
+@@str SelArgs = selArgs(i, ", ") $ list("NullType", (N - i) + 1)
+template<@classArgs(i)@>
+	class Event<@SelArgs@> : public AbstractEvent
 {
 public:
 	typedef Private::Events::Connection@i;selArgs("<", i, ">")@ ConnectionType;
 
-	Event@i@() {}
-	~Event@i@() {}
+	Event() {}
+	~Event() {}
 
-	inline EventRef@i;selArgs("<", i, ">")@ ref();
+	inline EventRef<@SelArgs@> ref();
 
 	void addConnection(Private::Events::ConnectionList * tracker, ConnectionType * conn)
 	{
@@ -43,13 +50,14 @@ public:
 	}
 };
 //------------------------------------------------------------------------------
-@classArgs("template<", i, "> ")@class EventRef@i@ : public AbstractEventRef
+template<@classArgs(i)@>
+	class EventRef<@SelArgs@> : public AbstractEventRef
 {
 public:
-	typedef Event@i;selArgs("<", i, ">")@ EventType;
+	typedef Event<@SelArgs@> EventType;
 	typedef @if(i > 0) "typename " end@EventType::ConnectionType ConnectionType;
 
-	explicit EventRef@i@(EventType * ev) : AbstractEventRef(ev) {}
+	explicit EventRef(EventType * ev) : AbstractEventRef(ev) {}
 
 	template<class T, class Y> void connect(Private::Events::ConnectionList * tracker, T * obj, void (Y::*pmf)(@funcArgs(i)@))
 	{
@@ -73,7 +81,7 @@ public:
 		connectEx(tracker, fastdelegate::MakeDelegate(obj, pmf), stored);
 	}
 
-@@for(int j=1; j<8; j+=1)
+@@for(int j=1; j<N; j+=1)
 	template<class T, class Y, @list("class T%", 1, j)@> void connect(Private::Events::ConnectionList * tracker, T * obj, Y pmf, @list("T% x%", 1, j)@)
 	{
 @@for(int k=1; k<=j; k+=1)
@@ -84,10 +92,10 @@ public:
 	}
 
 @@next
-@@for(int j=i; j<8; j+=1)
-	@listx("template<%> ", "class T%", j)@void connectEvent(Private::Events::ConnectionList * tracker, Event@j;listx("<%>", "T%", j)@ * ev@iter(", T% x%", j-i)@)
+@@for(int j=i; j<N; j+=1)
+	@listx("template<%> ", "class T%", j)@void connectEvent(Private::Events::ConnectionList * tracker, Event<@list("T%", j)@> * ev@iter(", T% x%", j-i)@)
 	{
-		connect(tracker, ev, &Event@j;listx("<%>", "T%", j)@::fire@iter(", x%", 0, j-i)@);
+		connect(tracker, ev, &Event<@list("T%", j)@>::fire@iter(", x%", 0, j-i)@);
 	}
 @@next
 private:
@@ -105,10 +113,11 @@ private:
 	}
 };
 //------------------------------------------------------------------------------
-@classArgs("template<", i, "> ")@
-inline EventRef@i;selArgs("<", i, ">")@ Event@i;selArgs("<", i, ">")@::ref()
+@if(i > 0)@template<@classArgs(i)@>
+	@end@inline EventRef<@SelArgs@>
+	Event<@SelArgs@>::ref()
 {
-	return EventRef@i;selArgs("<", i, ">")@(this);
+	return EventRef<@SelArgs@>(this);
 }
 //------------------------------------------------------------------------------
 @@next

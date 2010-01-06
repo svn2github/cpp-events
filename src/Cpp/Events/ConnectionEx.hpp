@@ -200,6 +200,30 @@ private:
 	}
 };
 //------------------------------------------------------------------------------
+template<class Param0, class Param1, class Param2, class Param3, class Param4, class Param5, class Param6, class Param7, class DelegateClass, class StoredListClass>
+class ConnectionEx8 : public Connection8<Param0, Param1, Param2, Param3, Param4, Param5, Param6, Param7>
+{
+public:
+	typedef Connection8<Param0, Param1, Param2, Param3, Param4, Param5, Param6, Param7> BaseType;
+	typedef ConnectionEx8<Param0, Param1, Param2, Param3, Param4, Param5, Param6, Param7,DelegateClass, StoredListClass> ThisType;
+
+	ConnectionEx8(DelegateClass const & deleg, StoredListClass const & stored)
+		: BaseType(AbstractDelegate(deleg))
+		, deleg_(deleg), stored_(stored)
+	{
+		BaseType::delegate_ = fastdelegate::MakeDelegate(this, &ThisType::invokeHelper);
+	}
+private:
+	DelegateClass deleg_;
+	StoredListClass stored_;
+
+	void invokeHelper(Param0 p0, Param1 p1, Param2 p2, Param3 p3, Param4 p4, Param5 p5, Param6 p6, Param7 p7) const
+	{
+		ArgList8<Param0, Param1, Param2, Param3, Param4, Param5, Param6, Param7> paramList(p0, p1, p2, p3, p4, p5, p6, p7);
+		return invokeDelegate(deleg_, stored_, paramList);
+	}
+};
+//------------------------------------------------------------------------------
 } //namespace Events
 } //namespace Private
 } //namespace Cpp

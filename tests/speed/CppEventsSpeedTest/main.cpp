@@ -11,8 +11,8 @@ public:
 
 void test(unsigned N)
 {
-	Cpp::Event1<float> ev;
-	Cpp::EventRef1<float> eventRef(&ev);
+	Cpp::Event<float> ev;
+	Cpp::EventRef<float> eventRef(&ev);
 	Cpp::ConnectionScope scope;
 	
 	MyReciever rcv;

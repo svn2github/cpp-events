@@ -7,33 +7,40 @@
 
 namespace Cpp {
 //------------------------------------------------------------------------------
-class Event0;
-template<class Param0> class Event1;
-template<class Param0, class Param1> class Event2;
-template<class Param0, class Param1, class Param2> class Event3;
-template<class Param0, class Param1, class Param2, class Param3> class Event4;
-template<class Param0, class Param1, class Param2, class Param3, class Param4> class Event5;
-template<class Param0, class Param1, class Param2, class Param3, class Param4, class Param5> class Event6;
-template<class Param0, class Param1, class Param2, class Param3, class Param4, class Param5, class Param6> class Event7;
+template<
+	class Param0 = NullType,
+	class Param1 = NullType,
+	class Param2 = NullType,
+	class Param3 = NullType,
+	class Param4 = NullType,
+	class Param5 = NullType,
+	class Param6 = NullType,
+	class Param7 = NullType,
+	class Param8 = NullType
+> class Event;
 //------------------------------------------------------------------------------
-class EventRef0;
-template<class Param0> class EventRef1;
-template<class Param0, class Param1> class EventRef2;
-template<class Param0, class Param1, class Param2> class EventRef3;
-template<class Param0, class Param1, class Param2, class Param3> class EventRef4;
-template<class Param0, class Param1, class Param2, class Param3, class Param4> class EventRef5;
-template<class Param0, class Param1, class Param2, class Param3, class Param4, class Param5> class EventRef6;
-template<class Param0, class Param1, class Param2, class Param3, class Param4, class Param5, class Param6> class EventRef7;
+template<
+	class Param0 = NullType,
+	class Param1 = NullType,
+	class Param2 = NullType,
+	class Param3 = NullType,
+	class Param4 = NullType,
+	class Param5 = NullType,
+	class Param6 = NullType,
+	class Param7 = NullType,
+	class Param8 = NullType
+> class EventRef;
 //------------------------------------------------------------------------------
-class Event0 : public AbstractEvent
+template<>
+	class Event<NullType, NullType, NullType, NullType, NullType, NullType, NullType, NullType, NullType> : public AbstractEvent
 {
 public:
 	typedef Private::Events::Connection0 ConnectionType;
 
-	Event0() {}
-	~Event0() {}
+	Event() {}
+	~Event() {}
 
-	inline EventRef0 ref();
+	inline EventRef<NullType, NullType, NullType, NullType, NullType, NullType, NullType, NullType, NullType> ref();
 
 	void addConnection(Private::Events::ConnectionList * tracker, ConnectionType * conn)
 	{
@@ -52,13 +59,14 @@ public:
 	}
 };
 //------------------------------------------------------------------------------
-class EventRef0 : public AbstractEventRef
+template<>
+	class EventRef<NullType, NullType, NullType, NullType, NullType, NullType, NullType, NullType, NullType> : public AbstractEventRef
 {
 public:
-	typedef Event0 EventType;
+	typedef Event<NullType, NullType, NullType, NullType, NullType, NullType, NullType, NullType, NullType> EventType;
 	typedef EventType::ConnectionType ConnectionType;
 
-	explicit EventRef0(EventType * ev) : AbstractEventRef(ev) {}
+	explicit EventRef(EventType * ev) : AbstractEventRef(ev) {}
 
 	template<class T, class Y> void connect(Private::Events::ConnectionList * tracker, T * obj, void (Y::*pmf)())
 	{
@@ -152,37 +160,37 @@ public:
 		connectEx(tracker, fastdelegate::MakeDelegate(obj, pmf), stored);
 	}
 
-	void connectEvent(Private::Events::ConnectionList * tracker, Event0 * ev)
+	void connectEvent(Private::Events::ConnectionList * tracker, Event<> * ev)
 	{
-		connect(tracker, ev, &Event0::fire);
+		connect(tracker, ev, &Event<>::fire);
 	}
-	template<class T0> void connectEvent(Private::Events::ConnectionList * tracker, Event1<T0> * ev, T0 x0)
+	template<class T0> void connectEvent(Private::Events::ConnectionList * tracker, Event<T0> * ev, T0 x0)
 	{
-		connect(tracker, ev, &Event1<T0>::fire, x0);
+		connect(tracker, ev, &Event<T0>::fire, x0);
 	}
-	template<class T0, class T1> void connectEvent(Private::Events::ConnectionList * tracker, Event2<T0, T1> * ev, T0 x0, T1 x1)
+	template<class T0, class T1> void connectEvent(Private::Events::ConnectionList * tracker, Event<T0, T1> * ev, T0 x0, T1 x1)
 	{
-		connect(tracker, ev, &Event2<T0, T1>::fire, x0, x1);
+		connect(tracker, ev, &Event<T0, T1>::fire, x0, x1);
 	}
-	template<class T0, class T1, class T2> void connectEvent(Private::Events::ConnectionList * tracker, Event3<T0, T1, T2> * ev, T0 x0, T1 x1, T2 x2)
+	template<class T0, class T1, class T2> void connectEvent(Private::Events::ConnectionList * tracker, Event<T0, T1, T2> * ev, T0 x0, T1 x1, T2 x2)
 	{
-		connect(tracker, ev, &Event3<T0, T1, T2>::fire, x0, x1, x2);
+		connect(tracker, ev, &Event<T0, T1, T2>::fire, x0, x1, x2);
 	}
-	template<class T0, class T1, class T2, class T3> void connectEvent(Private::Events::ConnectionList * tracker, Event4<T0, T1, T2, T3> * ev, T0 x0, T1 x1, T2 x2, T3 x3)
+	template<class T0, class T1, class T2, class T3> void connectEvent(Private::Events::ConnectionList * tracker, Event<T0, T1, T2, T3> * ev, T0 x0, T1 x1, T2 x2, T3 x3)
 	{
-		connect(tracker, ev, &Event4<T0, T1, T2, T3>::fire, x0, x1, x2, x3);
+		connect(tracker, ev, &Event<T0, T1, T2, T3>::fire, x0, x1, x2, x3);
 	}
-	template<class T0, class T1, class T2, class T3, class T4> void connectEvent(Private::Events::ConnectionList * tracker, Event5<T0, T1, T2, T3, T4> * ev, T0 x0, T1 x1, T2 x2, T3 x3, T4 x4)
+	template<class T0, class T1, class T2, class T3, class T4> void connectEvent(Private::Events::ConnectionList * tracker, Event<T0, T1, T2, T3, T4> * ev, T0 x0, T1 x1, T2 x2, T3 x3, T4 x4)
 	{
-		connect(tracker, ev, &Event5<T0, T1, T2, T3, T4>::fire, x0, x1, x2, x3, x4);
+		connect(tracker, ev, &Event<T0, T1, T2, T3, T4>::fire, x0, x1, x2, x3, x4);
 	}
-	template<class T0, class T1, class T2, class T3, class T4, class T5> void connectEvent(Private::Events::ConnectionList * tracker, Event6<T0, T1, T2, T3, T4, T5> * ev, T0 x0, T1 x1, T2 x2, T3 x3, T4 x4, T5 x5)
+	template<class T0, class T1, class T2, class T3, class T4, class T5> void connectEvent(Private::Events::ConnectionList * tracker, Event<T0, T1, T2, T3, T4, T5> * ev, T0 x0, T1 x1, T2 x2, T3 x3, T4 x4, T5 x5)
 	{
-		connect(tracker, ev, &Event6<T0, T1, T2, T3, T4, T5>::fire, x0, x1, x2, x3, x4, x5);
+		connect(tracker, ev, &Event<T0, T1, T2, T3, T4, T5>::fire, x0, x1, x2, x3, x4, x5);
 	}
-	template<class T0, class T1, class T2, class T3, class T4, class T5, class T6> void connectEvent(Private::Events::ConnectionList * tracker, Event7<T0, T1, T2, T3, T4, T5, T6> * ev, T0 x0, T1 x1, T2 x2, T3 x3, T4 x4, T5 x5, T6 x6)
+	template<class T0, class T1, class T2, class T3, class T4, class T5, class T6> void connectEvent(Private::Events::ConnectionList * tracker, Event<T0, T1, T2, T3, T4, T5, T6> * ev, T0 x0, T1 x1, T2 x2, T3 x3, T4 x4, T5 x5, T6 x6)
 	{
-		connect(tracker, ev, &Event7<T0, T1, T2, T3, T4, T5, T6>::fire, x0, x1, x2, x3, x4, x5, x6);
+		connect(tracker, ev, &Event<T0, T1, T2, T3, T4, T5, T6>::fire, x0, x1, x2, x3, x4, x5, x6);
 	}
 private:
 	void addConnection(Private::Events::ConnectionList * tracker, ConnectionType * conn)
@@ -199,21 +207,22 @@ private:
 	}
 };
 //------------------------------------------------------------------------------
-
-inline EventRef0 Event0::ref()
+inline EventRef<NullType, NullType, NullType, NullType, NullType, NullType, NullType, NullType, NullType>
+	Event<NullType, NullType, NullType, NullType, NullType, NullType, NullType, NullType, NullType>::ref()
 {
-	return EventRef0(this);
+	return EventRef<NullType, NullType, NullType, NullType, NullType, NullType, NullType, NullType, NullType>(this);
 }
 //------------------------------------------------------------------------------
-template<class Param0> class Event1 : public AbstractEvent
+template<class Param0>
+	class Event<Param0, NullType, NullType, NullType, NullType, NullType, NullType, NullType, NullType> : public AbstractEvent
 {
 public:
 	typedef Private::Events::Connection1<Param0> ConnectionType;
 
-	Event1() {}
-	~Event1() {}
+	Event() {}
+	~Event() {}
 
-	inline EventRef1<Param0> ref();
+	inline EventRef<Param0, NullType, NullType, NullType, NullType, NullType, NullType, NullType, NullType> ref();
 
 	void addConnection(Private::Events::ConnectionList * tracker, ConnectionType * conn)
 	{
@@ -232,13 +241,14 @@ public:
 	}
 };
 //------------------------------------------------------------------------------
-template<class Param0> class EventRef1 : public AbstractEventRef
+template<class Param0>
+	class EventRef<Param0, NullType, NullType, NullType, NullType, NullType, NullType, NullType, NullType> : public AbstractEventRef
 {
 public:
-	typedef Event1<Param0> EventType;
+	typedef Event<Param0, NullType, NullType, NullType, NullType, NullType, NullType, NullType, NullType> EventType;
 	typedef typename EventType::ConnectionType ConnectionType;
 
-	explicit EventRef1(EventType * ev) : AbstractEventRef(ev) {}
+	explicit EventRef(EventType * ev) : AbstractEventRef(ev) {}
 
 	template<class T, class Y> void connect(Private::Events::ConnectionList * tracker, T * obj, void (Y::*pmf)(Param0 p0))
 	{
@@ -332,33 +342,33 @@ public:
 		connectEx(tracker, fastdelegate::MakeDelegate(obj, pmf), stored);
 	}
 
-	template<class T0> void connectEvent(Private::Events::ConnectionList * tracker, Event1<T0> * ev)
+	template<class T0> void connectEvent(Private::Events::ConnectionList * tracker, Event<T0> * ev)
 	{
-		connect(tracker, ev, &Event1<T0>::fire);
+		connect(tracker, ev, &Event<T0>::fire);
 	}
-	template<class T0, class T1> void connectEvent(Private::Events::ConnectionList * tracker, Event2<T0, T1> * ev, T0 x0)
+	template<class T0, class T1> void connectEvent(Private::Events::ConnectionList * tracker, Event<T0, T1> * ev, T0 x0)
 	{
-		connect(tracker, ev, &Event2<T0, T1>::fire, x0);
+		connect(tracker, ev, &Event<T0, T1>::fire, x0);
 	}
-	template<class T0, class T1, class T2> void connectEvent(Private::Events::ConnectionList * tracker, Event3<T0, T1, T2> * ev, T0 x0, T1 x1)
+	template<class T0, class T1, class T2> void connectEvent(Private::Events::ConnectionList * tracker, Event<T0, T1, T2> * ev, T0 x0, T1 x1)
 	{
-		connect(tracker, ev, &Event3<T0, T1, T2>::fire, x0, x1);
+		connect(tracker, ev, &Event<T0, T1, T2>::fire, x0, x1);
 	}
-	template<class T0, class T1, class T2, class T3> void connectEvent(Private::Events::ConnectionList * tracker, Event4<T0, T1, T2, T3> * ev, T0 x0, T1 x1, T2 x2)
+	template<class T0, class T1, class T2, class T3> void connectEvent(Private::Events::ConnectionList * tracker, Event<T0, T1, T2, T3> * ev, T0 x0, T1 x1, T2 x2)
 	{
-		connect(tracker, ev, &Event4<T0, T1, T2, T3>::fire, x0, x1, x2);
+		connect(tracker, ev, &Event<T0, T1, T2, T3>::fire, x0, x1, x2);
 	}
-	template<class T0, class T1, class T2, class T3, class T4> void connectEvent(Private::Events::ConnectionList * tracker, Event5<T0, T1, T2, T3, T4> * ev, T0 x0, T1 x1, T2 x2, T3 x3)
+	template<class T0, class T1, class T2, class T3, class T4> void connectEvent(Private::Events::ConnectionList * tracker, Event<T0, T1, T2, T3, T4> * ev, T0 x0, T1 x1, T2 x2, T3 x3)
 	{
-		connect(tracker, ev, &Event5<T0, T1, T2, T3, T4>::fire, x0, x1, x2, x3);
+		connect(tracker, ev, &Event<T0, T1, T2, T3, T4>::fire, x0, x1, x2, x3);
 	}
-	template<class T0, class T1, class T2, class T3, class T4, class T5> void connectEvent(Private::Events::ConnectionList * tracker, Event6<T0, T1, T2, T3, T4, T5> * ev, T0 x0, T1 x1, T2 x2, T3 x3, T4 x4)
+	template<class T0, class T1, class T2, class T3, class T4, class T5> void connectEvent(Private::Events::ConnectionList * tracker, Event<T0, T1, T2, T3, T4, T5> * ev, T0 x0, T1 x1, T2 x2, T3 x3, T4 x4)
 	{
-		connect(tracker, ev, &Event6<T0, T1, T2, T3, T4, T5>::fire, x0, x1, x2, x3, x4);
+		connect(tracker, ev, &Event<T0, T1, T2, T3, T4, T5>::fire, x0, x1, x2, x3, x4);
 	}
-	template<class T0, class T1, class T2, class T3, class T4, class T5, class T6> void connectEvent(Private::Events::ConnectionList * tracker, Event7<T0, T1, T2, T3, T4, T5, T6> * ev, T0 x0, T1 x1, T2 x2, T3 x3, T4 x4, T5 x5)
+	template<class T0, class T1, class T2, class T3, class T4, class T5, class T6> void connectEvent(Private::Events::ConnectionList * tracker, Event<T0, T1, T2, T3, T4, T5, T6> * ev, T0 x0, T1 x1, T2 x2, T3 x3, T4 x4, T5 x5)
 	{
-		connect(tracker, ev, &Event7<T0, T1, T2, T3, T4, T5, T6>::fire, x0, x1, x2, x3, x4, x5);
+		connect(tracker, ev, &Event<T0, T1, T2, T3, T4, T5, T6>::fire, x0, x1, x2, x3, x4, x5);
 	}
 private:
 	void addConnection(Private::Events::ConnectionList * tracker, ConnectionType * conn)
@@ -375,21 +385,23 @@ private:
 	}
 };
 //------------------------------------------------------------------------------
-template<class Param0> 
-inline EventRef1<Param0> Event1<Param0>::ref()
+template<class Param0>
+	inline EventRef<Param0, NullType, NullType, NullType, NullType, NullType, NullType, NullType, NullType>
+	Event<Param0, NullType, NullType, NullType, NullType, NullType, NullType, NullType, NullType>::ref()
 {
-	return EventRef1<Param0>(this);
+	return EventRef<Param0, NullType, NullType, NullType, NullType, NullType, NullType, NullType, NullType>(this);
 }
 //------------------------------------------------------------------------------
-template<class Param0, class Param1> class Event2 : public AbstractEvent
+template<class Param0, class Param1>
+	class Event<Param0, Param1, NullType, NullType, NullType, NullType, NullType, NullType, NullType> : public AbstractEvent
 {
 public:
 	typedef Private::Events::Connection2<Param0, Param1> ConnectionType;
 
-	Event2() {}
-	~Event2() {}
+	Event() {}
+	~Event() {}
 
-	inline EventRef2<Param0, Param1> ref();
+	inline EventRef<Param0, Param1, NullType, NullType, NullType, NullType, NullType, NullType, NullType> ref();
 
 	void addConnection(Private::Events::ConnectionList * tracker, ConnectionType * conn)
 	{
@@ -408,13 +420,14 @@ public:
 	}
 };
 //------------------------------------------------------------------------------
-template<class Param0, class Param1> class EventRef2 : public AbstractEventRef
+template<class Param0, class Param1>
+	class EventRef<Param0, Param1, NullType, NullType, NullType, NullType, NullType, NullType, NullType> : public AbstractEventRef
 {
 public:
-	typedef Event2<Param0, Param1> EventType;
+	typedef Event<Param0, Param1, NullType, NullType, NullType, NullType, NullType, NullType, NullType> EventType;
 	typedef typename EventType::ConnectionType ConnectionType;
 
-	explicit EventRef2(EventType * ev) : AbstractEventRef(ev) {}
+	explicit EventRef(EventType * ev) : AbstractEventRef(ev) {}
 
 	template<class T, class Y> void connect(Private::Events::ConnectionList * tracker, T * obj, void (Y::*pmf)(Param0 p0, Param1 p1))
 	{
@@ -508,29 +521,29 @@ public:
 		connectEx(tracker, fastdelegate::MakeDelegate(obj, pmf), stored);
 	}
 
-	template<class T0, class T1> void connectEvent(Private::Events::ConnectionList * tracker, Event2<T0, T1> * ev)
+	template<class T0, class T1> void connectEvent(Private::Events::ConnectionList * tracker, Event<T0, T1> * ev)
 	{
-		connect(tracker, ev, &Event2<T0, T1>::fire);
+		connect(tracker, ev, &Event<T0, T1>::fire);
 	}
-	template<class T0, class T1, class T2> void connectEvent(Private::Events::ConnectionList * tracker, Event3<T0, T1, T2> * ev, T0 x0)
+	template<class T0, class T1, class T2> void connectEvent(Private::Events::ConnectionList * tracker, Event<T0, T1, T2> * ev, T0 x0)
 	{
-		connect(tracker, ev, &Event3<T0, T1, T2>::fire, x0);
+		connect(tracker, ev, &Event<T0, T1, T2>::fire, x0);
 	}
-	template<class T0, class T1, class T2, class T3> void connectEvent(Private::Events::ConnectionList * tracker, Event4<T0, T1, T2, T3> * ev, T0 x0, T1 x1)
+	template<class T0, class T1, class T2, class T3> void connectEvent(Private::Events::ConnectionList * tracker, Event<T0, T1, T2, T3> * ev, T0 x0, T1 x1)
 	{
-		connect(tracker, ev, &Event4<T0, T1, T2, T3>::fire, x0, x1);
+		connect(tracker, ev, &Event<T0, T1, T2, T3>::fire, x0, x1);
 	}
-	template<class T0, class T1, class T2, class T3, class T4> void connectEvent(Private::Events::ConnectionList * tracker, Event5<T0, T1, T2, T3, T4> * ev, T0 x0, T1 x1, T2 x2)
+	template<class T0, class T1, class T2, class T3, class T4> void connectEvent(Private::Events::ConnectionList * tracker, Event<T0, T1, T2, T3, T4> * ev, T0 x0, T1 x1, T2 x2)
 	{
-		connect(tracker, ev, &Event5<T0, T1, T2, T3, T4>::fire, x0, x1, x2);
+		connect(tracker, ev, &Event<T0, T1, T2, T3, T4>::fire, x0, x1, x2);
 	}
-	template<class T0, class T1, class T2, class T3, class T4, class T5> void connectEvent(Private::Events::ConnectionList * tracker, Event6<T0, T1, T2, T3, T4, T5> * ev, T0 x0, T1 x1, T2 x2, T3 x3)
+	template<class T0, class T1, class T2, class T3, class T4, class T5> void connectEvent(Private::Events::ConnectionList * tracker, Event<T0, T1, T2, T3, T4, T5> * ev, T0 x0, T1 x1, T2 x2, T3 x3)
 	{
-		connect(tracker, ev, &Event6<T0, T1, T2, T3, T4, T5>::fire, x0, x1, x2, x3);
+		connect(tracker, ev, &Event<T0, T1, T2, T3, T4, T5>::fire, x0, x1, x2, x3);
 	}
-	template<class T0, class T1, class T2, class T3, class T4, class T5, class T6> void connectEvent(Private::Events::ConnectionList * tracker, Event7<T0, T1, T2, T3, T4, T5, T6> * ev, T0 x0, T1 x1, T2 x2, T3 x3, T4 x4)
+	template<class T0, class T1, class T2, class T3, class T4, class T5, class T6> void connectEvent(Private::Events::ConnectionList * tracker, Event<T0, T1, T2, T3, T4, T5, T6> * ev, T0 x0, T1 x1, T2 x2, T3 x3, T4 x4)
 	{
-		connect(tracker, ev, &Event7<T0, T1, T2, T3, T4, T5, T6>::fire, x0, x1, x2, x3, x4);
+		connect(tracker, ev, &Event<T0, T1, T2, T3, T4, T5, T6>::fire, x0, x1, x2, x3, x4);
 	}
 private:
 	void addConnection(Private::Events::ConnectionList * tracker, ConnectionType * conn)
@@ -547,21 +560,23 @@ private:
 	}
 };
 //------------------------------------------------------------------------------
-template<class Param0, class Param1> 
-inline EventRef2<Param0, Param1> Event2<Param0, Param1>::ref()
+template<class Param0, class Param1>
+	inline EventRef<Param0, Param1, NullType, NullType, NullType, NullType, NullType, NullType, NullType>
+	Event<Param0, Param1, NullType, NullType, NullType, NullType, NullType, NullType, NullType>::ref()
 {
-	return EventRef2<Param0, Param1>(this);
+	return EventRef<Param0, Param1, NullType, NullType, NullType, NullType, NullType, NullType, NullType>(this);
 }
 //------------------------------------------------------------------------------
-template<class Param0, class Param1, class Param2> class Event3 : public AbstractEvent
+template<class Param0, class Param1, class Param2>
+	class Event<Param0, Param1, Param2, NullType, NullType, NullType, NullType, NullType, NullType> : public AbstractEvent
 {
 public:
 	typedef Private::Events::Connection3<Param0, Param1, Param2> ConnectionType;
 
-	Event3() {}
-	~Event3() {}
+	Event() {}
+	~Event() {}
 
-	inline EventRef3<Param0, Param1, Param2> ref();
+	inline EventRef<Param0, Param1, Param2, NullType, NullType, NullType, NullType, NullType, NullType> ref();
 
 	void addConnection(Private::Events::ConnectionList * tracker, ConnectionType * conn)
 	{
@@ -580,13 +595,14 @@ public:
 	}
 };
 //------------------------------------------------------------------------------
-template<class Param0, class Param1, class Param2> class EventRef3 : public AbstractEventRef
+template<class Param0, class Param1, class Param2>
+	class EventRef<Param0, Param1, Param2, NullType, NullType, NullType, NullType, NullType, NullType> : public AbstractEventRef
 {
 public:
-	typedef Event3<Param0, Param1, Param2> EventType;
+	typedef Event<Param0, Param1, Param2, NullType, NullType, NullType, NullType, NullType, NullType> EventType;
 	typedef typename EventType::ConnectionType ConnectionType;
 
-	explicit EventRef3(EventType * ev) : AbstractEventRef(ev) {}
+	explicit EventRef(EventType * ev) : AbstractEventRef(ev) {}
 
 	template<class T, class Y> void connect(Private::Events::ConnectionList * tracker, T * obj, void (Y::*pmf)(Param0 p0, Param1 p1, Param2 p2))
 	{
@@ -680,25 +696,25 @@ public:
 		connectEx(tracker, fastdelegate::MakeDelegate(obj, pmf), stored);
 	}
 
-	template<class T0, class T1, class T2> void connectEvent(Private::Events::ConnectionList * tracker, Event3<T0, T1, T2> * ev)
+	template<class T0, class T1, class T2> void connectEvent(Private::Events::ConnectionList * tracker, Event<T0, T1, T2> * ev)
 	{
-		connect(tracker, ev, &Event3<T0, T1, T2>::fire);
+		connect(tracker, ev, &Event<T0, T1, T2>::fire);
 	}
-	template<class T0, class T1, class T2, class T3> void connectEvent(Private::Events::ConnectionList * tracker, Event4<T0, T1, T2, T3> * ev, T0 x0)
+	template<class T0, class T1, class T2, class T3> void connectEvent(Private::Events::ConnectionList * tracker, Event<T0, T1, T2, T3> * ev, T0 x0)
 	{
-		connect(tracker, ev, &Event4<T0, T1, T2, T3>::fire, x0);
+		connect(tracker, ev, &Event<T0, T1, T2, T3>::fire, x0);
 	}
-	template<class T0, class T1, class T2, class T3, class T4> void connectEvent(Private::Events::ConnectionList * tracker, Event5<T0, T1, T2, T3, T4> * ev, T0 x0, T1 x1)
+	template<class T0, class T1, class T2, class T3, class T4> void connectEvent(Private::Events::ConnectionList * tracker, Event<T0, T1, T2, T3, T4> * ev, T0 x0, T1 x1)
 	{
-		connect(tracker, ev, &Event5<T0, T1, T2, T3, T4>::fire, x0, x1);
+		connect(tracker, ev, &Event<T0, T1, T2, T3, T4>::fire, x0, x1);
 	}
-	template<class T0, class T1, class T2, class T3, class T4, class T5> void connectEvent(Private::Events::ConnectionList * tracker, Event6<T0, T1, T2, T3, T4, T5> * ev, T0 x0, T1 x1, T2 x2)
+	template<class T0, class T1, class T2, class T3, class T4, class T5> void connectEvent(Private::Events::ConnectionList * tracker, Event<T0, T1, T2, T3, T4, T5> * ev, T0 x0, T1 x1, T2 x2)
 	{
-		connect(tracker, ev, &Event6<T0, T1, T2, T3, T4, T5>::fire, x0, x1, x2);
+		connect(tracker, ev, &Event<T0, T1, T2, T3, T4, T5>::fire, x0, x1, x2);
 	}
-	template<class T0, class T1, class T2, class T3, class T4, class T5, class T6> void connectEvent(Private::Events::ConnectionList * tracker, Event7<T0, T1, T2, T3, T4, T5, T6> * ev, T0 x0, T1 x1, T2 x2, T3 x3)
+	template<class T0, class T1, class T2, class T3, class T4, class T5, class T6> void connectEvent(Private::Events::ConnectionList * tracker, Event<T0, T1, T2, T3, T4, T5, T6> * ev, T0 x0, T1 x1, T2 x2, T3 x3)
 	{
-		connect(tracker, ev, &Event7<T0, T1, T2, T3, T4, T5, T6>::fire, x0, x1, x2, x3);
+		connect(tracker, ev, &Event<T0, T1, T2, T3, T4, T5, T6>::fire, x0, x1, x2, x3);
 	}
 private:
 	void addConnection(Private::Events::ConnectionList * tracker, ConnectionType * conn)
@@ -715,21 +731,23 @@ private:
 	}
 };
 //------------------------------------------------------------------------------
-template<class Param0, class Param1, class Param2> 
-inline EventRef3<Param0, Param1, Param2> Event3<Param0, Param1, Param2>::ref()
+template<class Param0, class Param1, class Param2>
+	inline EventRef<Param0, Param1, Param2, NullType, NullType, NullType, NullType, NullType, NullType>
+	Event<Param0, Param1, Param2, NullType, NullType, NullType, NullType, NullType, NullType>::ref()
 {
-	return EventRef3<Param0, Param1, Param2>(this);
+	return EventRef<Param0, Param1, Param2, NullType, NullType, NullType, NullType, NullType, NullType>(this);
 }
 //------------------------------------------------------------------------------
-template<class Param0, class Param1, class Param2, class Param3> class Event4 : public AbstractEvent
+template<class Param0, class Param1, class Param2, class Param3>
+	class Event<Param0, Param1, Param2, Param3, NullType, NullType, NullType, NullType, NullType> : public AbstractEvent
 {
 public:
 	typedef Private::Events::Connection4<Param0, Param1, Param2, Param3> ConnectionType;
 
-	Event4() {}
-	~Event4() {}
+	Event() {}
+	~Event() {}
 
-	inline EventRef4<Param0, Param1, Param2, Param3> ref();
+	inline EventRef<Param0, Param1, Param2, Param3, NullType, NullType, NullType, NullType, NullType> ref();
 
 	void addConnection(Private::Events::ConnectionList * tracker, ConnectionType * conn)
 	{
@@ -748,13 +766,14 @@ public:
 	}
 };
 //------------------------------------------------------------------------------
-template<class Param0, class Param1, class Param2, class Param3> class EventRef4 : public AbstractEventRef
+template<class Param0, class Param1, class Param2, class Param3>
+	class EventRef<Param0, Param1, Param2, Param3, NullType, NullType, NullType, NullType, NullType> : public AbstractEventRef
 {
 public:
-	typedef Event4<Param0, Param1, Param2, Param3> EventType;
+	typedef Event<Param0, Param1, Param2, Param3, NullType, NullType, NullType, NullType, NullType> EventType;
 	typedef typename EventType::ConnectionType ConnectionType;
 
-	explicit EventRef4(EventType * ev) : AbstractEventRef(ev) {}
+	explicit EventRef(EventType * ev) : AbstractEventRef(ev) {}
 
 	template<class T, class Y> void connect(Private::Events::ConnectionList * tracker, T * obj, void (Y::*pmf)(Param0 p0, Param1 p1, Param2 p2, Param3 p3))
 	{
@@ -848,21 +867,21 @@ public:
 		connectEx(tracker, fastdelegate::MakeDelegate(obj, pmf), stored);
 	}
 
-	template<class T0, class T1, class T2, class T3> void connectEvent(Private::Events::ConnectionList * tracker, Event4<T0, T1, T2, T3> * ev)
+	template<class T0, class T1, class T2, class T3> void connectEvent(Private::Events::ConnectionList * tracker, Event<T0, T1, T2, T3> * ev)
 	{
-		connect(tracker, ev, &Event4<T0, T1, T2, T3>::fire);
+		connect(tracker, ev, &Event<T0, T1, T2, T3>::fire);
 	}
-	template<class T0, class T1, class T2, class T3, class T4> void connectEvent(Private::Events::ConnectionList * tracker, Event5<T0, T1, T2, T3, T4> * ev, T0 x0)
+	template<class T0, class T1, class T2, class T3, class T4> void connectEvent(Private::Events::ConnectionList * tracker, Event<T0, T1, T2, T3, T4> * ev, T0 x0)
 	{
-		connect(tracker, ev, &Event5<T0, T1, T2, T3, T4>::fire, x0);
+		connect(tracker, ev, &Event<T0, T1, T2, T3, T4>::fire, x0);
 	}
-	template<class T0, class T1, class T2, class T3, class T4, class T5> void connectEvent(Private::Events::ConnectionList * tracker, Event6<T0, T1, T2, T3, T4, T5> * ev, T0 x0, T1 x1)
+	template<class T0, class T1, class T2, class T3, class T4, class T5> void connectEvent(Private::Events::ConnectionList * tracker, Event<T0, T1, T2, T3, T4, T5> * ev, T0 x0, T1 x1)
 	{
-		connect(tracker, ev, &Event6<T0, T1, T2, T3, T4, T5>::fire, x0, x1);
+		connect(tracker, ev, &Event<T0, T1, T2, T3, T4, T5>::fire, x0, x1);
 	}
-	template<class T0, class T1, class T2, class T3, class T4, class T5, class T6> void connectEvent(Private::Events::ConnectionList * tracker, Event7<T0, T1, T2, T3, T4, T5, T6> * ev, T0 x0, T1 x1, T2 x2)
+	template<class T0, class T1, class T2, class T3, class T4, class T5, class T6> void connectEvent(Private::Events::ConnectionList * tracker, Event<T0, T1, T2, T3, T4, T5, T6> * ev, T0 x0, T1 x1, T2 x2)
 	{
-		connect(tracker, ev, &Event7<T0, T1, T2, T3, T4, T5, T6>::fire, x0, x1, x2);
+		connect(tracker, ev, &Event<T0, T1, T2, T3, T4, T5, T6>::fire, x0, x1, x2);
 	}
 private:
 	void addConnection(Private::Events::ConnectionList * tracker, ConnectionType * conn)
@@ -879,21 +898,23 @@ private:
 	}
 };
 //------------------------------------------------------------------------------
-template<class Param0, class Param1, class Param2, class Param3> 
-inline EventRef4<Param0, Param1, Param2, Param3> Event4<Param0, Param1, Param2, Param3>::ref()
+template<class Param0, class Param1, class Param2, class Param3>
+	inline EventRef<Param0, Param1, Param2, Param3, NullType, NullType, NullType, NullType, NullType>
+	Event<Param0, Param1, Param2, Param3, NullType, NullType, NullType, NullType, NullType>::ref()
 {
-	return EventRef4<Param0, Param1, Param2, Param3>(this);
+	return EventRef<Param0, Param1, Param2, Param3, NullType, NullType, NullType, NullType, NullType>(this);
 }
 //------------------------------------------------------------------------------
-template<class Param0, class Param1, class Param2, class Param3, class Param4> class Event5 : public AbstractEvent
+template<class Param0, class Param1, class Param2, class Param3, class Param4>
+	class Event<Param0, Param1, Param2, Param3, Param4, NullType, NullType, NullType, NullType> : public AbstractEvent
 {
 public:
 	typedef Private::Events::Connection5<Param0, Param1, Param2, Param3, Param4> ConnectionType;
 
-	Event5() {}
-	~Event5() {}
+	Event() {}
+	~Event() {}
 
-	inline EventRef5<Param0, Param1, Param2, Param3, Param4> ref();
+	inline EventRef<Param0, Param1, Param2, Param3, Param4, NullType, NullType, NullType, NullType> ref();
 
 	void addConnection(Private::Events::ConnectionList * tracker, ConnectionType * conn)
 	{
@@ -912,13 +933,14 @@ public:
 	}
 };
 //------------------------------------------------------------------------------
-template<class Param0, class Param1, class Param2, class Param3, class Param4> class EventRef5 : public AbstractEventRef
+template<class Param0, class Param1, class Param2, class Param3, class Param4>
+	class EventRef<Param0, Param1, Param2, Param3, Param4, NullType, NullType, NullType, NullType> : public AbstractEventRef
 {
 public:
-	typedef Event5<Param0, Param1, Param2, Param3, Param4> EventType;
+	typedef Event<Param0, Param1, Param2, Param3, Param4, NullType, NullType, NullType, NullType> EventType;
 	typedef typename EventType::ConnectionType ConnectionType;
 
-	explicit EventRef5(EventType * ev) : AbstractEventRef(ev) {}
+	explicit EventRef(EventType * ev) : AbstractEventRef(ev) {}
 
 	template<class T, class Y> void connect(Private::Events::ConnectionList * tracker, T * obj, void (Y::*pmf)(Param0 p0, Param1 p1, Param2 p2, Param3 p3, Param4 p4))
 	{
@@ -1012,17 +1034,17 @@ public:
 		connectEx(tracker, fastdelegate::MakeDelegate(obj, pmf), stored);
 	}
 
-	template<class T0, class T1, class T2, class T3, class T4> void connectEvent(Private::Events::ConnectionList * tracker, Event5<T0, T1, T2, T3, T4> * ev)
+	template<class T0, class T1, class T2, class T3, class T4> void connectEvent(Private::Events::ConnectionList * tracker, Event<T0, T1, T2, T3, T4> * ev)
 	{
-		connect(tracker, ev, &Event5<T0, T1, T2, T3, T4>::fire);
+		connect(tracker, ev, &Event<T0, T1, T2, T3, T4>::fire);
 	}
-	template<class T0, class T1, class T2, class T3, class T4, class T5> void connectEvent(Private::Events::ConnectionList * tracker, Event6<T0, T1, T2, T3, T4, T5> * ev, T0 x0)
+	template<class T0, class T1, class T2, class T3, class T4, class T5> void connectEvent(Private::Events::ConnectionList * tracker, Event<T0, T1, T2, T3, T4, T5> * ev, T0 x0)
 	{
-		connect(tracker, ev, &Event6<T0, T1, T2, T3, T4, T5>::fire, x0);
+		connect(tracker, ev, &Event<T0, T1, T2, T3, T4, T5>::fire, x0);
 	}
-	template<class T0, class T1, class T2, class T3, class T4, class T5, class T6> void connectEvent(Private::Events::ConnectionList * tracker, Event7<T0, T1, T2, T3, T4, T5, T6> * ev, T0 x0, T1 x1)
+	template<class T0, class T1, class T2, class T3, class T4, class T5, class T6> void connectEvent(Private::Events::ConnectionList * tracker, Event<T0, T1, T2, T3, T4, T5, T6> * ev, T0 x0, T1 x1)
 	{
-		connect(tracker, ev, &Event7<T0, T1, T2, T3, T4, T5, T6>::fire, x0, x1);
+		connect(tracker, ev, &Event<T0, T1, T2, T3, T4, T5, T6>::fire, x0, x1);
 	}
 private:
 	void addConnection(Private::Events::ConnectionList * tracker, ConnectionType * conn)
@@ -1039,21 +1061,23 @@ private:
 	}
 };
 //------------------------------------------------------------------------------
-template<class Param0, class Param1, class Param2, class Param3, class Param4> 
-inline EventRef5<Param0, Param1, Param2, Param3, Param4> Event5<Param0, Param1, Param2, Param3, Param4>::ref()
+template<class Param0, class Param1, class Param2, class Param3, class Param4>
+	inline EventRef<Param0, Param1, Param2, Param3, Param4, NullType, NullType, NullType, NullType>
+	Event<Param0, Param1, Param2, Param3, Param4, NullType, NullType, NullType, NullType>::ref()
 {
-	return EventRef5<Param0, Param1, Param2, Param3, Param4>(this);
+	return EventRef<Param0, Param1, Param2, Param3, Param4, NullType, NullType, NullType, NullType>(this);
 }
 //------------------------------------------------------------------------------
-template<class Param0, class Param1, class Param2, class Param3, class Param4, class Param5> class Event6 : public AbstractEvent
+template<class Param0, class Param1, class Param2, class Param3, class Param4, class Param5>
+	class Event<Param0, Param1, Param2, Param3, Param4, Param5, NullType, NullType, NullType> : public AbstractEvent
 {
 public:
 	typedef Private::Events::Connection6<Param0, Param1, Param2, Param3, Param4, Param5> ConnectionType;
 
-	Event6() {}
-	~Event6() {}
+	Event() {}
+	~Event() {}
 
-	inline EventRef6<Param0, Param1, Param2, Param3, Param4, Param5> ref();
+	inline EventRef<Param0, Param1, Param2, Param3, Param4, Param5, NullType, NullType, NullType> ref();
 
 	void addConnection(Private::Events::ConnectionList * tracker, ConnectionType * conn)
 	{
@@ -1072,13 +1096,14 @@ public:
 	}
 };
 //------------------------------------------------------------------------------
-template<class Param0, class Param1, class Param2, class Param3, class Param4, class Param5> class EventRef6 : public AbstractEventRef
+template<class Param0, class Param1, class Param2, class Param3, class Param4, class Param5>
+	class EventRef<Param0, Param1, Param2, Param3, Param4, Param5, NullType, NullType, NullType> : public AbstractEventRef
 {
 public:
-	typedef Event6<Param0, Param1, Param2, Param3, Param4, Param5> EventType;
+	typedef Event<Param0, Param1, Param2, Param3, Param4, Param5, NullType, NullType, NullType> EventType;
 	typedef typename EventType::ConnectionType ConnectionType;
 
-	explicit EventRef6(EventType * ev) : AbstractEventRef(ev) {}
+	explicit EventRef(EventType * ev) : AbstractEventRef(ev) {}
 
 	template<class T, class Y> void connect(Private::Events::ConnectionList * tracker, T * obj, void (Y::*pmf)(Param0 p0, Param1 p1, Param2 p2, Param3 p3, Param4 p4, Param5 p5))
 	{
@@ -1172,13 +1197,13 @@ public:
 		connectEx(tracker, fastdelegate::MakeDelegate(obj, pmf), stored);
 	}
 
-	template<class T0, class T1, class T2, class T3, class T4, class T5> void connectEvent(Private::Events::ConnectionList * tracker, Event6<T0, T1, T2, T3, T4, T5> * ev)
+	template<class T0, class T1, class T2, class T3, class T4, class T5> void connectEvent(Private::Events::ConnectionList * tracker, Event<T0, T1, T2, T3, T4, T5> * ev)
 	{
-		connect(tracker, ev, &Event6<T0, T1, T2, T3, T4, T5>::fire);
+		connect(tracker, ev, &Event<T0, T1, T2, T3, T4, T5>::fire);
 	}
-	template<class T0, class T1, class T2, class T3, class T4, class T5, class T6> void connectEvent(Private::Events::ConnectionList * tracker, Event7<T0, T1, T2, T3, T4, T5, T6> * ev, T0 x0)
+	template<class T0, class T1, class T2, class T3, class T4, class T5, class T6> void connectEvent(Private::Events::ConnectionList * tracker, Event<T0, T1, T2, T3, T4, T5, T6> * ev, T0 x0)
 	{
-		connect(tracker, ev, &Event7<T0, T1, T2, T3, T4, T5, T6>::fire, x0);
+		connect(tracker, ev, &Event<T0, T1, T2, T3, T4, T5, T6>::fire, x0);
 	}
 private:
 	void addConnection(Private::Events::ConnectionList * tracker, ConnectionType * conn)
@@ -1195,21 +1220,23 @@ private:
 	}
 };
 //------------------------------------------------------------------------------
-template<class Param0, class Param1, class Param2, class Param3, class Param4, class Param5> 
-inline EventRef6<Param0, Param1, Param2, Param3, Param4, Param5> Event6<Param0, Param1, Param2, Param3, Param4, Param5>::ref()
+template<class Param0, class Param1, class Param2, class Param3, class Param4, class Param5>
+	inline EventRef<Param0, Param1, Param2, Param3, Param4, Param5, NullType, NullType, NullType>
+	Event<Param0, Param1, Param2, Param3, Param4, Param5, NullType, NullType, NullType>::ref()
 {
-	return EventRef6<Param0, Param1, Param2, Param3, Param4, Param5>(this);
+	return EventRef<Param0, Param1, Param2, Param3, Param4, Param5, NullType, NullType, NullType>(this);
 }
 //------------------------------------------------------------------------------
-template<class Param0, class Param1, class Param2, class Param3, class Param4, class Param5, class Param6> class Event7 : public AbstractEvent
+template<class Param0, class Param1, class Param2, class Param3, class Param4, class Param5, class Param6>
+	class Event<Param0, Param1, Param2, Param3, Param4, Param5, Param6, NullType, NullType> : public AbstractEvent
 {
 public:
 	typedef Private::Events::Connection7<Param0, Param1, Param2, Param3, Param4, Param5, Param6> ConnectionType;
 
-	Event7() {}
-	~Event7() {}
+	Event() {}
+	~Event() {}
 
-	inline EventRef7<Param0, Param1, Param2, Param3, Param4, Param5, Param6> ref();
+	inline EventRef<Param0, Param1, Param2, Param3, Param4, Param5, Param6, NullType, NullType> ref();
 
 	void addConnection(Private::Events::ConnectionList * tracker, ConnectionType * conn)
 	{
@@ -1228,13 +1255,14 @@ public:
 	}
 };
 //------------------------------------------------------------------------------
-template<class Param0, class Param1, class Param2, class Param3, class Param4, class Param5, class Param6> class EventRef7 : public AbstractEventRef
+template<class Param0, class Param1, class Param2, class Param3, class Param4, class Param5, class Param6>
+	class EventRef<Param0, Param1, Param2, Param3, Param4, Param5, Param6, NullType, NullType> : public AbstractEventRef
 {
 public:
-	typedef Event7<Param0, Param1, Param2, Param3, Param4, Param5, Param6> EventType;
+	typedef Event<Param0, Param1, Param2, Param3, Param4, Param5, Param6, NullType, NullType> EventType;
 	typedef typename EventType::ConnectionType ConnectionType;
 
-	explicit EventRef7(EventType * ev) : AbstractEventRef(ev) {}
+	explicit EventRef(EventType * ev) : AbstractEventRef(ev) {}
 
 	template<class T, class Y> void connect(Private::Events::ConnectionList * tracker, T * obj, void (Y::*pmf)(Param0 p0, Param1 p1, Param2 p2, Param3 p3, Param4 p4, Param5 p5, Param6 p6))
 	{
@@ -1328,9 +1356,9 @@ public:
 		connectEx(tracker, fastdelegate::MakeDelegate(obj, pmf), stored);
 	}
 
-	template<class T0, class T1, class T2, class T3, class T4, class T5, class T6> void connectEvent(Private::Events::ConnectionList * tracker, Event7<T0, T1, T2, T3, T4, T5, T6> * ev)
+	template<class T0, class T1, class T2, class T3, class T4, class T5, class T6> void connectEvent(Private::Events::ConnectionList * tracker, Event<T0, T1, T2, T3, T4, T5, T6> * ev)
 	{
-		connect(tracker, ev, &Event7<T0, T1, T2, T3, T4, T5, T6>::fire);
+		connect(tracker, ev, &Event<T0, T1, T2, T3, T4, T5, T6>::fire);
 	}
 private:
 	void addConnection(Private::Events::ConnectionList * tracker, ConnectionType * conn)
@@ -1347,10 +1375,162 @@ private:
 	}
 };
 //------------------------------------------------------------------------------
-template<class Param0, class Param1, class Param2, class Param3, class Param4, class Param5, class Param6> 
-inline EventRef7<Param0, Param1, Param2, Param3, Param4, Param5, Param6> Event7<Param0, Param1, Param2, Param3, Param4, Param5, Param6>::ref()
+template<class Param0, class Param1, class Param2, class Param3, class Param4, class Param5, class Param6>
+	inline EventRef<Param0, Param1, Param2, Param3, Param4, Param5, Param6, NullType, NullType>
+	Event<Param0, Param1, Param2, Param3, Param4, Param5, Param6, NullType, NullType>::ref()
 {
-	return EventRef7<Param0, Param1, Param2, Param3, Param4, Param5, Param6>(this);
+	return EventRef<Param0, Param1, Param2, Param3, Param4, Param5, Param6, NullType, NullType>(this);
+}
+//------------------------------------------------------------------------------
+template<class Param0, class Param1, class Param2, class Param3, class Param4, class Param5, class Param6, class Param7>
+	class Event<Param0, Param1, Param2, Param3, Param4, Param5, Param6, Param7, NullType> : public AbstractEvent
+{
+public:
+	typedef Private::Events::Connection8<Param0, Param1, Param2, Param3, Param4, Param5, Param6, Param7> ConnectionType;
+
+	Event() {}
+	~Event() {}
+
+	inline EventRef<Param0, Param1, Param2, Param3, Param4, Param5, Param6, Param7, NullType> ref();
+
+	void addConnection(Private::Events::ConnectionList * tracker, ConnectionType * conn)
+	{
+		AbstractEvent::addConnection(tracker, conn);
+	}
+	
+	void fire(Param0 p0, Param1 p1, Param2 p2, Param3 p3, Param4 p4, Param5 p5, Param6 p6, Param7 p7) const
+	{
+		FireLock lock(this);
+		typedef Private::Events::ConnectionsVector CV;
+		CV const & conns = lock.connections();
+		for(CV::const_iterator it = conns.begin(); it != conns.end(); ++it)
+		{
+			static_cast<ConnectionType const *>(*it)->invoke(p0, p1, p2, p3, p4, p5, p6, p7);
+		}
+	}
+};
+//------------------------------------------------------------------------------
+template<class Param0, class Param1, class Param2, class Param3, class Param4, class Param5, class Param6, class Param7>
+	class EventRef<Param0, Param1, Param2, Param3, Param4, Param5, Param6, Param7, NullType> : public AbstractEventRef
+{
+public:
+	typedef Event<Param0, Param1, Param2, Param3, Param4, Param5, Param6, Param7, NullType> EventType;
+	typedef typename EventType::ConnectionType ConnectionType;
+
+	explicit EventRef(EventType * ev) : AbstractEventRef(ev) {}
+
+	template<class T, class Y> void connect(Private::Events::ConnectionList * tracker, T * obj, void (Y::*pmf)(Param0 p0, Param1 p1, Param2 p2, Param3 p3, Param4 p4, Param5 p5, Param6 p6, Param7 p7))
+	{
+		ConnectionType * conn = new ConnectionType(
+			fastdelegate::MakeDelegate(obj, pmf)
+		);
+		addConnection(tracker, conn);
+	}
+
+	template<class T, class Y> void connect(Private::Events::ConnectionList * tracker, T const * obj, void (Y::*pmf)(Param0 p0, Param1 p1, Param2 p2, Param3 p3, Param4 p4, Param5 p5, Param6 p6, Param7 p7) const)
+	{
+		ConnectionType * conn = new ConnectionType(
+			fastdelegate::MakeDelegate(obj, pmf)
+		);
+		addConnection(tracker, conn);
+	}
+
+	template<class T, class Y> void connect(Private::Events::ConnectionList * tracker, T * obj, Y pmf)
+	{
+		Private::Events::ArgList0 stored;
+		connectEx(tracker, fastdelegate::MakeDelegate(obj, pmf), stored);
+	}
+
+	template<class T, class Y, class T1> void connect(Private::Events::ConnectionList * tracker, T * obj, Y pmf, T1 x1)
+	{
+		typedef typename StorageType<T1>::Type S1;
+		Private::Events::ArgList1<S1> stored(x1);
+		connectEx(tracker, fastdelegate::MakeDelegate(obj, pmf), stored);
+	}
+
+	template<class T, class Y, class T1, class T2> void connect(Private::Events::ConnectionList * tracker, T * obj, Y pmf, T1 x1, T2 x2)
+	{
+		typedef typename StorageType<T1>::Type S1;
+		typedef typename StorageType<T2>::Type S2;
+		Private::Events::ArgList2<S1, S2> stored(x1, x2);
+		connectEx(tracker, fastdelegate::MakeDelegate(obj, pmf), stored);
+	}
+
+	template<class T, class Y, class T1, class T2, class T3> void connect(Private::Events::ConnectionList * tracker, T * obj, Y pmf, T1 x1, T2 x2, T3 x3)
+	{
+		typedef typename StorageType<T1>::Type S1;
+		typedef typename StorageType<T2>::Type S2;
+		typedef typename StorageType<T3>::Type S3;
+		Private::Events::ArgList3<S1, S2, S3> stored(x1, x2, x3);
+		connectEx(tracker, fastdelegate::MakeDelegate(obj, pmf), stored);
+	}
+
+	template<class T, class Y, class T1, class T2, class T3, class T4> void connect(Private::Events::ConnectionList * tracker, T * obj, Y pmf, T1 x1, T2 x2, T3 x3, T4 x4)
+	{
+		typedef typename StorageType<T1>::Type S1;
+		typedef typename StorageType<T2>::Type S2;
+		typedef typename StorageType<T3>::Type S3;
+		typedef typename StorageType<T4>::Type S4;
+		Private::Events::ArgList4<S1, S2, S3, S4> stored(x1, x2, x3, x4);
+		connectEx(tracker, fastdelegate::MakeDelegate(obj, pmf), stored);
+	}
+
+	template<class T, class Y, class T1, class T2, class T3, class T4, class T5> void connect(Private::Events::ConnectionList * tracker, T * obj, Y pmf, T1 x1, T2 x2, T3 x3, T4 x4, T5 x5)
+	{
+		typedef typename StorageType<T1>::Type S1;
+		typedef typename StorageType<T2>::Type S2;
+		typedef typename StorageType<T3>::Type S3;
+		typedef typename StorageType<T4>::Type S4;
+		typedef typename StorageType<T5>::Type S5;
+		Private::Events::ArgList5<S1, S2, S3, S4, S5> stored(x1, x2, x3, x4, x5);
+		connectEx(tracker, fastdelegate::MakeDelegate(obj, pmf), stored);
+	}
+
+	template<class T, class Y, class T1, class T2, class T3, class T4, class T5, class T6> void connect(Private::Events::ConnectionList * tracker, T * obj, Y pmf, T1 x1, T2 x2, T3 x3, T4 x4, T5 x5, T6 x6)
+	{
+		typedef typename StorageType<T1>::Type S1;
+		typedef typename StorageType<T2>::Type S2;
+		typedef typename StorageType<T3>::Type S3;
+		typedef typename StorageType<T4>::Type S4;
+		typedef typename StorageType<T5>::Type S5;
+		typedef typename StorageType<T6>::Type S6;
+		Private::Events::ArgList6<S1, S2, S3, S4, S5, S6> stored(x1, x2, x3, x4, x5, x6);
+		connectEx(tracker, fastdelegate::MakeDelegate(obj, pmf), stored);
+	}
+
+	template<class T, class Y, class T1, class T2, class T3, class T4, class T5, class T6, class T7> void connect(Private::Events::ConnectionList * tracker, T * obj, Y pmf, T1 x1, T2 x2, T3 x3, T4 x4, T5 x5, T6 x6, T7 x7)
+	{
+		typedef typename StorageType<T1>::Type S1;
+		typedef typename StorageType<T2>::Type S2;
+		typedef typename StorageType<T3>::Type S3;
+		typedef typename StorageType<T4>::Type S4;
+		typedef typename StorageType<T5>::Type S5;
+		typedef typename StorageType<T6>::Type S6;
+		typedef typename StorageType<T7>::Type S7;
+		Private::Events::ArgList7<S1, S2, S3, S4, S5, S6, S7> stored(x1, x2, x3, x4, x5, x6, x7);
+		connectEx(tracker, fastdelegate::MakeDelegate(obj, pmf), stored);
+	}
+
+private:
+	void addConnection(Private::Events::ConnectionList * tracker, ConnectionType * conn)
+	{
+		static_cast<EventType*>(senderEvent())->addConnection(tracker, conn);
+	}
+
+	template<class DelegateClass, class StoredListClass> void connectEx(Private::Events::ConnectionList * tracker, DelegateClass const & deleg, StoredListClass const & stored)
+	{
+		ConnectionType * conn = new Private::Events::ConnectionEx8<Param0, Param1, Param2, Param3, Param4, Param5, Param6, Param7, DelegateClass, StoredListClass>(
+			deleg, stored
+		);
+		addConnection(tracker, conn);
+	}
+};
+//------------------------------------------------------------------------------
+template<class Param0, class Param1, class Param2, class Param3, class Param4, class Param5, class Param6, class Param7>
+	inline EventRef<Param0, Param1, Param2, Param3, Param4, Param5, Param6, Param7, NullType>
+	Event<Param0, Param1, Param2, Param3, Param4, Param5, Param6, Param7, NullType>::ref()
+{
+	return EventRef<Param0, Param1, Param2, Param3, Param4, Param5, Param6, Param7, NullType>(this);
 }
 //------------------------------------------------------------------------------
 } //namespace Cpp

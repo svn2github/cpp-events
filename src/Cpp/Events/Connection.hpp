@@ -183,6 +183,28 @@ protected:
 	{}
 };
 //------------------------------------------------------------------------------
+template<class Param0, class Param1, class Param2, class Param3, class Param4, class Param5, class Param6, class Param7> class Connection8 : public AbstractConnection
+{
+protected:
+	virtual ~Connection8() {}
+public:
+	typedef fastdelegate::FastDelegate8<Param0, Param1, Param2, Param3, Param4, Param5, Param6, Param7, void> DelegateType;
+	
+	Connection8(DelegateType const & deleg)
+		: AbstractConnection(AbstractDelegate(deleg))
+		, delegate_(deleg)
+	{}
+
+	void invoke(Param0 p0, Param1 p1, Param2 p2, Param3 p3, Param4 p4, Param5 p5, Param6 p6, Param7 p7) const { delegate_(p0, p1, p2, p3, p4, p5, p6, p7); }
+protected:
+	DelegateType delegate_;
+
+	Connection8(AbstractDelegate const & memento)
+		: AbstractConnection(memento)
+		, delegate_()
+	{}
+};
+//------------------------------------------------------------------------------
 } //namespace Events
 } //namespace Private
 } //namespace Cpp

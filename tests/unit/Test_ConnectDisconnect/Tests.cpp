@@ -5,9 +5,9 @@ class Sender
 {
 public:
 	void fire() { somethingHappened_.fire(); }
-	Cpp::EventRef0 somethingHappened() { return somethingHappened_.ref(); }
+	Cpp::EventRef<> somethingHappened() { return somethingHappened_.ref(); }
 private:
-	Cpp::Event0 somethingHappened_;
+	Cpp::Event<> somethingHappened_;
 };
 
 class Reciever

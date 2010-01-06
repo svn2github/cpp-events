@@ -9,7 +9,7 @@ protected:
 	ISomeInterface() {}
 	~ISomeInterface() {}
 public:
-	virtual Cpp::EventRef1<bool> testEvent1() = 0;
+	virtual Cpp::EventRef<bool> testEvent1() = 0;
 };
 
 class BaseClass
@@ -18,11 +18,11 @@ public:
 	BaseClass() {}
 	virtual ~BaseClass() {}
 
-	virtual Cpp::EventRef1<int> testEvent2() { return testEvent2_.ref(); }
+	virtual Cpp::EventRef<int> testEvent2() { return testEvent2_.ref(); }
 
 	void fireEvent2(int x) { testEvent2_.fire(x); }
 private:
-	Cpp::Event1<int> testEvent2_;
+	Cpp::Event<int> testEvent2_;
 };
 
 class DerivedClass : public BaseClass, public ISomeInterface
@@ -36,12 +36,12 @@ public:
 	}
 	~DerivedClass() {}
 
-	virtual Cpp::EventRef1<int> testEvent2() { return testEvent2x_.ref(); }
-	virtual Cpp::EventRef1<bool> testEvent1() { return testEvent1_.ref(); }
+	virtual Cpp::EventRef<int> testEvent2() { return testEvent2x_.ref(); }
+	virtual Cpp::EventRef<bool> testEvent1() { return testEvent1_.ref(); }
 private:
-	Cpp::Event1<bool> testEvent1_;
-	Cpp::Event1<int> testEvent2x_;
-	Cpp::Event2<double, int> eventEx_;
+	Cpp::Event<bool> testEvent1_;
+	Cpp::Event<int> testEvent2x_;
+	Cpp::Event<double, int> eventEx_;
 	Cpp::ConnectionScope scope_;
 };
 

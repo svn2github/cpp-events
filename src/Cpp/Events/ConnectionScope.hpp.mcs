@@ -1,3 +1,4 @@
+@@int N=8;
 #ifndef __CPP_EVENTS__CONNECTION_SCOPE__HPP
 #define __CPP_EVENTS__CONNECTION_SCOPE__HPP
 
@@ -70,7 +71,7 @@ public:
 		return disconnect(ev, AbstractDelegate(obj, pMemberFunc));
 	}
 
-@@for(int k=1; k<10; k+=1)
+@@for(int k=2; k<N+2; k+=1)
 	template<class EvRefT, @list("class T%", 1, k)@>
 	void connect(EvRefT evRef, @list("T% x%", 1, k)@)
 	{
@@ -78,7 +79,7 @@ public:
 	}
 
 @@next
-@@for(int k=1; k<9; k+=1)
+@@for(int k=1; k<N+1; k+=1)
 	template<class EvRefT, @list("class T%", 1, k)@>
 	void connectEvent(EvRefT evRef, @list("T% x%", 1, k)@)
 	{

@@ -70,12 +70,6 @@ public:
 		return disconnect(ev, AbstractDelegate(obj, pMemberFunc));
 	}
 
-	template<class EvRefT, class T1>
-	void connect(EvRefT evRef, T1 x1)
-	{
-		evRef.connect(&connectionList_, x1);
-	}
-
 	template<class EvRefT, class T1, class T2>
 	void connect(EvRefT evRef, T1 x1, T2 x2)
 	{
