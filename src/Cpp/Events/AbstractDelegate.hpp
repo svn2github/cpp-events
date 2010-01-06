@@ -3,7 +3,9 @@
 
 #include "../../FastDelegate/src/FastDelegate.h"
 
-//! Value type that represents arbitary delegate in a common form.
+namespace Cpp {
+//------------------------------------------------------------------------------
+//! Value type that represents arbitrary delegate in a common form.
 class AbstractDelegate
 {
 public:
@@ -37,5 +39,7 @@ public:
 private:
 	fastdelegate::DelegateMemento d_;
 };
+//------------------------------------------------------------------------------
+} //namespace Cpp
 
 #endif //ABSTRACT_DELEGATE__HPP

@@ -3,10 +3,14 @@
 
 #include "AtomicReferenceCounter.hpp"
 #include "AbstractDelegate.hpp"
-#include "Threading.hpp"
+#include "ThreadData.hpp"
 
+namespace Cpp {
+namespace Private {
+namespace Events {
+//------------------------------------------------------------------------------
 class ConnectionList;
-
+//------------------------------------------------------------------------------
 //! Root class for all template connection classes.
 class AbstractConnection
 {
@@ -71,5 +75,9 @@ private:
 	// Performs actual disconnecting. Both locks must be locked by the caller.
 	void doDisconnect();
 };
+//------------------------------------------------------------------------------
+} //namespace Events
+} //namespace Private
+} //namespace Cpp
 
 #endif //__CPP_EVENTS__ABSTRACT_CONNECTION__HPP

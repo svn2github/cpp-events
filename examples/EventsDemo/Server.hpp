@@ -11,12 +11,12 @@ public:
 
 	char const * name() const { return name_; }
 
-	EventRef1<float> dataArrived() { return dataArrived_.ref(); }
+	Cpp::EventRef1<float> dataArrived() { return dataArrived_.ref(); }
 
 	void processData(int count, float const * data);
 private:
 	char const * name_;
-	Event1<float> dataArrived_;
+	Cpp::Event1<float> dataArrived_;
 };
 
 #endif //SERVER_HPP

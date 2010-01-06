@@ -4,22 +4,24 @@
 
 #include "../../FastDelegate/src/FastDelegate.h"
 
-namespace detail {
-
+namespace Cpp {
+namespace Private {
+namespace Events {
+//------------------------------------------------------------------------------
 template<int N> struct Num { enum { value = N }; };
-
+//------------------------------------------------------------------------------
 template<int N, class T> struct GetType;
 @@for(int i=0; i<N; i+=1)
 template<class T> struct GetType<@i@, T> { typedef typename T::Type@i@ Type; };
 @@next
-
+//------------------------------------------------------------------------------
 class ArgList0
 {
 public:
     enum { size = 0 };
     ArgList0() {}
 };
-
+//------------------------------------------------------------------------------
 @@for(int i=1; i<=N; i+=1)
 @@listx("template<%>", "class T%", i)
 @*
@@ -47,7 +49,7 @@ public:
     
     T@(i-1)@ get(Num<@(i-1)@>) const { return x@(i-1)@; }
 };
-
+//------------------------------------------------------------------------------
 @@next
 template<class StoredList, class ParamList, int N, bool UseStored> struct GetArgHelper;
 
@@ -68,7 +70,7 @@ template<class StoredList, class ParamList, int N> struct GetArgHelper<StoredLis
 
    static Type get(StoredList const &, ParamList const & list) { return list.get(Num<index>()); }
 };
-
+//------------------------------------------------------------------------------
 template<class StoredList, class ParamList, int N> struct GetArg
 {
    enum { useStored = (N < StoredList::size) };
@@ -79,15 +81,17 @@ template<class StoredList, class ParamList, int N> struct GetArg
        return HelperType::get(s, p);
    }
 };
-
+//------------------------------------------------------------------------------
 @@for(int i=0; i<=N; i+=1)
 template<class R@listx(", %", "class T%", i)@, class StoredList, class ParamList>
     R invokeDelegate(fastdelegate::FastDelegate@i@<@listx("%, ", "T%", i)@R> const & deleg, StoredList const & s, ParamList const & p)
 {
     return deleg(@listx("%\n    ", "\n        GetArg<StoredList, ParamList, %>::get(s, p)", i, ",")@);
 }
-
+//------------------------------------------------------------------------------
 @@next
-} //namespace detail
+} //namespace Events
+} //namespace Private
+} //namespace Cpp
 
 #endif //__CPP_EVENTS__ARG_LIST_HPP

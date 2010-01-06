@@ -9,7 +9,7 @@ protected:
 	ISomeInterface() {}
 	~ISomeInterface() {}
 public:
-	virtual EventRef1<bool> testEvent1() = 0;
+	virtual Cpp::EventRef1<bool> testEvent1() = 0;
 };
 
 class BaseClass
@@ -18,11 +18,11 @@ public:
 	BaseClass() {}
 	virtual ~BaseClass() {}
 
-	virtual EventRef1<int> testEvent2() { return testEvent2_.ref(); }
+	virtual Cpp::EventRef1<int> testEvent2() { return testEvent2_.ref(); }
 
 	void fireEvent2(int x) { testEvent2_.fire(x); }
 private:
-	Event1<int> testEvent2_;
+	Cpp::Event1<int> testEvent2_;
 };
 
 class DerivedClass : public BaseClass, public ISomeInterface
@@ -36,13 +36,13 @@ public:
 	}
 	~DerivedClass() {}
 
-	virtual EventRef1<int> testEvent2() { return testEvent2x_.ref(); }
-	virtual EventRef1<bool> testEvent1() { return testEvent1_.ref(); }
+	virtual Cpp::EventRef1<int> testEvent2() { return testEvent2x_.ref(); }
+	virtual Cpp::EventRef1<bool> testEvent1() { return testEvent1_.ref(); }
 private:
-	Event1<bool> testEvent1_;
-	Event1<int> testEvent2x_;
-	Event2<double, int> eventEx_;
-	ConnectionScope scope_;
+	Cpp::Event1<bool> testEvent1_;
+	Cpp::Event1<int> testEvent2x_;
+	Cpp::Event2<double, int> eventEx_;
+	Cpp::ConnectionScope scope_;
 };
 
 class Server;
@@ -62,10 +62,10 @@ public:
 
 	void registerData(Server * server);
 
-	ConnectionScope * tracker() { return &scope_; }
+	Cpp::ConnectionScope * tracker() { return &scope_; }
 private:
 	Server * server_;
-	ConnectionScope scope_;
+	Cpp::ConnectionScope scope_;
 
 	void processData(float x);
 };

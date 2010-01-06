@@ -3,6 +3,10 @@
 
 #include "AbstractConnection.hpp"
 
+namespace Cpp {
+namespace Private {
+namespace Events {
+//------------------------------------------------------------------------------
 class Connection0 : public AbstractConnection
 {
 protected:
@@ -24,7 +28,7 @@ protected:
 		, delegate_()
 	{}
 };
-
+//------------------------------------------------------------------------------
 template<class Param0> class Connection1 : public AbstractConnection
 {
 protected:
@@ -46,7 +50,7 @@ protected:
 		, delegate_()
 	{}
 };
-
+//------------------------------------------------------------------------------
 template<class Param0, class Param1> class Connection2 : public AbstractConnection
 {
 protected:
@@ -68,7 +72,7 @@ protected:
 		, delegate_()
 	{}
 };
-
+//------------------------------------------------------------------------------
 template<class Param0, class Param1, class Param2> class Connection3 : public AbstractConnection
 {
 protected:
@@ -90,7 +94,7 @@ protected:
 		, delegate_()
 	{}
 };
-
+//------------------------------------------------------------------------------
 template<class Param0, class Param1, class Param2, class Param3> class Connection4 : public AbstractConnection
 {
 protected:
@@ -112,7 +116,7 @@ protected:
 		, delegate_()
 	{}
 };
-
+//------------------------------------------------------------------------------
 template<class Param0, class Param1, class Param2, class Param3, class Param4> class Connection5 : public AbstractConnection
 {
 protected:
@@ -134,7 +138,7 @@ protected:
 		, delegate_()
 	{}
 };
-
+//------------------------------------------------------------------------------
 template<class Param0, class Param1, class Param2, class Param3, class Param4, class Param5> class Connection6 : public AbstractConnection
 {
 protected:
@@ -156,7 +160,7 @@ protected:
 		, delegate_()
 	{}
 };
-
+//------------------------------------------------------------------------------
 template<class Param0, class Param1, class Param2, class Param3, class Param4, class Param5, class Param6> class Connection7 : public AbstractConnection
 {
 protected:
@@ -178,5 +182,9 @@ protected:
 		, delegate_()
 	{}
 };
+//------------------------------------------------------------------------------
+} //namespace Events
+} //namespace Private
+} //namespace Cpp
 
 #endif //__CPP_EVENTS__CONNECTION_HPP

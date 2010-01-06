@@ -11,9 +11,9 @@ public:
 
 void test(unsigned N)
 {
-	Event1<float> ev;
-	EventRef1<float> eventRef(&ev);
-	ConnectionScope scope;
+	Cpp::Event1<float> ev;
+	Cpp::EventRef1<float> eventRef(&ev);
+	Cpp::ConnectionScope scope;
 	
 	MyReciever rcv;
 
@@ -50,7 +50,7 @@ void test(unsigned N)
 
 int main()
 {
-	Process cppEventsProc;
+	Cpp::Process cppEventsProc;
 	printf("Cpp.Events speed test\n");
 	for(unsigned a = 1000; a < 100000; )
 	{

@@ -3,10 +3,12 @@
 
 #include "../../FastDelegate/src/FastDelegate.h"
 
-namespace detail {
-
+namespace Cpp {
+namespace Private {
+namespace Events {
+//------------------------------------------------------------------------------
 template<int N> struct Num { enum { value = N }; };
-
+//------------------------------------------------------------------------------
 template<int N, class T> struct GetType;
 template<class T> struct GetType<0, T> { typedef typename T::Type0 Type; };
 template<class T> struct GetType<1, T> { typedef typename T::Type1 Type; };
@@ -16,14 +18,14 @@ template<class T> struct GetType<4, T> { typedef typename T::Type4 Type; };
 template<class T> struct GetType<5, T> { typedef typename T::Type5 Type; };
 template<class T> struct GetType<6, T> { typedef typename T::Type6 Type; };
 template<class T> struct GetType<7, T> { typedef typename T::Type7 Type; };
-
+//------------------------------------------------------------------------------
 class ArgList0
 {
 public:
     enum { size = 0 };
     ArgList0() {}
 };
-
+//------------------------------------------------------------------------------
 template<class T0>
 class ArgList1 : public ArgList0
 {
@@ -39,7 +41,7 @@ public:
     
     T0 get(Num<0>) const { return x0; }
 };
-
+//------------------------------------------------------------------------------
 template<class T0, class T1>
 class ArgList2 : public ArgList1<T0>
 {
@@ -55,7 +57,7 @@ public:
     
     T1 get(Num<1>) const { return x1; }
 };
-
+//------------------------------------------------------------------------------
 template<class T0, class T1, class T2>
 class ArgList3 : public ArgList2<T0, T1>
 {
@@ -71,7 +73,7 @@ public:
     
     T2 get(Num<2>) const { return x2; }
 };
-
+//------------------------------------------------------------------------------
 template<class T0, class T1, class T2, class T3>
 class ArgList4 : public ArgList3<T0, T1, T2>
 {
@@ -87,7 +89,7 @@ public:
     
     T3 get(Num<3>) const { return x3; }
 };
-
+//------------------------------------------------------------------------------
 template<class T0, class T1, class T2, class T3, class T4>
 class ArgList5 : public ArgList4<T0, T1, T2, T3>
 {
@@ -103,7 +105,7 @@ public:
     
     T4 get(Num<4>) const { return x4; }
 };
-
+//------------------------------------------------------------------------------
 template<class T0, class T1, class T2, class T3, class T4, class T5>
 class ArgList6 : public ArgList5<T0, T1, T2, T3, T4>
 {
@@ -119,7 +121,7 @@ public:
     
     T5 get(Num<5>) const { return x5; }
 };
-
+//------------------------------------------------------------------------------
 template<class T0, class T1, class T2, class T3, class T4, class T5, class T6>
 class ArgList7 : public ArgList6<T0, T1, T2, T3, T4, T5>
 {
@@ -135,7 +137,7 @@ public:
     
     T6 get(Num<6>) const { return x6; }
 };
-
+//------------------------------------------------------------------------------
 template<class T0, class T1, class T2, class T3, class T4, class T5, class T6, class T7>
 class ArgList8 : public ArgList7<T0, T1, T2, T3, T4, T5, T6>
 {
@@ -151,7 +153,7 @@ public:
     
     T7 get(Num<7>) const { return x7; }
 };
-
+//------------------------------------------------------------------------------
 template<class StoredList, class ParamList, int N, bool UseStored> struct GetArgHelper;
 
 template<class StoredList, class ParamList, int N> struct GetArgHelper<StoredList, ParamList, N, true>
@@ -171,7 +173,7 @@ template<class StoredList, class ParamList, int N> struct GetArgHelper<StoredLis
 
    static Type get(StoredList const &, ParamList const & list) { return list.get(Num<index>()); }
 };
-
+//------------------------------------------------------------------------------
 template<class StoredList, class ParamList, int N> struct GetArg
 {
    enum { useStored = (N < StoredList::size) };
@@ -182,13 +184,13 @@ template<class StoredList, class ParamList, int N> struct GetArg
        return HelperType::get(s, p);
    }
 };
-
+//------------------------------------------------------------------------------
 template<class R, class StoredList, class ParamList>
     R invokeDelegate(fastdelegate::FastDelegate0<R> const & deleg, StoredList const & s, ParamList const & p)
 {
     return deleg();
 }
-
+//------------------------------------------------------------------------------
 template<class R, class T0, class StoredList, class ParamList>
     R invokeDelegate(fastdelegate::FastDelegate1<T0, R> const & deleg, StoredList const & s, ParamList const & p)
 {
@@ -196,7 +198,7 @@ template<class R, class T0, class StoredList, class ParamList>
         GetArg<StoredList, ParamList, 0>::get(s, p)
     );
 }
-
+//------------------------------------------------------------------------------
 template<class R, class T0, class T1, class StoredList, class ParamList>
     R invokeDelegate(fastdelegate::FastDelegate2<T0, T1, R> const & deleg, StoredList const & s, ParamList const & p)
 {
@@ -205,7 +207,7 @@ template<class R, class T0, class T1, class StoredList, class ParamList>
         GetArg<StoredList, ParamList, 1>::get(s, p)
     );
 }
-
+//------------------------------------------------------------------------------
 template<class R, class T0, class T1, class T2, class StoredList, class ParamList>
     R invokeDelegate(fastdelegate::FastDelegate3<T0, T1, T2, R> const & deleg, StoredList const & s, ParamList const & p)
 {
@@ -215,7 +217,7 @@ template<class R, class T0, class T1, class T2, class StoredList, class ParamLis
         GetArg<StoredList, ParamList, 2>::get(s, p)
     );
 }
-
+//------------------------------------------------------------------------------
 template<class R, class T0, class T1, class T2, class T3, class StoredList, class ParamList>
     R invokeDelegate(fastdelegate::FastDelegate4<T0, T1, T2, T3, R> const & deleg, StoredList const & s, ParamList const & p)
 {
@@ -226,7 +228,7 @@ template<class R, class T0, class T1, class T2, class T3, class StoredList, clas
         GetArg<StoredList, ParamList, 3>::get(s, p)
     );
 }
-
+//------------------------------------------------------------------------------
 template<class R, class T0, class T1, class T2, class T3, class T4, class StoredList, class ParamList>
     R invokeDelegate(fastdelegate::FastDelegate5<T0, T1, T2, T3, T4, R> const & deleg, StoredList const & s, ParamList const & p)
 {
@@ -238,7 +240,7 @@ template<class R, class T0, class T1, class T2, class T3, class T4, class Stored
         GetArg<StoredList, ParamList, 4>::get(s, p)
     );
 }
-
+//------------------------------------------------------------------------------
 template<class R, class T0, class T1, class T2, class T3, class T4, class T5, class StoredList, class ParamList>
     R invokeDelegate(fastdelegate::FastDelegate6<T0, T1, T2, T3, T4, T5, R> const & deleg, StoredList const & s, ParamList const & p)
 {
@@ -251,7 +253,7 @@ template<class R, class T0, class T1, class T2, class T3, class T4, class T5, cl
         GetArg<StoredList, ParamList, 5>::get(s, p)
     );
 }
-
+//------------------------------------------------------------------------------
 template<class R, class T0, class T1, class T2, class T3, class T4, class T5, class T6, class StoredList, class ParamList>
     R invokeDelegate(fastdelegate::FastDelegate7<T0, T1, T2, T3, T4, T5, T6, R> const & deleg, StoredList const & s, ParamList const & p)
 {
@@ -265,7 +267,7 @@ template<class R, class T0, class T1, class T2, class T3, class T4, class T5, cl
         GetArg<StoredList, ParamList, 6>::get(s, p)
     );
 }
-
+//------------------------------------------------------------------------------
 template<class R, class T0, class T1, class T2, class T3, class T4, class T5, class T6, class T7, class StoredList, class ParamList>
     R invokeDelegate(fastdelegate::FastDelegate8<T0, T1, T2, T3, T4, T5, T6, T7, R> const & deleg, StoredList const & s, ParamList const & p)
 {
@@ -280,7 +282,9 @@ template<class R, class T0, class T1, class T2, class T3, class T4, class T5, cl
         GetArg<StoredList, ParamList, 7>::get(s, p)
     );
 }
-
-} //namespace detail
+//------------------------------------------------------------------------------
+} //namespace Events
+} //namespace Private
+} //namespace Cpp
 
 #endif //__CPP_EVENTS__ARG_LIST_HPP

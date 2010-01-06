@@ -3,6 +3,8 @@
 
 #include "normalize_cast.hpp"
 
+namespace Cpp {
+//------------------------------------------------------------------------------
 //! Value type that represents pointer to arbitary C++ object.
 class AbstractObjectRef
 {
@@ -10,7 +12,7 @@ public:
 	AbstractObjectRef() : ptr_() {}
 	
 	template<class T> AbstractObjectRef(T * x)
-		: ptr_(normalize_cast(x))
+		: ptr_(Private::Events::normalize_cast(x))
 	{}
 
 	bool isNull() const { return !ptr_; }
@@ -25,5 +27,7 @@ public:
 private:
 	void const * ptr_;
 };
+//------------------------------------------------------------------------------
+} //namespace Cpp
 
 #endif //ABSTRACT_OBJECT_REF__HPP

@@ -5,9 +5,9 @@ class Sender
 {
 public:
 	void fire() { somethingHappened_.fire(); }
-	EventRef0 somethingHappened() { return somethingHappened_.ref(); }
+	Cpp::EventRef0 somethingHappened() { return somethingHappened_.ref(); }
 private:
-	Event0 somethingHappened_;
+	Cpp::Event0 somethingHappened_;
 };
 
 class Reciever
@@ -51,7 +51,7 @@ public:
 
 	int value() const { return val_; }
 
-	void connect(SenderEx * sender, ConnectionScope * scope)
+	void connect(SenderEx * sender, Cpp::ConnectionScope * scope)
 	{
 		sender_ = sender;
 		scope_ = scope;
@@ -71,7 +71,7 @@ public:
 	}
 private:
 	SenderEx * sender_;
-	ConnectionScope * scope_;
+	Cpp::ConnectionScope * scope_;
 	int val_;
 };
 
@@ -81,7 +81,7 @@ TEST(Test_ConnectDisconnect, ManualConnectDisconnect)
 {
 	Sender sender;
 	Reciever r1, r2;
-	ConnectionScope scope;
+	Cpp::ConnectionScope scope;
 
 	ASSERT_EQ(0, r1.value()); ASSERT_EQ(0, r2.value());
 	sender.fire();
@@ -138,7 +138,7 @@ TEST(Test_ConnectDisconnect, ManualConnectDisconnect)
 // This test checks automatic disconnection
 TEST(Test_ConnectDisconnect, AutomaticDisconnect)
 {
-	ConnectionList scope0;
+	Cpp::ConnectionScope scope0;
 	Reciever r0;
 	{
 		Sender sender;
@@ -147,8 +147,8 @@ TEST(Test_ConnectDisconnect, AutomaticDisconnect)
 		{
 			Reciever r1;
 			{
-				ConnectionList scope1;
-				sender.somethingHappened().connect(&scope1, &r1, &Reciever::increment);
+				Cpp::ConnectionScope scope1;
+				scope1.connect(sender.somethingHappened(), &r1, &Reciever::increment);
 				ASSERT_EQ(0, r1.value());
 				sender.fire();
 				ASSERT_EQ(1, r1.value());
@@ -156,8 +156,8 @@ TEST(Test_ConnectDisconnect, AutomaticDisconnect)
 			sender.fire();
 			ASSERT_EQ(1, r1.value());
 			{
-				ConnectionList scope2;
-				sender.somethingHappened().connect(&scope2, &r1, &Reciever::decrement);
+				Cpp::ConnectionScope scope2;
+				scope2.connect(sender.somethingHappened(), &r1, &Reciever::decrement);
 				ASSERT_EQ(1, r1.value());
 				sender.fire();
 				ASSERT_EQ(0, r1.value());
@@ -166,7 +166,7 @@ TEST(Test_ConnectDisconnect, AutomaticDisconnect)
 			ASSERT_EQ(0, r1.value());
 
 			{
-				sender.somethingHappened().connect(&scope0, &r0, &Reciever::setValue, 5);
+				scope0.connect(sender.somethingHappened(), &r0, &Reciever::setValue, 5);
 				sender.fire();
 				ASSERT_EQ(5, r0.value());
 				r0.setValue(-1);
@@ -188,7 +188,7 @@ TEST(Test_ConnectDisconnect, AutomaticDisconnect)
 TEST(Test_ConnectDisconnect, ConnectFromDelegate)
 {
 	RecieverEx rcv[8];
-	ConnectionScope scope;
+	Cpp::ConnectionScope scope;
 	SenderEx sender;
 
 	rcv[0].connect(&sender, &scope);

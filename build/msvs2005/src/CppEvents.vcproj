@@ -233,6 +233,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\..\src\Cpp\Events\ThreadData.hpp"
+				>
+			</File>
+			<File
 				RelativePath="..\..\..\src\Cpp\Events\Threading.hpp"
 				>
 			</File>

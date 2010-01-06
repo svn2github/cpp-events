@@ -6,6 +6,8 @@
 #pragma intrinsic (_InterlockedIncrement)
 #pragma intrinsic (_InterlockedDecrement)
 
+namespace Cpp {
+//------------------------------------------------------------------------------
 // Implementation-specific
 class Threading::ThreadData
 {
@@ -49,23 +51,23 @@ public:
 		}
 	}
 };
-
+//------------------------------------------------------------------------------
 static DWORD dwTlsIndex = 0;
-
+//------------------------------------------------------------------------------
 void Threading::processInit()
 {
 	assert(!dwTlsIndex);
 	dwTlsIndex = TlsAlloc();
 	threadInit();
 }
-
+//------------------------------------------------------------------------------
 void Threading::processDone()
 {
 	threadDone();
 	assert(dwTlsIndex);
 	TlsFree(dwTlsIndex);
 }
-
+//------------------------------------------------------------------------------
 void Threading::threadInit()
 {
 	assert(dwTlsIndex);
@@ -75,7 +77,7 @@ void Threading::threadInit()
 	LPVOID pvTlsData = reinterpret_cast<LPVOID>(data);
 	TlsSetValue(dwTlsIndex, pvTlsData);
 }
-
+//------------------------------------------------------------------------------
 void Threading::threadDone()
 {
 	assert(dwTlsIndex);
@@ -85,7 +87,7 @@ void Threading::threadDone()
 	data->release();
 	TlsSetValue(dwTlsIndex, NULL);
 }
-
+//------------------------------------------------------------------------------
 Threading::ThreadData * Threading::currentThreadData()
 {
 	assert(dwTlsIndex);
@@ -93,23 +95,25 @@ Threading::ThreadData * Threading::currentThreadData()
 	assert(pvTlsData);
 	return reinterpret_cast<ThreadData *>(pvTlsData);
 }
-
+//------------------------------------------------------------------------------
 void Threading::lock(ThreadData * data)
 {
 	data->lock();
 }
-
+//------------------------------------------------------------------------------
 void Threading::unlock(ThreadData * data)
 {
 	data->unlock();
 }
-
+//------------------------------------------------------------------------------
 void Threading::retain(ThreadData * data)
 {
 	data->retain();
 }
-
+//------------------------------------------------------------------------------
 void Threading::release(ThreadData * data)
 {
 	data->release();
 }
+//------------------------------------------------------------------------------
+} //namespace Cpp

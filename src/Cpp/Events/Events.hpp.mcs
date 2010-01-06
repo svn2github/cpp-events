@@ -5,26 +5,28 @@
 #include "ConnectionEx.hpp"
 #include "TypeTraits.hpp"
 
+namespace Cpp {
+//------------------------------------------------------------------------------
 @@for(int i=0; i<8; i+=1)
 @classArgs("template<", i, "> ")@class Event@i@;
 @@next
-
+//------------------------------------------------------------------------------
 @@for(int i=0; i<8; i+=1)
 @classArgs("template<", i, "> ")@class EventRef@i@;
 @@next
-
+//------------------------------------------------------------------------------
 @@for(int i=0; i<8; i+=1)
 @classArgs("template<", i, "> ")@class Event@i@ : public AbstractEvent
 {
 public:
-	typedef Connection@i;selArgs("<", i, ">")@ ConnectionType;
+	typedef Private::Events::Connection@i;selArgs("<", i, ">")@ ConnectionType;
 
 	Event@i@() {}
 	~Event@i@() {}
 
 	inline EventRef@i;selArgs("<", i, ">")@ ref();
 
-	void addConnection(ConnectionList * tracker, ConnectionType * conn)
+	void addConnection(Private::Events::ConnectionList * tracker, ConnectionType * conn)
 	{
 		AbstractEvent::addConnection(tracker, conn);
 	}
@@ -32,14 +34,15 @@ public:
 	void fire(@funcArgs(i)@) const
 	{
 		FireLock lock(this);
-		ConnectionsVector const & conns = lock.connections();
-		for(ConnectionsVector::const_iterator it = conns.begin(); it != conns.end(); ++it)
+		typedef Private::Events::ConnectionsVector CV;
+		CV const & conns = lock.connections();
+		for(CV::const_iterator it = conns.begin(); it != conns.end(); ++it)
 		{
 			static_cast<ConnectionType const *>(*it)->invoke(@callArgs(i)@);
 		}
 	}
 };
-
+//------------------------------------------------------------------------------
 @classArgs("template<", i, "> ")@class EventRef@i@ : public AbstractEventRef
 {
 public:
@@ -48,7 +51,7 @@ public:
 
 	explicit EventRef@i@(EventType * ev) : AbstractEventRef(ev) {}
 
-	template<class T, class Y> void connect(ConnectionList * tracker, T * obj, void (Y::*pmf)(@funcArgs(i)@))
+	template<class T, class Y> void connect(Private::Events::ConnectionList * tracker, T * obj, void (Y::*pmf)(@funcArgs(i)@))
 	{
 		ConnectionType * conn = new ConnectionType(
 			fastdelegate::MakeDelegate(obj, pmf)
@@ -56,7 +59,7 @@ public:
 		addConnection(tracker, conn);
 	}
 
-	template<class T, class Y> void connect(ConnectionList * tracker, T const * obj, void (Y::*pmf)(@funcArgs(i)@) const)
+	template<class T, class Y> void connect(Private::Events::ConnectionList * tracker, T const * obj, void (Y::*pmf)(@funcArgs(i)@) const)
 	{
 		ConnectionType * conn = new ConnectionType(
 			fastdelegate::MakeDelegate(obj, pmf)
@@ -64,49 +67,51 @@ public:
 		addConnection(tracker, conn);
 	}
 
-	template<class T, class Y> void connect(ConnectionList * tracker, T * obj, Y pmf)
+	template<class T, class Y> void connect(Private::Events::ConnectionList * tracker, T * obj, Y pmf)
 	{
-		detail::ArgList0 stored;
+		Private::Events::ArgList0 stored;
 		connectEx(tracker, fastdelegate::MakeDelegate(obj, pmf), stored);
 	}
 
 @@for(int j=1; j<8; j+=1)
-	template<class T, class Y, @list("class T%", 1, j)@> void connect(ConnectionList * tracker, T * obj, Y pmf, @list("T% x%", 1, j)@)
+	template<class T, class Y, @list("class T%", 1, j)@> void connect(Private::Events::ConnectionList * tracker, T * obj, Y pmf, @list("T% x%", 1, j)@)
 	{
 @@for(int k=1; k<=j; k+=1)
 		typedef typename StorageType<T@k@>::Type S@k@;
 @@next
-		detail::ArgList@j@<@list("S%", 1, j)@> stored(@list("x%", 1, j)@);
+		Private::Events::ArgList@j@<@list("S%", 1, j)@> stored(@list("x%", 1, j)@);
 		connectEx(tracker, fastdelegate::MakeDelegate(obj, pmf), stored);
 	}
 
 @@next
 @@for(int j=i; j<8; j+=1)
-	@listx("template<%> ", "class T%", j)@void connectEvent(ConnectionList * tracker, Event@j;listx("<%>", "T%", j)@ * ev@iter(", T% x%", j-i)@)
+	@listx("template<%> ", "class T%", j)@void connectEvent(Private::Events::ConnectionList * tracker, Event@j;listx("<%>", "T%", j)@ * ev@iter(", T% x%", j-i)@)
 	{
 		connect(tracker, ev, &Event@j;listx("<%>", "T%", j)@::fire@iter(", x%", 0, j-i)@);
 	}
 @@next
 private:
-	void addConnection(ConnectionList * tracker, ConnectionType * conn)
+	void addConnection(Private::Events::ConnectionList * tracker, ConnectionType * conn)
 	{
 		static_cast<EventType*>(senderEvent())->addConnection(tracker, conn);
 	}
 
-	template<class DelegateClass, class StoredListClass> void connectEx(ConnectionList * tracker, DelegateClass const & deleg, StoredListClass const & stored)
+	template<class DelegateClass, class StoredListClass> void connectEx(Private::Events::ConnectionList * tracker, DelegateClass const & deleg, StoredListClass const & stored)
 	{
-		ConnectionType * conn = new ConnectionEx@i@<@selArgs(i, ", ")@DelegateClass, StoredListClass>(
+		ConnectionType * conn = new Private::Events::ConnectionEx@i@<@selArgs(i, ", ")@DelegateClass, StoredListClass>(
 			deleg, stored
 		);
 		addConnection(tracker, conn);
 	}
 };
-
+//------------------------------------------------------------------------------
 @classArgs("template<", i, "> ")@
 inline EventRef@i;selArgs("<", i, ">")@ Event@i;selArgs("<", i, ">")@::ref()
 {
 	return EventRef@i;selArgs("<", i, ">")@(this);
 }
-
+//------------------------------------------------------------------------------
 @@next
+} //namespace Cpp
+
 #endif //__CPP_EVENTS__EVENTS_HPP

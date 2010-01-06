@@ -3,6 +3,10 @@
 
 #include "BorrowableData.hpp"
 
+namespace Cpp {
+namespace Private {
+namespace Events {
+//------------------------------------------------------------------------------
 class ConnectionList
 {
 	friend void AbstractConnection::doDisconnect();
@@ -47,7 +51,7 @@ private:
 	template<class Comparer> inline size_t doDisconnectAll(Comparer const & );
 	template<class Comparer> inline bool doDisconnectOne(Comparer const & );
 };
-
+//------------------------------------------------------------------------------
 class ConnectionList::FireLock
 {
 	DISABLE_COPY(FireLock)
@@ -65,5 +69,9 @@ private:
 	ThreadDataLocker locker_;
 	BorrowableData::Borrower borrower_;
 };
+//------------------------------------------------------------------------------
+} //namespace Events
+} //namespace Private
+} //namespace Cpp
 
 #endif //__CPP_EVENTS__CONNECTION_LIST__HPP

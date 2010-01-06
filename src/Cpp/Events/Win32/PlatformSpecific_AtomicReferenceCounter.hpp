@@ -6,6 +6,8 @@
 #pragma intrinsic (_InterlockedIncrement)
 #pragma intrinsic (_InterlockedDecrement)
 
+namespace Cpp {
+//------------------------------------------------------------------------------
 class AtomicReferenceCounter
 {
 public:
@@ -16,5 +18,7 @@ public:
 private:
 	volatile long ref_;
 };
+//------------------------------------------------------------------------------
+} //namespace Cpp
 
 #endif //__CPP_EVENTS__WIN32__ATOMIC_REFERENCE_COUNTER__HPP

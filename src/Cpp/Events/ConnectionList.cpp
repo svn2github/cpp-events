@@ -1,12 +1,16 @@
 #include "ConnectionList.hpp"
 
+namespace Cpp {
+namespace Private {
+namespace Events {
+//------------------------------------------------------------------------------
 void AbstractConnection::disconnect()
 {
 	ThreadDataLocker lock1(outerLock_);
 	ThreadDataLocker lock2(innerLock_);
 	doDisconnect();
 }
-
+//------------------------------------------------------------------------------
 bool AbstractConnection::tryDisconnectWithLock(ThreadDataRef const & lock)
 {
 	if(lock != outerLock_) return false;
@@ -14,7 +18,7 @@ bool AbstractConnection::tryDisconnectWithLock(ThreadDataRef const & lock)
 	doDisconnect();
 	return true;
 }
-
+//------------------------------------------------------------------------------
 void AbstractConnection::doDisconnect()
 {
 	if(!sourceList_ && !targetList_) return;
@@ -45,19 +49,19 @@ void AbstractConnection::doDisconnect()
 		release();
 	}
 }
-
+//------------------------------------------------------------------------------
 ConnectionList::ConnectionList()
 	: lock_(ThreadDataRef::current())
 	, data_()
 {
 }
-
+//------------------------------------------------------------------------------
 ConnectionList::~ConnectionList()
 {
 	assert(!data_.isBorrowed());
 	disconnectAll();
 }
-
+//------------------------------------------------------------------------------
 void ConnectionList::connect(ConnectionList * peer, AbstractConnection * conn)
 {
 	conn->outerLock_ = this->lock_;
@@ -84,19 +88,19 @@ void ConnectionList::connect(ConnectionList * peer, AbstractConnection * conn)
 		conn->retain();
 	}
 }
-
+//------------------------------------------------------------------------------
 #define mutable_iterate(it, container) \
 	ConnectionsVector::iterator it = (container).begin(); it != (container).end(); ++it
 
 #define const_iterate(it, container) \
 	ConnectionsVector::const_iterator it = (container).begin(); it != (container).end(); ++it
-
+//------------------------------------------------------------------------------
 class ConnectionList::NullComparer
 {
 public:
 	bool operator()(AbstractConnection const * conn) const { (void)conn; return true; }
 };
-
+//------------------------------------------------------------------------------
 class ConnectionList::DelegateComparer
 {
 public:
@@ -105,7 +109,7 @@ public:
 private:
 	AbstractDelegate const & deleg_;
 };
-
+//------------------------------------------------------------------------------
 class ConnectionList::PeerComparer
 {
 public:
@@ -114,7 +118,7 @@ public:
 private:
 	ConnectionList * const peer_;
 };
-
+//------------------------------------------------------------------------------
 class ConnectionList::FullComparer
 {
 public:
@@ -124,13 +128,13 @@ private:
 	PeerComparer e_;
 	DelegateComparer d_;
 };
-
+//------------------------------------------------------------------------------
 size_t ConnectionList::connectionCount() const
 {
 	ThreadDataLocker lock(lock_);
 	return data_.constRef().size();
 }
-
+//------------------------------------------------------------------------------
 template<class Comparer> inline size_t ConnectionList::getConnectionCount(Comparer const & comp) const
 {
 	ThreadDataLocker lock(lock_);
@@ -143,31 +147,31 @@ template<class Comparer> inline size_t ConnectionList::getConnectionCount(Compar
 	}
 	return retVal;
 }
-
+//------------------------------------------------------------------------------
 size_t ConnectionList::connectionCount(AbstractDelegate const & deleg) const
 {
 	DelegateComparer comp(deleg);
 	return getConnectionCount(comp);
 }
-
+//------------------------------------------------------------------------------
 size_t ConnectionList::connectionCount(ConnectionList * peer) const
 {
 	PeerComparer comp(peer);
 	return getConnectionCount(comp);
 }
-
+//------------------------------------------------------------------------------
 size_t ConnectionList::connectionCount(ConnectionList * peer, AbstractDelegate const & deleg) const
 {
 	FullComparer comp(peer, deleg);
 	return getConnectionCount(comp);
 }
-
+//------------------------------------------------------------------------------
 bool ConnectionList::hasConnections() const
 {
 	ThreadDataLocker lock(lock_);
 	return !data_.constRef().empty();
 }
-
+//------------------------------------------------------------------------------
 template<class Comparer> inline bool ConnectionList::getHasConnections(Comparer const & comp) const
 {
 	ThreadDataLocker lock(lock_);
@@ -179,25 +183,25 @@ template<class Comparer> inline bool ConnectionList::getHasConnections(Comparer 
 	}
 	return false;
 }
-
+//------------------------------------------------------------------------------
 bool ConnectionList::hasConnections(AbstractDelegate const & deleg) const
 {
 	DelegateComparer comp(deleg);
 	return getHasConnections(comp);
 }
-
+//------------------------------------------------------------------------------
 bool ConnectionList::hasConnections(ConnectionList * peer) const
 {
 	PeerComparer comp(peer);
 	return getHasConnections(comp);
 }
-
+//------------------------------------------------------------------------------
 bool ConnectionList::hasConnections(ConnectionList * peer, AbstractDelegate const & deleg) const
 {
 	FullComparer comp(peer, deleg);
 	return getHasConnections(comp);
 }
-
+//------------------------------------------------------------------------------
 template<class Comparer> inline size_t ConnectionList::doDisconnectAll(Comparer const & comp)
 {
 	ConnectionsVector needRelock;
@@ -231,31 +235,31 @@ template<class Comparer> inline size_t ConnectionList::doDisconnectAll(Comparer 
 	}
 	return retVal;
 }
-
+//------------------------------------------------------------------------------
 size_t ConnectionList::disconnectAll()
 {
 	NullComparer comp;
 	return doDisconnectAll(comp);
 }
-
+//------------------------------------------------------------------------------
 size_t ConnectionList::disconnectAll(AbstractDelegate const & deleg)
 {
 	DelegateComparer comp(deleg);
 	return doDisconnectAll(comp);
 }
-
+//------------------------------------------------------------------------------
 size_t ConnectionList::disconnectAll(ConnectionList * peer, AbstractDelegate const & deleg)
 {
 	FullComparer comp(peer, deleg);
 	return doDisconnectAll(comp);
 }
-
+//------------------------------------------------------------------------------
 size_t ConnectionList::disconnectAll(ConnectionList * peer)
 {
 	PeerComparer comp(peer);
 	return doDisconnectAll(comp);
 }
-
+//------------------------------------------------------------------------------
 template<class Comparer> inline bool ConnectionList::doDisconnectOne(Comparer const & comp)
 {
 	AbstractConnection * needRelock = 0;
@@ -284,21 +288,25 @@ template<class Comparer> inline bool ConnectionList::doDisconnectOne(Comparer co
 	needRelock->release();
 	return true;
 }
-
+//------------------------------------------------------------------------------
 bool ConnectionList::disconnectOne(AbstractDelegate const & deleg)
 {
 	DelegateComparer comp(deleg);
 	return doDisconnectOne(comp);
 }
-
+//------------------------------------------------------------------------------
 bool ConnectionList::disconnectOne(ConnectionList * peer)
 {
 	PeerComparer comp(peer);
 	return doDisconnectOne(comp);
 }
-
+//------------------------------------------------------------------------------
 bool ConnectionList::disconnectOne(ConnectionList * peer, AbstractDelegate const & deleg)
 {
 	FullComparer comp(peer, deleg);
 	return doDisconnectOne(comp);
 }
+//------------------------------------------------------------------------------
+} //namespace Events
+} //namespace Private
+} //namespace Cpp

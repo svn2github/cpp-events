@@ -4,8 +4,12 @@
 #include "AbstractConnection.hpp"
 #include <vector>
 
+namespace Cpp {
+namespace Private {
+namespace Events {
+//------------------------------------------------------------------------------
 typedef std::vector<AbstractConnection*> ConnectionsVector;
-
+//------------------------------------------------------------------------------
 class BorrowableData
 {
 	DISABLE_COPY(BorrowableData)
@@ -53,7 +57,7 @@ private:
 	ConnectionsVector data_;
 	ConnectionsVector * borrowed_;
 };
-
+//------------------------------------------------------------------------------
 class BorrowableData::Borrower
 {
 	DISABLE_COPY(Borrower)
@@ -82,6 +86,10 @@ private:
 	BorrowableData * src_;
 	ConnectionsVector data_;
 };
+//------------------------------------------------------------------------------
+} //namespace Events
+} //namespace Private
+} //namespace Cpp
 
 #endif //__CPP_EVENTS__BORROWABLE_DATA__HPP
 

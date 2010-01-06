@@ -4,6 +4,10 @@
 #include "Connection.hpp"
 #include "ArgList.hpp"
 
+namespace Cpp {
+namespace Private {
+namespace Events {
+//------------------------------------------------------------------------------
 @@for(int i=0; i<8; i+=1)
 template<@classArgs(i, ", ")@class DelegateClass, class StoredListClass>
 class ConnectionEx@i@ : public Connection@i;selArgs("<",i,">")@
@@ -24,10 +28,14 @@ private:
 
 	void invokeHelper(@funcArgs(i)@) const
 	{
-		detail::ArgList@i;selArgs("<", i, ">")@ paramList@callArgs("(", i, ")")@;
-		return detail::invokeDelegate(deleg_, stored_, paramList);
+		ArgList@i;selArgs("<", i, ">")@ paramList@callArgs("(", i, ")")@;
+		return invokeDelegate(deleg_, stored_, paramList);
 	}
 };
-
+//------------------------------------------------------------------------------
 @@next
+} //namespace Events
+} //namespace Private
+} //namespace Cpp
+
 #endif //__CPP_EVENTS__CONNECTION_EX__HPP

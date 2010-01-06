@@ -3,7 +3,9 @@
 
 #include "Events.hpp"
 
-//High-level wrapper for ConnectionList
+namespace Cpp {
+//------------------------------------------------------------------------------
+//!High-level wrapper for ConnectionList
 class ConnectionScope
 {
 public:
@@ -171,12 +173,14 @@ public:
 	}
 
 private:
-	ConnectionList connectionList_;
+	Private::Events::ConnectionList connectionList_;
 
-	static ConnectionList * getConnList(AbstractEventRef const & ev)
+	static Private::Events::ConnectionList * getConnList(AbstractEventRef const & ev)
 	{
 		return &ev.event_->connectionList_;
 	}
 };
+//------------------------------------------------------------------------------
+} //namespace Cpp
 
 #endif //__CPP_EVENTS__CONNECTION_SCOPE__HPP

@@ -3,8 +3,10 @@
 
 #include "ConnectionList.hpp"
 
+namespace Cpp {
+//------------------------------------------------------------------------------
 class ConnectionScope;
-
+//------------------------------------------------------------------------------
 class AbstractEvent
 {
 	friend class ConnectionScope;
@@ -71,22 +73,22 @@ protected:
 			: impl_(&e->connectionList_)
 		{}
 
-		ConnectionsVector const & connections() const
+		Private::Events::ConnectionsVector const & connections() const
 		{
 			return impl_.constData();
 		}
 	private:
-		ConnectionList::FireLock impl_;
+		Private::Events::ConnectionList::FireLock impl_;
 	};
 	
-	void addConnection(ConnectionList * tracker, AbstractConnection * conn)
+	void addConnection(Private::Events::ConnectionList * tracker, Private::Events::AbstractConnection * conn)
 	{
 		connectionList_.connect(tracker, conn);
 	}
 private:
-	ConnectionList connectionList_;
+	Private::Events::ConnectionList connectionList_;
 };
-
+//------------------------------------------------------------------------------
 class AbstractEventRef
 {
 	friend class ConnectionScope;
@@ -159,5 +161,7 @@ protected:
 private:
 	AbstractEvent * event_;
 };
+//------------------------------------------------------------------------------
+} //namespace Cpp
 
 #endif //ABSTRACT_EVENT__HPP
