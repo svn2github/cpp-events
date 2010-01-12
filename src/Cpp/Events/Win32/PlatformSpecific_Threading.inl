@@ -21,12 +21,12 @@ public:
 
 	void lock()
 	{
-		EnterCriticalSection(&cs);
+		EnterCriticalSection(&cs_);
 	}
 
 	void unlock()
 	{
-		LeaveCriticalSection(&cs);
+		LeaveCriticalSection(&cs_);
 	}
 
 	void retain()
