@@ -1,30 +1,22 @@
 #include "Threading.hpp"
+#include "ThreadData.hpp"
 #include <cassert>
 #include <windows.h>
-#include <intrin.h>
-
-#pragma intrinsic (_InterlockedIncrement)
-#pragma intrinsic (_InterlockedDecrement)
 
 namespace Cpp {
 //------------------------------------------------------------------------------
-// Implementation-specific
-class Threading::ThreadData
+class Win32_ThreadData
 {
 public:
-	volatile LONG refCounter;
-	CRITICAL_SECTION cs;
-
-	ThreadData()
+	Win32_ThreadData()
 	{
-		refCounter = 0;
-		InitializeCriticalSection(&cs);
+		InitializeCriticalSection(&cs_);
 	}
 
-	~ThreadData()
+	~Win32_ThreadData()
 	{
-		assert(!refCounter);
-		DeleteCriticalSection(&cs);
+		assert(ref_.isNull());
+		DeleteCriticalSection(&cs_);
 	}
 
 	void lock()
@@ -39,17 +31,19 @@ public:
 
 	void retain()
 	{
-		_InterlockedIncrement(&refCounter);
+		ref_.retain();
 	}
 
 	void release()
 	{
-		LONG n = _InterlockedDecrement(&refCounter);
-		if(!n)
+		if(ref_.release())
 		{
 			delete this;
 		}
 	}
+private:
+	AtomicReferenceCounter ref_;
+	CRITICAL_SECTION cs_;
 };
 //------------------------------------------------------------------------------
 static DWORD dwTlsIndex = 0;
@@ -72,7 +66,7 @@ void Threading::constructThreadData()
 {
 	assert(dwTlsIndex);
 	assert(!TlsGetValue(dwTlsIndex));
-	ThreadData * data = new ThreadData();
+	Win32_ThreadData * data = new Win32_ThreadData();
 	data->retain();
 	LPVOID pvTlsData = reinterpret_cast<LPVOID>(data);
 	TlsSetValue(dwTlsIndex, pvTlsData);
@@ -83,7 +77,7 @@ void Threading::destructThreadData()
 	assert(dwTlsIndex);
 	LPVOID pvTlsData = TlsGetValue(dwTlsIndex);
 	assert(pvTlsData);
-	ThreadData * data = reinterpret_cast<ThreadData *>(pvTlsData);
+	Win32_ThreadData * data = reinterpret_cast<Win32_ThreadData*>(pvTlsData);
 	data->release();
 	TlsSetValue(dwTlsIndex, NULL);
 }
@@ -93,27 +87,28 @@ Threading::ThreadData * Threading::currentThreadData()
 	assert(dwTlsIndex);
 	LPVOID pvTlsData = TlsGetValue(dwTlsIndex);
 	assert(pvTlsData);
-	return reinterpret_cast<ThreadData *>(pvTlsData);
+	Win32_ThreadData * data = reinterpret_cast<Win32_ThreadData*>(pvTlsData);
+	return reinterpret_cast<Threading::ThreadData*>(data);
 }
 //------------------------------------------------------------------------------
-void Threading::lock(ThreadData * data)
+void Threading::ThreadData::lock()
 {
-	data->lock();
+	reinterpret_cast<Win32_ThreadData*>(this)->lock();
 }
 //------------------------------------------------------------------------------
-void Threading::unlock(ThreadData * data)
+void Threading::ThreadData::unlock()
 {
-	data->unlock();
+	reinterpret_cast<Win32_ThreadData*>(this)->lock();
 }
 //------------------------------------------------------------------------------
-void Threading::retain(ThreadData * data)
+void Threading::ThreadData::retain()
 {
-	data->retain();
+	reinterpret_cast<Win32_ThreadData*>(this)->retain();
 }
 //------------------------------------------------------------------------------
-void Threading::release(ThreadData * data)
+void Threading::ThreadData::release()
 {
-	data->release();
+	reinterpret_cast<Win32_ThreadData*>(this)->release();
 }
 //------------------------------------------------------------------------------
 } //namespace Cpp

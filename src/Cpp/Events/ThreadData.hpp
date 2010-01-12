@@ -2,7 +2,24 @@
 #define __CPP_EVENTS__THREAD_DATA__HPP
 
 #include "Threading.hpp"
-#include <cassert>
+#include "AtomicReferenceCounter.hpp"
+
+namespace Cpp {
+//------------------------------------------------------------------------------
+class Threading::ThreadData
+{
+public:
+	void lock();
+	void unlock();
+
+	void retain();
+	void release();
+private:
+	ThreadData() {}
+	~ThreadData() {}
+};
+//------------------------------------------------------------------------------
+} //namespace Cpp
 
 namespace Cpp {
 namespace Private {
@@ -23,7 +40,7 @@ public:
 	{
 		if(ptr_)
 		{
-			Threading::retain(ptr_);
+			ptr_->retain();
 		}
 	}
 
@@ -32,19 +49,19 @@ public:
 	{
 		if(ptr_)
 		{
-			Threading::retain(ptr_);
+			ptr_->retain();
 		}
 	}
 
 	ThreadDataRef::~ThreadDataRef()
 	{
-		clear();
+		if(ptr_) ptr_->release();
 	}
 
 	ThreadDataRef & operator = (ThreadDataRef const & r)
 	{
-		if(r.ptr_) Threading::retain(r.ptr_);
-		if(ptr_) Threading::release(ptr_);
+		if(r.ptr_) r.ptr_->retain();
+		if(ptr_) ptr_->release();
 		ptr_ = r.ptr_;
 		return *this;
 	}
@@ -53,13 +70,13 @@ public:
 	{
 		if(ptr_)
 		{
-			Threading::release(ptr_);
+			ptr_->release();
 			ptr_ = 0;
 		}
 	}
 
-	void lock() { if(ptr_) Threading::lock(ptr_); }
-	void unlock() { if(ptr_) Threading::unlock(ptr_); }
+	void lock() { if(ptr_) ptr_->lock(); }
+	void unlock() { if(ptr_) ptr_->unlock(); }
 
 	void swap(ThreadDataRef & r)
 	{
@@ -94,10 +111,10 @@ private:
 	ThreadDataRef(Threading::ThreadData * p)
 		: ptr_(p)
 	{
-		if(ptr_) Threading::retain(ptr_);
+		if(ptr_) ptr_->retain();
 	}
 };
-
+//------------------------------------------------------------------------------
 class ThreadDataLocker
 {
 public:
@@ -106,7 +123,7 @@ public:
 private:
 	ThreadDataRef x_;
 };
-
+//------------------------------------------------------------------------------
 class OrderedThreadDataLocker
 {
 public:

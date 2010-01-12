@@ -7,21 +7,15 @@ class Threading
 {
 public:
 	// Implementation-specific
-	// TODO: make reference counter public for better inlining
 	class ThreadData;
-
+	
+	static ThreadData * currentThreadData();
+	
 	static void constructProcessData();
 	static void destructProcessData();
 
 	static void constructThreadData();
 	static void destructThreadData();
-
-	static ThreadData * currentThreadData();
-	static void lock(ThreadData *);
-	static void unlock(ThreadData *);
-
-	static void retain(ThreadData *);
-	static void release(ThreadData *);
 
 	class ProcessInit
 	{
