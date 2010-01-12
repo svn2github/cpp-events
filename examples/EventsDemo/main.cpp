@@ -31,7 +31,7 @@ private:
 
 void main()
 {
-	Cpp::Process process;
+	Cpp::Threading::ProcessInit processInit;
 
 	bool x = isPolymorphic<TestClass>();
 

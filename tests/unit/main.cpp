@@ -6,6 +6,6 @@ int main(int argc, char * argv[])
 {
 	setlocale(LC_ALL, "");
 	::testing::InitGoogleTest(&argc, argv);
-	Cpp::Process proc;
+	Cpp::Threading::ProcessInit processInit;
 	return RUN_ALL_TESTS();
 }

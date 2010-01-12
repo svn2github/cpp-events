@@ -10,11 +10,11 @@ public:
 	// TODO: make reference counter public for better inlining
 	class ThreadData;
 
-	static void processInit();
-	static void processDone();
+	static void constructProcessData();
+	static void destructProcessData();
 
-	static void threadInit();
-	static void threadDone();
+	static void constructThreadData();
+	static void destructThreadData();
 
 	static ThreadData * currentThreadData();
 	static void lock(ThreadData *);
@@ -22,20 +22,20 @@ public:
 
 	static void retain(ThreadData *);
 	static void release(ThreadData *);
-};
-//------------------------------------------------------------------------------
-class Process
-{
-public:
-	Process() { Threading::processInit(); }
-	~Process() { Threading::processDone(); }
-};
-//------------------------------------------------------------------------------
-class Thread
-{
-public:
-	Thread() { Threading::threadInit(); }
-	~Thread() { Threading::threadDone(); }
+
+	class ProcessInit
+	{
+	public:
+		ProcessInit() { constructProcessData(); }
+		~ProcessInit() { destructProcessData(); }
+	};
+
+	class ThreadInit
+	{
+	public:
+		ThreadInit() { constructThreadData(); }
+		~ThreadInit() { destructThreadData(); }
+	};
 };
 //------------------------------------------------------------------------------
 } //namespace Cpp

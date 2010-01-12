@@ -50,7 +50,7 @@ void test(unsigned N)
 
 int main()
 {
-	Cpp::Process cppEventsProc;
+	Cpp::Threading::ProcessInit processInit;
 	printf("Cpp.Events speed test\n");
 	for(unsigned a = 1000; a < 100000; )
 	{

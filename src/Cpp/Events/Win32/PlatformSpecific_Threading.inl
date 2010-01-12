@@ -54,21 +54,21 @@ public:
 //------------------------------------------------------------------------------
 static DWORD dwTlsIndex = 0;
 //------------------------------------------------------------------------------
-void Threading::processInit()
+void Threading::constructProcessData()
 {
 	assert(!dwTlsIndex);
 	dwTlsIndex = TlsAlloc();
-	threadInit();
+	constructThreadData();
 }
 //------------------------------------------------------------------------------
-void Threading::processDone()
+void Threading::destructProcessData()
 {
-	threadDone();
+	destructThreadData();
 	assert(dwTlsIndex);
 	TlsFree(dwTlsIndex);
 }
 //------------------------------------------------------------------------------
-void Threading::threadInit()
+void Threading::constructThreadData()
 {
 	assert(dwTlsIndex);
 	assert(!TlsGetValue(dwTlsIndex));
@@ -78,7 +78,7 @@ void Threading::threadInit()
 	TlsSetValue(dwTlsIndex, pvTlsData);
 }
 //------------------------------------------------------------------------------
-void Threading::threadDone()
+void Threading::destructThreadData()
 {
 	assert(dwTlsIndex);
 	LPVOID pvTlsData = TlsGetValue(dwTlsIndex);
