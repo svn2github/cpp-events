@@ -10,18 +10,18 @@ namespace Cpp {
 //------------------------------------------------------------------------------
 template<
 @@for(int i=0; i<=N; i+=1)
-	class Param@i@ = NullType@if(i < N) "," end@
+	class Param@i@ = Meta::NullType@if(i < N) "," end@
 @@next
 > class Event;
 //------------------------------------------------------------------------------
 template<
 @@for(int i=0; i<=N; i+=1)
-	class Param@i@ = NullType@if(i < N) "," end@
+	class Param@i@ = Meta::NullType@if(i < N) "," end@
 @@next
 > class EventRef;
 //------------------------------------------------------------------------------
 @@for(int i=0; i<=N; i+=1)
-@@str SelArgs = selArgs(i, ", ") $ list("NullType", (N - i) + 1)
+@@str SelArgs = selArgs(i, ", ") $ list("Meta::NullType", (N - i) + 1)
 template<@classArgs(i)@>
 	class Event<@SelArgs@> : public AbstractEvent
 {
@@ -85,7 +85,7 @@ public:
 	template<class T, class Y, @list("class T%", 1, j)@> void connect(Private::Events::ConnectionList * tracker, T * obj, Y pmf, @list("T% x%", 1, j)@)
 	{
 @@for(int k=1; k<=j; k+=1)
-		typedef typename StorageType<T@k@>::Type S@k@;
+		typedef typename TypeTraits::StorageType<T@k@>::Type S@k@;
 @@next
 		Private::Events::ArgList@j@<@list("S%", 1, j)@> stored(@list("x%", 1, j)@);
 		connectEx(tracker, fastdelegate::MakeDelegate(obj, pmf), stored);

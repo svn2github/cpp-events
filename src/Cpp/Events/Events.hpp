@@ -8,31 +8,31 @@
 namespace Cpp {
 //------------------------------------------------------------------------------
 template<
-	class Param0 = NullType,
-	class Param1 = NullType,
-	class Param2 = NullType,
-	class Param3 = NullType,
-	class Param4 = NullType,
-	class Param5 = NullType,
-	class Param6 = NullType,
-	class Param7 = NullType,
-	class Param8 = NullType
+	class Param0 = Meta::NullType,
+	class Param1 = Meta::NullType,
+	class Param2 = Meta::NullType,
+	class Param3 = Meta::NullType,
+	class Param4 = Meta::NullType,
+	class Param5 = Meta::NullType,
+	class Param6 = Meta::NullType,
+	class Param7 = Meta::NullType,
+	class Param8 = Meta::NullType
 > class Event;
 //------------------------------------------------------------------------------
 template<
-	class Param0 = NullType,
-	class Param1 = NullType,
-	class Param2 = NullType,
-	class Param3 = NullType,
-	class Param4 = NullType,
-	class Param5 = NullType,
-	class Param6 = NullType,
-	class Param7 = NullType,
-	class Param8 = NullType
+	class Param0 = Meta::NullType,
+	class Param1 = Meta::NullType,
+	class Param2 = Meta::NullType,
+	class Param3 = Meta::NullType,
+	class Param4 = Meta::NullType,
+	class Param5 = Meta::NullType,
+	class Param6 = Meta::NullType,
+	class Param7 = Meta::NullType,
+	class Param8 = Meta::NullType
 > class EventRef;
 //------------------------------------------------------------------------------
 template<>
-	class Event<NullType, NullType, NullType, NullType, NullType, NullType, NullType, NullType, NullType> : public AbstractEvent
+	class Event<Meta::NullType, Meta::NullType, Meta::NullType, Meta::NullType, Meta::NullType, Meta::NullType, Meta::NullType, Meta::NullType, Meta::NullType> : public AbstractEvent
 {
 public:
 	typedef Private::Events::Connection0 ConnectionType;
@@ -40,7 +40,7 @@ public:
 	Event() {}
 	~Event() {}
 
-	inline EventRef<NullType, NullType, NullType, NullType, NullType, NullType, NullType, NullType, NullType> ref();
+	inline EventRef<Meta::NullType, Meta::NullType, Meta::NullType, Meta::NullType, Meta::NullType, Meta::NullType, Meta::NullType, Meta::NullType, Meta::NullType> ref();
 
 	void addConnection(Private::Events::ConnectionList * tracker, ConnectionType * conn)
 	{
@@ -60,10 +60,10 @@ public:
 };
 //------------------------------------------------------------------------------
 template<>
-	class EventRef<NullType, NullType, NullType, NullType, NullType, NullType, NullType, NullType, NullType> : public AbstractEventRef
+	class EventRef<Meta::NullType, Meta::NullType, Meta::NullType, Meta::NullType, Meta::NullType, Meta::NullType, Meta::NullType, Meta::NullType, Meta::NullType> : public AbstractEventRef
 {
 public:
-	typedef Event<NullType, NullType, NullType, NullType, NullType, NullType, NullType, NullType, NullType> EventType;
+	typedef Event<Meta::NullType, Meta::NullType, Meta::NullType, Meta::NullType, Meta::NullType, Meta::NullType, Meta::NullType, Meta::NullType, Meta::NullType> EventType;
 	typedef EventType::ConnectionType ConnectionType;
 
 	explicit EventRef(EventType * ev) : AbstractEventRef(ev) {}
@@ -92,70 +92,70 @@ public:
 
 	template<class T, class Y, class T1> void connect(Private::Events::ConnectionList * tracker, T * obj, Y pmf, T1 x1)
 	{
-		typedef typename StorageType<T1>::Type S1;
+		typedef typename TypeTraits::StorageType<T1>::Type S1;
 		Private::Events::ArgList1<S1> stored(x1);
 		connectEx(tracker, fastdelegate::MakeDelegate(obj, pmf), stored);
 	}
 
 	template<class T, class Y, class T1, class T2> void connect(Private::Events::ConnectionList * tracker, T * obj, Y pmf, T1 x1, T2 x2)
 	{
-		typedef typename StorageType<T1>::Type S1;
-		typedef typename StorageType<T2>::Type S2;
+		typedef typename TypeTraits::StorageType<T1>::Type S1;
+		typedef typename TypeTraits::StorageType<T2>::Type S2;
 		Private::Events::ArgList2<S1, S2> stored(x1, x2);
 		connectEx(tracker, fastdelegate::MakeDelegate(obj, pmf), stored);
 	}
 
 	template<class T, class Y, class T1, class T2, class T3> void connect(Private::Events::ConnectionList * tracker, T * obj, Y pmf, T1 x1, T2 x2, T3 x3)
 	{
-		typedef typename StorageType<T1>::Type S1;
-		typedef typename StorageType<T2>::Type S2;
-		typedef typename StorageType<T3>::Type S3;
+		typedef typename TypeTraits::StorageType<T1>::Type S1;
+		typedef typename TypeTraits::StorageType<T2>::Type S2;
+		typedef typename TypeTraits::StorageType<T3>::Type S3;
 		Private::Events::ArgList3<S1, S2, S3> stored(x1, x2, x3);
 		connectEx(tracker, fastdelegate::MakeDelegate(obj, pmf), stored);
 	}
 
 	template<class T, class Y, class T1, class T2, class T3, class T4> void connect(Private::Events::ConnectionList * tracker, T * obj, Y pmf, T1 x1, T2 x2, T3 x3, T4 x4)
 	{
-		typedef typename StorageType<T1>::Type S1;
-		typedef typename StorageType<T2>::Type S2;
-		typedef typename StorageType<T3>::Type S3;
-		typedef typename StorageType<T4>::Type S4;
+		typedef typename TypeTraits::StorageType<T1>::Type S1;
+		typedef typename TypeTraits::StorageType<T2>::Type S2;
+		typedef typename TypeTraits::StorageType<T3>::Type S3;
+		typedef typename TypeTraits::StorageType<T4>::Type S4;
 		Private::Events::ArgList4<S1, S2, S3, S4> stored(x1, x2, x3, x4);
 		connectEx(tracker, fastdelegate::MakeDelegate(obj, pmf), stored);
 	}
 
 	template<class T, class Y, class T1, class T2, class T3, class T4, class T5> void connect(Private::Events::ConnectionList * tracker, T * obj, Y pmf, T1 x1, T2 x2, T3 x3, T4 x4, T5 x5)
 	{
-		typedef typename StorageType<T1>::Type S1;
-		typedef typename StorageType<T2>::Type S2;
-		typedef typename StorageType<T3>::Type S3;
-		typedef typename StorageType<T4>::Type S4;
-		typedef typename StorageType<T5>::Type S5;
+		typedef typename TypeTraits::StorageType<T1>::Type S1;
+		typedef typename TypeTraits::StorageType<T2>::Type S2;
+		typedef typename TypeTraits::StorageType<T3>::Type S3;
+		typedef typename TypeTraits::StorageType<T4>::Type S4;
+		typedef typename TypeTraits::StorageType<T5>::Type S5;
 		Private::Events::ArgList5<S1, S2, S3, S4, S5> stored(x1, x2, x3, x4, x5);
 		connectEx(tracker, fastdelegate::MakeDelegate(obj, pmf), stored);
 	}
 
 	template<class T, class Y, class T1, class T2, class T3, class T4, class T5, class T6> void connect(Private::Events::ConnectionList * tracker, T * obj, Y pmf, T1 x1, T2 x2, T3 x3, T4 x4, T5 x5, T6 x6)
 	{
-		typedef typename StorageType<T1>::Type S1;
-		typedef typename StorageType<T2>::Type S2;
-		typedef typename StorageType<T3>::Type S3;
-		typedef typename StorageType<T4>::Type S4;
-		typedef typename StorageType<T5>::Type S5;
-		typedef typename StorageType<T6>::Type S6;
+		typedef typename TypeTraits::StorageType<T1>::Type S1;
+		typedef typename TypeTraits::StorageType<T2>::Type S2;
+		typedef typename TypeTraits::StorageType<T3>::Type S3;
+		typedef typename TypeTraits::StorageType<T4>::Type S4;
+		typedef typename TypeTraits::StorageType<T5>::Type S5;
+		typedef typename TypeTraits::StorageType<T6>::Type S6;
 		Private::Events::ArgList6<S1, S2, S3, S4, S5, S6> stored(x1, x2, x3, x4, x5, x6);
 		connectEx(tracker, fastdelegate::MakeDelegate(obj, pmf), stored);
 	}
 
 	template<class T, class Y, class T1, class T2, class T3, class T4, class T5, class T6, class T7> void connect(Private::Events::ConnectionList * tracker, T * obj, Y pmf, T1 x1, T2 x2, T3 x3, T4 x4, T5 x5, T6 x6, T7 x7)
 	{
-		typedef typename StorageType<T1>::Type S1;
-		typedef typename StorageType<T2>::Type S2;
-		typedef typename StorageType<T3>::Type S3;
-		typedef typename StorageType<T4>::Type S4;
-		typedef typename StorageType<T5>::Type S5;
-		typedef typename StorageType<T6>::Type S6;
-		typedef typename StorageType<T7>::Type S7;
+		typedef typename TypeTraits::StorageType<T1>::Type S1;
+		typedef typename TypeTraits::StorageType<T2>::Type S2;
+		typedef typename TypeTraits::StorageType<T3>::Type S3;
+		typedef typename TypeTraits::StorageType<T4>::Type S4;
+		typedef typename TypeTraits::StorageType<T5>::Type S5;
+		typedef typename TypeTraits::StorageType<T6>::Type S6;
+		typedef typename TypeTraits::StorageType<T7>::Type S7;
 		Private::Events::ArgList7<S1, S2, S3, S4, S5, S6, S7> stored(x1, x2, x3, x4, x5, x6, x7);
 		connectEx(tracker, fastdelegate::MakeDelegate(obj, pmf), stored);
 	}
@@ -207,14 +207,14 @@ private:
 	}
 };
 //------------------------------------------------------------------------------
-inline EventRef<NullType, NullType, NullType, NullType, NullType, NullType, NullType, NullType, NullType>
-	Event<NullType, NullType, NullType, NullType, NullType, NullType, NullType, NullType, NullType>::ref()
+inline EventRef<Meta::NullType, Meta::NullType, Meta::NullType, Meta::NullType, Meta::NullType, Meta::NullType, Meta::NullType, Meta::NullType, Meta::NullType>
+	Event<Meta::NullType, Meta::NullType, Meta::NullType, Meta::NullType, Meta::NullType, Meta::NullType, Meta::NullType, Meta::NullType, Meta::NullType>::ref()
 {
-	return EventRef<NullType, NullType, NullType, NullType, NullType, NullType, NullType, NullType, NullType>(this);
+	return EventRef<Meta::NullType, Meta::NullType, Meta::NullType, Meta::NullType, Meta::NullType, Meta::NullType, Meta::NullType, Meta::NullType, Meta::NullType>(this);
 }
 //------------------------------------------------------------------------------
 template<class Param0>
-	class Event<Param0, NullType, NullType, NullType, NullType, NullType, NullType, NullType, NullType> : public AbstractEvent
+	class Event<Param0, Meta::NullType, Meta::NullType, Meta::NullType, Meta::NullType, Meta::NullType, Meta::NullType, Meta::NullType, Meta::NullType> : public AbstractEvent
 {
 public:
 	typedef Private::Events::Connection1<Param0> ConnectionType;
@@ -222,7 +222,7 @@ public:
 	Event() {}
 	~Event() {}
 
-	inline EventRef<Param0, NullType, NullType, NullType, NullType, NullType, NullType, NullType, NullType> ref();
+	inline EventRef<Param0, Meta::NullType, Meta::NullType, Meta::NullType, Meta::NullType, Meta::NullType, Meta::NullType, Meta::NullType, Meta::NullType> ref();
 
 	void addConnection(Private::Events::ConnectionList * tracker, ConnectionType * conn)
 	{
@@ -242,10 +242,10 @@ public:
 };
 //------------------------------------------------------------------------------
 template<class Param0>
-	class EventRef<Param0, NullType, NullType, NullType, NullType, NullType, NullType, NullType, NullType> : public AbstractEventRef
+	class EventRef<Param0, Meta::NullType, Meta::NullType, Meta::NullType, Meta::NullType, Meta::NullType, Meta::NullType, Meta::NullType, Meta::NullType> : public AbstractEventRef
 {
 public:
-	typedef Event<Param0, NullType, NullType, NullType, NullType, NullType, NullType, NullType, NullType> EventType;
+	typedef Event<Param0, Meta::NullType, Meta::NullType, Meta::NullType, Meta::NullType, Meta::NullType, Meta::NullType, Meta::NullType, Meta::NullType> EventType;
 	typedef typename EventType::ConnectionType ConnectionType;
 
 	explicit EventRef(EventType * ev) : AbstractEventRef(ev) {}
@@ -274,70 +274,70 @@ public:
 
 	template<class T, class Y, class T1> void connect(Private::Events::ConnectionList * tracker, T * obj, Y pmf, T1 x1)
 	{
-		typedef typename StorageType<T1>::Type S1;
+		typedef typename TypeTraits::StorageType<T1>::Type S1;
 		Private::Events::ArgList1<S1> stored(x1);
 		connectEx(tracker, fastdelegate::MakeDelegate(obj, pmf), stored);
 	}
 
 	template<class T, class Y, class T1, class T2> void connect(Private::Events::ConnectionList * tracker, T * obj, Y pmf, T1 x1, T2 x2)
 	{
-		typedef typename StorageType<T1>::Type S1;
-		typedef typename StorageType<T2>::Type S2;
+		typedef typename TypeTraits::StorageType<T1>::Type S1;
+		typedef typename TypeTraits::StorageType<T2>::Type S2;
 		Private::Events::ArgList2<S1, S2> stored(x1, x2);
 		connectEx(tracker, fastdelegate::MakeDelegate(obj, pmf), stored);
 	}
 
 	template<class T, class Y, class T1, class T2, class T3> void connect(Private::Events::ConnectionList * tracker, T * obj, Y pmf, T1 x1, T2 x2, T3 x3)
 	{
-		typedef typename StorageType<T1>::Type S1;
-		typedef typename StorageType<T2>::Type S2;
-		typedef typename StorageType<T3>::Type S3;
+		typedef typename TypeTraits::StorageType<T1>::Type S1;
+		typedef typename TypeTraits::StorageType<T2>::Type S2;
+		typedef typename TypeTraits::StorageType<T3>::Type S3;
 		Private::Events::ArgList3<S1, S2, S3> stored(x1, x2, x3);
 		connectEx(tracker, fastdelegate::MakeDelegate(obj, pmf), stored);
 	}
 
 	template<class T, class Y, class T1, class T2, class T3, class T4> void connect(Private::Events::ConnectionList * tracker, T * obj, Y pmf, T1 x1, T2 x2, T3 x3, T4 x4)
 	{
-		typedef typename StorageType<T1>::Type S1;
-		typedef typename StorageType<T2>::Type S2;
-		typedef typename StorageType<T3>::Type S3;
-		typedef typename StorageType<T4>::Type S4;
+		typedef typename TypeTraits::StorageType<T1>::Type S1;
+		typedef typename TypeTraits::StorageType<T2>::Type S2;
+		typedef typename TypeTraits::StorageType<T3>::Type S3;
+		typedef typename TypeTraits::StorageType<T4>::Type S4;
 		Private::Events::ArgList4<S1, S2, S3, S4> stored(x1, x2, x3, x4);
 		connectEx(tracker, fastdelegate::MakeDelegate(obj, pmf), stored);
 	}
 
 	template<class T, class Y, class T1, class T2, class T3, class T4, class T5> void connect(Private::Events::ConnectionList * tracker, T * obj, Y pmf, T1 x1, T2 x2, T3 x3, T4 x4, T5 x5)
 	{
-		typedef typename StorageType<T1>::Type S1;
-		typedef typename StorageType<T2>::Type S2;
-		typedef typename StorageType<T3>::Type S3;
-		typedef typename StorageType<T4>::Type S4;
-		typedef typename StorageType<T5>::Type S5;
+		typedef typename TypeTraits::StorageType<T1>::Type S1;
+		typedef typename TypeTraits::StorageType<T2>::Type S2;
+		typedef typename TypeTraits::StorageType<T3>::Type S3;
+		typedef typename TypeTraits::StorageType<T4>::Type S4;
+		typedef typename TypeTraits::StorageType<T5>::Type S5;
 		Private::Events::ArgList5<S1, S2, S3, S4, S5> stored(x1, x2, x3, x4, x5);
 		connectEx(tracker, fastdelegate::MakeDelegate(obj, pmf), stored);
 	}
 
 	template<class T, class Y, class T1, class T2, class T3, class T4, class T5, class T6> void connect(Private::Events::ConnectionList * tracker, T * obj, Y pmf, T1 x1, T2 x2, T3 x3, T4 x4, T5 x5, T6 x6)
 	{
-		typedef typename StorageType<T1>::Type S1;
-		typedef typename StorageType<T2>::Type S2;
-		typedef typename StorageType<T3>::Type S3;
-		typedef typename StorageType<T4>::Type S4;
-		typedef typename StorageType<T5>::Type S5;
-		typedef typename StorageType<T6>::Type S6;
+		typedef typename TypeTraits::StorageType<T1>::Type S1;
+		typedef typename TypeTraits::StorageType<T2>::Type S2;
+		typedef typename TypeTraits::StorageType<T3>::Type S3;
+		typedef typename TypeTraits::StorageType<T4>::Type S4;
+		typedef typename TypeTraits::StorageType<T5>::Type S5;
+		typedef typename TypeTraits::StorageType<T6>::Type S6;
 		Private::Events::ArgList6<S1, S2, S3, S4, S5, S6> stored(x1, x2, x3, x4, x5, x6);
 		connectEx(tracker, fastdelegate::MakeDelegate(obj, pmf), stored);
 	}
 
 	template<class T, class Y, class T1, class T2, class T3, class T4, class T5, class T6, class T7> void connect(Private::Events::ConnectionList * tracker, T * obj, Y pmf, T1 x1, T2 x2, T3 x3, T4 x4, T5 x5, T6 x6, T7 x7)
 	{
-		typedef typename StorageType<T1>::Type S1;
-		typedef typename StorageType<T2>::Type S2;
-		typedef typename StorageType<T3>::Type S3;
-		typedef typename StorageType<T4>::Type S4;
-		typedef typename StorageType<T5>::Type S5;
-		typedef typename StorageType<T6>::Type S6;
-		typedef typename StorageType<T7>::Type S7;
+		typedef typename TypeTraits::StorageType<T1>::Type S1;
+		typedef typename TypeTraits::StorageType<T2>::Type S2;
+		typedef typename TypeTraits::StorageType<T3>::Type S3;
+		typedef typename TypeTraits::StorageType<T4>::Type S4;
+		typedef typename TypeTraits::StorageType<T5>::Type S5;
+		typedef typename TypeTraits::StorageType<T6>::Type S6;
+		typedef typename TypeTraits::StorageType<T7>::Type S7;
 		Private::Events::ArgList7<S1, S2, S3, S4, S5, S6, S7> stored(x1, x2, x3, x4, x5, x6, x7);
 		connectEx(tracker, fastdelegate::MakeDelegate(obj, pmf), stored);
 	}
@@ -386,14 +386,14 @@ private:
 };
 //------------------------------------------------------------------------------
 template<class Param0>
-	inline EventRef<Param0, NullType, NullType, NullType, NullType, NullType, NullType, NullType, NullType>
-	Event<Param0, NullType, NullType, NullType, NullType, NullType, NullType, NullType, NullType>::ref()
+	inline EventRef<Param0, Meta::NullType, Meta::NullType, Meta::NullType, Meta::NullType, Meta::NullType, Meta::NullType, Meta::NullType, Meta::NullType>
+	Event<Param0, Meta::NullType, Meta::NullType, Meta::NullType, Meta::NullType, Meta::NullType, Meta::NullType, Meta::NullType, Meta::NullType>::ref()
 {
-	return EventRef<Param0, NullType, NullType, NullType, NullType, NullType, NullType, NullType, NullType>(this);
+	return EventRef<Param0, Meta::NullType, Meta::NullType, Meta::NullType, Meta::NullType, Meta::NullType, Meta::NullType, Meta::NullType, Meta::NullType>(this);
 }
 //------------------------------------------------------------------------------
 template<class Param0, class Param1>
-	class Event<Param0, Param1, NullType, NullType, NullType, NullType, NullType, NullType, NullType> : public AbstractEvent
+	class Event<Param0, Param1, Meta::NullType, Meta::NullType, Meta::NullType, Meta::NullType, Meta::NullType, Meta::NullType, Meta::NullType> : public AbstractEvent
 {
 public:
 	typedef Private::Events::Connection2<Param0, Param1> ConnectionType;
@@ -401,7 +401,7 @@ public:
 	Event() {}
 	~Event() {}
 
-	inline EventRef<Param0, Param1, NullType, NullType, NullType, NullType, NullType, NullType, NullType> ref();
+	inline EventRef<Param0, Param1, Meta::NullType, Meta::NullType, Meta::NullType, Meta::NullType, Meta::NullType, Meta::NullType, Meta::NullType> ref();
 
 	void addConnection(Private::Events::ConnectionList * tracker, ConnectionType * conn)
 	{
@@ -421,10 +421,10 @@ public:
 };
 //------------------------------------------------------------------------------
 template<class Param0, class Param1>
-	class EventRef<Param0, Param1, NullType, NullType, NullType, NullType, NullType, NullType, NullType> : public AbstractEventRef
+	class EventRef<Param0, Param1, Meta::NullType, Meta::NullType, Meta::NullType, Meta::NullType, Meta::NullType, Meta::NullType, Meta::NullType> : public AbstractEventRef
 {
 public:
-	typedef Event<Param0, Param1, NullType, NullType, NullType, NullType, NullType, NullType, NullType> EventType;
+	typedef Event<Param0, Param1, Meta::NullType, Meta::NullType, Meta::NullType, Meta::NullType, Meta::NullType, Meta::NullType, Meta::NullType> EventType;
 	typedef typename EventType::ConnectionType ConnectionType;
 
 	explicit EventRef(EventType * ev) : AbstractEventRef(ev) {}
@@ -453,70 +453,70 @@ public:
 
 	template<class T, class Y, class T1> void connect(Private::Events::ConnectionList * tracker, T * obj, Y pmf, T1 x1)
 	{
-		typedef typename StorageType<T1>::Type S1;
+		typedef typename TypeTraits::StorageType<T1>::Type S1;
 		Private::Events::ArgList1<S1> stored(x1);
 		connectEx(tracker, fastdelegate::MakeDelegate(obj, pmf), stored);
 	}
 
 	template<class T, class Y, class T1, class T2> void connect(Private::Events::ConnectionList * tracker, T * obj, Y pmf, T1 x1, T2 x2)
 	{
-		typedef typename StorageType<T1>::Type S1;
-		typedef typename StorageType<T2>::Type S2;
+		typedef typename TypeTraits::StorageType<T1>::Type S1;
+		typedef typename TypeTraits::StorageType<T2>::Type S2;
 		Private::Events::ArgList2<S1, S2> stored(x1, x2);
 		connectEx(tracker, fastdelegate::MakeDelegate(obj, pmf), stored);
 	}
 
 	template<class T, class Y, class T1, class T2, class T3> void connect(Private::Events::ConnectionList * tracker, T * obj, Y pmf, T1 x1, T2 x2, T3 x3)
 	{
-		typedef typename StorageType<T1>::Type S1;
-		typedef typename StorageType<T2>::Type S2;
-		typedef typename StorageType<T3>::Type S3;
+		typedef typename TypeTraits::StorageType<T1>::Type S1;
+		typedef typename TypeTraits::StorageType<T2>::Type S2;
+		typedef typename TypeTraits::StorageType<T3>::Type S3;
 		Private::Events::ArgList3<S1, S2, S3> stored(x1, x2, x3);
 		connectEx(tracker, fastdelegate::MakeDelegate(obj, pmf), stored);
 	}
 
 	template<class T, class Y, class T1, class T2, class T3, class T4> void connect(Private::Events::ConnectionList * tracker, T * obj, Y pmf, T1 x1, T2 x2, T3 x3, T4 x4)
 	{
-		typedef typename StorageType<T1>::Type S1;
-		typedef typename StorageType<T2>::Type S2;
-		typedef typename StorageType<T3>::Type S3;
-		typedef typename StorageType<T4>::Type S4;
+		typedef typename TypeTraits::StorageType<T1>::Type S1;
+		typedef typename TypeTraits::StorageType<T2>::Type S2;
+		typedef typename TypeTraits::StorageType<T3>::Type S3;
+		typedef typename TypeTraits::StorageType<T4>::Type S4;
 		Private::Events::ArgList4<S1, S2, S3, S4> stored(x1, x2, x3, x4);
 		connectEx(tracker, fastdelegate::MakeDelegate(obj, pmf), stored);
 	}
 
 	template<class T, class Y, class T1, class T2, class T3, class T4, class T5> void connect(Private::Events::ConnectionList * tracker, T * obj, Y pmf, T1 x1, T2 x2, T3 x3, T4 x4, T5 x5)
 	{
-		typedef typename StorageType<T1>::Type S1;
-		typedef typename StorageType<T2>::Type S2;
-		typedef typename StorageType<T3>::Type S3;
-		typedef typename StorageType<T4>::Type S4;
-		typedef typename StorageType<T5>::Type S5;
+		typedef typename TypeTraits::StorageType<T1>::Type S1;
+		typedef typename TypeTraits::StorageType<T2>::Type S2;
+		typedef typename TypeTraits::StorageType<T3>::Type S3;
+		typedef typename TypeTraits::StorageType<T4>::Type S4;
+		typedef typename TypeTraits::StorageType<T5>::Type S5;
 		Private::Events::ArgList5<S1, S2, S3, S4, S5> stored(x1, x2, x3, x4, x5);
 		connectEx(tracker, fastdelegate::MakeDelegate(obj, pmf), stored);
 	}
 
 	template<class T, class Y, class T1, class T2, class T3, class T4, class T5, class T6> void connect(Private::Events::ConnectionList * tracker, T * obj, Y pmf, T1 x1, T2 x2, T3 x3, T4 x4, T5 x5, T6 x6)
 	{
-		typedef typename StorageType<T1>::Type S1;
-		typedef typename StorageType<T2>::Type S2;
-		typedef typename StorageType<T3>::Type S3;
-		typedef typename StorageType<T4>::Type S4;
-		typedef typename StorageType<T5>::Type S5;
-		typedef typename StorageType<T6>::Type S6;
+		typedef typename TypeTraits::StorageType<T1>::Type S1;
+		typedef typename TypeTraits::StorageType<T2>::Type S2;
+		typedef typename TypeTraits::StorageType<T3>::Type S3;
+		typedef typename TypeTraits::StorageType<T4>::Type S4;
+		typedef typename TypeTraits::StorageType<T5>::Type S5;
+		typedef typename TypeTraits::StorageType<T6>::Type S6;
 		Private::Events::ArgList6<S1, S2, S3, S4, S5, S6> stored(x1, x2, x3, x4, x5, x6);
 		connectEx(tracker, fastdelegate::MakeDelegate(obj, pmf), stored);
 	}
 
 	template<class T, class Y, class T1, class T2, class T3, class T4, class T5, class T6, class T7> void connect(Private::Events::ConnectionList * tracker, T * obj, Y pmf, T1 x1, T2 x2, T3 x3, T4 x4, T5 x5, T6 x6, T7 x7)
 	{
-		typedef typename StorageType<T1>::Type S1;
-		typedef typename StorageType<T2>::Type S2;
-		typedef typename StorageType<T3>::Type S3;
-		typedef typename StorageType<T4>::Type S4;
-		typedef typename StorageType<T5>::Type S5;
-		typedef typename StorageType<T6>::Type S6;
-		typedef typename StorageType<T7>::Type S7;
+		typedef typename TypeTraits::StorageType<T1>::Type S1;
+		typedef typename TypeTraits::StorageType<T2>::Type S2;
+		typedef typename TypeTraits::StorageType<T3>::Type S3;
+		typedef typename TypeTraits::StorageType<T4>::Type S4;
+		typedef typename TypeTraits::StorageType<T5>::Type S5;
+		typedef typename TypeTraits::StorageType<T6>::Type S6;
+		typedef typename TypeTraits::StorageType<T7>::Type S7;
 		Private::Events::ArgList7<S1, S2, S3, S4, S5, S6, S7> stored(x1, x2, x3, x4, x5, x6, x7);
 		connectEx(tracker, fastdelegate::MakeDelegate(obj, pmf), stored);
 	}
@@ -561,14 +561,14 @@ private:
 };
 //------------------------------------------------------------------------------
 template<class Param0, class Param1>
-	inline EventRef<Param0, Param1, NullType, NullType, NullType, NullType, NullType, NullType, NullType>
-	Event<Param0, Param1, NullType, NullType, NullType, NullType, NullType, NullType, NullType>::ref()
+	inline EventRef<Param0, Param1, Meta::NullType, Meta::NullType, Meta::NullType, Meta::NullType, Meta::NullType, Meta::NullType, Meta::NullType>
+	Event<Param0, Param1, Meta::NullType, Meta::NullType, Meta::NullType, Meta::NullType, Meta::NullType, Meta::NullType, Meta::NullType>::ref()
 {
-	return EventRef<Param0, Param1, NullType, NullType, NullType, NullType, NullType, NullType, NullType>(this);
+	return EventRef<Param0, Param1, Meta::NullType, Meta::NullType, Meta::NullType, Meta::NullType, Meta::NullType, Meta::NullType, Meta::NullType>(this);
 }
 //------------------------------------------------------------------------------
 template<class Param0, class Param1, class Param2>
-	class Event<Param0, Param1, Param2, NullType, NullType, NullType, NullType, NullType, NullType> : public AbstractEvent
+	class Event<Param0, Param1, Param2, Meta::NullType, Meta::NullType, Meta::NullType, Meta::NullType, Meta::NullType, Meta::NullType> : public AbstractEvent
 {
 public:
 	typedef Private::Events::Connection3<Param0, Param1, Param2> ConnectionType;
@@ -576,7 +576,7 @@ public:
 	Event() {}
 	~Event() {}
 
-	inline EventRef<Param0, Param1, Param2, NullType, NullType, NullType, NullType, NullType, NullType> ref();
+	inline EventRef<Param0, Param1, Param2, Meta::NullType, Meta::NullType, Meta::NullType, Meta::NullType, Meta::NullType, Meta::NullType> ref();
 
 	void addConnection(Private::Events::ConnectionList * tracker, ConnectionType * conn)
 	{
@@ -596,10 +596,10 @@ public:
 };
 //------------------------------------------------------------------------------
 template<class Param0, class Param1, class Param2>
-	class EventRef<Param0, Param1, Param2, NullType, NullType, NullType, NullType, NullType, NullType> : public AbstractEventRef
+	class EventRef<Param0, Param1, Param2, Meta::NullType, Meta::NullType, Meta::NullType, Meta::NullType, Meta::NullType, Meta::NullType> : public AbstractEventRef
 {
 public:
-	typedef Event<Param0, Param1, Param2, NullType, NullType, NullType, NullType, NullType, NullType> EventType;
+	typedef Event<Param0, Param1, Param2, Meta::NullType, Meta::NullType, Meta::NullType, Meta::NullType, Meta::NullType, Meta::NullType> EventType;
 	typedef typename EventType::ConnectionType ConnectionType;
 
 	explicit EventRef(EventType * ev) : AbstractEventRef(ev) {}
@@ -628,70 +628,70 @@ public:
 
 	template<class T, class Y, class T1> void connect(Private::Events::ConnectionList * tracker, T * obj, Y pmf, T1 x1)
 	{
-		typedef typename StorageType<T1>::Type S1;
+		typedef typename TypeTraits::StorageType<T1>::Type S1;
 		Private::Events::ArgList1<S1> stored(x1);
 		connectEx(tracker, fastdelegate::MakeDelegate(obj, pmf), stored);
 	}
 
 	template<class T, class Y, class T1, class T2> void connect(Private::Events::ConnectionList * tracker, T * obj, Y pmf, T1 x1, T2 x2)
 	{
-		typedef typename StorageType<T1>::Type S1;
-		typedef typename StorageType<T2>::Type S2;
+		typedef typename TypeTraits::StorageType<T1>::Type S1;
+		typedef typename TypeTraits::StorageType<T2>::Type S2;
 		Private::Events::ArgList2<S1, S2> stored(x1, x2);
 		connectEx(tracker, fastdelegate::MakeDelegate(obj, pmf), stored);
 	}
 
 	template<class T, class Y, class T1, class T2, class T3> void connect(Private::Events::ConnectionList * tracker, T * obj, Y pmf, T1 x1, T2 x2, T3 x3)
 	{
-		typedef typename StorageType<T1>::Type S1;
-		typedef typename StorageType<T2>::Type S2;
-		typedef typename StorageType<T3>::Type S3;
+		typedef typename TypeTraits::StorageType<T1>::Type S1;
+		typedef typename TypeTraits::StorageType<T2>::Type S2;
+		typedef typename TypeTraits::StorageType<T3>::Type S3;
 		Private::Events::ArgList3<S1, S2, S3> stored(x1, x2, x3);
 		connectEx(tracker, fastdelegate::MakeDelegate(obj, pmf), stored);
 	}
 
 	template<class T, class Y, class T1, class T2, class T3, class T4> void connect(Private::Events::ConnectionList * tracker, T * obj, Y pmf, T1 x1, T2 x2, T3 x3, T4 x4)
 	{
-		typedef typename StorageType<T1>::Type S1;
-		typedef typename StorageType<T2>::Type S2;
-		typedef typename StorageType<T3>::Type S3;
-		typedef typename StorageType<T4>::Type S4;
+		typedef typename TypeTraits::StorageType<T1>::Type S1;
+		typedef typename TypeTraits::StorageType<T2>::Type S2;
+		typedef typename TypeTraits::StorageType<T3>::Type S3;
+		typedef typename TypeTraits::StorageType<T4>::Type S4;
 		Private::Events::ArgList4<S1, S2, S3, S4> stored(x1, x2, x3, x4);
 		connectEx(tracker, fastdelegate::MakeDelegate(obj, pmf), stored);
 	}
 
 	template<class T, class Y, class T1, class T2, class T3, class T4, class T5> void connect(Private::Events::ConnectionList * tracker, T * obj, Y pmf, T1 x1, T2 x2, T3 x3, T4 x4, T5 x5)
 	{
-		typedef typename StorageType<T1>::Type S1;
-		typedef typename StorageType<T2>::Type S2;
-		typedef typename StorageType<T3>::Type S3;
-		typedef typename StorageType<T4>::Type S4;
-		typedef typename StorageType<T5>::Type S5;
+		typedef typename TypeTraits::StorageType<T1>::Type S1;
+		typedef typename TypeTraits::StorageType<T2>::Type S2;
+		typedef typename TypeTraits::StorageType<T3>::Type S3;
+		typedef typename TypeTraits::StorageType<T4>::Type S4;
+		typedef typename TypeTraits::StorageType<T5>::Type S5;
 		Private::Events::ArgList5<S1, S2, S3, S4, S5> stored(x1, x2, x3, x4, x5);
 		connectEx(tracker, fastdelegate::MakeDelegate(obj, pmf), stored);
 	}
 
 	template<class T, class Y, class T1, class T2, class T3, class T4, class T5, class T6> void connect(Private::Events::ConnectionList * tracker, T * obj, Y pmf, T1 x1, T2 x2, T3 x3, T4 x4, T5 x5, T6 x6)
 	{
-		typedef typename StorageType<T1>::Type S1;
-		typedef typename StorageType<T2>::Type S2;
-		typedef typename StorageType<T3>::Type S3;
-		typedef typename StorageType<T4>::Type S4;
-		typedef typename StorageType<T5>::Type S5;
-		typedef typename StorageType<T6>::Type S6;
+		typedef typename TypeTraits::StorageType<T1>::Type S1;
+		typedef typename TypeTraits::StorageType<T2>::Type S2;
+		typedef typename TypeTraits::StorageType<T3>::Type S3;
+		typedef typename TypeTraits::StorageType<T4>::Type S4;
+		typedef typename TypeTraits::StorageType<T5>::Type S5;
+		typedef typename TypeTraits::StorageType<T6>::Type S6;
 		Private::Events::ArgList6<S1, S2, S3, S4, S5, S6> stored(x1, x2, x3, x4, x5, x6);
 		connectEx(tracker, fastdelegate::MakeDelegate(obj, pmf), stored);
 	}
 
 	template<class T, class Y, class T1, class T2, class T3, class T4, class T5, class T6, class T7> void connect(Private::Events::ConnectionList * tracker, T * obj, Y pmf, T1 x1, T2 x2, T3 x3, T4 x4, T5 x5, T6 x6, T7 x7)
 	{
-		typedef typename StorageType<T1>::Type S1;
-		typedef typename StorageType<T2>::Type S2;
-		typedef typename StorageType<T3>::Type S3;
-		typedef typename StorageType<T4>::Type S4;
-		typedef typename StorageType<T5>::Type S5;
-		typedef typename StorageType<T6>::Type S6;
-		typedef typename StorageType<T7>::Type S7;
+		typedef typename TypeTraits::StorageType<T1>::Type S1;
+		typedef typename TypeTraits::StorageType<T2>::Type S2;
+		typedef typename TypeTraits::StorageType<T3>::Type S3;
+		typedef typename TypeTraits::StorageType<T4>::Type S4;
+		typedef typename TypeTraits::StorageType<T5>::Type S5;
+		typedef typename TypeTraits::StorageType<T6>::Type S6;
+		typedef typename TypeTraits::StorageType<T7>::Type S7;
 		Private::Events::ArgList7<S1, S2, S3, S4, S5, S6, S7> stored(x1, x2, x3, x4, x5, x6, x7);
 		connectEx(tracker, fastdelegate::MakeDelegate(obj, pmf), stored);
 	}
@@ -732,14 +732,14 @@ private:
 };
 //------------------------------------------------------------------------------
 template<class Param0, class Param1, class Param2>
-	inline EventRef<Param0, Param1, Param2, NullType, NullType, NullType, NullType, NullType, NullType>
-	Event<Param0, Param1, Param2, NullType, NullType, NullType, NullType, NullType, NullType>::ref()
+	inline EventRef<Param0, Param1, Param2, Meta::NullType, Meta::NullType, Meta::NullType, Meta::NullType, Meta::NullType, Meta::NullType>
+	Event<Param0, Param1, Param2, Meta::NullType, Meta::NullType, Meta::NullType, Meta::NullType, Meta::NullType, Meta::NullType>::ref()
 {
-	return EventRef<Param0, Param1, Param2, NullType, NullType, NullType, NullType, NullType, NullType>(this);
+	return EventRef<Param0, Param1, Param2, Meta::NullType, Meta::NullType, Meta::NullType, Meta::NullType, Meta::NullType, Meta::NullType>(this);
 }
 //------------------------------------------------------------------------------
 template<class Param0, class Param1, class Param2, class Param3>
-	class Event<Param0, Param1, Param2, Param3, NullType, NullType, NullType, NullType, NullType> : public AbstractEvent
+	class Event<Param0, Param1, Param2, Param3, Meta::NullType, Meta::NullType, Meta::NullType, Meta::NullType, Meta::NullType> : public AbstractEvent
 {
 public:
 	typedef Private::Events::Connection4<Param0, Param1, Param2, Param3> ConnectionType;
@@ -747,7 +747,7 @@ public:
 	Event() {}
 	~Event() {}
 
-	inline EventRef<Param0, Param1, Param2, Param3, NullType, NullType, NullType, NullType, NullType> ref();
+	inline EventRef<Param0, Param1, Param2, Param3, Meta::NullType, Meta::NullType, Meta::NullType, Meta::NullType, Meta::NullType> ref();
 
 	void addConnection(Private::Events::ConnectionList * tracker, ConnectionType * conn)
 	{
@@ -767,10 +767,10 @@ public:
 };
 //------------------------------------------------------------------------------
 template<class Param0, class Param1, class Param2, class Param3>
-	class EventRef<Param0, Param1, Param2, Param3, NullType, NullType, NullType, NullType, NullType> : public AbstractEventRef
+	class EventRef<Param0, Param1, Param2, Param3, Meta::NullType, Meta::NullType, Meta::NullType, Meta::NullType, Meta::NullType> : public AbstractEventRef
 {
 public:
-	typedef Event<Param0, Param1, Param2, Param3, NullType, NullType, NullType, NullType, NullType> EventType;
+	typedef Event<Param0, Param1, Param2, Param3, Meta::NullType, Meta::NullType, Meta::NullType, Meta::NullType, Meta::NullType> EventType;
 	typedef typename EventType::ConnectionType ConnectionType;
 
 	explicit EventRef(EventType * ev) : AbstractEventRef(ev) {}
@@ -799,70 +799,70 @@ public:
 
 	template<class T, class Y, class T1> void connect(Private::Events::ConnectionList * tracker, T * obj, Y pmf, T1 x1)
 	{
-		typedef typename StorageType<T1>::Type S1;
+		typedef typename TypeTraits::StorageType<T1>::Type S1;
 		Private::Events::ArgList1<S1> stored(x1);
 		connectEx(tracker, fastdelegate::MakeDelegate(obj, pmf), stored);
 	}
 
 	template<class T, class Y, class T1, class T2> void connect(Private::Events::ConnectionList * tracker, T * obj, Y pmf, T1 x1, T2 x2)
 	{
-		typedef typename StorageType<T1>::Type S1;
-		typedef typename StorageType<T2>::Type S2;
+		typedef typename TypeTraits::StorageType<T1>::Type S1;
+		typedef typename TypeTraits::StorageType<T2>::Type S2;
 		Private::Events::ArgList2<S1, S2> stored(x1, x2);
 		connectEx(tracker, fastdelegate::MakeDelegate(obj, pmf), stored);
 	}
 
 	template<class T, class Y, class T1, class T2, class T3> void connect(Private::Events::ConnectionList * tracker, T * obj, Y pmf, T1 x1, T2 x2, T3 x3)
 	{
-		typedef typename StorageType<T1>::Type S1;
-		typedef typename StorageType<T2>::Type S2;
-		typedef typename StorageType<T3>::Type S3;
+		typedef typename TypeTraits::StorageType<T1>::Type S1;
+		typedef typename TypeTraits::StorageType<T2>::Type S2;
+		typedef typename TypeTraits::StorageType<T3>::Type S3;
 		Private::Events::ArgList3<S1, S2, S3> stored(x1, x2, x3);
 		connectEx(tracker, fastdelegate::MakeDelegate(obj, pmf), stored);
 	}
 
 	template<class T, class Y, class T1, class T2, class T3, class T4> void connect(Private::Events::ConnectionList * tracker, T * obj, Y pmf, T1 x1, T2 x2, T3 x3, T4 x4)
 	{
-		typedef typename StorageType<T1>::Type S1;
-		typedef typename StorageType<T2>::Type S2;
-		typedef typename StorageType<T3>::Type S3;
-		typedef typename StorageType<T4>::Type S4;
+		typedef typename TypeTraits::StorageType<T1>::Type S1;
+		typedef typename TypeTraits::StorageType<T2>::Type S2;
+		typedef typename TypeTraits::StorageType<T3>::Type S3;
+		typedef typename TypeTraits::StorageType<T4>::Type S4;
 		Private::Events::ArgList4<S1, S2, S3, S4> stored(x1, x2, x3, x4);
 		connectEx(tracker, fastdelegate::MakeDelegate(obj, pmf), stored);
 	}
 
 	template<class T, class Y, class T1, class T2, class T3, class T4, class T5> void connect(Private::Events::ConnectionList * tracker, T * obj, Y pmf, T1 x1, T2 x2, T3 x3, T4 x4, T5 x5)
 	{
-		typedef typename StorageType<T1>::Type S1;
-		typedef typename StorageType<T2>::Type S2;
-		typedef typename StorageType<T3>::Type S3;
-		typedef typename StorageType<T4>::Type S4;
-		typedef typename StorageType<T5>::Type S5;
+		typedef typename TypeTraits::StorageType<T1>::Type S1;
+		typedef typename TypeTraits::StorageType<T2>::Type S2;
+		typedef typename TypeTraits::StorageType<T3>::Type S3;
+		typedef typename TypeTraits::StorageType<T4>::Type S4;
+		typedef typename TypeTraits::StorageType<T5>::Type S5;
 		Private::Events::ArgList5<S1, S2, S3, S4, S5> stored(x1, x2, x3, x4, x5);
 		connectEx(tracker, fastdelegate::MakeDelegate(obj, pmf), stored);
 	}
 
 	template<class T, class Y, class T1, class T2, class T3, class T4, class T5, class T6> void connect(Private::Events::ConnectionList * tracker, T * obj, Y pmf, T1 x1, T2 x2, T3 x3, T4 x4, T5 x5, T6 x6)
 	{
-		typedef typename StorageType<T1>::Type S1;
-		typedef typename StorageType<T2>::Type S2;
-		typedef typename StorageType<T3>::Type S3;
-		typedef typename StorageType<T4>::Type S4;
-		typedef typename StorageType<T5>::Type S5;
-		typedef typename StorageType<T6>::Type S6;
+		typedef typename TypeTraits::StorageType<T1>::Type S1;
+		typedef typename TypeTraits::StorageType<T2>::Type S2;
+		typedef typename TypeTraits::StorageType<T3>::Type S3;
+		typedef typename TypeTraits::StorageType<T4>::Type S4;
+		typedef typename TypeTraits::StorageType<T5>::Type S5;
+		typedef typename TypeTraits::StorageType<T6>::Type S6;
 		Private::Events::ArgList6<S1, S2, S3, S4, S5, S6> stored(x1, x2, x3, x4, x5, x6);
 		connectEx(tracker, fastdelegate::MakeDelegate(obj, pmf), stored);
 	}
 
 	template<class T, class Y, class T1, class T2, class T3, class T4, class T5, class T6, class T7> void connect(Private::Events::ConnectionList * tracker, T * obj, Y pmf, T1 x1, T2 x2, T3 x3, T4 x4, T5 x5, T6 x6, T7 x7)
 	{
-		typedef typename StorageType<T1>::Type S1;
-		typedef typename StorageType<T2>::Type S2;
-		typedef typename StorageType<T3>::Type S3;
-		typedef typename StorageType<T4>::Type S4;
-		typedef typename StorageType<T5>::Type S5;
-		typedef typename StorageType<T6>::Type S6;
-		typedef typename StorageType<T7>::Type S7;
+		typedef typename TypeTraits::StorageType<T1>::Type S1;
+		typedef typename TypeTraits::StorageType<T2>::Type S2;
+		typedef typename TypeTraits::StorageType<T3>::Type S3;
+		typedef typename TypeTraits::StorageType<T4>::Type S4;
+		typedef typename TypeTraits::StorageType<T5>::Type S5;
+		typedef typename TypeTraits::StorageType<T6>::Type S6;
+		typedef typename TypeTraits::StorageType<T7>::Type S7;
 		Private::Events::ArgList7<S1, S2, S3, S4, S5, S6, S7> stored(x1, x2, x3, x4, x5, x6, x7);
 		connectEx(tracker, fastdelegate::MakeDelegate(obj, pmf), stored);
 	}
@@ -899,14 +899,14 @@ private:
 };
 //------------------------------------------------------------------------------
 template<class Param0, class Param1, class Param2, class Param3>
-	inline EventRef<Param0, Param1, Param2, Param3, NullType, NullType, NullType, NullType, NullType>
-	Event<Param0, Param1, Param2, Param3, NullType, NullType, NullType, NullType, NullType>::ref()
+	inline EventRef<Param0, Param1, Param2, Param3, Meta::NullType, Meta::NullType, Meta::NullType, Meta::NullType, Meta::NullType>
+	Event<Param0, Param1, Param2, Param3, Meta::NullType, Meta::NullType, Meta::NullType, Meta::NullType, Meta::NullType>::ref()
 {
-	return EventRef<Param0, Param1, Param2, Param3, NullType, NullType, NullType, NullType, NullType>(this);
+	return EventRef<Param0, Param1, Param2, Param3, Meta::NullType, Meta::NullType, Meta::NullType, Meta::NullType, Meta::NullType>(this);
 }
 //------------------------------------------------------------------------------
 template<class Param0, class Param1, class Param2, class Param3, class Param4>
-	class Event<Param0, Param1, Param2, Param3, Param4, NullType, NullType, NullType, NullType> : public AbstractEvent
+	class Event<Param0, Param1, Param2, Param3, Param4, Meta::NullType, Meta::NullType, Meta::NullType, Meta::NullType> : public AbstractEvent
 {
 public:
 	typedef Private::Events::Connection5<Param0, Param1, Param2, Param3, Param4> ConnectionType;
@@ -914,7 +914,7 @@ public:
 	Event() {}
 	~Event() {}
 
-	inline EventRef<Param0, Param1, Param2, Param3, Param4, NullType, NullType, NullType, NullType> ref();
+	inline EventRef<Param0, Param1, Param2, Param3, Param4, Meta::NullType, Meta::NullType, Meta::NullType, Meta::NullType> ref();
 
 	void addConnection(Private::Events::ConnectionList * tracker, ConnectionType * conn)
 	{
@@ -934,10 +934,10 @@ public:
 };
 //------------------------------------------------------------------------------
 template<class Param0, class Param1, class Param2, class Param3, class Param4>
-	class EventRef<Param0, Param1, Param2, Param3, Param4, NullType, NullType, NullType, NullType> : public AbstractEventRef
+	class EventRef<Param0, Param1, Param2, Param3, Param4, Meta::NullType, Meta::NullType, Meta::NullType, Meta::NullType> : public AbstractEventRef
 {
 public:
-	typedef Event<Param0, Param1, Param2, Param3, Param4, NullType, NullType, NullType, NullType> EventType;
+	typedef Event<Param0, Param1, Param2, Param3, Param4, Meta::NullType, Meta::NullType, Meta::NullType, Meta::NullType> EventType;
 	typedef typename EventType::ConnectionType ConnectionType;
 
 	explicit EventRef(EventType * ev) : AbstractEventRef(ev) {}
@@ -966,70 +966,70 @@ public:
 
 	template<class T, class Y, class T1> void connect(Private::Events::ConnectionList * tracker, T * obj, Y pmf, T1 x1)
 	{
-		typedef typename StorageType<T1>::Type S1;
+		typedef typename TypeTraits::StorageType<T1>::Type S1;
 		Private::Events::ArgList1<S1> stored(x1);
 		connectEx(tracker, fastdelegate::MakeDelegate(obj, pmf), stored);
 	}
 
 	template<class T, class Y, class T1, class T2> void connect(Private::Events::ConnectionList * tracker, T * obj, Y pmf, T1 x1, T2 x2)
 	{
-		typedef typename StorageType<T1>::Type S1;
-		typedef typename StorageType<T2>::Type S2;
+		typedef typename TypeTraits::StorageType<T1>::Type S1;
+		typedef typename TypeTraits::StorageType<T2>::Type S2;
 		Private::Events::ArgList2<S1, S2> stored(x1, x2);
 		connectEx(tracker, fastdelegate::MakeDelegate(obj, pmf), stored);
 	}
 
 	template<class T, class Y, class T1, class T2, class T3> void connect(Private::Events::ConnectionList * tracker, T * obj, Y pmf, T1 x1, T2 x2, T3 x3)
 	{
-		typedef typename StorageType<T1>::Type S1;
-		typedef typename StorageType<T2>::Type S2;
-		typedef typename StorageType<T3>::Type S3;
+		typedef typename TypeTraits::StorageType<T1>::Type S1;
+		typedef typename TypeTraits::StorageType<T2>::Type S2;
+		typedef typename TypeTraits::StorageType<T3>::Type S3;
 		Private::Events::ArgList3<S1, S2, S3> stored(x1, x2, x3);
 		connectEx(tracker, fastdelegate::MakeDelegate(obj, pmf), stored);
 	}
 
 	template<class T, class Y, class T1, class T2, class T3, class T4> void connect(Private::Events::ConnectionList * tracker, T * obj, Y pmf, T1 x1, T2 x2, T3 x3, T4 x4)
 	{
-		typedef typename StorageType<T1>::Type S1;
-		typedef typename StorageType<T2>::Type S2;
-		typedef typename StorageType<T3>::Type S3;
-		typedef typename StorageType<T4>::Type S4;
+		typedef typename TypeTraits::StorageType<T1>::Type S1;
+		typedef typename TypeTraits::StorageType<T2>::Type S2;
+		typedef typename TypeTraits::StorageType<T3>::Type S3;
+		typedef typename TypeTraits::StorageType<T4>::Type S4;
 		Private::Events::ArgList4<S1, S2, S3, S4> stored(x1, x2, x3, x4);
 		connectEx(tracker, fastdelegate::MakeDelegate(obj, pmf), stored);
 	}
 
 	template<class T, class Y, class T1, class T2, class T3, class T4, class T5> void connect(Private::Events::ConnectionList * tracker, T * obj, Y pmf, T1 x1, T2 x2, T3 x3, T4 x4, T5 x5)
 	{
-		typedef typename StorageType<T1>::Type S1;
-		typedef typename StorageType<T2>::Type S2;
-		typedef typename StorageType<T3>::Type S3;
-		typedef typename StorageType<T4>::Type S4;
-		typedef typename StorageType<T5>::Type S5;
+		typedef typename TypeTraits::StorageType<T1>::Type S1;
+		typedef typename TypeTraits::StorageType<T2>::Type S2;
+		typedef typename TypeTraits::StorageType<T3>::Type S3;
+		typedef typename TypeTraits::StorageType<T4>::Type S4;
+		typedef typename TypeTraits::StorageType<T5>::Type S5;
 		Private::Events::ArgList5<S1, S2, S3, S4, S5> stored(x1, x2, x3, x4, x5);
 		connectEx(tracker, fastdelegate::MakeDelegate(obj, pmf), stored);
 	}
 
 	template<class T, class Y, class T1, class T2, class T3, class T4, class T5, class T6> void connect(Private::Events::ConnectionList * tracker, T * obj, Y pmf, T1 x1, T2 x2, T3 x3, T4 x4, T5 x5, T6 x6)
 	{
-		typedef typename StorageType<T1>::Type S1;
-		typedef typename StorageType<T2>::Type S2;
-		typedef typename StorageType<T3>::Type S3;
-		typedef typename StorageType<T4>::Type S4;
-		typedef typename StorageType<T5>::Type S5;
-		typedef typename StorageType<T6>::Type S6;
+		typedef typename TypeTraits::StorageType<T1>::Type S1;
+		typedef typename TypeTraits::StorageType<T2>::Type S2;
+		typedef typename TypeTraits::StorageType<T3>::Type S3;
+		typedef typename TypeTraits::StorageType<T4>::Type S4;
+		typedef typename TypeTraits::StorageType<T5>::Type S5;
+		typedef typename TypeTraits::StorageType<T6>::Type S6;
 		Private::Events::ArgList6<S1, S2, S3, S4, S5, S6> stored(x1, x2, x3, x4, x5, x6);
 		connectEx(tracker, fastdelegate::MakeDelegate(obj, pmf), stored);
 	}
 
 	template<class T, class Y, class T1, class T2, class T3, class T4, class T5, class T6, class T7> void connect(Private::Events::ConnectionList * tracker, T * obj, Y pmf, T1 x1, T2 x2, T3 x3, T4 x4, T5 x5, T6 x6, T7 x7)
 	{
-		typedef typename StorageType<T1>::Type S1;
-		typedef typename StorageType<T2>::Type S2;
-		typedef typename StorageType<T3>::Type S3;
-		typedef typename StorageType<T4>::Type S4;
-		typedef typename StorageType<T5>::Type S5;
-		typedef typename StorageType<T6>::Type S6;
-		typedef typename StorageType<T7>::Type S7;
+		typedef typename TypeTraits::StorageType<T1>::Type S1;
+		typedef typename TypeTraits::StorageType<T2>::Type S2;
+		typedef typename TypeTraits::StorageType<T3>::Type S3;
+		typedef typename TypeTraits::StorageType<T4>::Type S4;
+		typedef typename TypeTraits::StorageType<T5>::Type S5;
+		typedef typename TypeTraits::StorageType<T6>::Type S6;
+		typedef typename TypeTraits::StorageType<T7>::Type S7;
 		Private::Events::ArgList7<S1, S2, S3, S4, S5, S6, S7> stored(x1, x2, x3, x4, x5, x6, x7);
 		connectEx(tracker, fastdelegate::MakeDelegate(obj, pmf), stored);
 	}
@@ -1062,14 +1062,14 @@ private:
 };
 //------------------------------------------------------------------------------
 template<class Param0, class Param1, class Param2, class Param3, class Param4>
-	inline EventRef<Param0, Param1, Param2, Param3, Param4, NullType, NullType, NullType, NullType>
-	Event<Param0, Param1, Param2, Param3, Param4, NullType, NullType, NullType, NullType>::ref()
+	inline EventRef<Param0, Param1, Param2, Param3, Param4, Meta::NullType, Meta::NullType, Meta::NullType, Meta::NullType>
+	Event<Param0, Param1, Param2, Param3, Param4, Meta::NullType, Meta::NullType, Meta::NullType, Meta::NullType>::ref()
 {
-	return EventRef<Param0, Param1, Param2, Param3, Param4, NullType, NullType, NullType, NullType>(this);
+	return EventRef<Param0, Param1, Param2, Param3, Param4, Meta::NullType, Meta::NullType, Meta::NullType, Meta::NullType>(this);
 }
 //------------------------------------------------------------------------------
 template<class Param0, class Param1, class Param2, class Param3, class Param4, class Param5>
-	class Event<Param0, Param1, Param2, Param3, Param4, Param5, NullType, NullType, NullType> : public AbstractEvent
+	class Event<Param0, Param1, Param2, Param3, Param4, Param5, Meta::NullType, Meta::NullType, Meta::NullType> : public AbstractEvent
 {
 public:
 	typedef Private::Events::Connection6<Param0, Param1, Param2, Param3, Param4, Param5> ConnectionType;
@@ -1077,7 +1077,7 @@ public:
 	Event() {}
 	~Event() {}
 
-	inline EventRef<Param0, Param1, Param2, Param3, Param4, Param5, NullType, NullType, NullType> ref();
+	inline EventRef<Param0, Param1, Param2, Param3, Param4, Param5, Meta::NullType, Meta::NullType, Meta::NullType> ref();
 
 	void addConnection(Private::Events::ConnectionList * tracker, ConnectionType * conn)
 	{
@@ -1097,10 +1097,10 @@ public:
 };
 //------------------------------------------------------------------------------
 template<class Param0, class Param1, class Param2, class Param3, class Param4, class Param5>
-	class EventRef<Param0, Param1, Param2, Param3, Param4, Param5, NullType, NullType, NullType> : public AbstractEventRef
+	class EventRef<Param0, Param1, Param2, Param3, Param4, Param5, Meta::NullType, Meta::NullType, Meta::NullType> : public AbstractEventRef
 {
 public:
-	typedef Event<Param0, Param1, Param2, Param3, Param4, Param5, NullType, NullType, NullType> EventType;
+	typedef Event<Param0, Param1, Param2, Param3, Param4, Param5, Meta::NullType, Meta::NullType, Meta::NullType> EventType;
 	typedef typename EventType::ConnectionType ConnectionType;
 
 	explicit EventRef(EventType * ev) : AbstractEventRef(ev) {}
@@ -1129,70 +1129,70 @@ public:
 
 	template<class T, class Y, class T1> void connect(Private::Events::ConnectionList * tracker, T * obj, Y pmf, T1 x1)
 	{
-		typedef typename StorageType<T1>::Type S1;
+		typedef typename TypeTraits::StorageType<T1>::Type S1;
 		Private::Events::ArgList1<S1> stored(x1);
 		connectEx(tracker, fastdelegate::MakeDelegate(obj, pmf), stored);
 	}
 
 	template<class T, class Y, class T1, class T2> void connect(Private::Events::ConnectionList * tracker, T * obj, Y pmf, T1 x1, T2 x2)
 	{
-		typedef typename StorageType<T1>::Type S1;
-		typedef typename StorageType<T2>::Type S2;
+		typedef typename TypeTraits::StorageType<T1>::Type S1;
+		typedef typename TypeTraits::StorageType<T2>::Type S2;
 		Private::Events::ArgList2<S1, S2> stored(x1, x2);
 		connectEx(tracker, fastdelegate::MakeDelegate(obj, pmf), stored);
 	}
 
 	template<class T, class Y, class T1, class T2, class T3> void connect(Private::Events::ConnectionList * tracker, T * obj, Y pmf, T1 x1, T2 x2, T3 x3)
 	{
-		typedef typename StorageType<T1>::Type S1;
-		typedef typename StorageType<T2>::Type S2;
-		typedef typename StorageType<T3>::Type S3;
+		typedef typename TypeTraits::StorageType<T1>::Type S1;
+		typedef typename TypeTraits::StorageType<T2>::Type S2;
+		typedef typename TypeTraits::StorageType<T3>::Type S3;
 		Private::Events::ArgList3<S1, S2, S3> stored(x1, x2, x3);
 		connectEx(tracker, fastdelegate::MakeDelegate(obj, pmf), stored);
 	}
 
 	template<class T, class Y, class T1, class T2, class T3, class T4> void connect(Private::Events::ConnectionList * tracker, T * obj, Y pmf, T1 x1, T2 x2, T3 x3, T4 x4)
 	{
-		typedef typename StorageType<T1>::Type S1;
-		typedef typename StorageType<T2>::Type S2;
-		typedef typename StorageType<T3>::Type S3;
-		typedef typename StorageType<T4>::Type S4;
+		typedef typename TypeTraits::StorageType<T1>::Type S1;
+		typedef typename TypeTraits::StorageType<T2>::Type S2;
+		typedef typename TypeTraits::StorageType<T3>::Type S3;
+		typedef typename TypeTraits::StorageType<T4>::Type S4;
 		Private::Events::ArgList4<S1, S2, S3, S4> stored(x1, x2, x3, x4);
 		connectEx(tracker, fastdelegate::MakeDelegate(obj, pmf), stored);
 	}
 
 	template<class T, class Y, class T1, class T2, class T3, class T4, class T5> void connect(Private::Events::ConnectionList * tracker, T * obj, Y pmf, T1 x1, T2 x2, T3 x3, T4 x4, T5 x5)
 	{
-		typedef typename StorageType<T1>::Type S1;
-		typedef typename StorageType<T2>::Type S2;
-		typedef typename StorageType<T3>::Type S3;
-		typedef typename StorageType<T4>::Type S4;
-		typedef typename StorageType<T5>::Type S5;
+		typedef typename TypeTraits::StorageType<T1>::Type S1;
+		typedef typename TypeTraits::StorageType<T2>::Type S2;
+		typedef typename TypeTraits::StorageType<T3>::Type S3;
+		typedef typename TypeTraits::StorageType<T4>::Type S4;
+		typedef typename TypeTraits::StorageType<T5>::Type S5;
 		Private::Events::ArgList5<S1, S2, S3, S4, S5> stored(x1, x2, x3, x4, x5);
 		connectEx(tracker, fastdelegate::MakeDelegate(obj, pmf), stored);
 	}
 
 	template<class T, class Y, class T1, class T2, class T3, class T4, class T5, class T6> void connect(Private::Events::ConnectionList * tracker, T * obj, Y pmf, T1 x1, T2 x2, T3 x3, T4 x4, T5 x5, T6 x6)
 	{
-		typedef typename StorageType<T1>::Type S1;
-		typedef typename StorageType<T2>::Type S2;
-		typedef typename StorageType<T3>::Type S3;
-		typedef typename StorageType<T4>::Type S4;
-		typedef typename StorageType<T5>::Type S5;
-		typedef typename StorageType<T6>::Type S6;
+		typedef typename TypeTraits::StorageType<T1>::Type S1;
+		typedef typename TypeTraits::StorageType<T2>::Type S2;
+		typedef typename TypeTraits::StorageType<T3>::Type S3;
+		typedef typename TypeTraits::StorageType<T4>::Type S4;
+		typedef typename TypeTraits::StorageType<T5>::Type S5;
+		typedef typename TypeTraits::StorageType<T6>::Type S6;
 		Private::Events::ArgList6<S1, S2, S3, S4, S5, S6> stored(x1, x2, x3, x4, x5, x6);
 		connectEx(tracker, fastdelegate::MakeDelegate(obj, pmf), stored);
 	}
 
 	template<class T, class Y, class T1, class T2, class T3, class T4, class T5, class T6, class T7> void connect(Private::Events::ConnectionList * tracker, T * obj, Y pmf, T1 x1, T2 x2, T3 x3, T4 x4, T5 x5, T6 x6, T7 x7)
 	{
-		typedef typename StorageType<T1>::Type S1;
-		typedef typename StorageType<T2>::Type S2;
-		typedef typename StorageType<T3>::Type S3;
-		typedef typename StorageType<T4>::Type S4;
-		typedef typename StorageType<T5>::Type S5;
-		typedef typename StorageType<T6>::Type S6;
-		typedef typename StorageType<T7>::Type S7;
+		typedef typename TypeTraits::StorageType<T1>::Type S1;
+		typedef typename TypeTraits::StorageType<T2>::Type S2;
+		typedef typename TypeTraits::StorageType<T3>::Type S3;
+		typedef typename TypeTraits::StorageType<T4>::Type S4;
+		typedef typename TypeTraits::StorageType<T5>::Type S5;
+		typedef typename TypeTraits::StorageType<T6>::Type S6;
+		typedef typename TypeTraits::StorageType<T7>::Type S7;
 		Private::Events::ArgList7<S1, S2, S3, S4, S5, S6, S7> stored(x1, x2, x3, x4, x5, x6, x7);
 		connectEx(tracker, fastdelegate::MakeDelegate(obj, pmf), stored);
 	}
@@ -1221,14 +1221,14 @@ private:
 };
 //------------------------------------------------------------------------------
 template<class Param0, class Param1, class Param2, class Param3, class Param4, class Param5>
-	inline EventRef<Param0, Param1, Param2, Param3, Param4, Param5, NullType, NullType, NullType>
-	Event<Param0, Param1, Param2, Param3, Param4, Param5, NullType, NullType, NullType>::ref()
+	inline EventRef<Param0, Param1, Param2, Param3, Param4, Param5, Meta::NullType, Meta::NullType, Meta::NullType>
+	Event<Param0, Param1, Param2, Param3, Param4, Param5, Meta::NullType, Meta::NullType, Meta::NullType>::ref()
 {
-	return EventRef<Param0, Param1, Param2, Param3, Param4, Param5, NullType, NullType, NullType>(this);
+	return EventRef<Param0, Param1, Param2, Param3, Param4, Param5, Meta::NullType, Meta::NullType, Meta::NullType>(this);
 }
 //------------------------------------------------------------------------------
 template<class Param0, class Param1, class Param2, class Param3, class Param4, class Param5, class Param6>
-	class Event<Param0, Param1, Param2, Param3, Param4, Param5, Param6, NullType, NullType> : public AbstractEvent
+	class Event<Param0, Param1, Param2, Param3, Param4, Param5, Param6, Meta::NullType, Meta::NullType> : public AbstractEvent
 {
 public:
 	typedef Private::Events::Connection7<Param0, Param1, Param2, Param3, Param4, Param5, Param6> ConnectionType;
@@ -1236,7 +1236,7 @@ public:
 	Event() {}
 	~Event() {}
 
-	inline EventRef<Param0, Param1, Param2, Param3, Param4, Param5, Param6, NullType, NullType> ref();
+	inline EventRef<Param0, Param1, Param2, Param3, Param4, Param5, Param6, Meta::NullType, Meta::NullType> ref();
 
 	void addConnection(Private::Events::ConnectionList * tracker, ConnectionType * conn)
 	{
@@ -1256,10 +1256,10 @@ public:
 };
 //------------------------------------------------------------------------------
 template<class Param0, class Param1, class Param2, class Param3, class Param4, class Param5, class Param6>
-	class EventRef<Param0, Param1, Param2, Param3, Param4, Param5, Param6, NullType, NullType> : public AbstractEventRef
+	class EventRef<Param0, Param1, Param2, Param3, Param4, Param5, Param6, Meta::NullType, Meta::NullType> : public AbstractEventRef
 {
 public:
-	typedef Event<Param0, Param1, Param2, Param3, Param4, Param5, Param6, NullType, NullType> EventType;
+	typedef Event<Param0, Param1, Param2, Param3, Param4, Param5, Param6, Meta::NullType, Meta::NullType> EventType;
 	typedef typename EventType::ConnectionType ConnectionType;
 
 	explicit EventRef(EventType * ev) : AbstractEventRef(ev) {}
@@ -1288,70 +1288,70 @@ public:
 
 	template<class T, class Y, class T1> void connect(Private::Events::ConnectionList * tracker, T * obj, Y pmf, T1 x1)
 	{
-		typedef typename StorageType<T1>::Type S1;
+		typedef typename TypeTraits::StorageType<T1>::Type S1;
 		Private::Events::ArgList1<S1> stored(x1);
 		connectEx(tracker, fastdelegate::MakeDelegate(obj, pmf), stored);
 	}
 
 	template<class T, class Y, class T1, class T2> void connect(Private::Events::ConnectionList * tracker, T * obj, Y pmf, T1 x1, T2 x2)
 	{
-		typedef typename StorageType<T1>::Type S1;
-		typedef typename StorageType<T2>::Type S2;
+		typedef typename TypeTraits::StorageType<T1>::Type S1;
+		typedef typename TypeTraits::StorageType<T2>::Type S2;
 		Private::Events::ArgList2<S1, S2> stored(x1, x2);
 		connectEx(tracker, fastdelegate::MakeDelegate(obj, pmf), stored);
 	}
 
 	template<class T, class Y, class T1, class T2, class T3> void connect(Private::Events::ConnectionList * tracker, T * obj, Y pmf, T1 x1, T2 x2, T3 x3)
 	{
-		typedef typename StorageType<T1>::Type S1;
-		typedef typename StorageType<T2>::Type S2;
-		typedef typename StorageType<T3>::Type S3;
+		typedef typename TypeTraits::StorageType<T1>::Type S1;
+		typedef typename TypeTraits::StorageType<T2>::Type S2;
+		typedef typename TypeTraits::StorageType<T3>::Type S3;
 		Private::Events::ArgList3<S1, S2, S3> stored(x1, x2, x3);
 		connectEx(tracker, fastdelegate::MakeDelegate(obj, pmf), stored);
 	}
 
 	template<class T, class Y, class T1, class T2, class T3, class T4> void connect(Private::Events::ConnectionList * tracker, T * obj, Y pmf, T1 x1, T2 x2, T3 x3, T4 x4)
 	{
-		typedef typename StorageType<T1>::Type S1;
-		typedef typename StorageType<T2>::Type S2;
-		typedef typename StorageType<T3>::Type S3;
-		typedef typename StorageType<T4>::Type S4;
+		typedef typename TypeTraits::StorageType<T1>::Type S1;
+		typedef typename TypeTraits::StorageType<T2>::Type S2;
+		typedef typename TypeTraits::StorageType<T3>::Type S3;
+		typedef typename TypeTraits::StorageType<T4>::Type S4;
 		Private::Events::ArgList4<S1, S2, S3, S4> stored(x1, x2, x3, x4);
 		connectEx(tracker, fastdelegate::MakeDelegate(obj, pmf), stored);
 	}
 
 	template<class T, class Y, class T1, class T2, class T3, class T4, class T5> void connect(Private::Events::ConnectionList * tracker, T * obj, Y pmf, T1 x1, T2 x2, T3 x3, T4 x4, T5 x5)
 	{
-		typedef typename StorageType<T1>::Type S1;
-		typedef typename StorageType<T2>::Type S2;
-		typedef typename StorageType<T3>::Type S3;
-		typedef typename StorageType<T4>::Type S4;
-		typedef typename StorageType<T5>::Type S5;
+		typedef typename TypeTraits::StorageType<T1>::Type S1;
+		typedef typename TypeTraits::StorageType<T2>::Type S2;
+		typedef typename TypeTraits::StorageType<T3>::Type S3;
+		typedef typename TypeTraits::StorageType<T4>::Type S4;
+		typedef typename TypeTraits::StorageType<T5>::Type S5;
 		Private::Events::ArgList5<S1, S2, S3, S4, S5> stored(x1, x2, x3, x4, x5);
 		connectEx(tracker, fastdelegate::MakeDelegate(obj, pmf), stored);
 	}
 
 	template<class T, class Y, class T1, class T2, class T3, class T4, class T5, class T6> void connect(Private::Events::ConnectionList * tracker, T * obj, Y pmf, T1 x1, T2 x2, T3 x3, T4 x4, T5 x5, T6 x6)
 	{
-		typedef typename StorageType<T1>::Type S1;
-		typedef typename StorageType<T2>::Type S2;
-		typedef typename StorageType<T3>::Type S3;
-		typedef typename StorageType<T4>::Type S4;
-		typedef typename StorageType<T5>::Type S5;
-		typedef typename StorageType<T6>::Type S6;
+		typedef typename TypeTraits::StorageType<T1>::Type S1;
+		typedef typename TypeTraits::StorageType<T2>::Type S2;
+		typedef typename TypeTraits::StorageType<T3>::Type S3;
+		typedef typename TypeTraits::StorageType<T4>::Type S4;
+		typedef typename TypeTraits::StorageType<T5>::Type S5;
+		typedef typename TypeTraits::StorageType<T6>::Type S6;
 		Private::Events::ArgList6<S1, S2, S3, S4, S5, S6> stored(x1, x2, x3, x4, x5, x6);
 		connectEx(tracker, fastdelegate::MakeDelegate(obj, pmf), stored);
 	}
 
 	template<class T, class Y, class T1, class T2, class T3, class T4, class T5, class T6, class T7> void connect(Private::Events::ConnectionList * tracker, T * obj, Y pmf, T1 x1, T2 x2, T3 x3, T4 x4, T5 x5, T6 x6, T7 x7)
 	{
-		typedef typename StorageType<T1>::Type S1;
-		typedef typename StorageType<T2>::Type S2;
-		typedef typename StorageType<T3>::Type S3;
-		typedef typename StorageType<T4>::Type S4;
-		typedef typename StorageType<T5>::Type S5;
-		typedef typename StorageType<T6>::Type S6;
-		typedef typename StorageType<T7>::Type S7;
+		typedef typename TypeTraits::StorageType<T1>::Type S1;
+		typedef typename TypeTraits::StorageType<T2>::Type S2;
+		typedef typename TypeTraits::StorageType<T3>::Type S3;
+		typedef typename TypeTraits::StorageType<T4>::Type S4;
+		typedef typename TypeTraits::StorageType<T5>::Type S5;
+		typedef typename TypeTraits::StorageType<T6>::Type S6;
+		typedef typename TypeTraits::StorageType<T7>::Type S7;
 		Private::Events::ArgList7<S1, S2, S3, S4, S5, S6, S7> stored(x1, x2, x3, x4, x5, x6, x7);
 		connectEx(tracker, fastdelegate::MakeDelegate(obj, pmf), stored);
 	}
@@ -1376,14 +1376,14 @@ private:
 };
 //------------------------------------------------------------------------------
 template<class Param0, class Param1, class Param2, class Param3, class Param4, class Param5, class Param6>
-	inline EventRef<Param0, Param1, Param2, Param3, Param4, Param5, Param6, NullType, NullType>
-	Event<Param0, Param1, Param2, Param3, Param4, Param5, Param6, NullType, NullType>::ref()
+	inline EventRef<Param0, Param1, Param2, Param3, Param4, Param5, Param6, Meta::NullType, Meta::NullType>
+	Event<Param0, Param1, Param2, Param3, Param4, Param5, Param6, Meta::NullType, Meta::NullType>::ref()
 {
-	return EventRef<Param0, Param1, Param2, Param3, Param4, Param5, Param6, NullType, NullType>(this);
+	return EventRef<Param0, Param1, Param2, Param3, Param4, Param5, Param6, Meta::NullType, Meta::NullType>(this);
 }
 //------------------------------------------------------------------------------
 template<class Param0, class Param1, class Param2, class Param3, class Param4, class Param5, class Param6, class Param7>
-	class Event<Param0, Param1, Param2, Param3, Param4, Param5, Param6, Param7, NullType> : public AbstractEvent
+	class Event<Param0, Param1, Param2, Param3, Param4, Param5, Param6, Param7, Meta::NullType> : public AbstractEvent
 {
 public:
 	typedef Private::Events::Connection8<Param0, Param1, Param2, Param3, Param4, Param5, Param6, Param7> ConnectionType;
@@ -1391,7 +1391,7 @@ public:
 	Event() {}
 	~Event() {}
 
-	inline EventRef<Param0, Param1, Param2, Param3, Param4, Param5, Param6, Param7, NullType> ref();
+	inline EventRef<Param0, Param1, Param2, Param3, Param4, Param5, Param6, Param7, Meta::NullType> ref();
 
 	void addConnection(Private::Events::ConnectionList * tracker, ConnectionType * conn)
 	{
@@ -1411,10 +1411,10 @@ public:
 };
 //------------------------------------------------------------------------------
 template<class Param0, class Param1, class Param2, class Param3, class Param4, class Param5, class Param6, class Param7>
-	class EventRef<Param0, Param1, Param2, Param3, Param4, Param5, Param6, Param7, NullType> : public AbstractEventRef
+	class EventRef<Param0, Param1, Param2, Param3, Param4, Param5, Param6, Param7, Meta::NullType> : public AbstractEventRef
 {
 public:
-	typedef Event<Param0, Param1, Param2, Param3, Param4, Param5, Param6, Param7, NullType> EventType;
+	typedef Event<Param0, Param1, Param2, Param3, Param4, Param5, Param6, Param7, Meta::NullType> EventType;
 	typedef typename EventType::ConnectionType ConnectionType;
 
 	explicit EventRef(EventType * ev) : AbstractEventRef(ev) {}
@@ -1443,70 +1443,70 @@ public:
 
 	template<class T, class Y, class T1> void connect(Private::Events::ConnectionList * tracker, T * obj, Y pmf, T1 x1)
 	{
-		typedef typename StorageType<T1>::Type S1;
+		typedef typename TypeTraits::StorageType<T1>::Type S1;
 		Private::Events::ArgList1<S1> stored(x1);
 		connectEx(tracker, fastdelegate::MakeDelegate(obj, pmf), stored);
 	}
 
 	template<class T, class Y, class T1, class T2> void connect(Private::Events::ConnectionList * tracker, T * obj, Y pmf, T1 x1, T2 x2)
 	{
-		typedef typename StorageType<T1>::Type S1;
-		typedef typename StorageType<T2>::Type S2;
+		typedef typename TypeTraits::StorageType<T1>::Type S1;
+		typedef typename TypeTraits::StorageType<T2>::Type S2;
 		Private::Events::ArgList2<S1, S2> stored(x1, x2);
 		connectEx(tracker, fastdelegate::MakeDelegate(obj, pmf), stored);
 	}
 
 	template<class T, class Y, class T1, class T2, class T3> void connect(Private::Events::ConnectionList * tracker, T * obj, Y pmf, T1 x1, T2 x2, T3 x3)
 	{
-		typedef typename StorageType<T1>::Type S1;
-		typedef typename StorageType<T2>::Type S2;
-		typedef typename StorageType<T3>::Type S3;
+		typedef typename TypeTraits::StorageType<T1>::Type S1;
+		typedef typename TypeTraits::StorageType<T2>::Type S2;
+		typedef typename TypeTraits::StorageType<T3>::Type S3;
 		Private::Events::ArgList3<S1, S2, S3> stored(x1, x2, x3);
 		connectEx(tracker, fastdelegate::MakeDelegate(obj, pmf), stored);
 	}
 
 	template<class T, class Y, class T1, class T2, class T3, class T4> void connect(Private::Events::ConnectionList * tracker, T * obj, Y pmf, T1 x1, T2 x2, T3 x3, T4 x4)
 	{
-		typedef typename StorageType<T1>::Type S1;
-		typedef typename StorageType<T2>::Type S2;
-		typedef typename StorageType<T3>::Type S3;
-		typedef typename StorageType<T4>::Type S4;
+		typedef typename TypeTraits::StorageType<T1>::Type S1;
+		typedef typename TypeTraits::StorageType<T2>::Type S2;
+		typedef typename TypeTraits::StorageType<T3>::Type S3;
+		typedef typename TypeTraits::StorageType<T4>::Type S4;
 		Private::Events::ArgList4<S1, S2, S3, S4> stored(x1, x2, x3, x4);
 		connectEx(tracker, fastdelegate::MakeDelegate(obj, pmf), stored);
 	}
 
 	template<class T, class Y, class T1, class T2, class T3, class T4, class T5> void connect(Private::Events::ConnectionList * tracker, T * obj, Y pmf, T1 x1, T2 x2, T3 x3, T4 x4, T5 x5)
 	{
-		typedef typename StorageType<T1>::Type S1;
-		typedef typename StorageType<T2>::Type S2;
-		typedef typename StorageType<T3>::Type S3;
-		typedef typename StorageType<T4>::Type S4;
-		typedef typename StorageType<T5>::Type S5;
+		typedef typename TypeTraits::StorageType<T1>::Type S1;
+		typedef typename TypeTraits::StorageType<T2>::Type S2;
+		typedef typename TypeTraits::StorageType<T3>::Type S3;
+		typedef typename TypeTraits::StorageType<T4>::Type S4;
+		typedef typename TypeTraits::StorageType<T5>::Type S5;
 		Private::Events::ArgList5<S1, S2, S3, S4, S5> stored(x1, x2, x3, x4, x5);
 		connectEx(tracker, fastdelegate::MakeDelegate(obj, pmf), stored);
 	}
 
 	template<class T, class Y, class T1, class T2, class T3, class T4, class T5, class T6> void connect(Private::Events::ConnectionList * tracker, T * obj, Y pmf, T1 x1, T2 x2, T3 x3, T4 x4, T5 x5, T6 x6)
 	{
-		typedef typename StorageType<T1>::Type S1;
-		typedef typename StorageType<T2>::Type S2;
-		typedef typename StorageType<T3>::Type S3;
-		typedef typename StorageType<T4>::Type S4;
-		typedef typename StorageType<T5>::Type S5;
-		typedef typename StorageType<T6>::Type S6;
+		typedef typename TypeTraits::StorageType<T1>::Type S1;
+		typedef typename TypeTraits::StorageType<T2>::Type S2;
+		typedef typename TypeTraits::StorageType<T3>::Type S3;
+		typedef typename TypeTraits::StorageType<T4>::Type S4;
+		typedef typename TypeTraits::StorageType<T5>::Type S5;
+		typedef typename TypeTraits::StorageType<T6>::Type S6;
 		Private::Events::ArgList6<S1, S2, S3, S4, S5, S6> stored(x1, x2, x3, x4, x5, x6);
 		connectEx(tracker, fastdelegate::MakeDelegate(obj, pmf), stored);
 	}
 
 	template<class T, class Y, class T1, class T2, class T3, class T4, class T5, class T6, class T7> void connect(Private::Events::ConnectionList * tracker, T * obj, Y pmf, T1 x1, T2 x2, T3 x3, T4 x4, T5 x5, T6 x6, T7 x7)
 	{
-		typedef typename StorageType<T1>::Type S1;
-		typedef typename StorageType<T2>::Type S2;
-		typedef typename StorageType<T3>::Type S3;
-		typedef typename StorageType<T4>::Type S4;
-		typedef typename StorageType<T5>::Type S5;
-		typedef typename StorageType<T6>::Type S6;
-		typedef typename StorageType<T7>::Type S7;
+		typedef typename TypeTraits::StorageType<T1>::Type S1;
+		typedef typename TypeTraits::StorageType<T2>::Type S2;
+		typedef typename TypeTraits::StorageType<T3>::Type S3;
+		typedef typename TypeTraits::StorageType<T4>::Type S4;
+		typedef typename TypeTraits::StorageType<T5>::Type S5;
+		typedef typename TypeTraits::StorageType<T6>::Type S6;
+		typedef typename TypeTraits::StorageType<T7>::Type S7;
 		Private::Events::ArgList7<S1, S2, S3, S4, S5, S6, S7> stored(x1, x2, x3, x4, x5, x6, x7);
 		connectEx(tracker, fastdelegate::MakeDelegate(obj, pmf), stored);
 	}
@@ -1527,10 +1527,10 @@ private:
 };
 //------------------------------------------------------------------------------
 template<class Param0, class Param1, class Param2, class Param3, class Param4, class Param5, class Param6, class Param7>
-	inline EventRef<Param0, Param1, Param2, Param3, Param4, Param5, Param6, Param7, NullType>
-	Event<Param0, Param1, Param2, Param3, Param4, Param5, Param6, Param7, NullType>::ref()
+	inline EventRef<Param0, Param1, Param2, Param3, Param4, Param5, Param6, Param7, Meta::NullType>
+	Event<Param0, Param1, Param2, Param3, Param4, Param5, Param6, Param7, Meta::NullType>::ref()
 {
-	return EventRef<Param0, Param1, Param2, Param3, Param4, Param5, Param6, Param7, NullType>(this);
+	return EventRef<Param0, Param1, Param2, Param3, Param4, Param5, Param6, Param7, Meta::NullType>(this);
 }
 //------------------------------------------------------------------------------
 } //namespace Cpp
