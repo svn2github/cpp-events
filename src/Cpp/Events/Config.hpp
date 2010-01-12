@@ -3,9 +3,9 @@
 
 //Platform detection
 
-#if defined(_MSC_VER)
-#  define PLATFORM_DIR Win32
-#elif defined(POSIX)
+#if defined(WIN32) || defined(_WIN32) || defined(__WIN32__) || defined(__NT__)
+#  define PLATFORM_DIR WinApi
+#elif defined(__GNUC__)
 #  define PLATFORM_DIR POSIX
 #else
 #  error "Unsupported target platform!"

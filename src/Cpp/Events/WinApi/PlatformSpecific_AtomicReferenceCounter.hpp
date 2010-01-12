@@ -1,6 +1,3 @@
-#ifndef __CPP_EVENTS__WIN32__ATOMIC_REFERENCE_COUNTER__HPP
-#define __CPP_EVENTS__WIN32__ATOMIC_REFERENCE_COUNTER__HPP
-
 #include <intrin.h>
 
 #pragma intrinsic (_InterlockedIncrement)
@@ -22,5 +19,3 @@ private:
 };
 //------------------------------------------------------------------------------
 } //namespace Cpp
-
-#endif //__CPP_EVENTS__WIN32__ATOMIC_REFERENCE_COUNTER__HPP

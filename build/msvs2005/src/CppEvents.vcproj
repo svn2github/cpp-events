@@ -287,16 +287,32 @@
 			</File>
 		</Filter>
 		<Filter
-			Name="Win32"
+			Name="_ Platform-specific"
 			>
-			<File
-				RelativePath="..\..\..\src\Cpp\Events\Win32\PlatformSpecific_AtomicReferenceCounter.hpp"
+			<Filter
+				Name="WinApi"
 				>
-			</File>
-			<File
-				RelativePath="..\..\..\src\Cpp\Events\Win32\PlatformSpecific_Threading.inl"
+				<File
+					RelativePath="..\..\..\src\Cpp\Events\WinApi\PlatformSpecific_AtomicReferenceCounter.hpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\src\Cpp\Events\WinApi\PlatformSpecific_Threading.inl"
+					>
+				</File>
+			</Filter>
+			<Filter
+				Name="POSIX"
 				>
-			</File>
+				<File
+					RelativePath="..\..\..\src\Cpp\Events\POSIX\PlatformSpecific_AtomicReferenceCounter.hpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\src\Cpp\Events\POSIX\PlatformSpecific_Threading.inl"
+					>
+				</File>
+			</Filter>
 		</Filter>
 		<File
 			RelativePath="..\..\..\src\Cpp\Events\readme.txt"

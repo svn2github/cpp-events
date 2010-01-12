@@ -1,32 +1,35 @@
 #include "Threading.hpp"
 #include "ThreadData.hpp"
 #include <cassert>
-#include <windows.h>
+#include <pthread.h>
 
 namespace Cpp {
 //------------------------------------------------------------------------------
-class Win32_ThreadData
+class POSIX_ThreadData
 {
 public:
-	Win32_ThreadData()
+	POSIX_ThreadData()
 	{
-		InitializeCriticalSection(&cs_);
+		pthread_mutexattr_init(&attr_);
+		pthread_mutexattr_settype(&attr_, PTHREAD_MUTEX_RECURSIVE_NP);
+		pthread_mutex_init(&mutex_, &attr_);
 	}
 
-	~Win32_ThreadData()
+	~POSIX_ThreadData()
 	{
 		assert(ref_.isNull());
-		DeleteCriticalSection(&cs_);
+		pthread_mutex_destroy(&mutex_);
+		pthread_mutexattr_destroy(&attr_);
 	}
 
 	void lock()
 	{
-		EnterCriticalSection(&cs_);
+		pthread_mutex_lock(&mutex_);
 	}
 
 	void unlock()
 	{
-		LeaveCriticalSection(&cs_);
+		pthread_mutex_unlock(&mutex_);
 	}
 
 	void retain()
@@ -41,74 +44,76 @@ public:
 			delete this;
 		}
 	}
+
 private:
 	AtomicReferenceCounter ref_;
-	CRITICAL_SECTION cs_;
+	pthread_mutexattr_t attr_;
+	pthread_mutex_t mutex_;
 };
 //------------------------------------------------------------------------------
-static DWORD dwTlsIndex = 0;
+static pthread_key_t tlsKey;
 //------------------------------------------------------------------------------
 void Threading::constructProcessData()
 {
-	assert(!dwTlsIndex);
-	dwTlsIndex = TlsAlloc();
+	assert(!tlsKey);
+	pthread_create_key(&tlsKey, NULL);
 	constructThreadData();
 }
 //------------------------------------------------------------------------------
 void Threading::destructProcessData()
 {
 	destructThreadData();
-	assert(dwTlsIndex);
-	TlsFree(dwTlsIndex);
+	assert(tlsKey);
+	pthread_key_delete(tlsKey);
 }
 //------------------------------------------------------------------------------
 void Threading::constructThreadData()
 {
-	assert(dwTlsIndex);
-	assert(!TlsGetValue(dwTlsIndex));
-	Win32_ThreadData * data = new Win32_ThreadData();
+	assert(tlsKey);
+	assert(!pthread_getspecific(tlsKey));
+	WinApi_ThreadData * data = new WinApi_ThreadData();
 	data->retain();
 	LPVOID pvTlsData = reinterpret_cast<LPVOID>(data);
-	TlsSetValue(dwTlsIndex, pvTlsData);
+	pthread_setspecific(tlsKey, pvTlsData);
 }
 //------------------------------------------------------------------------------
 void Threading::destructThreadData()
 {
-	assert(dwTlsIndex);
-	LPVOID pvTlsData = TlsGetValue(dwTlsIndex);
+	assert(tlsKey);
+	LPVOID pvTlsData = pthread_getspecific(tlsKey);
 	assert(pvTlsData);
-	Win32_ThreadData * data = reinterpret_cast<Win32_ThreadData*>(pvTlsData);
+	WinApi_ThreadData * data = reinterpret_cast<WinApi_ThreadData*>(pvTlsData);
 	data->release();
-	TlsSetValue(dwTlsIndex, NULL);
+	pthread_setspecific(tlsKey, NULL);
 }
 //------------------------------------------------------------------------------
 Threading::ThreadData * Threading::currentThreadData()
 {
-	assert(dwTlsIndex);
-	LPVOID pvTlsData = TlsGetValue(dwTlsIndex);
+	assert(tlsKey);
+	LPVOID pvTlsData = pthread_getspecific(tlsKey);
 	assert(pvTlsData);
-	Win32_ThreadData * data = reinterpret_cast<Win32_ThreadData*>(pvTlsData);
+	WinApi_ThreadData * data = reinterpret_cast<WinApi_ThreadData*>(pvTlsData);
 	return reinterpret_cast<Threading::ThreadData*>(data);
 }
 //------------------------------------------------------------------------------
 void Threading::ThreadData::lock()
 {
-	reinterpret_cast<Win32_ThreadData*>(this)->lock();
+	reinterpret_cast<WinApi_ThreadData*>(this)->lock();
 }
 //------------------------------------------------------------------------------
 void Threading::ThreadData::unlock()
 {
-	reinterpret_cast<Win32_ThreadData*>(this)->lock();
+	reinterpret_cast<WinApi_ThreadData*>(this)->lock();
 }
 //------------------------------------------------------------------------------
 void Threading::ThreadData::retain()
 {
-	reinterpret_cast<Win32_ThreadData*>(this)->retain();
+	reinterpret_cast<WinApi_ThreadData*>(this)->retain();
 }
 //------------------------------------------------------------------------------
 void Threading::ThreadData::release()
 {
-	reinterpret_cast<Win32_ThreadData*>(this)->release();
+	reinterpret_cast<WinApi_ThreadData*>(this)->release();
 }
 //------------------------------------------------------------------------------
 } //namespace Cpp
