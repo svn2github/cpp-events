@@ -53,7 +53,7 @@ static pthread_key_t tlsKey;
 void Threading::constructProcessData()
 {
 	assert(!tlsKey);
-	pthread_create_key(&tlsKey, NULL);
+	pthread_key_create(&tlsKey, NULL);
 	constructThreadData();
 }
 //------------------------------------------------------------------------------
@@ -62,24 +62,25 @@ void Threading::destructProcessData()
 	destructThreadData();
 	assert(tlsKey);
 	pthread_key_delete(tlsKey);
+	tlsKey = 0;
 }
 //------------------------------------------------------------------------------
 void Threading::constructThreadData()
 {
 	assert(tlsKey);
 	assert(!pthread_getspecific(tlsKey));
-	WinApi_ThreadData * data = new WinApi_ThreadData();
+	POSIX_ThreadData * data = new POSIX_ThreadData();
 	data->retain();
-	LPVOID pvTlsData = reinterpret_cast<LPVOID>(data);
+	void * pvTlsData = reinterpret_cast<void*>(data);
 	pthread_setspecific(tlsKey, pvTlsData);
 }
 //------------------------------------------------------------------------------
 void Threading::destructThreadData()
 {
 	assert(tlsKey);
-	LPVOID pvTlsData = pthread_getspecific(tlsKey);
+	void * pvTlsData = pthread_getspecific(tlsKey);
 	assert(pvTlsData);
-	WinApi_ThreadData * data = reinterpret_cast<WinApi_ThreadData*>(pvTlsData);
+	POSIX_ThreadData * data = reinterpret_cast<POSIX_ThreadData*>(pvTlsData);
 	data->release();
 	pthread_setspecific(tlsKey, NULL);
 }
@@ -87,30 +88,30 @@ void Threading::destructThreadData()
 Threading::ThreadData * Threading::currentThreadData()
 {
 	assert(tlsKey);
-	LPVOID pvTlsData = pthread_getspecific(tlsKey);
+	void * pvTlsData = pthread_getspecific(tlsKey);
 	assert(pvTlsData);
-	WinApi_ThreadData * data = reinterpret_cast<WinApi_ThreadData*>(pvTlsData);
+	POSIX_ThreadData * data = reinterpret_cast<POSIX_ThreadData*>(pvTlsData);
 	return reinterpret_cast<Threading::ThreadData*>(data);
 }
 //------------------------------------------------------------------------------
 void Threading::ThreadData::lock()
 {
-	reinterpret_cast<WinApi_ThreadData*>(this)->lock();
+	reinterpret_cast<POSIX_ThreadData*>(this)->lock();
 }
 //------------------------------------------------------------------------------
 void Threading::ThreadData::unlock()
 {
-	reinterpret_cast<WinApi_ThreadData*>(this)->lock();
+	reinterpret_cast<POSIX_ThreadData*>(this)->lock();
 }
 //------------------------------------------------------------------------------
 void Threading::ThreadData::retain()
 {
-	reinterpret_cast<WinApi_ThreadData*>(this)->retain();
+	reinterpret_cast<POSIX_ThreadData*>(this)->retain();
 }
 //------------------------------------------------------------------------------
 void Threading::ThreadData::release()
 {
-	reinterpret_cast<WinApi_ThreadData*>(this)->release();
+	reinterpret_cast<POSIX_ThreadData*>(this)->release();
 }
 //------------------------------------------------------------------------------
 } //namespace Cpp
