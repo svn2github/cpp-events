@@ -1,6 +1,3 @@
-#include "Threading.hpp"
-#include "ThreadData.hpp"
-#include <cassert>
 #include <windows.h>
 
 namespace Cpp {
