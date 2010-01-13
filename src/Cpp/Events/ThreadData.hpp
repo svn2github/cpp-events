@@ -53,7 +53,7 @@ public:
 		}
 	}
 
-	ThreadDataRef::~ThreadDataRef()
+	~ThreadDataRef()
 	{
 		if(ptr_) ptr_->release();
 	}
