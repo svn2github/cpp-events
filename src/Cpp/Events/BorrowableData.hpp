@@ -2,6 +2,7 @@
 #define __CPP_EVENTS__BORROWABLE_DATA__HPP
 
 #include "AbstractConnection.hpp"
+#include <cassert>
 #include <vector>
 
 namespace Cpp {
