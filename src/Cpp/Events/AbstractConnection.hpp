@@ -4,6 +4,7 @@
 #include "AtomicReferenceCounter.hpp"
 #include "AbstractDelegate.hpp"
 #include "ThreadData.hpp"
+#include <cassert>
 
 namespace Cpp {
 namespace Private {
