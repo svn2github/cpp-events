@@ -4,7 +4,7 @@ static int magic = 0x11223344;
 
 int TestClass::testOutlineFunction()
 {
-	return someData_ * reinterpret_cast<int>(&magic);
+	return someData_ * (int)reinterpret_cast<size_t>(&magic);
 }
 
 int TestClass::testOutlineFunctionWithStaticVariable()
