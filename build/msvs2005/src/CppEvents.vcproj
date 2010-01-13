@@ -225,7 +225,7 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\src\FastDelegate\src\FastDelegate.h"
+				RelativePath="..\..\..\src\FastDelegate\FastDelegate.h"
 				>
 			</File>
 			<File
@@ -274,16 +274,8 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\src\FastDelegate\hopter\FastDelegate.h.mcs"
+				RelativePath="..\..\..\src\FastDelegate\FastDelegate.h.mcs"
 				>
-				<FileConfiguration
-					Name="Debug|Win32"
-					>
-					<Tool
-						Name="MonkeyCodingScript"
-						OutputFile="$(InputDir)..\src\$(InputName)"
-					/>
-				</FileConfiguration>
 			</File>
 		</Filter>
 		<Filter

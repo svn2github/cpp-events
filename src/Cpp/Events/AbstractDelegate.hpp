@@ -1,7 +1,7 @@
 #ifndef __CPP_EVENTS__ABSTRACT_DELEGATE__HPP
 #define __CPP_EVENTS__ABSTRACT_DELEGATE__HPP
 
-#include "../../FastDelegate/src/FastDelegate.h"
+#include "../../FastDelegate/FastDelegate.h"
 
 namespace Cpp {
 //------------------------------------------------------------------------------
