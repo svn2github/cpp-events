@@ -2,6 +2,6 @@
 #define __CPP_EVENTS__ATOMIC_REFERENCE_COUNTER__HPP
 
 #include "Config.hpp"
-#include PLATFORM_PATH(PlatformSpecific_AtomicReferenceCounter.hpp)
+#include PLATFORM_PATH(AtomicReferenceCounter.hpp.inl)
 
 #endif //__CPP_EVENTS__ATOMIC_REFERENCE_COUNTER__HPP

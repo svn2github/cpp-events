@@ -285,11 +285,11 @@
 				Name="WinApi"
 				>
 				<File
-					RelativePath="..\..\..\src\Cpp\Events\WinApi\PlatformSpecific_AtomicReferenceCounter.hpp"
+					RelativePath="..\..\..\src\Cpp\Events\WinApi\AtomicReferenceCounter.hpp.inl"
 					>
 				</File>
 				<File
-					RelativePath="..\..\..\src\Cpp\Events\WinApi\PlatformSpecific_Threading.inl"
+					RelativePath="..\..\..\src\Cpp\Events\WinApi\Threading.cpp.inl"
 					>
 				</File>
 			</Filter>
@@ -297,11 +297,11 @@
 				Name="POSIX"
 				>
 				<File
-					RelativePath="..\..\..\src\Cpp\Events\POSIX\PlatformSpecific_AtomicReferenceCounter.hpp"
+					RelativePath="..\..\..\src\Cpp\Events\POSIX\AtomicReferenceCounter.hpp.inl"
 					>
 				</File>
 				<File
-					RelativePath="..\..\..\src\Cpp\Events\POSIX\PlatformSpecific_Threading.inl"
+					RelativePath="..\..\..\src\Cpp\Events\POSIX\Threading.cpp.inl"
 					>
 				</File>
 			</Filter>

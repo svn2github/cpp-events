@@ -3,4 +3,4 @@
 #include <cassert>
 
 #include "Config.hpp"
-#include PLATFORM_PATH(PlatformSpecific_Threading.inl)
+#include PLATFORM_PATH(Threading.cpp.inl)
