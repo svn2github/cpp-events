@@ -11,7 +11,7 @@ public:
 
 	char const * name() const { return name_; }
 
-	Cpp::EventRef<float> dataArrived() { return dataArrived_.ref(); }
+	Cpp::EventRef<float> dataArrived() { return dataArrived_; }
 
 	void processData(int count, float const * data);
 private:

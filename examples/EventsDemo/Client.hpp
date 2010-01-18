@@ -18,7 +18,7 @@ public:
 	BaseClass() {}
 	virtual ~BaseClass() {}
 
-	virtual Cpp::EventRef<int> testEvent2() { return testEvent2_.ref(); }
+	virtual Cpp::EventRef<int> testEvent2() { return testEvent2_ ; }
 
 	void fireEvent2(int x) { testEvent2_.fire(x); }
 private:
@@ -36,8 +36,8 @@ public:
 	}
 	~DerivedClass() {}
 
-	virtual Cpp::EventRef<int> testEvent2() { return testEvent2x_.ref(); }
-	virtual Cpp::EventRef<bool> testEvent1() { return testEvent1_.ref(); }
+	virtual Cpp::EventRef<int> testEvent2() { return testEvent2x_ ; }
+	virtual Cpp::EventRef<bool> testEvent1() { return testEvent1_ ; }
 private:
 	Cpp::Event<bool> testEvent1_;
 	Cpp::Event<int> testEvent2x_;
