@@ -17,7 +17,7 @@
 	<Configurations>
 		<Configuration
 			Name="Debug|Win32"
-			OutputDirectory="$(SolutionDir)\..\..\bin\$(ConfigurationName)\tests\speed"
+			OutputDirectory="$(SolutionDir)\..\..\bin\tests\speed"
 			IntermediateDirectory="$(ConfigurationName)"
 			ConfigurationType="1"
 			CharacterSet="1"
@@ -62,6 +62,7 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalDependencies="sigc-vc80-d-2_0.lib"
+				OutputFile="$(OutDir)\$(ConfigurationName)\$(ProjectName).exe"
 				LinkIncremental="2"
 				AdditionalLibraryDirectories=""
 				GenerateDebugInformation="true"
@@ -95,7 +96,7 @@
 		</Configuration>
 		<Configuration
 			Name="Release|Win32"
-			OutputDirectory="$(SolutionDir)\..\..\bin\$(ConfigurationName)\tests\speed"
+			OutputDirectory="$(SolutionDir)\..\..\bin\tests\speed"
 			IntermediateDirectory="$(ConfigurationName)"
 			ConfigurationType="1"
 			CharacterSet="1"
@@ -138,6 +139,7 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalDependencies="sigc-vc80-2_0.lib"
+				OutputFile="$(OutDir)\$(ConfigurationName)\$(ProjectName).exe"
 				LinkIncremental="1"
 				AdditionalLibraryDirectories=""
 				GenerateDebugInformation="true"

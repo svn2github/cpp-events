@@ -17,7 +17,7 @@
 	<Configurations>
 		<Configuration
 			Name="Debug|Win32"
-			OutputDirectory="$(SolutionDir)\..\..\bin\$(ConfigurationName)\tests\speed"
+			OutputDirectory="$(SolutionDir)\..\..\bin\tests\speed"
 			IntermediateDirectory="$(ConfigurationName)"
 			ConfigurationType="1"
 			CharacterSet="1"
@@ -61,9 +61,10 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="libCppEvents1.$(ConfigurationName).lib"
+				AdditionalDependencies="CppEvents.lib"
+				OutputFile="$(OutDir)\$(ConfigurationName)\$(ProjectName).exe"
 				LinkIncremental="2"
-				AdditionalLibraryDirectories="&quot;$(SolutionDir)\..\..\lib&quot;"
+				AdditionalLibraryDirectories="&quot;$(SolutionDir)\..\..\lib\$(ConfigurationName)&quot;"
 				GenerateDebugInformation="true"
 				SubSystem="1"
 				TargetMachine="1"
@@ -95,7 +96,7 @@
 		</Configuration>
 		<Configuration
 			Name="Release|Win32"
-			OutputDirectory="$(SolutionDir)\..\..\bin\$(ConfigurationName)\tests\speed"
+			OutputDirectory="$(SolutionDir)\..\..\bin\tests\speed"
 			IntermediateDirectory="$(ConfigurationName)"
 			ConfigurationType="1"
 			CharacterSet="1"
@@ -138,9 +139,10 @@
 			<Tool
 				Name="VCLinkerTool"
 				LinkLibraryDependencies="false"
-				AdditionalDependencies="libCppEvents1.$(ConfigurationName).lib"
+				AdditionalDependencies="CppEvents.lib"
+				OutputFile="$(OutDir)\$(ConfigurationName)\$(ProjectName).exe"
 				LinkIncremental="1"
-				AdditionalLibraryDirectories="&quot;$(SolutionDir)\..\..\lib&quot;"
+				AdditionalLibraryDirectories="&quot;$(SolutionDir)\..\..\lib\$(ConfigurationName)&quot;"
 				GenerateDebugInformation="true"
 				SubSystem="1"
 				OptimizeReferences="2"
