@@ -52,6 +52,7 @@ int main()
 {
 	Cpp::Threading::ProcessInit processInit;
 	printf("Cpp.Events speed test\n");
+	printf("  Repetitions   Connect Invoke Disconnect\n");
 	for(unsigned a = 1000; a < 100000; )
 	{
 		unsigned x = a;

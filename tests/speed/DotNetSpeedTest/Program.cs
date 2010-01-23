@@ -82,6 +82,7 @@ namespace DotNetSpeedTest
         static void Main(string[] args)
         {
             System.Console.WriteLine("C#/.NET speed test");
+            System.Console.WriteLine("  Repetitions   Connect Invoke Disconnect");
             for(uint a = 1000; a < 100000; )
             {
                 uint x = a;

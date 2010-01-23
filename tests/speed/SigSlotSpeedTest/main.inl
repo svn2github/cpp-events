@@ -63,6 +63,7 @@ void test(unsigned N)
 void runTest()
 {
 	printf("SigSlot.%s speed test\n", XX(SIGSLOT_DEFAULT_MT_POLICY));
+	printf("  Repetitions   Connect Invoke Disconnect\n");
 	for(unsigned a = 1000; a < 100000; )
 	{
 		unsigned x = a;

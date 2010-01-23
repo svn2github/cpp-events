@@ -56,6 +56,7 @@ void test(unsigned N)
 int main()
 {
 	printf("Boost.Signals speed test\n");
+	printf("  Repetitions   Connect Invoke Disconnect\n");
 	for(unsigned a = 1000; a < 100000; )
 	{
 		unsigned x = a;

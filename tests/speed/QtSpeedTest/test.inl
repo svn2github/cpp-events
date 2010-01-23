@@ -37,6 +37,7 @@ void CASE_NO(test)(unsigned N)
 void CASE_NO(runTest)()
 {
 	printf("Qt speed test. " CASE_NAME "\n");
+	printf("  Repetitions   Connect Invoke Disconnect\n");
 	for(unsigned a = 1000; a < 100000; )
 	{
 		unsigned x = a;
