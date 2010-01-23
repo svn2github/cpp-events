@@ -47,8 +47,6 @@ private:
 
 class Server;
 
-#pragma pack(push, 16)
-
 class Client
 {
 public:
@@ -69,7 +67,5 @@ private:
 
 	void processData(float x);
 };
-
-#pragma pack(pop)
 
 #endif //CLIENT_HPP
