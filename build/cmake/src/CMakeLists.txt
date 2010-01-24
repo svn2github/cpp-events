@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 2.6)
 
-set(MCS_EXECUTABLE, "${BASE_DIR}/tools/mcs/bin/release/mcs")
+set(MCS_EXECUTABLE "${BASE_DIR}/tools/mcs/bin/Release/mcs")
 
 set(SOURCES_ROOT_DIR "${BASE_DIR}/src")
 

@@ -1,7 +1,6 @@
 cmake_minimum_required(VERSION 2.6)
 
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "${BASE_DIR}/bin/probes")
-set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY "${BASE_DIR}/lib/probes")
 
 set(SOURCES_ROOT_DIR "${BASE_DIR}/probes")
 
