@@ -306,10 +306,6 @@
 				</File>
 			</Filter>
 		</Filter>
-		<File
-			RelativePath="..\..\..\src\Cpp\Events\readme.txt"
-			>
-		</File>
 	</Files>
 	<Globals>
 	</Globals>
