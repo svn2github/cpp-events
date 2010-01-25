@@ -30,3 +30,5 @@ add_executable(UnitTests
 )
 
 target_link_libraries(UnitTests CppEvents optimized gtest debug gtestd)
+
+add_custom_target(RunUnitTests ALL UnitTests DEPENDS UnitTests)
