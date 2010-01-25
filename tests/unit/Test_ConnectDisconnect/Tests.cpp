@@ -26,52 +26,63 @@ private:
 class SenderEx : public Sender
 {
 public:
-	SenderEx() : stage_() {}
+	SenderEx()
+	{
+		stageNo_ = 0; // 1 2 3 4 ...
+		stageStep_ = 1; // 2 4 8 16 ...
+	}
 
-	int stage() const { return stage_; }
+	int stageNo() const { return stageNo_; }
+	int stageStep() const { return stageStep_; }
 
 	void runStage()
 	{
-		if(!stage_) stage_ = 1;
-		else stage_ *= 2;
 		fire();
+		++stageNo_;
+		stageStep_ *= 2;
 	}
 private:
-	int stage_;
+	int stageNo_;
+	int stageStep_;
 };
 
-class RecieverEx
+template<int ArraySize> class RecieverEx
 {
 public:
 	RecieverEx()
 		: sender_()
 		, scope_()
+		, index_(-1)
 		, val_()
 	{}
 
+	int index() const { return index_; }
 	int value() const { return val_; }
 
-	void connect(SenderEx * sender, Cpp::ConnectionScope * scope)
+	void connect(int ind, SenderEx * sender, Cpp::ConnectionScope * scope)
 	{
+		index_ = ind;
 		sender_ = sender;
 		scope_ = scope;
-		scope->connect(sender->somethingHappened(), this, &RecieverEx::work);
+		scope->connect(sender->somethingHappened(), this, &RecieverEx<ArraySize>::work);
 	}
 
 	void work()
 	{
 		++val_;
 
-		int stage = sender_->stage();
-		if(stage < 4)
+		int step = sender_->stageStep();
+		int nextIndex = index_ + step;
+		if(nextIndex < ArraySize)
 		{
-			RecieverEx * next = this + stage;
-			next->connect(sender_, scope_);
+			RecieverEx<ArraySize> * next = this + step;
+			next->connect(nextIndex, sender_, scope_);
 		}
 	}
 private:
 	SenderEx * sender_;
 	Cpp::ConnectionScope * scope_;
+	int index_;
 	int val_;
 };
 
@@ -187,11 +198,11 @@ TEST(Test_ConnectDisconnect, AutomaticDisconnect)
 // This test ensures that adding connections inside delegate works fine.
 TEST(Test_ConnectDisconnect, ConnectFromDelegate)
 {
-	RecieverEx rcv[8];
+	RecieverEx<8> rcv[8];
 	Cpp::ConnectionScope scope;
 	SenderEx sender;
 
-	rcv[0].connect(&sender, &scope);
+	rcv[0].connect(0, &sender, &scope);
 
 	ASSERT_EQ(0, rcv[0].value());
 	ASSERT_EQ(0, rcv[1].value());
