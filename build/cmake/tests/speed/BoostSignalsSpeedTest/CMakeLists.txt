@@ -15,9 +15,6 @@ endif()
 
 message(STATUS " * Boost.Signals found - building BoostSignalsSpeedTest")
 
-set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "${BASE_DIR}/bin/tests/speed")
-set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY "${BASE_DIR}/lib/tests/speed")
-
 set(SOURCES_ROOT_DIR "${BASE_DIR}/tests/speed/BoostSignalsSpeedTest")
 
 add_executable(BoostSignalsSpeedTest
