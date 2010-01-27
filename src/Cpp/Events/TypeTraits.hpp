@@ -26,8 +26,12 @@
 #include "TypeArithmetic.hpp"
 
 namespace Cpp {
+#ifdef DOXYGEN_RUN
 class TypeTraits {
 public:
+#else
+namespace TypeTraits {
+#endif
 //------------------------------------------------------------------------------
 template<class T> struct SizeOf { typedef Meta::TypeForInt<sizeof(T)> Type; };
 //------------------------------------------------------------------------------
@@ -225,7 +229,11 @@ template<class T0, class T1> struct IsSubclass
 	>::Type Type;
 };
 //------------------------------------------------------------------------------
+#ifdef DOXYGEN_RUN
 }; //class TypeTraits
+#else
+} //namespace TypeTraits
+#endif
 } //namespace Cpp
 
 #endif //__CPP_EVENTS__TYPE_TRAITS__HPP

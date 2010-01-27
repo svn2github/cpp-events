@@ -24,8 +24,12 @@
 #define __CPP_EVENTS__TYPE_ARITHMETIC__HPP
 
 namespace Cpp {
+#ifdef DOXYGEN_RUN
 class Meta {
 public:
+#else
+namespace Meta {
+#endif
 //------------------------------------------------------------------------------
 struct NullType {};
 struct InvalidType {};
@@ -81,55 +85,56 @@ template<
 		|| T6::value || T7::value
 	> Type;
 };
-	//------------------------------------------------------------------------------
-private:
-	template<class T0, class T1> struct BoolXorHelper2
-	{
-		typedef TypeForBool<(T0::value && !T1::value) || (!T0::value && T1::value)> Type;
-	};
-
-	template<class T0, class T1, class T2> struct BoolXorHelper3
-	{
-		typedef typename BoolXorHelper2<typename BoolXorHelper2<T0, T1>::Type, T2>::Type Type;
-	};
-
-	template<class T0, class T1, class T2, class T3> struct BoolXorHelper4
-	{
-		typedef typename BoolXorHelper2<typename BoolXorHelper3<T0, T1, T2>::Type, T3>::Type Type;
-	};
-
-	template<class T0, class T1, class T2, class T3, class T4> struct BoolXorHelper5
-	{
-		typedef typename BoolXorHelper2<typename BoolXorHelper4<T0, T1, T2, T3>::Type, T4>::Type Type;
-	};
-
-	template<class T0, class T1, class T2, class T3, class T4, class T5> struct BoolXorHelper6
-	{
-		typedef typename BoolXorHelper2<typename BoolXorHelper5<T0, T1, T2, T3, T4>::Type, T5>::Type Type;
-	};
-
-	template<class T0, class T1, class T2, class T3, class T4, class T5, class T6> struct BoolXorHelper7
-	{
-		typedef typename BoolXorHelper2<typename BoolXorHelper6<T0, T1, T2, T3, T4, T5>::Type, T6>::Type Type;
-	};
-
-	template<class T0, class T1, class T2, class T3, class T4, class T5, class T6, class T7> struct BoolXorHelper8
-	{
-		typedef typename BoolXorHelper2<typename BoolXorHelper7<T0, T1, T2, T3, T4, T5, T6>::Type, T7>::Type Type;
-	};
-public:
-
+//------------------------------------------------------------------------------
 template<
-	class T0, class T1,
+	class T0,
+	class T1 = FalseType,
 	class T2 = FalseType,
 	class T3 = FalseType,
 	class T4 = FalseType,
 	class T5 = FalseType,
 	class T6 = FalseType,
 	class T7 = FalseType
-> struct BoolXor
+> struct BoolXor;
+
+template<class T0> struct BoolXor<T0, FalseType, FalseType, FalseType, FalseType, FalseType, FalseType, FalseType>
 {
-	typedef typename BoolXorHelper8<T0, T1, T2, T3, T4, T5, T6, T7>::Type Type;
+	typedef T0 Type;
+};
+
+template<class T0> struct BoolXor<T0, TrueType, FalseType, FalseType, FalseType, FalseType, FalseType, FalseType>
+{
+	typedef typename BoolNot<T0>::Type Type;
+};
+
+template<class T0, class T1> struct BoolXor<T0, T1, TrueType, FalseType, FalseType, FalseType, FalseType, FalseType>
+{
+	typedef typename BoolNot< typename BoolXor<T0, T1>::Type >::Type Type;
+};
+
+template<class T0, class T1, class T2> struct BoolXor<T0, T1, T2, TrueType, FalseType, FalseType, FalseType, FalseType>
+{
+	typedef typename BoolNot< typename BoolXor<T0, T1, T2>::Type >::Type Type;
+};
+
+template<class T0, class T1, class T2, class T3> struct BoolXor<T0, T1, T2, T3, TrueType, FalseType, FalseType, FalseType>
+{
+	typedef typename BoolNot< typename BoolXor<T0, T1, T2, T3>::Type >::Type Type;
+};
+
+template<class T0, class T1, class T2, class T3, class T4> struct BoolXor<T0, T1, T2, T3, T4, TrueType, FalseType, FalseType>
+{
+	typedef typename BoolNot< typename BoolXor<T0, T1, T2, T3, T4>::Type >::Type Type;
+};
+
+template<class T0, class T1, class T2, class T3, class T4, class T5> struct BoolXor<T0, T1, T2, T3, T4, T5, TrueType, FalseType>
+{
+	typedef typename BoolNot< typename BoolXor<T0, T1, T2, T3, T4, T5>::Type >::Type Type;
+};
+
+template<class T0, class T1, class T2, class T3, class T4, class T5, class T6> struct BoolXor<T0, T1, T2, T3, T4, T5, T6, TrueType>
+{
+	typedef typename BoolNot< typename BoolXor<T0, T1, T2, T3, T4, T5, T6>::Type >::Type Type;
 };
 //------------------------------------------------------------------------------
 template<
@@ -198,18 +203,15 @@ template<class T0, class T1> struct IntCompare
 	typedef TypeForBool<isNotGreater> NotGreater;
 };
 //------------------------------------------------------------------------------
-private:
-	template<class T, class Y> struct TypeIfHelper;
-	template<class Y> struct TypeIfHelper<TrueType, Y> { typedef Y Type; };
-	template<class Y> struct TypeIfHelper<FalseType, Y> { };
-public:
-
-template<class Cond, class ThenClass, class ElseClass> struct TypeIf
-	: public TypeIfHelper<Cond, ThenClass>
-	, public TypeIfHelper<typename BoolNot<Cond>::Type, ElseClass>
-{};
+template<class Cond, class ThenClass, class ElseClass> struct TypeIf;
+template<class ThenClass, class ElseClass> struct TypeIf<TrueType, ThenClass, ElseClass> { typedef ThenClass Type; };
+template<class ThenClass, class ElseClass> struct TypeIf<FalseType, ThenClass, ElseClass> { typedef ElseClass Type; };
 //------------------------------------------------------------------------------
+#ifdef DOXYGEN_RUN
 }; //class Meta
+#else
+} //namespace Meta
+#endif
 } //namespace Cpp
 
 #endif //__CPP_EVENTS__TYPE_ARITHMETIC__HPP
