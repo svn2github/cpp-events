@@ -26,7 +26,6 @@
 
 #include <set>
 #include <list>
-#include <windows.h>
 
 #define MAKE_NS_1(X) namespace_##X
 #define MAKE_NS_2(X) MAKE_NS_1(X)
