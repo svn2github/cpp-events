@@ -24,7 +24,7 @@
 #define __CPP_EVENTS__CONFIG__HPP
 
 // Directory for platform-specific files (set by CMake)
-#define PLATFORM_DIR WinApi
+${PLATFORM_DIR_DEFINE}
 
 #ifndef PLATFORM_DIR
 #  error "Unsupported target platform!"
