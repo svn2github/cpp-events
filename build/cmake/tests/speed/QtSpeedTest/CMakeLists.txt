@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 2.6)
 
 find_package(Qt4 QUIET COMPONENTS QtCore)
 
-if(NOT ${Qt4_FOUND})
+if(NOT "${Qt4_FOUND}")
 	message(STATUS " * Qt4 not found - skipping QtSpeedTest")
 	return()
 endif()
