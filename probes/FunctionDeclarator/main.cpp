@@ -43,9 +43,10 @@ private:
 	int x_;
 };
 
-void main()
+int main()
 {
 	OuterTestClass c;
 	int q = c.propertyX().value();
 	c.propertyX().setValue(q + 24);
+	return 0;
 }

@@ -43,11 +43,12 @@ template<> struct TestTraits::MyTrait<char, bool> { enum { value = CharAndBoolOu
 template<int N1, int N2> struct AssertEqual;
 template<int N> struct AssertEqual<N, N> { enum { isOk = true }; };
 
-void main()
+int main()
 {
 	(void)AssertEqual<TestTraits::MyTrait<float, double>::value, GeneralTemplateInsideClass>::isOk;
 	(void)AssertEqual<TestTraits::MyTrait<char, char>::value, PartialSpecializationInsideClass>::isOk;
 	(void)AssertEqual<TestTraits::MyTrait<float, float>::value, EqualClassesOutsideClass>::isOk;
 	(void)AssertEqual<TestTraits::MyTrait<int, double>::value, IntAndClassOutsideClass>::isOk;
 	(void)AssertEqual<TestTraits::MyTrait<char, bool>::value, CharAndBoolOutsideClass>::isOk;
+	return 0;
 }
