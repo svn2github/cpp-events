@@ -83,13 +83,22 @@ public:
 		return hasConnections(ev, AbstractDelegate(obj, pMemberFunc));
 	}
 
-	template<class T, class Y> size_t disconnect(T * obj, Y pMemberFunc)
+		template<class T, class Y> size_t disconnectOne(T * obj, Y pMemberFunc)
 	{
-		return disconnect(AbstractDelegate(obj, pMemberFunc));
+		return disconnectOne(AbstractDelegate(obj, pMemberFunc));
 	}
-	template<class T, class Y> size_t disconnect(AbstractEventRef const & ev, T * obj, Y pMemberFunc)
+	template<class T, class Y> size_t disconnectOne(AbstractEventRef const & ev, T * obj, Y pMemberFunc)
 	{
-		return disconnect(ev, AbstractDelegate(obj, pMemberFunc));
+		return disconnectOne(ev, AbstractDelegate(obj, pMemberFunc));
+	}
+
+	template<class T, class Y> size_t disconnectAll(T * obj, Y pMemberFunc)
+	{
+		return disconnectAll(AbstractDelegate(obj, pMemberFunc));
+	}
+	template<class T, class Y> size_t disconnectAll(AbstractEventRef const & ev, T * obj, Y pMemberFunc)
+	{
+		return disconnectAll(ev, AbstractDelegate(obj, pMemberFunc));
 	}
 
 	template<class EvRefT, class T1, class T2>
