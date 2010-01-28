@@ -20,65 +20,151 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
+/*
+Goal:
+   Ensure that vtable switching works according to the standard.
+
+Motivation:
+   In Qt's implementation of signal-slot mechanism also has problem of late automatic
+   disconnection in base class destructor, but vtable switching masks this problem in Qt.
+
+Expected output:
+	BaseClass::BaseClass(): vtbl = XXXXXXXX
+	BaseClass::print()
+	DerivedClass::DerivedClass(): vtbl = YYYYYYYY
+	DerivedClass::print()
+	----------------------
+	DerivedClass::print()
+	----------------------
+	DerivedClass::print()
+	DerivedClass::~DerivedClass(): vtbl = YYYYYYYY
+	BaseClass::print()
+	BaseClass::~BaseClass(): vtbl = YYYYYYYY		
+
+Results:
+	MSVC - PASSED
+*/
+
+#include <gtest/gtest.h>
 #include <iostream>
 
 class BaseClass;
 
-void printer(BaseClass * pbase);
+class Tester
+{
+public:
+	Tester() { baseVtbl_ = 0; derivedVtbl_ = 0; }
+	~Tester() {}
+
+	void baseCtor(BaseClass * obj);
+	void derivedCtor(BaseClass * obj);
+	void derivedDtor(BaseClass * obj);
+	void baseDtor(BaseClass * obj);
+private:
+	void * baseVtbl_;
+	void * derivedVtbl_;
+
+	static void * getVtbl(BaseClass * obj);
+};
+
+enum ClassId { BaseClassId, DerivedClassId };
 
 class BaseClass
 {
 public:
-	BaseClass()
+	BaseClass(Tester * tester)
+		: tester_(tester)
 	{
-		std::cout << "BaseClass::BaseClass(): vtbl = " << *(void**)this << std::endl;
-		printer(this);
+		tester->baseCtor(this);
 	}
 
 	virtual ~BaseClass()
 	{
-		printer(this);
-		std::cout << "BaseClass::~BaseClass(): vtbl = " << *(void**)this << std::endl;
+		tester_->baseDtor(this);
 	}
 
 	virtual void print()
 	{
 		std::cout << "BaseClass::print()" << std::endl;
 	}
+
+	virtual ClassId classId() { return BaseClassId; }
+protected:
+	Tester * const tester_;
 };
 
 class DerivedClass : public BaseClass
 {
 public:
-	DerivedClass()
-		: BaseClass()
+	DerivedClass(Tester * tester)
+		: BaseClass(tester)
 	{
-		std::cout << "DerivedClass::DerivedClass(): vtbl = " << *(void**)this << std::endl;
-		printer(this);
+		tester_->derivedCtor(this);
 	}
 
 	virtual ~DerivedClass()
 	{
-		printer(this);
-		std::cout << "DerivedClass::~DerivedClass(): vtbl = " << *(void**)this << std::endl;
+		tester_->derivedDtor(this);
 	}
 
 	virtual void print()
 	{
 		std::cout << "DerivedClass::print()" << std::endl;
 	}
+
+	virtual ClassId classId() { return DerivedClassId; }
 };
 
-void printer(BaseClass * pbase)
+inline void * Tester::getVtbl(BaseClass * obj)
 {
-	pbase->print();
+	return *reinterpret_cast<void**>(obj);
 }
 
-int main()
+void Tester::baseCtor(BaseClass * obj)
 {
-	DerivedClass cls;
+	baseVtbl_ = getVtbl(obj);
+	std::cout << "BaseClass::BaseClass(): vtbl = " << getVtbl(obj) << std::endl;
+	obj->print();
+	ASSERT_EQ(BaseClassId, obj->classId());
+}
+
+void Tester::derivedCtor(BaseClass *obj)
+{
+	derivedVtbl_ = getVtbl(obj);
+	ASSERT_FALSE(derivedVtbl_ == baseVtbl_);
+	std::cout << "DerivedClass::DerivedClass(): vtbl = " << getVtbl(obj) << std::endl;
+	obj->print();
+	ASSERT_EQ(DerivedClassId, obj->classId());
+}
+
+void Tester::derivedDtor(BaseClass * obj)
+{
+	ASSERT_EQ(DerivedClassId, obj->classId());
+	obj->print();
+	std::cout << "DerivedClass::~DerivedClass(): vtbl = " << getVtbl(obj) << std::endl;
+	ASSERT_TRUE(derivedVtbl_ == getVtbl(obj));
+}
+
+void Tester::baseDtor(BaseClass * obj)
+{
+	ASSERT_EQ(BaseClassId, obj->classId());
+	obj->print();
+	std::cout << "BaseClass::~BaseClass(): vtbl = " << getVtbl(obj) << std::endl;
+	ASSERT_TRUE(baseVtbl_ == getVtbl(obj));
+}
+
+TEST(VtblSwitching, TheTest)
+{
+	Tester tester;
+	DerivedClass obj(&tester);
 	std::cout << "----------------------" << std::endl;
-	cls.print();
+	obj.print();
 	std::cout << "----------------------" << std::endl;
-	return 0;
+}
+
+int main(int argc, char * argv[])
+{
+	setlocale(LC_ALL, "");
+	::testing::InitGoogleTest(&argc, argv);
+	return RUN_ALL_TESTS();
 }

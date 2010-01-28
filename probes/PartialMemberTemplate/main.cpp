@@ -20,6 +20,20 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
+/*
+Goal:
+  Check if partial template specializations can be made for templates that are
+  inner classes of other classes.
+
+Motivation:
+  I'd like to group template classes used for type traits and meta-programming
+  operations into outer classes, not the namespaces.
+
+Results:
+  * MSVC - PASSED
+  * GCC  - FAILED, "{{TODO:: Write exact error message here}}"
+*/
+
 enum Cases
 {
 	GeneralTemplateInsideClass,

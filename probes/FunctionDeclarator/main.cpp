@@ -20,12 +20,17 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-/**************************************************************/
-/* Goal of this test is to check if it is possible to declare */
-/* new inner type inside function declaration                 */
-/*                                                            */
-/* InnerTestClass is prototype for future event-ref class     */
-/**************************************************************/
+/*
+Goal:
+  Check if it is possible to declare new inner type inside function declaration.
+
+Motivation:
+  InnerTestClass is a prototype for future event-ref class.
+
+Results:
+  * MSVC - PASSED
+  * GCC  - FAILED, "{{TODO:: Write exact error message here}}"
+*/
 
 class OuterTestClass
 {
