@@ -2,9 +2,9 @@
 <VisualStudioProject
 	ProjectType="Visual C++"
 	Version="8,00"
-	Name="CtorVtbl"
+	Name="VtblSwitching"
 	ProjectGUID="{033025EA-9A6C-468A-B12B-FFF0728456D7}"
-	RootNamespace="CtorVtbl"
+	RootNamespace="VtblSwitching"
 	Keyword="Win32Proj"
 	>
 	<Platforms>
@@ -174,7 +174,7 @@
 	</References>
 	<Files>
 		<File
-			RelativePath=".\..\..\..\..\probes\CtorVtbl\main.cpp"
+			RelativePath=".\..\..\..\..\probes\VtblSwitching\main.cpp"
 			>
 		</File>
 	</Files>

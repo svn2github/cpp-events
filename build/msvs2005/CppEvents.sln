@@ -34,7 +34,7 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "SigSlotSpeedTest", "tests\s
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DotNetSpeedTest", "tests\speed\DotNetSpeedTest\DotNetSpeedTest.csproj", "{567EE69E-08B6-4034-8705-C7A5A425643C}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "CtorVtbl", "probes\CtorVtbl\CtorVtbl.vcproj", "{033025EA-9A6C-468A-B12B-FFF0728456D7}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "VtblSwitching", "probes\VtblSwitching\VtblSwitching.vcproj", "{033025EA-9A6C-468A-B12B-FFF0728456D7}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{33D3CF80-4EAB-46CB-BE96-F0258F1F0C2A}"
 EndProject
