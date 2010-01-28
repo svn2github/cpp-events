@@ -10,7 +10,5 @@ set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY "${BASE_DIR}/lib")
 include_directories("${BASE_DIR}/include")
 link_directories("${BASE_DIR}/lib")
  
-add_subdirectory(probes)
 add_subdirectory(src)
-add_subdirectory(examples)
 add_subdirectory(tests)
