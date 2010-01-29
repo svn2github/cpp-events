@@ -32,7 +32,7 @@ class ConnectionScope;
 class AbstractEvent
 {
 	friend class ConnectionScope;
-	DISABLE_COPY(AbstractEvent)
+	CPP_DISABLE_COPY(AbstractEvent)
 protected:
 	AbstractEvent() {}
 	~AbstractEvent() {}

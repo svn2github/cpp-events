@@ -36,7 +36,7 @@
 #define PLATFORM_PATH_HELPER_2(Dir, Path) PLATFORM_PATH_HELPER_1(Dir, Path)
 #define PLATFORM_PATH(Path) PLATFORM_PATH_HELPER_2(PLATFORM_DIR, Path)
 
-#define DISABLE_COPY(Class) \
+#define CPP_DISABLE_COPY(Class) \
 private: \
 	Class(Class const &); \
 	Class & operator=(Class const &);

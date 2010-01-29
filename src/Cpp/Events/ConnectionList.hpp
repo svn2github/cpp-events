@@ -32,7 +32,7 @@ namespace Events {
 class ConnectionList
 {
 	friend void AbstractConnection::doDisconnect();
-	DISABLE_COPY(ConnectionList)
+	CPP_DISABLE_COPY(ConnectionList)
 public:
 	class FireLock;
 
@@ -76,7 +76,7 @@ private:
 //------------------------------------------------------------------------------
 class ConnectionList::FireLock
 {
-	DISABLE_COPY(FireLock)
+	CPP_DISABLE_COPY(FireLock)
 public:
 	FireLock(ConnectionList const * list)
 		: locker_(list->lock_)

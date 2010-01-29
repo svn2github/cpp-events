@@ -38,7 +38,7 @@ class ConnectionList;
 class AbstractConnection
 {
 	friend class ConnectionList;
-	DISABLE_COPY(AbstractConnection)
+	CPP_DISABLE_COPY(AbstractConnection)
 public:
 	// Typeless delegate of the receiver object that can be used for comparison, but cannot be invoked.
 	AbstractDelegate recieverDelegate() const { return targetDelegate_; }
