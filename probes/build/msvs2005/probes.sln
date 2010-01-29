@@ -1,0 +1,38 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 9.00
+# Visual Studio 2005
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "FunctionDeclarator", "FunctionDeclarator\FunctionDeclarator.vcproj", "{1660DC83-761A-48B0-8F32-935A08919294}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "PartialMemberTemplate", "PartialMemberTemplate\PartialMemberTemplate.vcproj", "{0A6D5BF7-9C8A-4E77-9852-3CA92A19EB9D}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "VirtualMemFuncPtrTest", "VirtualMemFuncPtrTest\VirtualMemFuncPtrTest.vcproj", "{307E7DC8-A250-4DEA-B5AC-11D0F72BE8C9}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "VtblSwitching", "VtblSwitching\VtblSwitching.vcproj", "{033025EA-9A6C-468A-B12B-FFF0728456D7}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Win32 = Debug|Win32
+		Release|Win32 = Release|Win32
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{1660DC83-761A-48B0-8F32-935A08919294}.Debug|Win32.ActiveCfg = Debug|Win32
+		{1660DC83-761A-48B0-8F32-935A08919294}.Debug|Win32.Build.0 = Debug|Win32
+		{1660DC83-761A-48B0-8F32-935A08919294}.Release|Win32.ActiveCfg = Release|Win32
+		{1660DC83-761A-48B0-8F32-935A08919294}.Release|Win32.Build.0 = Release|Win32
+		{0A6D5BF7-9C8A-4E77-9852-3CA92A19EB9D}.Debug|Win32.ActiveCfg = Debug|Win32
+		{0A6D5BF7-9C8A-4E77-9852-3CA92A19EB9D}.Debug|Win32.Build.0 = Debug|Win32
+		{0A6D5BF7-9C8A-4E77-9852-3CA92A19EB9D}.Release|Win32.ActiveCfg = Release|Win32
+		{0A6D5BF7-9C8A-4E77-9852-3CA92A19EB9D}.Release|Win32.Build.0 = Release|Win32
+		{307E7DC8-A250-4DEA-B5AC-11D0F72BE8C9}.Debug|Win32.ActiveCfg = Debug|Win32
+		{307E7DC8-A250-4DEA-B5AC-11D0F72BE8C9}.Debug|Win32.Build.0 = Debug|Win32
+		{307E7DC8-A250-4DEA-B5AC-11D0F72BE8C9}.Release|Win32.ActiveCfg = Release|Win32
+		{307E7DC8-A250-4DEA-B5AC-11D0F72BE8C9}.Release|Win32.Build.0 = Release|Win32
+		{033025EA-9A6C-468A-B12B-FFF0728456D7}.Debug|Win32.ActiveCfg = Debug|Win32
+		{033025EA-9A6C-468A-B12B-FFF0728456D7}.Debug|Win32.Build.0 = Debug|Win32
+		{033025EA-9A6C-468A-B12B-FFF0728456D7}.Release|Win32.ActiveCfg = Release|Win32
+		{033025EA-9A6C-468A-B12B-FFF0728456D7}.Release|Win32.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
