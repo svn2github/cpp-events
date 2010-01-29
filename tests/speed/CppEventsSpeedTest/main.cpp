@@ -73,7 +73,7 @@ void test(unsigned N)
 
 int main()
 {
-	Cpp::Threading::ProcessInit processInit;
+	Cpp::Events::ProcessInit processInit;
 	printf("Cpp.Events speed test\n");
 	printf("  Repetitions   Connect Invoke Disconnect\n");
 	for(unsigned a = 1000; a < 100000; )

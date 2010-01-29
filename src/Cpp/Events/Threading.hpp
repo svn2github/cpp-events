@@ -25,7 +25,7 @@
 
 namespace Cpp {
 //------------------------------------------------------------------------------
-class Threading
+class Events
 {
 public:
 	//! \internal

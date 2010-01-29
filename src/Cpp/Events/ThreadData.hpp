@@ -28,7 +28,7 @@
 
 namespace Cpp {
 //------------------------------------------------------------------------------
-class Threading::ThreadData
+class Events::ThreadData
 {
 public:
 	void lock();
@@ -58,7 +58,7 @@ public:
 	{}
 	
 	ThreadDataRef(current)
-		: ptr_(Threading::currentThreadData())
+		: ptr_(Cpp::Events::currentThreadData())
 	{
 		if(ptr_)
 		{
@@ -102,7 +102,7 @@ public:
 
 	void swap(ThreadDataRef & r)
 	{
-		Threading::ThreadData * d = ptr_;
+		Cpp::Events::ThreadData * d = ptr_;
 		ptr_ = r.ptr_;
 		r.ptr_ = d;
 	}
@@ -116,7 +116,7 @@ public:
 	{
 		if(r.isBefore(*this))
 		{
-			Threading::ThreadData * tmp = ptr_;
+			Cpp::Events::ThreadData * tmp = ptr_;
 			ptr_ = r.ptr_; r.ptr_ = tmp;
 		}
 	}
@@ -128,9 +128,9 @@ public:
 	bool operator<=(ThreadDataRef const & r) const { return ptr_ <= r.ptr_; }
 	bool operator>=(ThreadDataRef const & r) const { return ptr_ >= r.ptr_; }
 private:
-	Threading::ThreadData * ptr_;
+	Cpp::Events::ThreadData * ptr_;
 
-	ThreadDataRef(Threading::ThreadData * p)
+	ThreadDataRef(Cpp::Events::ThreadData * p)
 		: ptr_(p)
 	{
 		if(ptr_) ptr_->retain();

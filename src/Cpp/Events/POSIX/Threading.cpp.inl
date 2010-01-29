@@ -72,14 +72,14 @@ private:
 //------------------------------------------------------------------------------
 static pthread_key_t tlsKey;
 //------------------------------------------------------------------------------
-void Threading::constructProcessData()
+void Events::constructProcessData()
 {
 	assert(!tlsKey);
 	pthread_key_create(&tlsKey, NULL);
 	constructThreadData();
 }
 //------------------------------------------------------------------------------
-void Threading::destructProcessData()
+void Events::destructProcessData()
 {
 	destructThreadData();
 	assert(tlsKey);
@@ -87,7 +87,7 @@ void Threading::destructProcessData()
 	tlsKey = 0;
 }
 //------------------------------------------------------------------------------
-void Threading::constructThreadData()
+void Events::constructThreadData()
 {
 	assert(tlsKey);
 	assert(!pthread_getspecific(tlsKey));
@@ -97,7 +97,7 @@ void Threading::constructThreadData()
 	pthread_setspecific(tlsKey, pvTlsData);
 }
 //------------------------------------------------------------------------------
-void Threading::destructThreadData()
+void Events::destructThreadData()
 {
 	assert(tlsKey);
 	void * pvTlsData = pthread_getspecific(tlsKey);
@@ -107,31 +107,31 @@ void Threading::destructThreadData()
 	pthread_setspecific(tlsKey, NULL);
 }
 //------------------------------------------------------------------------------
-Threading::ThreadData * Threading::currentThreadData()
+Events::ThreadData * Events::currentThreadData()
 {
 	assert(tlsKey);
 	void * pvTlsData = pthread_getspecific(tlsKey);
 	assert(pvTlsData);
 	POSIX_ThreadData * data = reinterpret_cast<POSIX_ThreadData*>(pvTlsData);
-	return reinterpret_cast<Threading::ThreadData*>(data);
+	return reinterpret_cast<Events::ThreadData*>(data);
 }
 //------------------------------------------------------------------------------
-void Threading::ThreadData::lock()
+void Events::ThreadData::lock()
 {
 	reinterpret_cast<POSIX_ThreadData*>(this)->lock();
 }
 //------------------------------------------------------------------------------
-void Threading::ThreadData::unlock()
+void Events::ThreadData::unlock()
 {
 	reinterpret_cast<POSIX_ThreadData*>(this)->lock();
 }
 //------------------------------------------------------------------------------
-void Threading::ThreadData::retain()
+void Events::ThreadData::retain()
 {
 	reinterpret_cast<POSIX_ThreadData*>(this)->retain();
 }
 //------------------------------------------------------------------------------
-void Threading::ThreadData::release()
+void Events::ThreadData::release()
 {
 	reinterpret_cast<POSIX_ThreadData*>(this)->release();
 }
