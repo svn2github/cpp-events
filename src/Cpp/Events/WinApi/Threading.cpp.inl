@@ -27,25 +27,17 @@ namespace Cpp {
 class WinApi_ThreadData
 {
 public:
-	WinApi_ThreadData()
-	{
-		InitializeCriticalSection(&cs_);
-	}
-
-	~WinApi_ThreadData()
-	{
-		assert(ref_.isNull());
-		DeleteCriticalSection(&cs_);
-	}
+	WinApi_ThreadData() { }
+	~WinApi_ThreadData() { assert(ref_.isNull()); }
 
 	void lock()
 	{
-		EnterCriticalSection(&cs_);
+		mutex_.lock();
 	}
 
 	void unlock()
 	{
-		LeaveCriticalSection(&cs_);
+		mutex_.unlock();
 	}
 
 	void retain()
@@ -60,9 +52,10 @@ public:
 			delete this;
 		}
 	}
+
 private:
 	AtomicInt ref_;
-	CRITICAL_SECTION cs_;
+	RecursiveMutex mutex_;
 };
 //------------------------------------------------------------------------------
 static DWORD dwTlsIndex = 0;

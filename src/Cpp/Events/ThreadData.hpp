@@ -24,7 +24,6 @@
 #define __CPP_EVENTS__THREAD_DATA__HPP
 
 #include <Cpp/Events/Threading.hpp>
-#include <Cpp/Events/AtomicInt.hpp>
 
 namespace Cpp {
 //------------------------------------------------------------------------------

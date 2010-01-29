@@ -22,6 +22,8 @@
 
 #include <Cpp/Events/Threading.hpp>
 #include <Cpp/Events/ThreadData.hpp>
+#include <Cpp/Events/AtomicInt.hpp>
+#include <Cpp/Events/RecursiveMutex.hpp>
 #include <Std/Assert.hpp>
 
 #include <Cpp/Events/Config.hpp>

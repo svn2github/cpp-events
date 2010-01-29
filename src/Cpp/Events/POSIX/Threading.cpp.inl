@@ -27,28 +27,17 @@ namespace Cpp {
 class POSIX_ThreadData
 {
 public:
-	POSIX_ThreadData()
-	{
-		pthread_mutexattr_init(&attr_);
-		pthread_mutexattr_settype(&attr_, PTHREAD_MUTEX_RECURSIVE_NP);
-		pthread_mutex_init(&mutex_, &attr_);
-	}
-
-	~POSIX_ThreadData()
-	{
-		assert(ref_.isNull());
-		pthread_mutex_destroy(&mutex_);
-		pthread_mutexattr_destroy(&attr_);
-	}
+	POSIX_ThreadData() { }
+	~POSIX_ThreadData() { assert(ref_.isNull()); }
 
 	void lock()
 	{
-		pthread_mutex_lock(&mutex_);
+		mutex_.lock();
 	}
 
 	void unlock()
 	{
-		pthread_mutex_unlock(&mutex_);
+		mutex_.unlock();
 	}
 
 	void retain()
@@ -66,8 +55,7 @@ public:
 
 private:
 	AtomicInt ref_;
-	pthread_mutexattr_t attr_;
-	pthread_mutex_t mutex_;
+	RecursiveMutex mutex_;
 };
 //------------------------------------------------------------------------------
 static pthread_key_t tlsKey;

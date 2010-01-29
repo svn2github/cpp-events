@@ -270,6 +270,10 @@
 					>
 				</File>
 				<File
+					RelativePath="..\..\..\src\Cpp\Events\RecursiveMutex.hpp"
+					>
+				</File>
+				<File
 					RelativePath="..\..\..\src\Cpp\Events\ThreadData.hpp"
 					>
 				</File>
@@ -300,6 +304,10 @@
 							>
 						</File>
 						<File
+							RelativePath="..\..\..\src\Cpp\Events\WinApi\RecursiveMutex.hpp.inl"
+							>
+						</File>
+						<File
 							RelativePath="..\..\..\src\Cpp\Events\WinApi\Threading.cpp.inl"
 							>
 						</File>
@@ -309,6 +317,10 @@
 						>
 						<File
 							RelativePath="..\..\..\src\Cpp\Events\POSIX\AtomicInt.hpp.inl"
+							>
+						</File>
+						<File
+							RelativePath="..\..\..\src\Cpp\Events\POSIX\RecursiveMutex.hpp.inl"
 							>
 						</File>
 						<File
