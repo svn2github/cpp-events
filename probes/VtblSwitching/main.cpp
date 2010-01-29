@@ -45,7 +45,6 @@ Results:
 	MSVC - PASSED
 */
 
-#include <gtest/gtest.h>
 #include <iostream>
 
 class BaseClass;
@@ -53,19 +52,30 @@ class BaseClass;
 class Tester
 {
 public:
-	Tester() { baseVtbl_ = 0; derivedVtbl_ = 0; }
-	~Tester() {}
+	Tester()
+	{
+		baseVtbl_ = 0;
+		derivedVtbl_ = 0;
+		failed_ = false;
+	}
 
 	void baseCtor(BaseClass * obj);
 	void derivedCtor(BaseClass * obj);
 	void derivedDtor(BaseClass * obj);
 	void baseDtor(BaseClass * obj);
+
+	bool isFailed() const { return failed_; }
+
+	void assert(bool expr, char const * exprStr);
 private:
 	void * baseVtbl_;
 	void * derivedVtbl_;
+	bool failed_;
 
 	static void * getVtbl(BaseClass * obj);
 };
+
+#define ASSERT(X) assert(X, #X)
 
 enum ClassId { BaseClassId, DerivedClassId };
 
@@ -125,46 +135,52 @@ void Tester::baseCtor(BaseClass * obj)
 	baseVtbl_ = getVtbl(obj);
 	std::cout << "BaseClass::BaseClass(): vtbl = " << getVtbl(obj) << std::endl;
 	obj->print();
-	ASSERT_EQ(BaseClassId, obj->classId());
+	ASSERT(obj->classId() == BaseClassId);
 }
 
 void Tester::derivedCtor(BaseClass *obj)
 {
 	derivedVtbl_ = getVtbl(obj);
-	ASSERT_FALSE(derivedVtbl_ == baseVtbl_);
+	ASSERT(derivedVtbl_ != baseVtbl_);
 	std::cout << "DerivedClass::DerivedClass(): vtbl = " << getVtbl(obj) << std::endl;
 	obj->print();
-	ASSERT_EQ(DerivedClassId, obj->classId());
+	ASSERT(obj->classId() == DerivedClassId);
 }
 
 void Tester::derivedDtor(BaseClass * obj)
 {
-	ASSERT_EQ(DerivedClassId, obj->classId());
+	ASSERT(obj->classId() == DerivedClassId);
 	obj->print();
 	std::cout << "DerivedClass::~DerivedClass(): vtbl = " << getVtbl(obj) << std::endl;
-	ASSERT_TRUE(derivedVtbl_ == getVtbl(obj));
+	ASSERT(derivedVtbl_ == getVtbl(obj));
 }
 
 void Tester::baseDtor(BaseClass * obj)
 {
-	ASSERT_EQ(BaseClassId, obj->classId());
+	ASSERT(obj->classId() == BaseClassId);
 	obj->print();
 	std::cout << "BaseClass::~BaseClass(): vtbl = " << getVtbl(obj) << std::endl;
-	ASSERT_TRUE(baseVtbl_ == getVtbl(obj));
+	ASSERT(baseVtbl_ == getVtbl(obj));
 }
 
-TEST(VtblSwitching, TheTest)
+void Tester::assert(bool expr, char const * exprStr)
 {
-	Tester tester;
-	DerivedClass obj(&tester);
-	std::cout << "----------------------" << std::endl;
-	obj.print();
-	std::cout << "----------------------" << std::endl;
+	if(!expr)
+	{
+		failed_ = true;
+		std::cout << " -- FAILED: \"" << exprStr << "\"" << std::endl;
+	}
 }
 
 int main(int argc, char * argv[])
 {
-	setlocale(LC_ALL, "");
-	::testing::InitGoogleTest(&argc, argv);
-	return RUN_ALL_TESTS();
+	Tester tester;
+	tester.ASSERT(false && "Test failure");
+	{
+		DerivedClass obj(&tester);
+		std::cout << "----------------------" << std::endl;
+		obj.print();
+		std::cout << "----------------------" << std::endl;
+	}
+	return tester.isFailed() ? 1 : 0;
 }
