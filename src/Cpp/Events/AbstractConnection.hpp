@@ -23,7 +23,7 @@
 #ifndef __CPP_EVENTS__ABSTRACT_CONNECTION__HPP
 #define __CPP_EVENTS__ABSTRACT_CONNECTION__HPP
 
-#include <Cpp/Events/AtomicReferenceCounter.hpp>
+#include <Cpp/Events/AtomicInt.hpp>
 #include <Cpp/Events/AbstractDelegate.hpp>
 #include <Cpp/Events/ThreadData.hpp>
 #include <Cpp/Utils/DisableCopy.hpp>
@@ -68,7 +68,7 @@ private:
 	static size_t const npos = size_t(0) - size_t(1);
 
 	//Reference counter protects connection object from being removed untimely.
-	AtomicReferenceCounter refCounter_;
+	AtomicInt refCounter_;
 	//Each logical connection is protected by two mutexes in different connection lists.
 	//They should be locked in specific order, in order to avoid deadlocks.
 	//Thus, we need to access both mutexes before locking any of them.

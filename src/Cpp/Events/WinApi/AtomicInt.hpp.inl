@@ -20,20 +20,24 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
+#include <intrin.h>
+
+#pragma intrinsic (_InterlockedIncrement)
+#pragma intrinsic (_InterlockedDecrement)
+
 namespace Cpp {
 //------------------------------------------------------------------------------
-class AtomicReferenceCounter
+class AtomicInt
 {
 public:
-	AtomicReferenceCounter() : ref_() {}
+	AtomicInt() : ref_() {}
 
 	bool isNull() const { return !ref_; }
 
-	void retain() { __sync_add_and_fetch(&ref_, 1); }
-	bool release() { return !__sync_sub_and_fetch(&ref_, 1); }
+	void retain() { _InterlockedIncrement(&ref_); }
+	bool release() { return !_InterlockedDecrement(&ref_); }
 private:
-	unsigned ref_;
+	volatile long ref_;
 };
 //------------------------------------------------------------------------------
 } //namespace Cpp
-

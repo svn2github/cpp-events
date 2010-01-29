@@ -65,7 +65,7 @@ public:
 	}
 
 private:
-	AtomicReferenceCounter ref_;
+	AtomicInt ref_;
 	pthread_mutexattr_t attr_;
 	pthread_mutex_t mutex_;
 };

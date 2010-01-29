@@ -20,10 +20,20 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-#ifndef __CPP_EVENTS__ATOMIC_REFERENCE_COUNTER__HPP
-#define __CPP_EVENTS__ATOMIC_REFERENCE_COUNTER__HPP
+namespace Cpp {
+//------------------------------------------------------------------------------
+class AtomicInt
+{
+public:
+	AtomicInt() : ref_() {}
 
-#include <Cpp/Events/Config.hpp>
-#include PLATFORM_PATH(AtomicReferenceCounter.hpp.inl)
+	bool isNull() const { return !ref_; }
 
-#endif //__CPP_EVENTS__ATOMIC_REFERENCE_COUNTER__HPP
+	void retain() { __sync_add_and_fetch(&ref_, 1); }
+	bool release() { return !__sync_sub_and_fetch(&ref_, 1); }
+private:
+	unsigned ref_;
+};
+//------------------------------------------------------------------------------
+} //namespace Cpp
+

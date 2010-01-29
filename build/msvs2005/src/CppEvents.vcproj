@@ -210,7 +210,7 @@
 					>
 				</File>
 				<File
-					RelativePath="..\..\..\src\Cpp\Events\AtomicReferenceCounter.hpp"
+					RelativePath="..\..\..\src\Cpp\Events\AtomicInt.hpp"
 					>
 				</File>
 				<File
@@ -296,7 +296,7 @@
 						Name="WinApi"
 						>
 						<File
-							RelativePath="..\..\..\src\Cpp\Events\WinApi\AtomicReferenceCounter.hpp.inl"
+							RelativePath="..\..\..\src\Cpp\Events\WinApi\AtomicInt.hpp.inl"
 							>
 						</File>
 						<File
@@ -308,7 +308,7 @@
 						Name="POSIX"
 						>
 						<File
-							RelativePath="..\..\..\src\Cpp\Events\POSIX\AtomicReferenceCounter.hpp.inl"
+							RelativePath="..\..\..\src\Cpp\Events\POSIX\AtomicInt.hpp.inl"
 							>
 						</File>
 						<File

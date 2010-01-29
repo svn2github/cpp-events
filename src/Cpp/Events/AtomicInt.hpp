@@ -20,24 +20,10 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-#include <intrin.h>
+#ifndef __CPP_EVENTS__ATOMIC_REFERENCE_COUNTER__HPP
+#define __CPP_EVENTS__ATOMIC_REFERENCE_COUNTER__HPP
 
-#pragma intrinsic (_InterlockedIncrement)
-#pragma intrinsic (_InterlockedDecrement)
+#include <Cpp/Events/Config.hpp>
+#include PLATFORM_PATH(AtomicInt.hpp.inl)
 
-namespace Cpp {
-//------------------------------------------------------------------------------
-class AtomicReferenceCounter
-{
-public:
-	AtomicReferenceCounter() : ref_() {}
-
-	bool isNull() const { return !ref_; }
-
-	void retain() { _InterlockedIncrement(&ref_); }
-	bool release() { return !_InterlockedDecrement(&ref_); }
-private:
-	volatile long ref_;
-};
-//------------------------------------------------------------------------------
-} //namespace Cpp
+#endif //__CPP_EVENTS__ATOMIC_REFERENCE_COUNTER__HPP

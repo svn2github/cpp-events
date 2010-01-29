@@ -61,7 +61,7 @@ public:
 		}
 	}
 private:
-	AtomicReferenceCounter ref_;
+	AtomicInt ref_;
 	CRITICAL_SECTION cs_;
 };
 //------------------------------------------------------------------------------
