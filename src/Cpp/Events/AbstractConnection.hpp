@@ -26,6 +26,7 @@
 #include <Cpp/Events/AtomicReferenceCounter.hpp>
 #include <Cpp/Events/AbstractDelegate.hpp>
 #include <Cpp/Events/ThreadData.hpp>
+#include <Cpp/Utils/DisableCopy.hpp>
 #include <Std/Assert.hpp>
 
 namespace Cpp {

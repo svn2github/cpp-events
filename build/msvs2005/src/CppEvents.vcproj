@@ -318,6 +318,14 @@
 					</Filter>
 				</Filter>
 			</Filter>
+			<Filter
+				Name="Utils"
+				>
+				<File
+					RelativePath="..\..\..\src\Cpp\Utils\DisableCopy.hpp"
+					>
+				</File>
+			</Filter>
 		</Filter>
 	</Files>
 	<Globals>
