@@ -26,7 +26,7 @@
 #include <Cpp/Events/AtomicReferenceCounter.hpp>
 #include <Cpp/Events/AbstractDelegate.hpp>
 #include <Cpp/Events/ThreadData.hpp>
-#include <cassert>
+#include <Std/Assert.hpp>
 
 namespace Cpp {
 namespace Private {

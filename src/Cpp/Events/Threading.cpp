@@ -22,7 +22,7 @@
 
 #include <Cpp/Events/Threading.hpp>
 #include <Cpp/Events/ThreadData.hpp>
-#include <cassert>
+#include <Std/Assert.hpp>
 
 #include <Cpp/Events/Config.hpp>
 #include PLATFORM_PATH(Threading.cpp.inl)

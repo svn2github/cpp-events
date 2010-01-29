@@ -24,8 +24,8 @@
 #define __CPP_EVENTS__BORROWABLE_DATA__HPP
 
 #include <Cpp/Events/AbstractConnection.hpp>
-#include <cassert>
-#include <vector>
+#include <Std/Assert.hpp>
+#include <Std/Vector.hpp>
 
 namespace Cpp {
 namespace Private {
