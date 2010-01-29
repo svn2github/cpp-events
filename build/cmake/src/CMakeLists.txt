@@ -11,18 +11,11 @@ else()
 	set(PLATFORM_LIBS "")
 endif()
 
-message(STATUS "UNIX=${UNIX}")
-message(STATUS "WIN32=${WIN32}")
-message(STATUS "PLATFORM_DIR=${PLATFORM_DIR}")
-message(STATUS "PLATFORM_LIBS=${PLATFORM_LIBS}")
-
-if("${PLATFORM_DIR}" STREQUAL "")
+if(NOT PLATFORM_DIR)
 	set(PLATFORM_DIR_DEFINE "//#define PLATFORM_DIR ???")
 else()
 	set(PLATFORM_DIR_DEFINE "#define PLATFORM_DIR ${PLATFORM_DIR}")
 endif()
-
-message(STATUS "PLATFORM_DIR_DEFINE=${PLATFORM_DIR_DEFINE}")
 
 set(SOURCES_ROOT_DIR "${BASE_DIR}/src")
 
@@ -38,11 +31,11 @@ target_link_libraries(CppEvents "${PLATFORM_LIBS}")
 find_program(MCS_EXECUTABLE "${BASE_DIR}/tools/mcs/bin/Release/mcs")
 
 # for some unknown reason 'if(NOT "${MCS_EXECUTABLE}")' does not work
-if("${MCS_EXECUTABLE}" STREQUAL "MCS_EXECUTABLE-NOTFOUND")
+if(NOT MCS_EXECUTABLE)
 	find_program(MCS_EXECUTABLE "${BASE_DIR}/tools/mcs/bin/mcs")
 endif()
 
-if("${MCS_EXECUTABLE}" STREQUAL "MCS_EXECUTABLE-NOTFOUND")
+if(NOT MCS_EXECUTABLE)
 	message(STATUS " * MCS not found - source generation is disabled")
 	return()
 endif()
