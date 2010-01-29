@@ -23,7 +23,7 @@
 #ifndef __CPP_EVENTS__CONNECTION_SCOPE__HPP
 #define __CPP_EVENTS__CONNECTION_SCOPE__HPP
 
-#include "Event.hpp"
+#include <Cpp/Events/Event.hpp>
 
 namespace Cpp {
 //------------------------------------------------------------------------------

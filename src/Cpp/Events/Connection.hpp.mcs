@@ -24,7 +24,7 @@
 #ifndef __CPP_EVENTS__CONNECTION_HPP
 #define __CPP_EVENTS__CONNECTION_HPP
 
-#include "AbstractConnection.hpp"
+#include <Cpp/Events/AbstractConnection.hpp>
 
 namespace Cpp {
 namespace Private {

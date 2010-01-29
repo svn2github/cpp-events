@@ -23,7 +23,7 @@
 #ifndef __CPP_EVENTS__ATOMIC_REFERENCE_COUNTER__HPP
 #define __CPP_EVENTS__ATOMIC_REFERENCE_COUNTER__HPP
 
-#include "Config.hpp"
+#include <Cpp/Events/Config.hpp>
 #include PLATFORM_PATH(AtomicReferenceCounter.hpp.inl)
 
 #endif //__CPP_EVENTS__ATOMIC_REFERENCE_COUNTER__HPP

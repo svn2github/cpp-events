@@ -23,9 +23,9 @@
 #ifndef __CPP_EVENTS__ABSTRACT_CONNECTION__HPP
 #define __CPP_EVENTS__ABSTRACT_CONNECTION__HPP
 
-#include "AtomicReferenceCounter.hpp"
-#include "AbstractDelegate.hpp"
-#include "ThreadData.hpp"
+#include <Cpp/Events/AtomicReferenceCounter.hpp>
+#include <Cpp/Events/AbstractDelegate.hpp>
+#include <Cpp/Events/ThreadData.hpp>
 #include <cassert>
 
 namespace Cpp {

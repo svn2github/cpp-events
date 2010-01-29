@@ -23,7 +23,7 @@
 #ifndef __CPP_EVENTS__ARG_LIST_HPP
 #define __CPP_EVENTS__ARG_LIST_HPP
 
-#include "../../FastDelegate/FastDelegate.h"
+#include <FastDelegate/FastDelegate.h>
 
 namespace Cpp {
 namespace Private {

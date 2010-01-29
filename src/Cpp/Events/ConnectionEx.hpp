@@ -23,8 +23,8 @@
 #ifndef __CPP_EVENTS__CONNECTION_EX__HPP
 #define __CPP_EVENTS__CONNECTION_EX__HPP
 
-#include "Connection.hpp"
-#include "ArgList.hpp"
+#include <Cpp/Events/Connection.hpp>
+#include <Cpp/Events/ArgList.hpp>
 
 namespace Cpp {
 namespace Private {

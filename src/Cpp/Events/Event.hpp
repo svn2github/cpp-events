@@ -23,9 +23,9 @@
 #ifndef __CPP_EVENTS__EVENTS_HPP
 #define __CPP_EVENTS__EVENTS_HPP
 
-#include "AbstractEvent.hpp"
-#include "ConnectionEx.hpp"
-#include "TypeTraits.hpp"
+#include <Cpp/Events/AbstractEvent.hpp>
+#include <Cpp/Events/ConnectionEx.hpp>
+#include <Cpp/Events/TypeTraits.hpp>
 
 namespace Cpp {
 //------------------------------------------------------------------------------

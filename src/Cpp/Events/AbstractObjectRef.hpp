@@ -23,7 +23,7 @@
 #ifndef __CPP_EVENTS__ABSTRACT_OBJECT_REF__HPP
 #define __CPP_EVENTS__ABSTRACT_OBJECT_REF__HPP
 
-#include "normalize_cast.hpp"
+#include <Cpp/Events/normalize_cast.hpp>
 
 namespace Cpp {
 //------------------------------------------------------------------------------

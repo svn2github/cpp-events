@@ -23,7 +23,7 @@
 #ifndef __CPP_EVENTS__CONNECTION_LIST__HPP
 #define __CPP_EVENTS__CONNECTION_LIST__HPP
 
-#include "BorrowableData.hpp"
+#include <Cpp/Events/BorrowableData.hpp>
 
 namespace Cpp {
 namespace Private {

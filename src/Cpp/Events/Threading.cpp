@@ -20,9 +20,9 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-#include "Threading.hpp"
-#include "ThreadData.hpp"
+#include <Cpp/Events/Threading.hpp>
+#include <Cpp/Events/ThreadData.hpp>
 #include <cassert>
 
-#include "Config.hpp"
+#include <Cpp/Events/Config.hpp>
 #include PLATFORM_PATH(Threading.cpp.inl)

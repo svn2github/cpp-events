@@ -23,8 +23,8 @@
 #ifndef __CPP_EVENTS__THREAD_DATA__HPP
 #define __CPP_EVENTS__THREAD_DATA__HPP
 
-#include "Threading.hpp"
-#include "AtomicReferenceCounter.hpp"
+#include <Cpp/Events/Threading.hpp>
+#include <Cpp/Events/AtomicReferenceCounter.hpp>
 
 namespace Cpp {
 //------------------------------------------------------------------------------

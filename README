@@ -54,6 +54,10 @@ Subdirectory 'build/msvs2005' contains native project files for MSVS. These
 are origianl IDE files used for development. They expect that all dependecies
 are available and do not run unit tests automatically.
 
+After building the library, add path to the 'src' subdirectory to the list of
+the system include directories and path to the 'lib' subdirectory to the list
+of the library directories.
+
 The MCS interpreter is not built automatically when building the library and
 should be built separately if needed. This is done so because Bison and Flex
 are likely to be the source of problems when building the interpreter. I don't

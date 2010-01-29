@@ -23,7 +23,7 @@
 #ifndef __CPP_EVENTS__ABSTRACT_EVENT__HPP
 #define __CPP_EVENTS__ABSTRACT_EVENT__HPP
 
-#include "ConnectionList.hpp"
+#include <Cpp/Events/ConnectionList.hpp>
 
 namespace Cpp {
 //------------------------------------------------------------------------------

@@ -23,7 +23,7 @@
 #ifndef __CPP_EVENTS__TYPE_TRAITS__HPP
 #define __CPP_EVENTS__TYPE_TRAITS__HPP
 
-#include "TypeArithmetic.hpp"
+#include <Cpp/Events/TypeArithmetic.hpp>
 
 namespace Cpp {
 #ifdef DOXYGEN_RUN

@@ -1,4 +1,4 @@
-#include "../../../src/Cpp/Events/AbstractObjectRef.hpp"
+#include <Cpp/Events/AbstractObjectRef.hpp>
 #include "TestClasses.hpp"
 #include <gtest/gtest.h>
 
