@@ -156,127 +156,22 @@
 	</References>
 	<Files>
 		<Filter
-			Name="Source Files"
-			Filter="cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx"
-			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}"
+			Name="Std"
 			>
 			<File
-				RelativePath="..\..\..\src\Cpp\Events\ConnectionList.cpp"
+				RelativePath="..\..\..\src\Std\Assert.hpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\src\Cpp\Events\Threading.cpp"
+				RelativePath="..\..\..\src\Std\Vector.hpp"
 				>
 			</File>
 		</Filter>
 		<Filter
-			Name="Header Files"
-			Filter="h;hpp;hxx;hm;inl;inc;xsd"
-			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}"
+			Name="FastDelegate"
 			>
-			<File
-				RelativePath="..\..\..\src\Cpp\Events\AbstractConnection.hpp"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\src\Cpp\Events\AbstractDelegate.hpp"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\src\Cpp\Events\AbstractEvent.hpp"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\src\Cpp\Events\AbstractObjectRef.hpp"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\src\Cpp\Events\ArgList.hpp"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\src\Cpp\Events\AtomicReferenceCounter.hpp"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\src\Cpp\Events\BorrowableData.hpp"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\src\Cpp\Events\Config.hpp"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\src\Cpp\Events\Connection.hpp"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\src\Cpp\Events\ConnectionEx.hpp"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\src\Cpp\Events\ConnectionList.hpp"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\src\Cpp\Events\ConnectionScope.hpp"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\src\Cpp\Events\Event.hpp"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\src\Cpp\Events.hpp"
-				>
-			</File>
 			<File
 				RelativePath="..\..\..\src\FastDelegate\FastDelegate.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\src\Cpp\Events\normalize_cast.hpp"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\src\Cpp\Events\ThreadData.hpp"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\src\Cpp\Events\Threading.hpp"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\src\Cpp\Events\TypeArithmetic.hpp"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\src\Cpp\Events\TypeTraits.hpp"
-				>
-			</File>
-		</Filter>
-		<Filter
-			Name="VarArg Files"
-			Filter="*.mcs"
-			>
-			<File
-				RelativePath="..\..\..\src\Cpp\Events\ArgList.hpp.mcs"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\src\Cpp\Events\Connection.hpp.mcs"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\src\Cpp\Events\ConnectionEx.hpp.mcs"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\src\Cpp\Events\ConnectionScope.hpp.mcs"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\src\Cpp\Events\Event.hpp.mcs"
 				>
 			</File>
 			<File
@@ -285,31 +180,143 @@
 			</File>
 		</Filter>
 		<Filter
-			Name="_ Platform-specific"
+			Name="Cpp"
 			>
 			<Filter
-				Name="WinApi"
+				Name="Events"
 				>
 				<File
-					RelativePath="..\..\..\src\Cpp\Events\WinApi\AtomicReferenceCounter.hpp.inl"
+					RelativePath="..\..\..\src\Cpp\Events\AbstractConnection.hpp"
 					>
 				</File>
 				<File
-					RelativePath="..\..\..\src\Cpp\Events\WinApi\Threading.cpp.inl"
-					>
-				</File>
-			</Filter>
-			<Filter
-				Name="POSIX"
-				>
-				<File
-					RelativePath="..\..\..\src\Cpp\Events\POSIX\AtomicReferenceCounter.hpp.inl"
+					RelativePath="..\..\..\src\Cpp\Events\AbstractDelegate.hpp"
 					>
 				</File>
 				<File
-					RelativePath="..\..\..\src\Cpp\Events\POSIX\Threading.cpp.inl"
+					RelativePath="..\..\..\src\Cpp\Events\AbstractEvent.hpp"
 					>
 				</File>
+				<File
+					RelativePath="..\..\..\src\Cpp\Events\AbstractObjectRef.hpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\src\Cpp\Events\ArgList.hpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\src\Cpp\Events\ArgList.hpp.mcs"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\src\Cpp\Events\AtomicReferenceCounter.hpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\src\Cpp\Events\BorrowableData.hpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\src\Cpp\Events\Config.hpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\src\Cpp\Events\Connection.hpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\src\Cpp\Events\Connection.hpp.mcs"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\src\Cpp\Events\ConnectionEx.hpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\src\Cpp\Events\ConnectionEx.hpp.mcs"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\src\Cpp\Events\ConnectionList.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\src\Cpp\Events\ConnectionList.hpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\src\Cpp\Events\ConnectionScope.hpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\src\Cpp\Events\ConnectionScope.hpp.mcs"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\src\Cpp\Events\Event.hpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\src\Cpp\Events\Event.hpp.mcs"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\src\Cpp\Events.hpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\src\Cpp\Events\normalize_cast.hpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\src\Cpp\Events\ThreadData.hpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\src\Cpp\Events\Threading.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\src\Cpp\Events\Threading.hpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\src\Cpp\Events\TypeArithmetic.hpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\src\Cpp\Events\TypeTraits.hpp"
+					>
+				</File>
+				<Filter
+					Name="_ Platform-specific"
+					>
+					<Filter
+						Name="WinApi"
+						>
+						<File
+							RelativePath="..\..\..\src\Cpp\Events\WinApi\AtomicReferenceCounter.hpp.inl"
+							>
+						</File>
+						<File
+							RelativePath="..\..\..\src\Cpp\Events\WinApi\Threading.cpp.inl"
+							>
+						</File>
+					</Filter>
+					<Filter
+						Name="POSIX"
+						>
+						<File
+							RelativePath="..\..\..\src\Cpp\Events\POSIX\AtomicReferenceCounter.hpp.inl"
+							>
+						</File>
+						<File
+							RelativePath="..\..\..\src\Cpp\Events\POSIX\Threading.cpp.inl"
+							>
+						</File>
+					</Filter>
+				</Filter>
 			</Filter>
 		</Filter>
 	</Files>
