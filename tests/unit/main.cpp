@@ -28,6 +28,6 @@ int main(int argc, char * argv[])
 {
 	setlocale(LC_ALL, "");
 	::testing::InitGoogleTest(&argc, argv);
-	Cpp::Events::ProcessInit processInit;
+	Cpp::Threading::ProcessInit processInit;
 	return RUN_ALL_TESTS();
 }

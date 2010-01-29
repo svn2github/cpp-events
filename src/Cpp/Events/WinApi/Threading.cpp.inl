@@ -67,21 +67,21 @@ private:
 //------------------------------------------------------------------------------
 static DWORD dwTlsIndex = 0;
 //------------------------------------------------------------------------------
-void Events::constructProcessData()
+void Threading::constructProcessData()
 {
 	assert(!dwTlsIndex);
 	dwTlsIndex = TlsAlloc();
 	constructThreadData();
 }
 //------------------------------------------------------------------------------
-void Events::destructProcessData()
+void Threading::destructProcessData()
 {
 	destructThreadData();
 	assert(dwTlsIndex);
 	TlsFree(dwTlsIndex);
 }
 //------------------------------------------------------------------------------
-void Events::constructThreadData()
+void Threading::constructThreadData()
 {
 	assert(dwTlsIndex);
 	assert(!TlsGetValue(dwTlsIndex));
@@ -91,7 +91,7 @@ void Events::constructThreadData()
 	TlsSetValue(dwTlsIndex, pvTlsData);
 }
 //------------------------------------------------------------------------------
-void Events::destructThreadData()
+void Threading::destructThreadData()
 {
 	assert(dwTlsIndex);
 	LPVOID pvTlsData = TlsGetValue(dwTlsIndex);
@@ -101,31 +101,31 @@ void Events::destructThreadData()
 	TlsSetValue(dwTlsIndex, NULL);
 }
 //------------------------------------------------------------------------------
-Events::ThreadData * Events::currentThreadData()
+Threading::ThreadData * Threading::currentThreadData()
 {
 	assert(dwTlsIndex);
 	LPVOID pvTlsData = TlsGetValue(dwTlsIndex);
 	assert(pvTlsData);
 	WinApi_ThreadData * data = reinterpret_cast<WinApi_ThreadData*>(pvTlsData);
-	return reinterpret_cast<Events::ThreadData*>(data);
+	return reinterpret_cast<Threading::ThreadData*>(data);
 }
 //------------------------------------------------------------------------------
-void Events::ThreadData::lock()
+void Threading::ThreadData::lock()
 {
 	reinterpret_cast<WinApi_ThreadData*>(this)->lock();
 }
 //------------------------------------------------------------------------------
-void Events::ThreadData::unlock()
+void Threading::ThreadData::unlock()
 {
 	reinterpret_cast<WinApi_ThreadData*>(this)->lock();
 }
 //------------------------------------------------------------------------------
-void Events::ThreadData::retain()
+void Threading::ThreadData::retain()
 {
 	reinterpret_cast<WinApi_ThreadData*>(this)->retain();
 }
 //------------------------------------------------------------------------------
-void Events::ThreadData::release()
+void Threading::ThreadData::release()
 {
 	reinterpret_cast<WinApi_ThreadData*>(this)->release();
 }
