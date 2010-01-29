@@ -48,7 +48,7 @@ set(MCS_FILES
 	"${SOURCES_ROOT_DIR}/Cpp/Events/Connection.hpp"
 	"${SOURCES_ROOT_DIR}/Cpp/Events/ConnectionEx.hpp"
 	"${SOURCES_ROOT_DIR}/Cpp/Events/ConnectionScope.hpp"
-	"${SOURCES_ROOT_DIR}/Cpp/Events/Events.hpp"
+	"${SOURCES_ROOT_DIR}/Cpp/Events/Event.hpp"
 )
 
 foreach(f ${MCS_FILES})

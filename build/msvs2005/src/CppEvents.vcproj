@@ -221,7 +221,7 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\src\Cpp\Events\Events.hpp"
+				RelativePath="..\..\..\src\Cpp\Events\Event.hpp"
 				>
 			</File>
 			<File
@@ -270,7 +270,7 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\src\Cpp\Events\Events.hpp.mcs"
+				RelativePath="..\..\..\src\Cpp\Events\Event.hpp.mcs"
 				>
 			</File>
 			<File
