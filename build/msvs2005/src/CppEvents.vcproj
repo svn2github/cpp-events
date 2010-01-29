@@ -227,6 +227,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\..\src\Cpp\Events.hpp"
+				>
+			</File>
+			<File
 				RelativePath="..\..\..\src\FastDelegate\FastDelegate.h"
 				>
 			</File>
