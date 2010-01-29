@@ -1,0 +1,10 @@
+This directory contains suit of research projects (probes) that are used during
+development for gathering information about slick language and compiler details.
+
+Each project is implemented as a single source file in the 'src' subdirectory.
+They are compiled and executed via CMake's 'try_run()' command. Some of these
+tests are run-time tests - they collect information during their execution and
+should always compile without errors. And other are compile-times tests - they
+check if this or that language trick will be accepted by the compiler.
+
+All tests are executed when running CMake. Generated project files are no-op.
