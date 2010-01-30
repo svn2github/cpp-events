@@ -310,6 +310,10 @@
 					>
 				</File>
 				<File
+					RelativePath="..\..\..\src\Cpp\Threading\Thread.hpp"
+					>
+				</File>
+				<File
 					RelativePath="..\..\..\src\Cpp\Threading\ThreadStorage.hpp"
 					>
 				</File>
@@ -328,6 +332,10 @@
 							>
 						</File>
 						<File
+							RelativePath="..\..\..\src\Cpp\Threading\WinApi\Thread.hpp.inl"
+							>
+						</File>
+						<File
 							RelativePath="..\..\..\src\Cpp\Threading\WinApi\ThreadStorage.hpp.inl"
 							>
 						</File>
@@ -341,6 +349,10 @@
 						</File>
 						<File
 							RelativePath="..\..\..\src\Cpp\Threading\POSIX\RecursiveMutex.hpp.inl"
+							>
+						</File>
+						<File
+							RelativePath="..\..\..\src\Cpp\Threading\POSIX\Thread.hpp.inl"
 							>
 						</File>
 						<File
