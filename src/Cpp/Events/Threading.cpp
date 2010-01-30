@@ -116,7 +116,7 @@ void Threading::ThreadData::lock()
 //------------------------------------------------------------------------------
 void Threading::ThreadData::unlock()
 {
-	reinterpret_cast<ThreadDataImpl*>(this)->lock();
+	reinterpret_cast<ThreadDataImpl*>(this)->unlock();
 }
 //------------------------------------------------------------------------------
 void Threading::ThreadData::retain()
