@@ -214,15 +214,7 @@
 					>
 				</File>
 				<File
-					RelativePath="..\..\..\src\Cpp\Events\AtomicInt.hpp"
-					>
-				</File>
-				<File
 					RelativePath="..\..\..\src\Cpp\Events\BorrowableData.hpp"
-					>
-				</File>
-				<File
-					RelativePath="..\..\..\src\Cpp\Events\Config.hpp"
 					>
 				</File>
 				<File
@@ -274,10 +266,6 @@
 					>
 				</File>
 				<File
-					RelativePath="..\..\..\src\Cpp\Events\RecursiveMutex.hpp"
-					>
-				</File>
-				<File
 					RelativePath="..\..\..\src\Cpp\Events\ThreadData.hpp"
 					>
 				</File>
@@ -289,16 +277,40 @@
 					RelativePath="..\..\..\src\Cpp\Events\Threading.hpp"
 					>
 				</File>
+			</Filter>
+			<Filter
+				Name="Utils"
+				>
 				<File
-					RelativePath="..\..\..\src\Cpp\Events\ThreadStorage.hpp"
+					RelativePath="..\..\..\src\Cpp\Utils\DisableCopy.hpp"
 					>
 				</File>
 				<File
-					RelativePath="..\..\..\src\Cpp\Events\TypeArithmetic.hpp"
+					RelativePath="..\..\..\src\Cpp\Utils\Meta.hpp"
 					>
 				</File>
 				<File
-					RelativePath="..\..\..\src\Cpp\Events\TypeTraits.hpp"
+					RelativePath="..\..\..\src\Cpp\Utils\TypeTraits.hpp"
+					>
+				</File>
+			</Filter>
+			<Filter
+				Name="Threading"
+				>
+				<File
+					RelativePath="..\..\..\src\Cpp\Threading\AtomicInt.hpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\src\Cpp\Threading\Config.hpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\src\Cpp\Threading\RecursiveMutex.hpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\src\Cpp\Threading\ThreadStorage.hpp"
 					>
 				</File>
 				<Filter
@@ -308,15 +320,15 @@
 						Name="WinApi"
 						>
 						<File
-							RelativePath="..\..\..\src\Cpp\Events\WinApi\AtomicInt.hpp.inl"
+							RelativePath="..\..\..\src\Cpp\Threading\WinApi\AtomicInt.hpp.inl"
 							>
 						</File>
 						<File
-							RelativePath="..\..\..\src\Cpp\Events\WinApi\RecursiveMutex.hpp.inl"
+							RelativePath="..\..\..\src\Cpp\Threading\WinApi\RecursiveMutex.hpp.inl"
 							>
 						</File>
 						<File
-							RelativePath="..\..\..\src\Cpp\Events\WinApi\ThreadStorage.hpp.inl"
+							RelativePath="..\..\..\src\Cpp\Threading\WinApi\ThreadStorage.hpp.inl"
 							>
 						</File>
 					</Filter>
@@ -324,27 +336,19 @@
 						Name="POSIX"
 						>
 						<File
-							RelativePath="..\..\..\src\Cpp\Events\POSIX\AtomicInt.hpp.inl"
+							RelativePath="..\..\..\src\Cpp\Threading\POSIX\AtomicInt.hpp.inl"
 							>
 						</File>
 						<File
-							RelativePath="..\..\..\src\Cpp\Events\POSIX\RecursiveMutex.hpp.inl"
+							RelativePath="..\..\..\src\Cpp\Threading\POSIX\RecursiveMutex.hpp.inl"
 							>
 						</File>
 						<File
-							RelativePath="..\..\..\src\Cpp\Events\POSIX\ThreadStorage.hpp.inl"
+							RelativePath="..\..\..\src\Cpp\Threading\POSIX\ThreadStorage.hpp.inl"
 							>
 						</File>
 					</Filter>
 				</Filter>
-			</Filter>
-			<Filter
-				Name="Utils"
-				>
-				<File
-					RelativePath="..\..\..\src\Cpp\Utils\DisableCopy.hpp"
-					>
-				</File>
 			</Filter>
 		</Filter>
 	</Files>

@@ -25,7 +25,7 @@
 
 #include <Cpp/Events/AbstractEvent.hpp>
 #include <Cpp/Events/ConnectionEx.hpp>
-#include <Cpp/Events/TypeTraits.hpp>
+#include <Cpp/Utils/TypeTraits.hpp>
 
 namespace Cpp {
 //------------------------------------------------------------------------------

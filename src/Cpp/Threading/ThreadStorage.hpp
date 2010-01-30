@@ -28,7 +28,7 @@ template<class T> class ThreadStorage;
 //------------------------------------------------------------------------------
 } //namespace Cpp
 
-#include <Cpp/Events/Config.hpp>
+#include <Cpp/Threading/Config.hpp>
 #include PLATFORM_PATH(ThreadStorage.hpp.inl)
 
 namespace Cpp {

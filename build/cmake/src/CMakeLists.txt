@@ -19,7 +19,7 @@ endif()
 
 set(SOURCES_ROOT_DIR "${BASE_DIR}/src")
 
-configure_file("./Config.hpp.template" "${SOURCES_ROOT_DIR}/Cpp/Events/Config.hpp")
+configure_file("./Config.hpp.template" "${SOURCES_ROOT_DIR}/Cpp/Threading/Config.hpp")
 
 add_library(CppEvents
 	"${SOURCES_ROOT_DIR}/Cpp/Events/ConnectionList.cpp"

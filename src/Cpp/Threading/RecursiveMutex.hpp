@@ -23,7 +23,7 @@
 #ifndef __CPP_EVENTS__MUTEX_HPP
 #define __CPP_EVENTS__MUTEX_HPP
 
-#include <Cpp/Events/Config.hpp>
+#include <Cpp/Threading/Config.hpp>
 #include PLATFORM_PATH(RecursiveMutex.hpp.inl)
 
 #endif //__CPP_EVENTS__MUTEX_HPP

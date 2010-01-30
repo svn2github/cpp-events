@@ -22,9 +22,9 @@
 
 #include <Cpp/Events/Threading.hpp>
 #include <Cpp/Events/ThreadData.hpp>
-#include <Cpp/Events/AtomicInt.hpp>
-#include <Cpp/Events/RecursiveMutex.hpp>
-#include <Cpp/Events/ThreadStorage.hpp>
+#include <Cpp/Threading/AtomicInt.hpp>
+#include <Cpp/Threading/RecursiveMutex.hpp>
+#include <Cpp/Threading/ThreadStorage.hpp>
 #include <Std/Assert.hpp>
 #include <Std/New.hpp>
 

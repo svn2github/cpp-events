@@ -23,7 +23,7 @@
 #ifndef __CPP_EVENTS__ABSTRACT_CONNECTION__HPP
 #define __CPP_EVENTS__ABSTRACT_CONNECTION__HPP
 
-#include <Cpp/Events/AtomicInt.hpp>
+#include <Cpp/Threading/AtomicInt.hpp>
 #include <Cpp/Events/AbstractDelegate.hpp>
 #include <Cpp/Events/ThreadData.hpp>
 #include <Cpp/Utils/DisableCopy.hpp>
