@@ -21,6 +21,11 @@ set(SOURCES_ROOT_DIR "${BASE_DIR}/src")
 
 configure_file("./Config.hpp.template" "${SOURCES_ROOT_DIR}/Cpp/Threading/Config.hpp")
 
+if(NOT PLATFORM_DIR)
+	message(FATAL_ERROR "CppEvents has not been ported for your threading API")
+	return()
+endif()
+
 add_library(CppEvents
 	"${SOURCES_ROOT_DIR}/Cpp/Events/ConnectionList.cpp"
 	"${SOURCES_ROOT_DIR}/Cpp/Events/Threading.cpp"
