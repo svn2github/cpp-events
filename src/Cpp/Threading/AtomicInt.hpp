@@ -24,6 +24,6 @@
 #define __CPP_EVENTS__ATOMIC_REFERENCE_COUNTER__HPP
 
 #include <Cpp/Threading/Config.hpp>
-#include PLATFORM_PATH(AtomicInt.hpp.inl)
+#include CPP_THREADING_PLATFORM_PATH(AtomicInt.hpp.inl)
 
 #endif //__CPP_EVENTS__ATOMIC_REFERENCE_COUNTER__HPP

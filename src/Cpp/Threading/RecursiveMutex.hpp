@@ -24,6 +24,6 @@
 #define __CPP_EVENTS__MUTEX_HPP
 
 #include <Cpp/Threading/Config.hpp>
-#include PLATFORM_PATH(RecursiveMutex.hpp.inl)
+#include CPP_THREADING_PLATFORM_PATH(RecursiveMutex.hpp.inl)
 
 #endif //__CPP_EVENTS__MUTEX_HPP

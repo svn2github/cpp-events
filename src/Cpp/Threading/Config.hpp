@@ -24,16 +24,16 @@
 #define __CPP_EVENTS__CONFIG__HPP
 
 // Directory for platform-specific files (set by CMake)
-#define PLATFORM_DIR WinApi
+#define CPP_THREADING_PLATFORM_DIR WinApi
 
-#ifndef PLATFORM_DIR
+#ifndef CPP_THREADING_PLATFORM_DIR
 #  error "Unsupported target platform!"
 #endif
 
 // Construction of the platform-specific paths
-#define PLATFORM_PATH_HELPER_0(Path) #Path
-#define PLATFORM_PATH_HELPER_1(Dir, Path) PLATFORM_PATH_HELPER_0(Dir/Path)
-#define PLATFORM_PATH_HELPER_2(Dir, Path) PLATFORM_PATH_HELPER_1(Dir, Path)
-#define PLATFORM_PATH(Path) PLATFORM_PATH_HELPER_2(PLATFORM_DIR, Path)
+#define CPP_THREADING_PLATFORM_PATH_HELPER_0(Path) #Path
+#define CPP_THREADING_PLATFORM_PATH_HELPER_1(Dir, Path) CPP_THREADING_PLATFORM_PATH_HELPER_0(Dir/Path)
+#define CPP_THREADING_PLATFORM_PATH_HELPER_2(Dir, Path) CPP_THREADING_PLATFORM_PATH_HELPER_1(Dir, Path)
+#define CPP_THREADING_PLATFORM_PATH(Path) CPP_THREADING_PLATFORM_PATH_HELPER_2(CPP_THREADING_PLATFORM_DIR, Path)
 
 #endif //__CPP_EVENTS__CONFIG__HPP

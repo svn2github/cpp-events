@@ -29,7 +29,7 @@ template<class T> class ThreadStorage;
 } //namespace Cpp
 
 #include <Cpp/Threading/Config.hpp>
-#include PLATFORM_PATH(ThreadStorage.hpp.inl)
+#include CPP_THREADING_PLATFORM_PATH(ThreadStorage.hpp.inl)
 
 namespace Cpp {
 //------------------------------------------------------------------------------
