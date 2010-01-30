@@ -258,6 +258,18 @@
 				</FileConfiguration>
 			</File>
 		</Filter>
+		<Filter
+			Name="Test_Threading"
+			>
+			<File
+				RelativePath="..\..\..\..\tests\unit\Test_Threading\CrossThreadConnect.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\..\tests\unit\Test_Threading\ObjectTransfer.cpp"
+				>
+			</File>
+		</Filter>
 		<File
 			RelativePath=".\..\..\..\..\tests\unit\main.cpp"
 			>
