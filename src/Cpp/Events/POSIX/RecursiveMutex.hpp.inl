@@ -22,6 +22,8 @@
 
 #include <pthread.h>
 
+namespace Cpp {
+//------------------------------------------------------------------------------
 class RecursiveMutex
 {
 public:
@@ -51,3 +53,5 @@ private:
 	pthread_mutexattr_t attr_;
 	pthread_mutex_t mutex_;
 };
+//------------------------------------------------------------------------------
+} //namespace Cpp

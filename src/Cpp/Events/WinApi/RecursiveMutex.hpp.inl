@@ -22,6 +22,8 @@
 
 #include <Windows.h>
 
+namespace Cpp {
+//------------------------------------------------------------------------------
 class RecursiveMutex
 {
 public:
@@ -33,3 +35,5 @@ public:
 private:
 	CRITICAL_SECTION criticalSection_;
 };
+//------------------------------------------------------------------------------
+} //namespace Cpp
