@@ -186,6 +186,10 @@
 		<Filter
 			Name="Cpp"
 			>
+			<File
+				RelativePath="..\..\..\src\Cpp\Events.hpp"
+				>
+			</File>
 			<Filter
 				Name="Events"
 				>
@@ -255,10 +259,6 @@
 				</File>
 				<File
 					RelativePath="..\..\..\src\Cpp\Events\Event.hpp.mcs"
-					>
-				</File>
-				<File
-					RelativePath="..\..\..\src\Cpp\Events.hpp"
 					>
 				</File>
 				<File
