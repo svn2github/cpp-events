@@ -21,7 +21,7 @@ set(SOURCES_ROOT_DIR "${BASE_DIR}/tests/unit")
 
 add_executable(UnitTests
 	"${SOURCES_ROOT_DIR}/main.cpp"
-	"${SOURCES_ROOT_DIR}/Test_IsPolymorphic/Tests.cpp"
+#	"${SOURCES_ROOT_DIR}/Test_IsPolymorphic/Tests.cpp"
 	"${SOURCES_ROOT_DIR}/Test_EqualMemberAddress/File1.cpp"
 	"${SOURCES_ROOT_DIR}/Test_EqualMemberAddress/File2.cpp"
 	"${SOURCES_ROOT_DIR}/Test_EqualMemberAddress/TestClass.cpp"
