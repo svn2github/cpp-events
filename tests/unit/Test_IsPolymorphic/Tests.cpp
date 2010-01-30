@@ -1,13 +1,3 @@
-#include <Cpp/Events/AbstractObjectRef.hpp>
-#include "TestClasses.hpp"
-#include <gtest/gtest.h>
-
-using Cpp::Private::Events::IsPolymorphic;
-
-////////////////////////////////////////////////////////////////////////////////
-// For checking polymorphy special template class is derived from class being tested.
-// This potentially may cause compilation problems if some special members of base class are inaccessible.
-// This test is designed for detecting these problems. Test is passed if it compiles.
 // Copyright (c) 2010 Nickolas Pohilets
 //
 // This file is a part of the unit test suit for the CppEvents library.
@@ -29,6 +19,17 @@ using Cpp::Private::Events::IsPolymorphic;
 // LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
+
+#include <Cpp/Events/AbstractObjectRef.hpp>
+#include "TestClasses.hpp"
+#include <gtest/gtest.h>
+
+using Cpp::Private::Events::IsPolymorphic;
+
+////////////////////////////////////////////////////////////////////////////////
+// For checking polymorphy special template class is derived from class being tested.
+// This potentially may cause compilation problems if some special members of base class are inaccessible.
+// This test is designed for detecting these problems. Test is passed if it compiles.
 
 TEST(Test_IsPolymorphic, Compilability)
 {

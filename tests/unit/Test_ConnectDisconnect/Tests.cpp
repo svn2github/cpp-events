@@ -23,6 +23,8 @@
 #include <Cpp/Events.hpp>
 #include <gtest/gtest.h>
 
+namespace /*anonymous*/ {
+
 class Sender
 {
 public:
@@ -107,6 +109,8 @@ private:
 	int index_;
 	int val_;
 };
+
+} //namespace /*anonymous*/
 
 ////////////////////////////////////////////////////////////////////////////////
 // This test checks basic connection management
