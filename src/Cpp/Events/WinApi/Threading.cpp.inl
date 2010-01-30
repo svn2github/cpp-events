@@ -20,8 +20,6 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-#include <windows.h>
-
 namespace Cpp {
 //------------------------------------------------------------------------------
 class WinApi_ThreadData
@@ -58,48 +56,48 @@ private:
 	RecursiveMutex mutex_;
 };
 //------------------------------------------------------------------------------
-static DWORD dwTlsIndex = 0;
+typedef ThreadStorage<WinApi_ThreadData*> ThreadDataStorage;
+static char storageBytes[sizeof(ThreadDataStorage)];
+static ThreadDataStorage * storage = 0;
 //------------------------------------------------------------------------------
 void Threading::constructProcessData()
 {
-	assert(!dwTlsIndex);
-	dwTlsIndex = TlsAlloc();
+	assert(!storage);
+	storage = new(storageBytes) ThreadDataStorage;
 	constructThreadData();
 }
 //------------------------------------------------------------------------------
 void Threading::destructProcessData()
 {
 	destructThreadData();
-	assert(dwTlsIndex);
-	TlsFree(dwTlsIndex);
+	assert(storage);
+	storage->~ThreadDataStorage();
+	storage = 0;
 }
 //------------------------------------------------------------------------------
 void Threading::constructThreadData()
 {
-	assert(dwTlsIndex);
-	assert(!TlsGetValue(dwTlsIndex));
+	assert(storage);
+	assert(!storage->data());
 	WinApi_ThreadData * data = new WinApi_ThreadData();
 	data->retain();
-	LPVOID pvTlsData = reinterpret_cast<LPVOID>(data);
-	TlsSetValue(dwTlsIndex, pvTlsData);
+	storage->setData(data);
 }
 //------------------------------------------------------------------------------
 void Threading::destructThreadData()
 {
-	assert(dwTlsIndex);
-	LPVOID pvTlsData = TlsGetValue(dwTlsIndex);
-	assert(pvTlsData);
-	WinApi_ThreadData * data = reinterpret_cast<WinApi_ThreadData*>(pvTlsData);
+	assert(storage);
+	WinApi_ThreadData * data = storage->data();
+	assert(data);
 	data->release();
-	TlsSetValue(dwTlsIndex, NULL);
+	storage->setData(0);
 }
 //------------------------------------------------------------------------------
 Threading::ThreadData * Threading::currentThreadData()
 {
-	assert(dwTlsIndex);
-	LPVOID pvTlsData = TlsGetValue(dwTlsIndex);
-	assert(pvTlsData);
-	WinApi_ThreadData * data = reinterpret_cast<WinApi_ThreadData*>(pvTlsData);
+	assert(storage);
+	WinApi_ThreadData * data = storage->data();
+	assert(data);
 	return reinterpret_cast<Threading::ThreadData*>(data);
 }
 //------------------------------------------------------------------------------

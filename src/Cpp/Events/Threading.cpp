@@ -24,7 +24,9 @@
 #include <Cpp/Events/ThreadData.hpp>
 #include <Cpp/Events/AtomicInt.hpp>
 #include <Cpp/Events/RecursiveMutex.hpp>
+#include <Cpp/Events/ThreadStorage.hpp>
 #include <Std/Assert.hpp>
+#include <Std/New.hpp>
 
 #include <Cpp/Events/Config.hpp>
 #include PLATFORM_PATH(Threading.cpp.inl)

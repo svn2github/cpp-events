@@ -163,6 +163,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\..\src\Std\New.hpp"
+				>
+			</File>
+			<File
 				RelativePath="..\..\..\src\Std\Vector.hpp"
 				>
 			</File>
@@ -286,6 +290,10 @@
 					>
 				</File>
 				<File
+					RelativePath="..\..\..\src\Cpp\Events\ThreadStorage.hpp"
+					>
+				</File>
+				<File
 					RelativePath="..\..\..\src\Cpp\Events\TypeArithmetic.hpp"
 					>
 				</File>
@@ -311,6 +319,10 @@
 							RelativePath="..\..\..\src\Cpp\Events\WinApi\Threading.cpp.inl"
 							>
 						</File>
+						<File
+							RelativePath="..\..\..\src\Cpp\Events\WinApi\ThreadStorage.hpp.inl"
+							>
+						</File>
 					</Filter>
 					<Filter
 						Name="POSIX"
@@ -325,6 +337,10 @@
 						</File>
 						<File
 							RelativePath="..\..\..\src\Cpp\Events\POSIX\Threading.cpp.inl"
+							>
+						</File>
+						<File
+							RelativePath="..\..\..\src\Cpp\Events\POSIX\ThreadStorage.hpp.inl"
 							>
 						</File>
 					</Filter>

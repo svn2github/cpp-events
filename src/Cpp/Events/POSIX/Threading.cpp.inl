@@ -20,8 +20,6 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-#include <pthread.h>
-
 namespace Cpp {
 //------------------------------------------------------------------------------
 class POSIX_ThreadData
@@ -58,49 +56,48 @@ private:
 	RecursiveMutex mutex_;
 };
 //------------------------------------------------------------------------------
-static pthread_key_t tlsKey;
+typedef ThreadStorage<POSIX_ThreadData*> ThreadDataStorage;
+static char storageBytes[sizeof(ThreadDataStorage)];
+static ThreadDataStorage * storage = 0;
 //------------------------------------------------------------------------------
 void Threading::constructProcessData()
 {
-	assert(!tlsKey);
-	pthread_key_create(&tlsKey, NULL);
+	assert(!storage);
+	storage = new(storageBytes) ThreadDataStorage();
 	constructThreadData();
 }
 //------------------------------------------------------------------------------
 void Threading::destructProcessData()
 {
 	destructThreadData();
-	assert(tlsKey);
-	pthread_key_delete(tlsKey);
-	tlsKey = 0;
+	assert(storage);
+	storage->~ThreadDataStorage();
+	storage = 0;
 }
 //------------------------------------------------------------------------------
 void Threading::constructThreadData()
 {
-	assert(tlsKey);
-	assert(!pthread_getspecific(tlsKey));
+	assert(storage);
+	assert(!storage->data());
 	POSIX_ThreadData * data = new POSIX_ThreadData();
 	data->retain();
-	void * pvTlsData = reinterpret_cast<void*>(data);
-	pthread_setspecific(tlsKey, pvTlsData);
+	storage->setData(data);
 }
 //------------------------------------------------------------------------------
 void Threading::destructThreadData()
 {
-	assert(tlsKey);
-	void * pvTlsData = pthread_getspecific(tlsKey);
-	assert(pvTlsData);
-	POSIX_ThreadData * data = reinterpret_cast<POSIX_ThreadData*>(pvTlsData);
+	assert(storage);
+	POSIX_ThreadData * data = storage->data();
+	assert(data);
 	data->release();
-	pthread_setspecific(tlsKey, NULL);
+	storage->setData(0);
 }
 //------------------------------------------------------------------------------
 Threading::ThreadData * Threading::currentThreadData()
 {
-	assert(tlsKey);
-	void * pvTlsData = pthread_getspecific(tlsKey);
-	assert(pvTlsData);
-	POSIX_ThreadData * data = reinterpret_cast<POSIX_ThreadData*>(pvTlsData);
+	assert(storage);
+	POSIX_ThreadData * data = storage->data();
+	assert(data);
 	return reinterpret_cast<Threading::ThreadData*>(data);
 }
 //------------------------------------------------------------------------------
