@@ -47,15 +47,15 @@ namespace {
 		ASSERT_FALSE(IsPolymorphic< ClassOfSize<n> >::value);
 	}
 
+	void testAlignmentIssues(ClassOfSize<0> const & x)
+	{
+		doTestAlignmentIssues(x);
+	}
+
 	template<int n> void testAlignmentIssues(ClassOfSize<n> const & x)
 	{
 		doTestAlignmentIssues(x);
 		testAlignmentIssues(ClassOfSize<n-1>());
-	}
-
-	void testAlignmentIssues(ClassOfSize<0> const & x)
-	{
-		doTestAlignmentIssues(x);
 	}
 }
 
