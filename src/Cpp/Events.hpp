@@ -21,8 +21,8 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-#ifndef CPP__EVENTS__HPP
-#define CPP__EVENTS__HPP
+#ifndef __CPP__EVENTS__HPP
+#define __CPP__EVENTS__HPP
 
 #include <Cpp/Events/ConnectionScope.hpp>
 
@@ -97,4 +97,4 @@ public:
 //------------------------------------------------------------------------------
 } //namespace Cpp
 
-#endif //CPP__EVENTS__HPP
+#endif //__CPP__EVENTS__HPP

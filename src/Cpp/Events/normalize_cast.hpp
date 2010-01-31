@@ -20,8 +20,8 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-#ifndef __CPP_EVENTS__NORMALIZE_CAST__HPP
-#define __CPP_EVENTS__NORMALIZE_CAST__HPP
+#ifndef __CPP__EVENTS__NORMALIZE_CAST__HPP
+#define __CPP__EVENTS__NORMALIZE_CAST__HPP
 
 namespace Cpp {
 namespace Private {
@@ -64,4 +64,4 @@ template<class T> inline void const * normalize_cast(T * ptr)
 } //namespace Private
 } //namespace Cpp
 
-#endif //__CPP_EVENTS__NORMALIZE_CAST__HPP
+#endif //__CPP__EVENTS__NORMALIZE_CAST__HPP

@@ -21,8 +21,8 @@
 // THE SOFTWARE.
 
 @@int N=8;
-#ifndef __CPP_EVENTS__CONNECTION_HPP
-#define __CPP_EVENTS__CONNECTION_HPP
+#ifndef __CPP__EVENTS__CONNECTION__HPP
+#define __CPP__EVENTS__CONNECTION__HPP
 
 #include <Cpp/Events/AbstractConnection.hpp>
 
@@ -58,4 +58,4 @@ protected:
 } //namespace Private
 } //namespace Cpp
 
-#endif //__CPP_EVENTS__CONNECTION_HPP
+#endif //__CPP__EVENTS__CONNECTION__HPP

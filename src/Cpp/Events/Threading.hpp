@@ -20,8 +20,8 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-#ifndef __CPP_EVENTS__THREADING__HPP
-#define __CPP_EVENTS__THREADING__HPP
+#ifndef __CPP__EVENTS__THREADING__HPP
+#define __CPP__EVENTS__THREADING__HPP
 
 namespace Cpp {
 //------------------------------------------------------------------------------
@@ -40,4 +40,4 @@ public:
 //------------------------------------------------------------------------------
 } //namespace Cpp
 
-#endif //__CPP_EVENTS__THREADING__HPP
+#endif //__CPP__EVENTS__THREADING__HPP

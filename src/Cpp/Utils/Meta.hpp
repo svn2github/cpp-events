@@ -20,8 +20,8 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-#ifndef __CPP_EVENTS__TYPE_ARITHMETIC__HPP
-#define __CPP_EVENTS__TYPE_ARITHMETIC__HPP
+#ifndef __CPP__UTILS__META__HPP
+#define __CPP__UTILS__META__HPP
 
 namespace Cpp {
 #ifdef DOXYGEN_RUN
@@ -214,4 +214,4 @@ template<class ThenClass, class ElseClass> struct TypeIf<FalseType, ThenClass, E
 #endif
 } //namespace Cpp
 
-#endif //__CPP_EVENTS__TYPE_ARITHMETIC__HPP
+#endif //__CPP__UTILS__META__HPP

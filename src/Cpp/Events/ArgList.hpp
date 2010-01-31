@@ -20,8 +20,8 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-#ifndef __CPP_EVENTS__ARG_LIST_HPP
-#define __CPP_EVENTS__ARG_LIST_HPP
+#ifndef __CPP__EVENTS__ARG_LIST__HPP
+#define __CPP__EVENTS__ARG_LIST__HPP
 
 #include <FastDelegate/FastDelegate.h>
 
@@ -309,4 +309,4 @@ template<class R, class T0, class T1, class T2, class T3, class T4, class T5, cl
 } //namespace Private
 } //namespace Cpp
 
-#endif //__CPP_EVENTS__ARG_LIST_HPP
+#endif //__CPP__EVENTS__ARG_LIST__HPP

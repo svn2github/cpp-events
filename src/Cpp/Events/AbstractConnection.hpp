@@ -20,8 +20,8 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-#ifndef __CPP_EVENTS__ABSTRACT_CONNECTION__HPP
-#define __CPP_EVENTS__ABSTRACT_CONNECTION__HPP
+#ifndef __CPP__EVENTS__ABSTRACT_CONNECTION__HPP
+#define __CPP__EVENTS__ABSTRACT_CONNECTION__HPP
 
 #include <Cpp/Threading/AtomicInt.hpp>
 #include <Cpp/Events/AbstractDelegate.hpp>
@@ -104,4 +104,4 @@ private:
 } //namespace Private
 } //namespace Cpp
 
-#endif //__CPP_EVENTS__ABSTRACT_CONNECTION__HPP
+#endif //__CPP__EVENTS__ABSTRACT_CONNECTION__HPP

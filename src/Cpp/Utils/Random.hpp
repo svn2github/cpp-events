@@ -20,6 +20,9 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
+#ifndef __CPP__UTILS__RANDOM__HPP
+#define __CPP__UTILS__RANDOM__HPP
+
 namespace Cpp {
 //------------------------------------------------------------------------------
 // Random number generator taken from Wikipedia 
@@ -44,3 +47,5 @@ private:
 };
 //------------------------------------------------------------------------------
 } //namespace Cpp
+
+#endif //__CPP__UTILS__RANDOM__HPP

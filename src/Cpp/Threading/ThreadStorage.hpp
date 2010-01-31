@@ -20,6 +20,9 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
+#ifndef __CPP__THREADING__THREAD_STORAGE__HPP
+#define __CPP__THREADING__THREAD_STORAGE__HPP
+
 #include <Cpp/Utils/DisableCopy.hpp>
 
 namespace Cpp {
@@ -47,3 +50,5 @@ private:
 };
 //------------------------------------------------------------------------------
 } //namespace Cpp
+
+#endif //__CPP__THREADING__THREAD_STORAGE__HPP

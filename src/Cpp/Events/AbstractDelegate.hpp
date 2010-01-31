@@ -20,8 +20,8 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-#ifndef __CPP_EVENTS__ABSTRACT_DELEGATE__HPP
-#define __CPP_EVENTS__ABSTRACT_DELEGATE__HPP
+#ifndef __CPP__EVENTS__ABSTRACT_DELEGATE__HPP
+#define __CPP__EVENTS__ABSTRACT_DELEGATE__HPP
 
 #include <FastDelegate/FastDelegate.h>
 
@@ -64,4 +64,4 @@ private:
 //------------------------------------------------------------------------------
 } //namespace Cpp
 
-#endif //ABSTRACT_DELEGATE__HPP
+#endif //__CPP__EVENTS__ABSTRACT_DELEGATE__HPP

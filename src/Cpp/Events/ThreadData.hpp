@@ -20,8 +20,8 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-#ifndef __CPP_EVENTS__THREAD_DATA__HPP
-#define __CPP_EVENTS__THREAD_DATA__HPP
+#ifndef __CPP__EVENTS__THREAD_DATA__HPP
+#define __CPP__EVENTS__THREAD_DATA__HPP
 
 #include <Cpp/Events/Threading.hpp>
 
@@ -174,4 +174,4 @@ private:
 } //namespace Private
 } //namespace Cpp
 
-#endif //__CPP_EVENTS__THREAD_DATA__HPP
+#endif //__CPP__EVENTS__THREAD_DATA__HPP

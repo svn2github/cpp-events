@@ -20,8 +20,8 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-#ifndef __CPP_EVENTS__BORROWABLE_DATA__HPP
-#define __CPP_EVENTS__BORROWABLE_DATA__HPP
+#ifndef __CPP__EVENTS__BORROWABLE_DATA__HPP
+#define __CPP__EVENTS__BORROWABLE_DATA__HPP
 
 #include <Cpp/Events/AbstractConnection.hpp>
 #include <Std/Assert.hpp>
@@ -114,5 +114,5 @@ private:
 } //namespace Private
 } //namespace Cpp
 
-#endif //__CPP_EVENTS__BORROWABLE_DATA__HPP
+#endif //__CPP__EVENTS__BORROWABLE_DATA__HPP
 

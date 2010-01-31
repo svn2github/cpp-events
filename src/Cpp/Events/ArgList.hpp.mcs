@@ -21,8 +21,8 @@
 // THE SOFTWARE.
 
 @@int N=8;
-#ifndef __CPP_EVENTS__ARG_LIST_HPP
-#define __CPP_EVENTS__ARG_LIST_HPP
+#ifndef __CPP__EVENTS__ARG_LIST__HPP
+#define __CPP__EVENTS__ARG_LIST__HPP
 
 #include <FastDelegate/FastDelegate.h>
 
@@ -116,4 +116,4 @@ template<class R@listx(", %", "class T%", i)@, class StoredList, class ParamList
 } //namespace Private
 } //namespace Cpp
 
-#endif //__CPP_EVENTS__ARG_LIST_HPP
+#endif //__CPP__EVENTS__ARG_LIST__HPP

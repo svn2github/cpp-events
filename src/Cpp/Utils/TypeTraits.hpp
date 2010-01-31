@@ -20,8 +20,8 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-#ifndef __CPP_EVENTS__TYPE_TRAITS__HPP
-#define __CPP_EVENTS__TYPE_TRAITS__HPP
+#ifndef __CPP__UTILS__TYPE_TRAITS__HPP
+#define __CPP__UTILS__TYPE_TRAITS__HPP
 
 #include <Cpp/Utils/Meta.hpp>
 
@@ -236,4 +236,4 @@ template<class T0, class T1> struct IsSubclass
 #endif
 } //namespace Cpp
 
-#endif //__CPP_EVENTS__TYPE_TRAITS__HPP
+#endif //__CPP__UTILS__TYPE_TRAITS__HPP

@@ -20,8 +20,8 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-#ifndef __CPP_EVENTS__CONNECTION_HPP
-#define __CPP_EVENTS__CONNECTION_HPP
+#ifndef __CPP__EVENTS__CONNECTION__HPP
+#define __CPP__EVENTS__CONNECTION__HPP
 
 #include <Cpp/Events/AbstractConnection.hpp>
 
@@ -231,4 +231,4 @@ protected:
 } //namespace Private
 } //namespace Cpp
 
-#endif //__CPP_EVENTS__CONNECTION_HPP
+#endif //__CPP__EVENTS__CONNECTION__HPP
