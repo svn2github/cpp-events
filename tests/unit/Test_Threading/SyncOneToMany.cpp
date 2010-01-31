@@ -126,10 +126,10 @@ protected:
 
 				unsigned long k = rnd.generate() % 7;
 
-				//if(k < 4) // 0,1,2,3
+				if(k < 4) // 0,1,2,3
 					handler_.connect(&scope, sender_);
-				//else // 4,5,6
-				//	handler_.disconnect(&scope, sender_);
+				else // 4,5,6
+					handler_.disconnect(&scope, sender_);
 
 				mutex_.unlock();
 			}
