@@ -38,7 +38,7 @@ using UnitTests::ConnectDisconnect::RecieverEx;
 /*
 	This test checks deadlocks in basic connection management                          
 */
-class ManualConnectDisconnectThread : public Thread
+class ManualConnectDisconnectThread : public Cpp::Thread
 {
 public:
 	void start(Sender * sender)
@@ -121,7 +121,7 @@ TEST(Test_Threading, ManualConnectDisconnectDeadlocks)
 /*
 	This test checks deadlocks in automatic disconnection
 */
-class AutomaticDisconnectThread_1_1_1 : public Thread
+class AutomaticDisconnectThread_1_1_1 : public Cpp::Thread
 {
 public:
 	void start(Sender * sender, Reciever * r1)
@@ -146,7 +146,7 @@ private:
 	Reciever * r1_;
 };
 //------------------------------------------------------------------------------
-class AutomaticDisconnectThread_1_1_2 : public Thread
+class AutomaticDisconnectThread_1_1_2 : public Cpp::Thread
 {
 public:
 	void start(Sender * sender, Reciever * r1)
@@ -171,7 +171,7 @@ private:
 	Reciever * r1_;
 };
 //------------------------------------------------------------------------------
-class AutomaticDisconnectThread_1_1_3 : public Thread
+class AutomaticDisconnectThread_1_1_3 : public Cpp::Thread
 {
 public:
 	void start(Cpp::ConnectionScope * scope0, Sender * sender, Reciever * r0)
@@ -199,7 +199,7 @@ private:
 	Reciever * r0_;
 };
 //------------------------------------------------------------------------------
-class AutomaticDisconnectThread_1_1 : public Thread
+class AutomaticDisconnectThread_1_1 : public Cpp::Thread
 {
 public:
 	void start(Cpp::ConnectionScope * scope0, Sender * sender, Reciever * r0)
@@ -242,7 +242,7 @@ private:
 	Reciever * r0_;
 };
 //------------------------------------------------------------------------------
-class AutomaticDisconnectThread_1 : public Thread
+class AutomaticDisconnectThread_1 : public Cpp::Thread
 {
 public:
 	void start(Cpp::ConnectionScope * scope0, Reciever * r0)
@@ -286,7 +286,10 @@ TEST(Test_Threading, AutomaticDisconnectDeadlocks)
 	ASSERT_EQ(0, scope0.connectionCount());
 }
 //------------------------------------------------------------------------------
-class ConnectFromDelegateThread : public Thread
+/*
+	This test ensures that adding connections inside delegate does not cause deadlock.
+*/
+class ConnectFromDelegateThread : public Cpp::Thread
 {
 public:
 	static int const arraySize = 8;

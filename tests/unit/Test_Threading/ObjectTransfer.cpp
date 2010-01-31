@@ -45,7 +45,7 @@ private:
 //------------------------------------------------------------------------------
 typedef std::vector<EventSender*> ObjectArray;
 //------------------------------------------------------------------------------
-class ObjectMakerThread : public Thread
+class ObjectMakerThread : public Cpp::Thread
 {
 public:
 	ObjectMakerThread() { }
