@@ -26,6 +26,10 @@ add_executable(UnitTests
 	"${SOURCES_ROOT_DIR}/Test_EqualMemberAddress/TestClass.cpp"
 	"${SOURCES_ROOT_DIR}/Test_EqualMemberAddress/TheTest.cpp"
 	"${SOURCES_ROOT_DIR}/Test_ConnectDisconnect/Tests.cpp"
+	"${SOURCES_ROOT_DIR}/Test_Threading/Deadlocks.cpp"
+	"${SOURCES_ROOT_DIR}/Test_Threading/ObjectTransfer.cpp"
+	"${SOURCES_ROOT_DIR}/Test_Threading/SyncManyToOne.cpp"
+	"${SOURCES_ROOT_DIR}/Test_Threading/SyncOneToMany.cpp"
 )
 
 target_link_libraries(UnitTests CppEvents optimized gtest debug gtestd)
