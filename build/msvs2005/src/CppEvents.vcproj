@@ -290,6 +290,10 @@
 					>
 				</File>
 				<File
+					RelativePath="..\..\..\src\Cpp\Utils\Random.hpp"
+					>
+				</File>
+				<File
 					RelativePath="..\..\..\src\Cpp\Utils\TypeTraits.hpp"
 					>
 				</File>
