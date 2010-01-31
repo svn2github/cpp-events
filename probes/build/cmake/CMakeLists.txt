@@ -4,6 +4,7 @@ project(probes)
 
 set(PROBES_LIST
 	"FunctionDeclarator"
+	"IsPolymorphic"
 	"PartialMemberTemplate"
 	"VirtualMemFuncPtrTest"
 	"VtblSwitching"

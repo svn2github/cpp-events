@@ -9,6 +9,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "VirtualMemFuncPtrTest", "Vi
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "VtblSwitching", "VtblSwitching\VtblSwitching.vcproj", "{033025EA-9A6C-468A-B12B-FFF0728456D7}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "IsPolymorphic", "IsPolymorphic\IsPolymorphic.vcproj", "{69919789-E0D2-4913-AFE3-83964BCED2BD}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -31,6 +33,10 @@ Global
 		{033025EA-9A6C-468A-B12B-FFF0728456D7}.Debug|Win32.Build.0 = Debug|Win32
 		{033025EA-9A6C-468A-B12B-FFF0728456D7}.Release|Win32.ActiveCfg = Release|Win32
 		{033025EA-9A6C-468A-B12B-FFF0728456D7}.Release|Win32.Build.0 = Release|Win32
+		{69919789-E0D2-4913-AFE3-83964BCED2BD}.Debug|Win32.ActiveCfg = Debug|Win32
+		{69919789-E0D2-4913-AFE3-83964BCED2BD}.Debug|Win32.Build.0 = Debug|Win32
+		{69919789-E0D2-4913-AFE3-83964BCED2BD}.Release|Win32.ActiveCfg = Release|Win32
+		{69919789-E0D2-4913-AFE3-83964BCED2BD}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

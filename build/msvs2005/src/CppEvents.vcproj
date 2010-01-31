@@ -206,10 +206,6 @@
 					>
 				</File>
 				<File
-					RelativePath="..\..\..\src\Cpp\Events\AbstractObjectRef.hpp"
-					>
-				</File>
-				<File
 					RelativePath="..\..\..\src\Cpp\Events\ArgList.hpp"
 					>
 				</File>
@@ -259,10 +255,6 @@
 				</File>
 				<File
 					RelativePath="..\..\..\src\Cpp\Events\Event.hpp.mcs"
-					>
-				</File>
-				<File
-					RelativePath="..\..\..\src\Cpp\Events\normalize_cast.hpp"
 					>
 				</File>
 				<File

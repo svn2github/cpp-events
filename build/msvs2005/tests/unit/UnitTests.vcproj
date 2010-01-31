@@ -179,18 +179,6 @@
 	</References>
 	<Files>
 		<Filter
-			Name="Test_IsPolymorphic"
-			>
-			<File
-				RelativePath=".\..\..\..\..\tests\unit\Test_IsPolymorphic\TestClasses.hpp"
-				>
-			</File>
-			<File
-				RelativePath=".\..\..\..\..\tests\unit\Test_IsPolymorphic\Tests.cpp"
-				>
-			</File>
-		</Filter>
-		<Filter
 			Name="Test_EqualMemberAddress"
 			>
 			<File
