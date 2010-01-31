@@ -36,7 +36,7 @@ public:
 
 	bool start()
 	{
-		assert(!hThread_);
+		assert(!th_);
 
 		::pthread_create(
 			&th_, NULL,
