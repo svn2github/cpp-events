@@ -202,6 +202,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\..\..\tests\unit\Test_EqualMemberAddress\GetTestData.inl"
+				>
+			</File>
+			<File
 				RelativePath=".\..\..\..\..\tests\unit\Test_EqualMemberAddress\TestClass.cpp"
 				>
 			</File>
@@ -235,6 +239,10 @@
 		<Filter
 			Name="Test_ConnectDisconnect"
 			>
+			<File
+				RelativePath="..\..\..\..\tests\unit\Test_ConnectDisconnect\TestClasses.hpp"
+				>
+			</File>
 			<File
 				RelativePath=".\..\..\..\..\tests\unit\Test_ConnectDisconnect\Tests.cpp"
 				>

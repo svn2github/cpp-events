@@ -20,102 +20,15 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-#include <Cpp/Events.hpp>
+#include "TestClasses.hpp"
 #include <gtest/gtest.h>
 
-namespace /*anonymous*/ {
-
-class Sender
-{
-public:
-	void fire() { somethingHappened_.fire(); }
-	Cpp::EventRef<> somethingHappened() { return somethingHappened_; }
-private:
-	Cpp::Event<> somethingHappened_;
-};
-
-class Reciever
-{
-public:
-	Reciever() : val_() {}
-
-	void increment() { ++val_; }
-	void decrement() { --val_; }
-	int value() const { return val_; }
-	void setValue(int v) { val_ = v; }
-private:
-	int val_;
-};
-
-class SenderEx : public Sender
-{
-public:
-	SenderEx()
-	{
-		stageNo_ = 0; // 1 2 3 4 ...
-		stageStep_ = 1; // 2 4 8 16 ...
-	}
-
-	int stageNo() const { return stageNo_; }
-	int stageStep() const { return stageStep_; }
-
-	void runStage()
-	{
-		fire();
-		++stageNo_;
-		stageStep_ *= 2;
-	}
-private:
-	int stageNo_;
-	int stageStep_;
-};
-
-class RecieverEx
-{
-public:
-	RecieverEx()
-		: sender_()
-		, scope_()
-		, index_(-1)
-		, val_()
-	{}
-
-	int index() const { return index_; }
-	int value() const { return val_; }
-
-	void connect(int ind, int arraySize, SenderEx * sender, Cpp::ConnectionScope * scope)
-	{
-		index_ = ind;
-		arraySize_ = arraySize;
-		sender_ = sender;
-		scope_ = scope;
-		scope->connect(sender->somethingHappened(), this, &RecieverEx::work);
-	}
-
-	void work()
-	{
-		++val_;
-
-		int step = sender_->stageStep();
-		int nextIndex = index_ + step;
-		if(nextIndex < arraySize_)
-		{
-			RecieverEx * next = this + step;
-			next->connect(nextIndex, arraySize_, sender_, scope_);
-		}
-	}
-private:
-	SenderEx * sender_;
-	Cpp::ConnectionScope * scope_;
-	int index_;
-	int arraySize_;
-	int val_;
-};
-
-} //namespace /*anonymous*/
-
-////////////////////////////////////////////////////////////////////////////////
-// This test checks basic connection management
+namespace UnitTests {
+namespace ConnectDisconnect {
+//------------------------------------------------------------------------------
+/*
+	This test checks basic connection management                          
+*/
 TEST(Test_ConnectDisconnect, ManualConnectDisconnect)
 {
 	Sender sender;
@@ -172,9 +85,10 @@ TEST(Test_ConnectDisconnect, ManualConnectDisconnect)
 	sender.fire();	// +0-0 +0-0
 	ASSERT_EQ(-3, r1.value()); ASSERT_EQ(11, r2.value());
 }
-
-////////////////////////////////////////////////////////////////////////////////
-// This test checks automatic disconnection
+//------------------------------------------------------------------------------
+/*
+	This test checks automatic disconnection
+*/
 TEST(Test_ConnectDisconnect, AutomaticDisconnect)
 {
 	Cpp::ConnectionScope scope0;
@@ -220,10 +134,10 @@ TEST(Test_ConnectDisconnect, AutomaticDisconnect)
 	}
 	ASSERT_EQ(0, scope0.connectionCount());
 }
-
-
-////////////////////////////////////////////////////////////////////////////////
-// This test ensures that adding connections inside delegate works fine.
+//------------------------------------------------------------------------------
+/*
+	This test ensures that adding connections inside delegate works fine.
+*/
 TEST(Test_ConnectDisconnect, ConnectFromDelegate)
 {
 	int const arraySize= 8;
@@ -287,3 +201,6 @@ TEST(Test_ConnectDisconnect, ConnectFromDelegate)
 	ASSERT_EQ(1, rcv[7].value());
 	ASSERT_EQ(8, sender.somethingHappened().connectionCount());
 }
+//------------------------------------------------------------------------------
+} //namespace ConnectDisconnect
+} //namespace UnitTests

@@ -22,7 +22,13 @@
 
 #include "TestClass.hpp"
 
+namespace UnitTests {
+namespace EqualMemberAddress {
+//------------------------------------------------------------------------------
 void getTestData3(TestDataArray * d)
 {
-	GET_TEST_DATA_IMPL();
+#include "GetTestData.inl"
 }
+//------------------------------------------------------------------------------
+} //namespace ConnectDisconnect
+} //namespace UnitTests

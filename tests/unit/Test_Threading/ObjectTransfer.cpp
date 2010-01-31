@@ -26,8 +26,9 @@
 #include <Std/Assert.hpp>
 #include <Std/Vector.hpp>
 
-namespace /*anonymous*/ {
-
+namespace UnitTests {
+namespace Threading {
+//------------------------------------------------------------------------------
 class EventSender
 {
 public:
@@ -40,9 +41,9 @@ public:
 private:
 	Cpp::Event<> testEvent_;
 };
-
+//------------------------------------------------------------------------------
 typedef std::vector<EventSender*> ObjectArray;
-
+//------------------------------------------------------------------------------
 class ObjectMakerThread : public Thread
 {
 public:
@@ -75,7 +76,7 @@ private:
 	ObjectArray objects_;
 	int objectCount_;
 };
-
+//------------------------------------------------------------------------------
 class EventHandler
 {
 public:
@@ -86,9 +87,11 @@ public:
 private:
 	int counter_;
 };
-
-} //namespace /*anonymous*/
-
+//------------------------------------------------------------------------------
+/*
+	This test if object created in one thread can be used in the another thread,
+	when original thread is already finished.
+*/
 TEST(Test_Threading, ObjectTransfer)
 {
 	for(int objectCount=0; objectCount<=4; ++objectCount)
@@ -124,3 +127,6 @@ TEST(Test_Threading, ObjectTransfer)
 		}
 	}
 }
+//------------------------------------------------------------------------------
+} //namespace Threading
+} //namespace UnitTests
