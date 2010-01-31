@@ -105,7 +105,11 @@ protected:
 
 		for(int i=0; i<100; ++i)
 		{
-			if(isMain_) std::cout << i << "% " << std::flush;
+			if(isMain_)
+			{
+				std::cout << i << "% " << std::flush;
+				if((i % 10) == 9) std::cout << std::endl;
+			}
 
 			for(int j=0; j<500; ++j)
 			{
@@ -119,8 +123,6 @@ protected:
 					sender.fire();
 			}
 		}
-
-		if(isMain_) std::cout << std::endl;
 	}
 private:
 	EventHandler * handler_;
@@ -141,7 +143,8 @@ TEST(Test_Threading, SyncManyToOne)
 	SenderThread threads[threadCount];
 	EventHandler handler;
 
-	std::cout << "This test may take up to several minutes, please wait..." << std::endl;
+	std::cout << "Running test in " << threadCount << " threads." << std::endl;
+	std::cout << "This may take up to several minutes, please wait..." << std::endl;
 
 	Cpp::WikiRandom rnd(1234, 5678);
 
