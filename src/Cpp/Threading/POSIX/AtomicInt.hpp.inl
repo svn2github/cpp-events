@@ -25,14 +25,17 @@ namespace Cpp {
 class AtomicInt
 {
 public:
-	AtomicInt() : ref_() {}
+	AtomicInt(int x = 0) : ref_(x) {}
 
 	bool isNull() const { return !ref_; }
 
 	void retain() { __sync_add_and_fetch(&ref_, 1); }
 	bool release() { return !__sync_sub_and_fetch(&ref_, 1); }
+
+	int value() const { return ref_; }
+	void setValue(int x) { ref_ = x; }
 private:
-	unsigned ref_;
+	int ref_;
 };
 //------------------------------------------------------------------------------
 } //namespace Cpp

@@ -30,12 +30,15 @@ namespace Cpp {
 class AtomicInt
 {
 public:
-	AtomicInt() : ref_() {}
+	AtomicInt(int x = 0) : ref_(x) {}
 
 	bool isNull() const { return !ref_; }
 
 	void retain() { _InterlockedIncrement(&ref_); }
 	bool release() { return !_InterlockedDecrement(&ref_); }
+
+	int value() const { return ref_; }
+	void setValue(int x) { ref_ = x; }
 private:
 	volatile long ref_;
 };
