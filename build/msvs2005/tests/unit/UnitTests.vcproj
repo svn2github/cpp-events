@@ -270,7 +270,7 @@
 			Name="Test_Threading"
 			>
 			<File
-				RelativePath="..\..\..\..\tests\unit\Test_Threading\CrossThreadConnect.cpp"
+				RelativePath="..\..\..\..\tests\unit\Test_Threading\Deadlocks.cpp"
 				>
 			</File>
 			<File

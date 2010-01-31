@@ -28,6 +28,7 @@
 
 namespace UnitTests {
 namespace Threading {
+namespace ObjectTransfer {
 //------------------------------------------------------------------------------
 class EventSender
 {
@@ -128,5 +129,6 @@ TEST(Test_Threading, ObjectTransfer)
 	}
 }
 //------------------------------------------------------------------------------
+} //namespace ObjectTransfer
 } //namespace Threading
 } //namespace UnitTests
