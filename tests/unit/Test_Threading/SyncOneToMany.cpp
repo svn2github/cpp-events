@@ -155,7 +155,7 @@ private:
 */
 TEST(Test_Threading, SyncOneToMany)
 {
-	static int const threadCount = 12;
+	static int const threadCount = 4;
 
 	HandlerThread threads[threadCount];
 	Cpp::RecursiveMutex * mutexArr[threadCount];

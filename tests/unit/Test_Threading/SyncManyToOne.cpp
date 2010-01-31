@@ -138,7 +138,7 @@ private:
 */
 TEST(Test_Threading, SyncManyToOne)
 {
-	static int const threadCount = 12;
+	static int const threadCount = 4;
 
 	SenderThread threads[threadCount];
 	EventHandler handler;
