@@ -277,6 +277,14 @@
 				RelativePath="..\..\..\..\tests\unit\Test_Threading\ObjectTransfer.cpp"
 				>
 			</File>
+			<File
+				RelativePath="..\..\..\..\tests\unit\Test_Threading\SyncManyToOne.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\..\tests\unit\Test_Threading\SyncOneToMany.cpp"
+				>
+			</File>
 		</Filter>
 		<File
 			RelativePath=".\..\..\..\..\tests\unit\main.cpp"
