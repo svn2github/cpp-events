@@ -299,6 +299,7 @@ public:
 	{
 		scope_ = scope;
 		rcvArr_ = rcvArr;
+		Thread::start();
 	}
 protected:
 	virtual void run()
