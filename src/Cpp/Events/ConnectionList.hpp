@@ -20,8 +20,8 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-#ifndef __CPP_EVENTS__CONNECTION_LIST__HPP
-#define __CPP_EVENTS__CONNECTION_LIST__HPP
+#ifndef __CPP__EVENTS__CONNECTION_LIST__HPP
+#define __CPP__EVENTS__CONNECTION_LIST__HPP
 
 #include <Cpp/Events/BorrowableData.hpp>
 
@@ -96,4 +96,4 @@ private:
 } //namespace Private
 } //namespace Cpp
 
-#endif //__CPP_EVENTS__CONNECTION_LIST__HPP
+#endif //__CPP__EVENTS__CONNECTION_LIST__HPP
